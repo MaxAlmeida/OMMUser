@@ -11,6 +11,9 @@ import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -35,6 +38,7 @@ public class GuiMain extends Activity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.gui_main);
 		fragmentManager = this.getFragmentManager();
+
 		/*
 		 * TODO Retirar esse código após primaira instalação paraEvitar a
 		 * criação de muitos parlamentares locaiscódigo usado apenas para teste,
@@ -100,30 +104,26 @@ public class GuiMain extends Activity implements
 
 					@Override
 					public void onClick(View v) {
+						View view = findViewById(R.id.search);
+						view.performClick();
 						/* Substitui a lista */
-						ParlamentarListFragment listFragment = new ParlamentarListFragment();
-						FragmentTransaction transaction = fragmentManager
-								.beginTransaction();
-						transaction.replace(R.id.fragment_container,
-								listFragment);
-						transaction.commit();
+						loadParlamentarFragment();
 						Toast.makeText(getBaseContext(), PESQUISA,
 								Toast.LENGTH_SHORT).show();
 					}
+
+					
 				});
 		btn_ranking_main.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				ParlamentarSeguidoListFragment newFragment = new ParlamentarSeguidoListFragment();
-				FragmentTransaction transaction = fragmentManager
-						.beginTransaction();
-				transaction.replace(R.id.fragment_container, newFragment);
-				transaction.commit();
+				loadPSeguidoFragment();
 				Toast.makeText(getBaseContext(), RANKINGS, Toast.LENGTH_SHORT)
 						.show();
 
 			}
+
 		});
 
 		btn_mostra_outros.setOnClickListener(new View.OnClickListener() {
@@ -253,6 +253,45 @@ public class GuiMain extends Activity implements
 		task.execute(responseHandler, parlamentar);
 
 		return parlamentar;
+	}
+	
+	private void loadPSeguidoFragment() {
+		ParlamentarSeguidoListFragment newFragment = new ParlamentarSeguidoListFragment();
+		FragmentTransaction transaction = fragmentManager
+				.beginTransaction();
+		transaction.replace(R.id.fragment_container, newFragment);
+		transaction.commit();
+	}
+	
+	private void loadParlamentarFragment() {
+		ParlamentarListFragment listFragment = new ParlamentarListFragment();
+		FragmentTransaction transaction = fragmentManager
+				.beginTransaction();
+		transaction.replace(R.id.fragment_container,
+				listFragment);
+		transaction.commit();
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.options_menu, menu);
+	    return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    switch (item.getItemId()) {
+	    case R.id.search:
+	        Button b = (Button) findViewById(R.id.btn_ic_rolagem);
+	        b.performClick();
+	        b.setClickable(false);
+	        return true;
+	    default:
+	        break;
+	    }
+
+	    return false;
 	}
 
 }

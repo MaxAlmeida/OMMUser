@@ -6,6 +6,9 @@ import android.app.Activity;
 import android.app.ListFragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -25,7 +28,13 @@ public class ParlamentarListFragment extends ListFragment {
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
-
+		
+		/**
+		 * criando um botão ou campo de pesquisa na action bar da activity.
+		 * */
+		setHasOptionsMenu(true);
+		
+		
 		ParlamentarUserDao dao = new ParlamentarUserDao(getActivity());
 		// TODO construir chamada dao parlamentares pelo httprequest
 		List<Parlamentar> list = dao.getAll();
@@ -118,4 +127,22 @@ public class ParlamentarListFragment extends ListFragment {
 		listener.OnParlamentarSelected(parlamentar);
 	}
 
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+	    // Do something that differs the Activity's menu here
+	    super.onCreateOptionsMenu(menu, inflater);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    switch (item.getItemId()) {
+	    case R.id.search:
+	        // Not implemented here
+	        return false;
+	    default:
+	        break;
+	    }
+
+	    return false;
+	}
 }

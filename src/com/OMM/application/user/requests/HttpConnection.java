@@ -72,7 +72,7 @@ public abstract class HttpConnection {
 		try {
 			DefaultHttpClient client = new DefaultHttpClient();
 			HttpGet httpMethod = new HttpGet(
-					"http://192.168.1.3:8080/OlhaMinhaMesada/parlamentar?id="
+					"http://192.168.0.100:8080/OlhaMinhaMesada/parlamentar?id="
 							+ idParlamentar);
 
 			String result = client.execute(httpMethod, response);
@@ -95,7 +95,7 @@ public abstract class HttpConnection {
 		try {
 			DefaultHttpClient client = new DefaultHttpClient();
 			HttpGet httpMethod = new HttpGet(
-					"http://192.168.1.3:8080/OlhaMinhaMesada/cota?id="
+					"http://192.168.0.100:8080/OlhaMinhaMesada/cota?id="
 							+ idParlamentar);
 
 			String result = client.execute(httpMethod, response);
