@@ -3,7 +3,7 @@ package com.OMM.application.user.exceptions;
 import android.annotation.TargetApi;
 import java.util.Arrays;
 
-@TargetApi(19)
+@TargetApi(18)
 public class NullParlamentarException extends Exception {
 
 	/**
@@ -19,7 +19,7 @@ public class NullParlamentarException extends Exception {
 				+ ", getStackTrace()=" + Arrays.toString(getStackTrace())
 				+ ", toString()=" + super.toString() + ", getCause()="
 				+ getCause() + ", getSuppressed()="
-				+ Arrays.toString(getSuppressed()) + ", getClass()="
+				+ ", getClass()="
 				+ getClass() + ", hashCode()=" + hashCode() + "]";
 	}
 

@@ -285,7 +285,7 @@ public class GuiMain extends Activity implements
 	    case R.id.search:
 	        Button b = (Button) findViewById(R.id.btn_ic_rolagem);
 	        b.performClick();
-	        b.setClickable(false);
+	        //b.setClickable(false);
 	        return true;
 	    default:
 	        break;
