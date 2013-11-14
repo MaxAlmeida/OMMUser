@@ -17,7 +17,6 @@ import android.widget.Toast;
 
 import com.OMM.application.user.R;
 import com.OMM.application.user.controller.ParlamentarUserController;
-import com.OMM.application.user.dao.ParlamentarUserDao;
 import com.OMM.application.user.model.Parlamentar;
 import com.OMM.application.user.requests.HttpConnection;
 
@@ -36,21 +35,20 @@ public class GuiMain extends Activity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.gui_main);
 		fragmentManager = this.getFragmentManager();
-
 		/*
 		 * TODO Retirar esse código após primaira instalação paraEvitar a
 		 * criação de muitos parlamentares locaiscódigo usado apenas para teste,
 		 * quebra o esquemaarquitetural do MVC.
 		 */
 		// inicializa o banco e cria se ele nao existir
-		ParlamentarUserDao dao = new ParlamentarUserDao(getBaseContext());
-		Parlamentar po = new Parlamentar();
-		po.setId(54373);
-		po.setNome("Tiririca");
-		po.setPartido("pcdob");
-		po.setSeguido(false);
-		po.setUf("DF");
-		dao.insert(po);
+		// ParlamentarUserDao dao = new ParlamentarUserDao(getBaseContext());
+		// Parlamentar po = new Parlamentar();
+		// po.setId(54373);
+		// po.setNome("Tiririca");
+		// po.setPartido("pcdob");
+		// po.setSeguido(false);
+		// po.setUf("DF");
+		// dao.insert(po);
 
 		if (findViewById(R.id.fragment_container) != null) {
 
@@ -181,7 +179,10 @@ public class GuiMain extends Activity implements
 	public void OnParlamentarSelected(Parlamentar parlamentar) {
 
 		parlamentar = startRequest(parlamentar);
-
+		if (parlamentar != null) {
+			// 1. Instantiate an AlertDialog.Builder with its constructor
+			
+		}
 		/* Substitui o detalhe */
 		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
 			ParlamentarDetailFragment detailFragment = new ParlamentarDetailFragment();
@@ -208,6 +209,7 @@ public class GuiMain extends Activity implements
 	private class BuscaTask extends AsyncTask<Object, Void, String> {
 		ProgressDialog progressDialog;
 
+		@Override
 		protected void onPreExecute() {
 			progressDialog = ProgressDialog.show(GuiMain.this, "Aguarde...",
 					"Buscando Dados");
@@ -223,10 +225,12 @@ public class GuiMain extends Activity implements
 			ResponseHandler<String> rh = (ResponseHandler<String>) params[0];
 
 			Parlamentar parlamentar = (Parlamentar) params[1];
-
-			parlamentar = parlamentarController.fazerRequisicao(rh,
-					parlamentar.getId());
-
+			try {
+				parlamentar = parlamentarController.fazerRequisicao(rh,
+						parlamentar.getId());
+			} catch (Exception e) {
+				progressDialog.dismiss();
+			}
 			Log.i("LOGS", "Parlamentar:" + parlamentar.getNome());
 
 			String objeto = parlamentar.toString();
