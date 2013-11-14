@@ -1,9 +1,7 @@
 package com.OMM.application.user.helper;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DB extends SQLiteOpenHelper {
@@ -28,17 +26,6 @@ public class DB extends SQLiteOpenHelper {
 		 */
 		db.execSQL(tabela_parlamentar);
 		db.execSQL(tabela_cota);
-		
-		//TODO lembrar e apagar 
-		ContentValues ctv = new ContentValues();
-		
-		ctv.put("ID_PARLAMENTAR", "001");
-		ctv.put("NOME_PARLAMENTAR", "ROMARIO");
-		ctv.put("SEGUIDO", false);
-			
-		
-		db.insert("PARMENTAR",null, ctv);
-
 	}
 
 	@Override

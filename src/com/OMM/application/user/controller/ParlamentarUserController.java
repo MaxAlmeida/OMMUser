@@ -46,8 +46,9 @@ public class ParlamentarUserController {
 		String cotasResposta = HttpConnection.requisicaoCota(parametro, idParlamentar);
 		
 		List<CotaParlamentar> cotas = JSONHelper.listaCotaParlamentarFromJSON(cotasResposta);
-
-		return popularParlamentar(resposta);
+		
+		parlamentar.setCotas(cotas);
+		return parlamentar;
 
 	}
 }

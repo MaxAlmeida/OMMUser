@@ -26,7 +26,7 @@ public class GuiBuscarParlamentar extends ListActivity  {
 	{
 		super.onCreate(savedInstanceState);
 		
-		ParlamentarUserDao dao = new ParlamentarUserDao(getBaseContext());
+		//ParlamentarUserDao dao = new ParlamentarUserDao(getBaseContext());
 		
 		//setListAdapter(new ParlamentarAdapter(getBaseContext(), dao.getAll()));
 		

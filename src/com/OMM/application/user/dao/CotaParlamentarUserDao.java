@@ -9,14 +9,17 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.OMM.application.user.helper.DB;
-import com.OMM.application.user.model.*;
+import com.OMM.application.user.model.CotaParlamentar;
+import com.OMM.application.user.model.Parlamentar;
 
 public class CotaParlamentarUserDao {
 
 	private static String nome_tabela = "COTA";
 	private static Context context;
-	private static String[] colunas = { "ID_COTA,ID_PARLAMENTAR, NUM_SUBCOTA ,DESCRICAO,MES,ANO,VALOR" };
-	private static Parlamentar parlamentar;
+
+	// private static String[] colunas = {
+	// "ID_COTA,ID_PARLAMENTAR, NUM_SUBCOTA ,DESCRICAO,MES,ANO,VALOR" };
+	// private static Parlamentar parlamentar;
 
 	public boolean insertSeguido(Parlamentar po, CotaParlamentar cota) {
 		SQLiteDatabase db = new DB(context).getWritableDatabase();

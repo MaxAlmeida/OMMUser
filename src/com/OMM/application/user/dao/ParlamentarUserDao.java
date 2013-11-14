@@ -3,7 +3,6 @@ package com.OMM.application.user.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.R.integer;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -46,6 +45,7 @@ public class ParlamentarUserDao {
 
 	}
 	
+	@SuppressWarnings("static-access")
 	public ParlamentarUserDao(Context context)
 	{
 		this.context=context;

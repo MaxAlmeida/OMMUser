@@ -7,7 +7,6 @@ import android.app.ListFragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -21,8 +20,6 @@ public class ParlamentarListFragment extends ListFragment {
 	private OnParlamentarSelectedListener listener;
 
 	ParseTask parseTask;
-
-	private String tipo_lista;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -84,10 +81,10 @@ public class ParlamentarListFragment extends ListFragment {
 
 	public void setListContent(List<Parlamentar> result) {
 
-		ArrayAdapter listAdapter = (ArrayAdapter) getListAdapter();
-		listAdapter.clear();
-		listAdapter.addAll(result);
-		parseTask.setFragment(null);
+//		ArrayAdapter listAdapter = (ArrayAdapter) getListAdapter();
+//		listAdapter.clear();
+//		listAdapter.addAll(result);
+//		parseTask.setFragment(null);
 
 	}
 

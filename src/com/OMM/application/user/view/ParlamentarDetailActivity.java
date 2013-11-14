@@ -1,12 +1,11 @@
 package com.OMM.application.user.view;
 
-import com.OMM.application.user.R;
-import com.OMM.application.user.model.Parlamentar;
-
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import com.OMM.application.user.R;
 
 public class ParlamentarDetailActivity extends Activity {
   
