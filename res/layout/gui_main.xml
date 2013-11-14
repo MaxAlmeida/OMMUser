@@ -2,13 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-<<<<<<< HEAD
     android:background="@drawable/fundo"
-    android:orientation="horizontal" >
-=======
-    android:orientation="vertical" >
->>>>>>> 9096445d6d9cdb9065f43ac7c6037bc1eeeabc4a
-
+    android:orientation="horizontal">
+     
     <LinearLayout
         android:id="@+id/fragment"
         android:layout_width="match_parent"
@@ -63,7 +59,6 @@
         android:background="@drawable/politico" />
 
     <Button
-<<<<<<< HEAD
         android:id="@+id/btn_ranking"
         android:layout_width="48dp"
         android:layout_height="48dp"
@@ -78,20 +73,5 @@
         android:layout_above="@+id/btn_ic_rolagem"
         android:layout_alignLeft="@+id/btn_ic_rolagem"
         android:background="@drawable/pesquisa" />
-
+    
 </RelativeLayout>
-=======
-        android:id="@+id/button1"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button" />
-
-    <TextView
-        android:id="@+id/output"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="" />
-
-</LinearLayout>
->>>>>>> 9096445d6d9cdb9065f43ac7c6037bc1eeeabc4a

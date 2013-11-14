@@ -1,26 +1,25 @@
 package com.OMM.application.user.view;
 
 
+import org.apache.http.client.ResponseHandler;
+
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Intent;
-import android.content.res.Configuration;
-
-import java.io.IOException;
-
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.AsyncTask;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
-import com.OMM.application.user.dao.ParlamentarUserDao;
+import com.OMM.application.user.R;
+import com.OMM.application.user.controller.ParlamentarUserController;
 import com.OMM.application.user.model.Parlamentar;
+import com.OMM.application.user.requests.HttpConnection;
 
 public class GuiMain extends Activity implements
 		ParlamentarSeguidoListFragment.OnParlamentarSeguidoSelectedListener,
@@ -31,13 +30,7 @@ public class GuiMain extends Activity implements
 	private static final String RANKINGS = "Rankings entre parlamentares";
 
 	private static FragmentManager fragmentManager;
-
-
-	TextView output;
-	Button btn_sobre_main;
-	Button btn_politico_main;
-	Button btn_pesquisar_parlamentar;
-	Button btn_teste;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -231,6 +224,9 @@ public class GuiMain extends Activity implements
 
 	@Override
 	public void OnParlamentarSelected(Parlamentar parlamentar) {
+		
+		parlamentar = startRequest(parlamentar);
+		
 		/* Substitui o detalhe */
 		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
 			ParlamentarDetailFragment detailFragment = new ParlamentarDetailFragment();
@@ -253,46 +249,31 @@ public class GuiMain extends Activity implements
 			detailFragment.setText(parlamentar.getNome());
 		}
 	}
-}
-				});
 
-		btn_teste.setOnClickListener(new View.OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
-				
-				ResponseHandler<String> response = HttpConnection.getResponseHandler();
-
-				BuscaTask task = new BuscaTask();
-
-				task.execute(response);
-			}
-		});
-
-	}
-
-	private class BuscaTask extends AsyncTask<ResponseHandler<String>, Void, String> {
-
+	private class BuscaTask extends AsyncTask<Object, Void, String> {
+		ProgressDialog progressDialog;
 		protected void onPreExecute() {
 			progressDialog = ProgressDialog.show(GuiMain.this, "Aguarde...",
 					"Buscando Dados");
 		}
 
 		@Override
-		protected String doInBackground(ResponseHandler<String>... params) {
+		protected String doInBackground(Object... params) {
 
 			ParlamentarUserController parlamentarController = ParlamentarUserController
 					.getInstance();
 
 			
+			ResponseHandler<String> rh = (ResponseHandler<String>)params[0];
 			
-			
+			Parlamentar parlamentar = (Parlamentar)params[1];
 
-			Parlamentar p =  parlamentarController.fazerRequisicao( params[0], 54373 );
+			parlamentar =  parlamentarController.fazerRequisicao( rh, parlamentar.getId());
 
-			Log.i("LOGS", "Parlamentar:" + p.getNome());
+			Log.i("LOGS", "Parlamentar:" + parlamentar.getNome());
 
-			String objeto = p.toString();
+			String objeto = parlamentar.toString();
 
 			return objeto;
 		}
@@ -301,7 +282,16 @@ public class GuiMain extends Activity implements
 		protected void onPostExecute(final String result) {
 
 			progressDialog.dismiss();
-			output.setText(result);
 		}
 	}
+	
+	private Parlamentar startRequest(Parlamentar parlamentar){
+		
+		ResponseHandler<String> responseHandler = HttpConnection.getResponseHandler();
+		BuscaTask task = new BuscaTask();
+		task.execute(responseHandler, parlamentar);
+		
+		return parlamentar;
+	}
+	
 }
