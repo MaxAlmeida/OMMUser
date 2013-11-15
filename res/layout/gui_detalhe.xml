@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:id="@+id/telefonia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/combustivel"
+        android:layout_below="@+id/combustivel"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/barra_laranja" />
+
+    <ImageView
+        android:id="@+id/passagemAerea"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/telefonia"
+        android:layout_below="@+id/telefonia"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/barra_vermelha" />
+
+    <ImageView
+        android:id="@+id/combustivel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/imageView2"
+        android:layout_marginLeft="0dp"
+        android:layout_toRightOf="@+id/imageView2"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/barra_verde" />
+
+    <ImageView
+        android:id="@+id/servicoPostal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/passagemAerea"
+        android:layout_below="@+id/passagemAerea"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/barra_amarela" />
+
+    <ImageView
+        android:id="@+id/alimentacaoParlamentar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/manutencaoParlamentar"
+        android:layout_below="@+id/manutencaoParlamentar"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/barra_verde" />
+
+    <ImageView
+        android:id="@+id/manutencaoParlamentar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/servicoPostal"
+        android:layout_below="@+id/servicoPostal"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/barra_vermelha" />
+
+    <ImageView
+        android:id="@+id/assinaturaPublicacoes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/alimentacaoParlamentar"
+        android:layout_below="@+id/alimentacaoParlamentar"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/barra_amarela" />
+
+    <ImageView
+        android:id="@+id/servicoSeguranca"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/assinaturaPublicacoes"
+        android:layout_below="@+id/assinaturaPublicacoes"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/barra_laranja" />
+
+    <ImageView
+        android:id="@+id/trabalhosTecnicos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/servicoSeguranca"
+        android:layout_below="@+id/servicoSeguranca"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/barra_vermelha" />
+
+    <ImageView
+        android:id="@+id/divulgacaoAtividade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/trabalhosTecnicos"
+        android:layout_below="@+id/trabalhosTecnicos"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/barra_laranja" />
+
+    <ImageView
+        android:id="@+id/emissaoBoletoAereo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/divulgacaoAtividade"
+        android:layout_below="@+id/divulgacaoAtividade"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/barra_vermelha" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="40dp"
+        android:layout_height="300dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/icones_cotas" />
+
+    <TextView
+        android:id="@+id/nome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="23dp"
+        android:layout_toRightOf="@+id/telefonia"
+        android:text="TextView" />
+
+</RelativeLayout>
