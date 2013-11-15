@@ -46,15 +46,23 @@ public class GuiMain extends Activity implements
 		 * quebra o esquemaarquitetural do MVC.
 		 */
 		// inicializa o banco e cria se ele nao existir
-		 ParlamentarUserDao dao = new ParlamentarUserDao(getBaseContext());
+		 ParlamentarUserDao dao = ParlamentarUserDao.getInstance(getBaseContext());
 		 Parlamentar po = new Parlamentar();
 		 po.setId(54373);
 		 po.setNome("Tiririca");
 		 po.setPartido("pcdob");
-		 po.setSeguido(false);
+		 po.setSeguido(0);
 		 po.setUf("DF");
-		 dao.insert(po);
-
+	     dao.insert(po);
+	     
+		 Parlamentar poe = new Parlamentar();
+		 poe.setId(54379);
+		 poe.setNome("Ramon");
+		 poe.setPartido("pcdob");
+		 poe.setSeguido(1);
+		 poe.setUf("DF");
+	     dao.insert(poe);	     
+         
 		if (findViewById(R.id.fragment_container) != null) {
 
 			/* cria a primeira lista */

@@ -20,7 +20,8 @@ public class ParlamentarUserController {
 	private static ParlamentarUserController instance;
 	Parlamentar parlamentar;
 	private ParlamentarUserDao parlamentarDao;
-	public ParlamentarUserController(Context context) {
+	
+	private ParlamentarUserController(Context context) {
 
 		parlamentarDao =  ParlamentarUserDao.getInstance(context);
 	}
@@ -79,10 +80,29 @@ public class ParlamentarUserController {
 
 		return parlamentar;
 	}
-
+	
+     public List<Parlamentar> getSelected(String nomeParlamentar) {
+		
+		return parlamentarDao.getSelected(nomeParlamentar);
+	}
+	
 	public List<Parlamentar> getAll(){
 		
 		return parlamentarDao.getAll();
 	}
 
+	public boolean followedParlamentar(ResponseHandler<String> response, Parlamentar parlamentar) throws NullParlamentarException{
+		
+		boolean result = true;
+		
+		CeapUserController controllerCeap = CeapUserController.getInstance();
+		result = controllerCeap.persistCotaDB(response, parlamentar);
+		
+		return result;
+	}
+	
+	public List<Parlamentar> getAllSelected() {
+		
+		return parlamentarDao.getAllSelected();
+	}
 }

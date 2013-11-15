@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.OMM.application.user.controller.ParlamentarUserController;
 import com.OMM.application.user.dao.ParlamentarUserDao;
 import com.OMM.application.user.model.Parlamentar;
 
@@ -107,8 +108,8 @@ public class GuiBuscarParlamentar extends ListActivity  {
 
 		if(nomeParlamentar!=null)
 		{
-			ParlamentarUserDao dao = new ParlamentarUserDao(getBaseContext());
-			if(dao.getSelected(nomeParlamentar).size()>=1){
+			ParlamentarUserController parlamentarController = ParlamentarUserController.getInstance(getBaseContext()); 
+			if(parlamentarController.getSelected(nomeParlamentar).size()>=1){
 				//setListAdapter(new ParlamentarAdapter(getBaseContext(), dao.getSelected(nomeParlamentar)));
 			}else
 			{

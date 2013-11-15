@@ -12,7 +12,7 @@ public class Parlamentar {
 
 	String uf;
 
-	boolean seguido;
+	int seguido;
 
 	byte[] foto;
 
@@ -22,7 +22,7 @@ public class Parlamentar {
 	}
 
 	public Parlamentar(int id, String nome, String partido, String uf,
-			boolean seguido, byte[] foto) {
+			int seguido, byte[] foto) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -32,11 +32,11 @@ public class Parlamentar {
 		this.foto = foto;
 	}
 
-	public boolean isSeguido() {
+	public int isSeguido() {
 		return seguido;
 	}
 
-	public void setSeguido(boolean seguido) {
+	public void setSeguido(int seguido) {
 		this.seguido = seguido;
 	}
 

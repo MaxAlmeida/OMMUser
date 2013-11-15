@@ -18,6 +18,12 @@ public class ParlamentarUserDao {
 	private static String[] colunas={"ID_PARLAMENTAR,NOME_PARLAMENTAR"};
 	private  static ParlamentarUserDao instance;
 	
+	@SuppressWarnings("static-access")
+	private ParlamentarUserDao(Context context)
+	{
+		this.context=context;
+	}
+	
 	public static ParlamentarUserDao getInstance(Context context) {
 
 		if (instance == null) {
@@ -35,6 +41,7 @@ public class ParlamentarUserDao {
 	
 	ctv.put("ID_PARLAMENTAR", po.getId());
 	ctv.put("NOME_PARLAMENTAR", po.getNome());
+	ctv.put("SEGUIDO", po.isSeguido());
 		
 	
 	return (db.insert(nome_tabela,null, ctv)>0);
@@ -55,11 +62,7 @@ public class ParlamentarUserDao {
 
 	}
 	
-	@SuppressWarnings("static-access")
-	public ParlamentarUserDao(Context context)
-	{
-		this.context=context;
-	}
+	
 	
 	public Parlamentar getById(Integer ID_PARLAMENTAR)
 	{
@@ -115,6 +118,24 @@ public class ParlamentarUserDao {
 			
 		}
 		
+		return lista;
+	}
+	
+	public List<Parlamentar> getAllSelected() {
+		SQLiteDatabase db = new DB(context).getReadableDatabase();
+		Cursor rs = db
+				.rawQuery(
+						"SELECT ID_PARLAMENTAR,NOME_PARLAMENTAR FROM PARLAMENTAR WHERE SEGUIDO IN(1)",
+						null);
+		List<Parlamentar> lista = new ArrayList<Parlamentar>();
+		while (rs.moveToNext()) {
+			Parlamentar po = new Parlamentar();
+			po.setId(rs.getInt(0));
+			po.setNome(rs.getString(1));
+
+			lista.add(po);
+
+		}
 		return lista;
 	}
 }

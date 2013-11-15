@@ -16,11 +16,26 @@ public class CotaParlamentarUserDao {
 
 	private static String nome_tabela = "COTA";
 	private static Context context;
-
+    private static CotaParlamentarUserDao instance;
 	// private static String[] colunas = {
 	// "ID_COTA,ID_PARLAMENTAR, NUM_SUBCOTA ,DESCRICAO,MES,ANO,VALOR" };
 	// private static Parlamentar parlamentar;
 
+	@SuppressWarnings("static-access")
+	private CotaParlamentarUserDao() {
+		
+	}
+	
+	public static CotaParlamentarUserDao getInstance() {
+
+		if (instance == null) {
+			instance = new CotaParlamentarUserDao();
+		}
+
+		return instance;
+
+	}
+	
 	public boolean insertSeguido(Parlamentar po, CotaParlamentar cota) {
 		SQLiteDatabase db = new DB(context).getWritableDatabase();
 		ContentValues ctv = new ContentValues();
