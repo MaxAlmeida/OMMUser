@@ -9,6 +9,7 @@ import com.OMM.application.user.helper.JSONHelper;
 import com.OMM.application.user.model.CotaParlamentar;
 import com.OMM.application.user.model.Parlamentar;
 import com.OMM.application.user.requests.HttpConnection;
+import com.OMM.application.user.requests.MontaURL;
 
 public class ParlamentarUserController {
 
@@ -42,19 +43,22 @@ public class ParlamentarUserController {
 
 	}
 
-	public Parlamentar fazerRequisicao(ResponseHandler<String> parametro,
+	public Parlamentar fazerRequisicao(ResponseHandler<String> responseHandler,
 			int idParlamentar) throws NullParlamentarException {
 
-		String resposta = HttpConnection.requisicao(parametro, idParlamentar);
+		String urlParlamentar = MontaURL.montaURLParlamentar(idParlamentar);
+		String resposta = HttpConnection.requisicao(responseHandler, urlParlamentar);
 		Parlamentar parlamentar = popularParlamentar(resposta);
 
-		String cotasResposta = HttpConnection.requisicaoCota(parametro,
-				idParlamentar);
+		String urlCotas = MontaURL.montaURLCota(idParlamentar);
+		String cotasResposta = HttpConnection.requisicaoCota(responseHandler,
+				urlCotas);
 
 		List<CotaParlamentar> cotas = JSONHelper
 				.listaCotaParlamentarFromJSON(cotasResposta);
 
 		parlamentar.setCotas(cotas);
+
 		return parlamentar;
 	}
 }

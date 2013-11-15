@@ -67,13 +67,11 @@ public abstract class HttpConnection {
 	};
 
 	public static String requisicao(ResponseHandler<String> response,
-			int idParlamentar) {
+			String url) {
 
 		try {
 			DefaultHttpClient client = new DefaultHttpClient();
-			HttpGet httpMethod = new HttpGet(
-					"http://192.168.0.100:8080/OlhaMinhaMesada/parlamentar?id="
-							+ idParlamentar);
+			HttpGet httpMethod = new HttpGet(url);
 
 			String result = client.execute(httpMethod, response);
 
@@ -90,13 +88,11 @@ public abstract class HttpConnection {
 	}
 
 	public static String requisicaoCota(ResponseHandler<String> response,
-			int idParlamentar) {
+			String url) {
 
 		try {
 			DefaultHttpClient client = new DefaultHttpClient();
-			HttpGet httpMethod = new HttpGet(
-					"http://192.168.0.100:8080/OlhaMinhaMesada/cota?id="
-							+ idParlamentar);
+			HttpGet httpMethod = new HttpGet(url);
 
 			String result = client.execute(httpMethod, response);
 
