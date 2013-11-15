@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import com.OMM.application.user.R;
 import com.OMM.application.user.adapters.ParlamentarSeguidoAdapter;
-import com.OMM.application.user.dao.ParlamentarUserDao;
+import com.OMM.application.user.controller.ParlamentarUserController;
 import com.OMM.application.user.model.Parlamentar;
 
 public class ParlamentarSeguidoListFragment extends ListFragment {
@@ -26,9 +26,9 @@ public class ParlamentarSeguidoListFragment extends ListFragment {
 
 		super.onCreate(savedInstanceState);
 
-		ParlamentarUserDao dao = new ParlamentarUserDao(getActivity());
+		ParlamentarUserController controllerParlamentar = ParlamentarUserController.getInstance(getActivity());
 		// TODO construir chamada dao parlamentares seguidos
-		List<Parlamentar> list = dao.getAll();
+		List<Parlamentar> list = controllerParlamentar.getAll();
 
 		ParlamentarSeguidoAdapter adapter = new ParlamentarSeguidoAdapter(
 				getActivity(), R.layout.fragment_parlamentar_seguido, list);

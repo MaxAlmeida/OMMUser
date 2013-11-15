@@ -16,7 +16,17 @@ public class ParlamentarUserDao {
 	private static String nome_tabela="PARLAMENTAR";
 	private static Context context;
 	private static String[] colunas={"ID_PARLAMENTAR,NOME_PARLAMENTAR"};
+	private  static ParlamentarUserDao instance;
 	
+	public static ParlamentarUserDao getInstance(Context context) {
+
+		if (instance == null) {
+			instance = new ParlamentarUserDao(context);
+		}
+
+		return instance;
+
+	}
 	
 	public boolean insert(Parlamentar po)
 {

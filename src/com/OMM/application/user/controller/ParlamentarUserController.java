@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.apache.http.client.ResponseHandler;
 
+import android.content.Context;
+
+import com.OMM.application.user.dao.ParlamentarUserDao;
 import com.OMM.application.user.exceptions.NullCotaParlamentarException;
 import com.OMM.application.user.exceptions.NullParlamentarException;
 import com.OMM.application.user.helper.JSONHelper;
@@ -16,16 +19,16 @@ public class ParlamentarUserController {
 
 	private static ParlamentarUserController instance;
 	Parlamentar parlamentar;
+	private ParlamentarUserDao parlamentarDao;
+	public ParlamentarUserController(Context context) {
 
-	private ParlamentarUserController() {
-
-		parlamentar = new Parlamentar();
+		parlamentarDao =  ParlamentarUserDao.getInstance(context);
 	}
 
-	public static ParlamentarUserController getInstance() {
+	public static ParlamentarUserController getInstance(Context context) {
 
 		if (instance == null) {
-			instance = new ParlamentarUserController();
+			instance = new ParlamentarUserController(context);
 		}
 
 		return instance;
@@ -76,4 +79,10 @@ public class ParlamentarUserController {
 
 		return parlamentar;
 	}
+
+	public List<Parlamentar> getAll(){
+		
+		return parlamentarDao.getAll();
+	}
+
 }

@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.OMM.application.user.R;
 import com.OMM.application.user.controller.ParlamentarUserController;
+import com.OMM.application.user.dao.ParlamentarUserDao;
 import com.OMM.application.user.model.Parlamentar;
 import com.OMM.application.user.requests.HttpConnection;
 
@@ -45,14 +46,14 @@ public class GuiMain extends Activity implements
 		 * quebra o esquemaarquitetural do MVC.
 		 */
 		// inicializa o banco e cria se ele nao existir
-		// ParlamentarUserDao dao = new ParlamentarUserDao(getBaseContext());
-		// Parlamentar po = new Parlamentar();
-		// po.setId(54373);
-		// po.setNome("Tiririca");
-		// po.setPartido("pcdob");
-		// po.setSeguido(false);
-		// po.setUf("DF");
-		// dao.insert(po);
+		 ParlamentarUserDao dao = new ParlamentarUserDao(getBaseContext());
+		 Parlamentar po = new Parlamentar();
+		 po.setId(54373);
+		 po.setNome("Tiririca");
+		 po.setPartido("pcdob");
+		 po.setSeguido(false);
+		 po.setUf("DF");
+		 dao.insert(po);
 
 		if (findViewById(R.id.fragment_container) != null) {
 
@@ -220,7 +221,7 @@ public class GuiMain extends Activity implements
 		protected String doInBackground(Object... params) {
 
 			ParlamentarUserController parlamentarController = ParlamentarUserController
-					.getInstance();
+					.getInstance(getBaseContext());
 
 			ResponseHandler<String> rh = (ResponseHandler<String>) params[0];
 

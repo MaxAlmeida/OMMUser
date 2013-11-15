@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.OMM.application.user.R;
 import com.OMM.application.user.adapters.ParlamentarAdapter;
-import com.OMM.application.user.dao.ParlamentarUserDao;
+import com.OMM.application.user.controller.ParlamentarUserController;
 import com.OMM.application.user.model.Parlamentar;
 
 public class ParlamentarListFragment extends ListFragment {
@@ -35,9 +35,9 @@ public class ParlamentarListFragment extends ListFragment {
 		setHasOptionsMenu(true);
 		
 		
-		ParlamentarUserDao dao = new ParlamentarUserDao(getActivity());
+		ParlamentarUserController controllerParlamentar = ParlamentarUserController.getInstance(getActivity());
 		// TODO construir chamada dao parlamentares pelo httprequest
-		List<Parlamentar> list = dao.getAll();
+		List<Parlamentar> list = controllerParlamentar.getAll();
 
 		ParlamentarAdapter adapter = new ParlamentarAdapter(getActivity(),
 				R.layout.fragment_parlamentar, list);
