@@ -37,12 +37,6 @@ public abstract class HttpConnection {
 			br.close();
 			result = sb.toString();
 
-			Message message = handler.obtainMessage();
-			Bundle bundle = new Bundle();
-			bundle.putString("RESPONSE", result);
-			message.setData(bundle);
-			handler.sendMessage(message);
-
 			return result;
 		}
 	};
@@ -51,22 +45,7 @@ public abstract class HttpConnection {
 		return responseHandler;
 	}
 
-	private static final Handler handler = new Handler() {
-
-		@Override
-		public void handleMessage(final Message msg) {
-//			String bundleResult = msg.getData().getString("RESPONSE");
-
-			// List<CotaParlamentar> ceaps = JSONHelper
-			// .listaCotaParlamentarFromJSON(bundleResult);
-
-			// String valor = "" + ceaps.get(0).getValorAgosto();
-
-			// output.setText(valor);
-		}
-	};
-
-	public static String requisicao(ResponseHandler<String> response,
+	public static String requisicaoParlamentar(ResponseHandler<String> response,
 			String url) {
 
 		try {

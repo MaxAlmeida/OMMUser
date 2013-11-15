@@ -21,18 +21,6 @@ public class ParlamentarUserController {
 		parlamentar = new Parlamentar();
 	}
 
-	public Parlamentar popularParlamentar(String json)
-			throws NullParlamentarException {
-		try {
-			Parlamentar parlamentar = JSONHelper.listaParlamentarFromJSON(json)
-					.get(0);
-
-			return parlamentar;
-		} catch (NullPointerException e) {
-			return null;
-		}
-	}
-
 	public static ParlamentarUserController getInstance() {
 
 		if (instance == null) {
@@ -43,11 +31,32 @@ public class ParlamentarUserController {
 
 	}
 
+	public Parlamentar popularParlamentar(String jsonParlamentar)
+			throws NullParlamentarException {
+		try {
+			Parlamentar parlamentar = JSONHelper.listaParlamentarFromJSON(
+					jsonParlamentar).get(0);
+
+			return parlamentar;
+		} catch (NullPointerException e) {
+			return null;
+		}
+	}
+
+	public List<CotaParlamentar> popularCotaParlamentar(String jsonCotaParlamentar){
+	
+		List<CotaParlamentar> listaCotas = null;
+		
+		return listaCotas;
+		
+	}
+	
 	public Parlamentar fazerRequisicao(ResponseHandler<String> responseHandler,
 			int idParlamentar) throws NullParlamentarException {
 
 		String urlParlamentar = MontaURL.montaURLParlamentar(idParlamentar);
-		String resposta = HttpConnection.requisicao(responseHandler, urlParlamentar);
+		String resposta = HttpConnection.requisicaoParlamentar(responseHandler,
+				urlParlamentar);
 		Parlamentar parlamentar = popularParlamentar(resposta);
 
 		String urlCotas = MontaURL.montaURLCota(idParlamentar);

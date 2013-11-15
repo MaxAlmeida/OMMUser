@@ -14,14 +14,14 @@ public class ParlamentarDetailFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.parlamentar_detail_fragment,
+		View view = inflater.inflate(R.layout.gui_detalhe,
 				container, false);
 		return view;
 	}
 
 
 	public void setText(String nome) {
-		TextView view = (TextView) getView().findViewById(R.id.detailsText);
+		TextView view = (TextView) getView().findViewById(R.id.nome);
 		view.setText(nome);
 	}
 	
