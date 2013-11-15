@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.http.client.ResponseHandler;
 
+import com.OMM.application.user.exceptions.NullCotaParlamentarException;
 import com.OMM.application.user.exceptions.NullParlamentarException;
 import com.OMM.application.user.helper.JSONHelper;
 import com.OMM.application.user.model.CotaParlamentar;
@@ -43,16 +44,22 @@ public class ParlamentarUserController {
 		}
 	}
 
-	public List<CotaParlamentar> popularCotaParlamentar(String jsonCotaParlamentar){
-	
-		List<CotaParlamentar> listaCotas = null;
+	public List<CotaParlamentar> popularCotaParlamentar(
+			String jsonCotaParlamentar) throws NullCotaParlamentarException {
+
+		try{
+		List<CotaParlamentar> listaCotas = JSONHelper
+				.listaCotaParlamentarFromJSON(jsonCotaParlamentar);
+        
 		
 		return listaCotas;
-		
-	}
-	
+		} catch (NullPointerException e){
+			return null;
+		}
+	}  
+
 	public Parlamentar fazerRequisicao(ResponseHandler<String> responseHandler,
-			int idParlamentar) throws NullParlamentarException {
+			int idParlamentar) throws NullParlamentarException, NullCotaParlamentarException {
 
 		String urlParlamentar = MontaURL.montaURLParlamentar(idParlamentar);
 		String resposta = HttpConnection.requisicaoParlamentar(responseHandler,
@@ -63,8 +70,7 @@ public class ParlamentarUserController {
 		String cotasResposta = HttpConnection.requisicaoCota(responseHandler,
 				urlCotas);
 
-		List<CotaParlamentar> cotas = JSONHelper
-				.listaCotaParlamentarFromJSON(cotasResposta);
+		List<CotaParlamentar> cotas = popularCotaParlamentar(cotasResposta);
 
 		parlamentar.setCotas(cotas);
 
