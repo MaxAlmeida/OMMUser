@@ -47,7 +47,7 @@ public class GuiMain extends Activity implements
 		 */
 		// inicializa o banco e cria se ele nao existir
 		 ParlamentarUserDao dao = ParlamentarUserDao.getInstance(getBaseContext());
-		 Parlamentar po = new Parlamentar();
+		 /*Parlamentar po = new Parlamentar();
 		 po.setId(54373);
 		 po.setNome("Tiririca");
 		 po.setPartido("pcdob");
@@ -61,8 +61,9 @@ public class GuiMain extends Activity implements
 		 poe.setPartido("pcdob");
 		 poe.setSeguido(1);
 		 poe.setUf("DF");
-	     dao.insert(poe);	     
+	     dao.insert(poe);	*/     
          
+	     dao.checkEmptyDB();
 		if (findViewById(R.id.fragment_container) != null) {
 
 			/* cria a primeira lista */
