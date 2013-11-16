@@ -20,4 +20,11 @@ public abstract class MontaURL {
 		
 		return url;	
 	}
+	
+	public static String mountUrlAll(){
+		
+		String url = "http://"+IP+":8080/OlhaMinhaMesada/parlamentares";
+		
+		return url;
+	}
 }
