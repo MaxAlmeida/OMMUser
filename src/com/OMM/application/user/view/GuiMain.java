@@ -205,8 +205,8 @@ public class GuiMain extends Activity implements
 
 		@Override
 		protected void onPreExecute() {
-			progressDialog = ProgressDialog.show(GuiMain.this, "Aguarde...",
-					"Buscando Dados");
+			progressDialog = ProgressDialog.show(GuiMain.this, "Instalando Banco de Dados...",
+					"Isso pode demorar alguns minutos");
 		}
 
 		@SuppressWarnings("unchecked")

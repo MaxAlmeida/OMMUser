@@ -21,7 +21,6 @@ public class CotaParlamentarUserDao {
 	// "ID_COTA,ID_PARLAMENTAR, NUM_SUBCOTA ,DESCRICAO,MES,ANO,VALOR" };
 	// private static Parlamentar parlamentar;
 
-	@SuppressWarnings("static-access")
 	private CotaParlamentarUserDao() {
 		
 	}

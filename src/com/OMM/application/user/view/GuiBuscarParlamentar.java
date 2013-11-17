@@ -13,7 +13,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.OMM.application.user.controller.ParlamentarUserController;
-import com.OMM.application.user.dao.ParlamentarUserDao;
 import com.OMM.application.user.model.Parlamentar;
 
 

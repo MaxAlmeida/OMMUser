@@ -11,10 +11,6 @@ import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-
 public abstract class HttpConnection {
 
 	public final static ResponseHandler<String> responseHandler = new ResponseHandler<String>() {
