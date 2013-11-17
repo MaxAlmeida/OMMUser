@@ -22,7 +22,7 @@ public class CotaParlamentarUserDao {
 	// private static Parlamentar parlamentar;
 
 	private CotaParlamentarUserDao() {
-		
+		// Empty Constructor
 	}
 	
 	public static CotaParlamentarUserDao getInstance() {
@@ -32,43 +32,52 @@ public class CotaParlamentarUserDao {
 		}
 
 		return instance;
-
 	}
 	
-	public boolean insertSeguido(Parlamentar po, CotaParlamentar cota) {
-		SQLiteDatabase db = new DB(context).getWritableDatabase();
-		ContentValues ctv = new ContentValues();
+	public boolean insertFollowed(Parlamentar po, CotaParlamentar cota) {
+		
+		SQLiteDatabase database = new DB(context).getWritableDatabase();
+		ContentValues content = new ContentValues();
 
-		ctv.put("ID_COTA", cota.getId());
-		ctv.put("ID_PARLAMENTAR", cota.getIdParlamentar());
-		ctv.put("DESCRICAO", cota.getDescricao());
-		// TODO refatorar chamada no banco
-		ctv.put("MES", 10);
-		ctv.put("ANO", cota.getAno());
-		ctv.put("VALOR", cota.getValorOutubro());
-		ctv.put("NUM_SUBCOTA", cota.getNumeroSubCota());
+		content.put("ID_COTA", cota.getId());
+		content.put("ID_PARLAMENTAR", cota.getIdParlamentar());
+		content.put("DESCRICAO", cota.getDescricao());
+		
+		content.put("MES", 10);
+		content.put("ANO", cota.getAno());
+		content.put("VALOR", cota.getValorOutubro());
+		content.put("NUM_SUBCOTA", cota.getNumeroSubCota());
 
-		return (db.insert(nome_tabela, null, ctv) > 0);
+		return (database.insert(nome_tabela, null, content) > 0);
 	}
 
-	public List<CotaParlamentar> getAll(Parlamentar parlamentar) {
-		SQLiteDatabase db = new DB(context).getReadableDatabase();
-		Cursor rs = db.rawQuery(
+	public List<CotaParlamentar> getAllCotas(Parlamentar parlamentar) {
+		
+		SQLiteDatabase database = new DB(context).getReadableDatabase();
+		
+		Cursor cursor = database.rawQuery(
 				"SELECT DESCRICAO , VALOR FROM COTA WHERE ID_PARLAMENTAR="
 						+ parlamentar.getId(), null);
-		List<CotaParlamentar> lista = new ArrayList<CotaParlamentar>();
-		while (rs.moveToNext()) {
-			CotaParlamentar po = new CotaParlamentar();
-			po.setDescricao(rs.getString(0));
-			po.setValorOutubro(rs.getDouble(1));
-			lista.add(po);
+		
+		List<CotaParlamentar> listCotas = new ArrayList<CotaParlamentar>();
+		
+		while (cursor.moveToNext()) {
+			
+			CotaParlamentar cota = new CotaParlamentar();
+			cota.setDescricao(cursor.getString(0));
+			cota.setValorOutubro(cursor.getDouble(1));
+			
+			listCotas.add(cota);
 		}
-		return lista;
+		
+		return listCotas;
 	}
 
-	public boolean delete(Parlamentar parlamentar) {
-		SQLiteDatabase db = new DB(context).getWritableDatabase();
-		return (db.delete(nome_tabela, "ID_PARLAMENTAR=?",
+	public boolean deleteParlamentar(Parlamentar parlamentar) {
+		
+		SQLiteDatabase database = new DB(context).getWritableDatabase();
+		
+		return (database.delete(nome_tabela, "ID_PARLAMENTAR=?",
 				new String[] { parlamentar.getId() + "" }) > 0);
 	}
 }

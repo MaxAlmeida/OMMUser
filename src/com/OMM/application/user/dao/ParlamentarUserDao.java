@@ -31,7 +31,6 @@ public class ParlamentarUserDao {
 		}
 
 		return instance;
-
 	}
 
 	public boolean checkEmptyDB() {
@@ -49,110 +48,121 @@ public class ParlamentarUserDao {
 		Log.i("ParlamentarUserDao", "Result : " + result);
 
 		return result;
-
 	}
 
-	public boolean insert(Parlamentar po) {
-		SQLiteDatabase db = new DB(context).getWritableDatabase();
-		ContentValues ctv = new ContentValues();
+	public boolean insertParlamentar(Parlamentar parlamentar) {
+		
+		SQLiteDatabase database = new DB(context).getWritableDatabase();
+		ContentValues content = new ContentValues();
 
-		ctv.put("ID_PARLAMENTAR", po.getId());
-		ctv.put("NOME_PARLAMENTAR", po.getNome());
+		content.put("ID_PARLAMENTAR", parlamentar.getId());
+		content.put("NOME_PARLAMENTAR", parlamentar.getNome());
 
-		return (db.insert(nome_tabela, null, ctv) > 0);
+		return (database.insert(nome_tabela, null, content) > 0);
 	}
 
-	public boolean delete(Parlamentar po) {
-		SQLiteDatabase db = new DB(context).getWritableDatabase();
-		return (db.delete(nome_tabela, "ID_PARLAMENTAR=?",
-				new String[] { po.getId() + "" }) > 0);
+	public boolean deleteParlamentar(Parlamentar parlamentar) {
+		
+		SQLiteDatabase database = new DB(context).getWritableDatabase();
+		
+		return (database.delete(nome_tabela, "ID_PARLAMENTAR=?",
+				new String[] { parlamentar.getId() + "" }) > 0);
 	}
 
-	public boolean update(Parlamentar po) {
-		SQLiteDatabase db = new DB(context).getWritableDatabase();
-		ContentValues ctv = new ContentValues();
+	public boolean updateParlamentar(Parlamentar parlamentar) {
+		
+		SQLiteDatabase database = new DB(context).getWritableDatabase();
+		ContentValues content = new ContentValues();
 
-		ctv.put("SEGUIDO", po.isSeguido());
+		content.put("SEGUIDO", parlamentar.isSeguido());
 
-		return (db.update(nome_tabela, ctv, "ID_PARLAMENTAR=?",
-				new String[] { po.getId() + "" }) > 0);
-
+		return (database.update(nome_tabela, content, "ID_PARLAMENTAR=?",
+				new String[] { parlamentar.getId() + "" }) > 0);
 	}
 
 	public Parlamentar getById(Integer ID_PARLAMENTAR) {
-		SQLiteDatabase db = new DB(context).getReadableDatabase();
+		
+		SQLiteDatabase database = new DB(context).getReadableDatabase();
 
-		Cursor rs = db.query(nome_tabela, colunas, "ID_PARLAMENTAR=?",
+		Cursor cursor = database.query(nome_tabela, colunas, "ID_PARLAMENTAR=?",
 				new String[] { ID_PARLAMENTAR.toString() }, null, null, null);
 
-		Parlamentar po = null;
-		if (rs.moveToFirst()) {
-			po = new Parlamentar();
-			po.setId(Integer.parseInt(rs.getString(rs
+		Parlamentar parlamentar = null;
+		
+		if (cursor.moveToFirst()) {
+			
+			parlamentar = new Parlamentar();
+			parlamentar.setId(Integer.parseInt(cursor.getString(cursor
 					.getColumnIndex("ID_CLIENTE"))));
-			po.setNome(rs.getString(rs.getColumnIndex("NOME_PARLAMENTAR")));
+			
+			parlamentar.setNome(cursor.getString(cursor.getColumnIndex("NOME_PARLAMENTAR")));
 
 		}
-		return po;
+		
+		return parlamentar;
 	}
 
 	public List<Parlamentar> getAll() {
-		SQLiteDatabase db = new DB(context).getReadableDatabase();
-		Cursor rs = db
-				.rawQuery(
-						"SELECT ID_PARLAMENTAR,NOME_PARLAMENTAR FROM PARLAMENTAR",
-						null);
-		List<Parlamentar> lista = new ArrayList<Parlamentar>();
-		while (rs.moveToNext()) {
-			Parlamentar po = new Parlamentar();
-			po.setId(rs.getInt(0));
-			po.setNome(rs.getString(1));
+		
+		SQLiteDatabase database = new DB(context).getReadableDatabase();
+		Cursor cursor = database.rawQuery("SELECT ID_PARLAMENTAR,NOME_PARLAMENTAR FROM PARLAMENTAR", null);
+		List<Parlamentar> listParlamentares = new ArrayList<Parlamentar>();
+		
+		while (cursor.moveToNext()) {
+			
+			Parlamentar parlamentar = new Parlamentar();
+			parlamentar.setId(cursor.getInt(0));
+			parlamentar.setNome(cursor.getString(1));
 
-			lista.add(po);
-
+			listParlamentares.add(parlamentar);
 		}
-		return lista;
+		
+		return listParlamentares;
 	}
 
 	/*
-	 * Metodo utilizado para realizar o filtro de parlamentares ele deve ser
-	 * trabalhado melhor para condição de nao encontrar um parlamentar
+	 * TODO: Metodo utilizado para realizar o filtro de parlamentares ele deve ser
+	 * 		 trabalhado melhor para condição de nao encontrar um parlamentar
 	 */
-	public List<Parlamentar> getSelected(String nomeParlamentar) {
+	public List<Parlamentar> getSelected(String nameParlamentar) {
 
-		SQLiteDatabase db = new DB(context).getReadableDatabase();
-		Cursor rs = db
-				.rawQuery(
+		SQLiteDatabase database = new DB(context).getReadableDatabase();
+		Cursor cursor = database.rawQuery(
 						"SELECT ID_PARLAMENTAR,NOME_PARLAMENTAR FROM PARLAMENTAR WHERE NOME_PARLAMENTAR LIKE '%"
-								+ nomeParlamentar + "%'", null);
-		List<Parlamentar> lista = new ArrayList<Parlamentar>();
-		while (rs.moveToNext()) {
-			Parlamentar po = new Parlamentar();
-			po.setId(rs.getInt(0));
-			po.setNome(rs.getString(1));
+								+ nameParlamentar + "%'", null);
+		
+		List<Parlamentar> listParlamentar = new ArrayList<Parlamentar>();
+		
+		while (cursor.moveToNext()) {
+			
+			Parlamentar parlamentar = new Parlamentar();
+			parlamentar.setId(cursor.getInt(0));
+			parlamentar.setNome(cursor.getString(1));
 
-			lista.add(po);
-
+			listParlamentar.add(parlamentar);
 		}
 
-		return lista;
+		return listParlamentar;
 	}
 
 	public List<Parlamentar> getAllSelected() {
-		SQLiteDatabase db = new DB(context).getReadableDatabase();
-		Cursor rs = db
-				.rawQuery(
+		
+		SQLiteDatabase database = new DB(context).getReadableDatabase();
+		Cursor cursor = database.rawQuery(
 						"SELECT ID_PARLAMENTAR,NOME_PARLAMENTAR FROM PARLAMENTAR WHERE SEGUIDO IN(1)",
 						null);
-		List<Parlamentar> lista = new ArrayList<Parlamentar>();
-		while (rs.moveToNext()) {
-			Parlamentar po = new Parlamentar();
-			po.setId(rs.getInt(0));
-			po.setNome(rs.getString(1));
+		
+		List<Parlamentar> listParlamentar = new ArrayList<Parlamentar>();
+		
+		while (cursor.moveToNext()) {
+			
+			Parlamentar parlamentar = new Parlamentar();
+			parlamentar.setId(cursor.getInt(0));
+			parlamentar.setNome(cursor.getString(1));
 
-			lista.add(po);
-
+			listParlamentar.add(parlamentar);
 		}
-		return lista;
+		
+		return listParlamentar;
 	}
 }

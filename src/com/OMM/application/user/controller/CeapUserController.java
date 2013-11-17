@@ -60,7 +60,7 @@ public class CeapUserController {
 
 		while (iterator.hasNext()) {
 
-			boolean temporary = cotaDao.insertSeguido(parlamentar,
+			boolean temporary = cotaDao.insertFollowed(parlamentar,
 					iterator.next());
 			
 			result = result & temporary;

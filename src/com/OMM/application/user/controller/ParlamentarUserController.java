@@ -135,7 +135,7 @@ public class ParlamentarUserController {
 		Iterator<Parlamentar> iterator = parlamentares.iterator();
 		
 		while(iterator.hasNext()){ 
-			parlamentarDao.insert(iterator.next()); 
+			parlamentarDao.insertParlamentar(iterator.next()); 
 		}
  
 		initialized = true; 
