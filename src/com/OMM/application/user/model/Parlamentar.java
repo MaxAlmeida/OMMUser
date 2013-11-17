@@ -4,19 +4,19 @@ import java.util.List;
 
 public class Parlamentar {
 
-	int id;
+	private int id;
 
-	String nome;
+	private String nome;
 
-	String partido;
+	private String partido;
 
-	String uf;
+	private String uf;
 
-	int seguido;
+	private int seguido;
 
-	byte[] foto;
+	private byte[] foto;
 
-	List<CotaParlamentar> cotas;
+	private List<CotaParlamentar> cotas;
 
 	public Parlamentar() {
 	}

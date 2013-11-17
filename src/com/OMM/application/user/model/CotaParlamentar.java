@@ -2,41 +2,41 @@ package com.OMM.application.user.model;
 
 public class CotaParlamentar {
 
-	int id;
+	private int id;
 	
-	int idParlamentar;
+	private int idParlamentar;
 
-	int ano;
+	private int ano;
 
-	int numeroSubCota;
+	private int numeroSubCota;
 
-	double valorJaneiro;
+	private double valorJaneiro;
 
-	double valorFevereiro;
+	private double valorFevereiro;
 
-	double valorMarco;
+	private double valorMarco;
 
-	double valorAbril;
+	private double valorAbril;
 
-	double valorMaio;
+	private double valorMaio;
 
-	double valorJunho;
+	private double valorJunho;
 
-	double valorJulho;
+	private double valorJulho;
 
-	double valorAgosto;
+	private double valorAgosto;
 
-	double valorSetembro;
+	private double valorSetembro;
 
-	double valorOutubro;
+	private double valorOutubro;
 
-	double valorNovembro;
+	private double valorNovembro;
 
-	double valorDezembro;
+	private double valorDezembro;
 
-	String descricao;
+	private String descricao;
 
-	String especificacao;
+	private String especificacao;
 
 	public CotaParlamentar() {
 	}
