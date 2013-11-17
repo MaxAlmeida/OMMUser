@@ -8,19 +8,23 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 public class JSONHelper {
-	public static List<Parlamentar> listaParlamentarFromJSON(String str) {
+	public static List<Parlamentar> listParlamentarFromJSON(String jsonParlamentar) {
+		
 		Gson gson = new Gson();
-		List<Parlamentar> lista = gson.fromJson(str,
+		List<Parlamentar> listParlamentar = gson.fromJson(jsonParlamentar,
 				new TypeToken<List<Parlamentar>>() {
 				}.getType());
-		return lista;
+		
+		return listParlamentar;
 	}
 
-	public static List<CotaParlamentar> listaCotaParlamentarFromJSON(String str) {
+	public static List<CotaParlamentar> listCotaParlamentarFromJSON(String jsonCotaParlamentar) {
+		
 		Gson gson = new Gson();
-		List<CotaParlamentar> lista = gson.fromJson(str,
+		List<CotaParlamentar> listCotaParlamentar = gson.fromJson(jsonCotaParlamentar,
 				new TypeToken<List<CotaParlamentar>>() {
 				}.getType());
-		return lista;
+		
+		return listCotaParlamentar;
 	}
 }

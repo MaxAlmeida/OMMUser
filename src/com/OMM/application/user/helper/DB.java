@@ -12,20 +12,17 @@ public class DB extends SQLiteOpenHelper {
 	
 	private static int version = 1;
 
-	
-	
 	public DB(Context context) {
 		super(context, dbName, null, version);
-
 	}
 
 	@Override
-	public void onCreate(SQLiteDatabase db) {
+	public void onCreate(SQLiteDatabase database) {
 		/**
 		 * Esse eh executado quando instalada aplicacao
 		 */
-		db.execSQL(tabela_parlamentar);
-		db.execSQL(tabela_cota);
+		database.execSQL(tabela_parlamentar);
+		database.execSQL(tabela_cota);
 	}
 
 	@Override

@@ -40,7 +40,7 @@ public class ParlamentarUserController {
 	public Parlamentar convertJsonToParlamentar(String jsonParlamentar)
 			throws NullParlamentarException {
 		try {
-			Parlamentar parlamentar = JSONHelper.listaParlamentarFromJSON(
+			Parlamentar parlamentar = JSONHelper.listParlamentarFromJSON(
 					jsonParlamentar).get(0);
 
 			return parlamentar;
@@ -56,7 +56,7 @@ public class ParlamentarUserController {
 
 		try {
 			List<CotaParlamentar> listCotas = JSONHelper
-					.listaCotaParlamentarFromJSON(jsonCotaParlamentar);
+					.listCotaParlamentarFromJSON(jsonCotaParlamentar);
 
 			return listCotas;
 		} catch (NullPointerException e) {
@@ -112,7 +112,7 @@ public class ParlamentarUserController {
 		try {
 			
 			List<Parlamentar> parlamentares = JSONHelper
-					.listaParlamentarFromJSON(jsonParlamentares);
+					.listParlamentarFromJSON(jsonParlamentares);
 
 			return parlamentares;
 			

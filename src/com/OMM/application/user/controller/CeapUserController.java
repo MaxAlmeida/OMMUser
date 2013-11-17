@@ -36,7 +36,7 @@ public class CeapUserController {
 		try {
 
 			List<CotaParlamentar> cotas = JSONHelper
-					.listaCotaParlamentarFromJSON(jsonCota);
+					.listCotaParlamentarFromJSON(jsonCota);
 
 			return cotas;
 			
