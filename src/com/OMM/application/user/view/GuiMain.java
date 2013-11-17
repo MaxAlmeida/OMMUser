@@ -276,7 +276,7 @@ public class GuiMain extends Activity implements
 
 			Parlamentar parlamentar = (Parlamentar) params[1];
 			try {
-				parlamentar = parlamentarController.fazerRequisicao(rh,
+				parlamentar = parlamentarController.doRequest(rh,
 						parlamentar.getId());
 			} catch (Exception e) {
 				progressDialog.dismiss();

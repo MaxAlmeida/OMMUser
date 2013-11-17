@@ -37,54 +37,57 @@ public class ParlamentarUserController {
 
 	}
 
-	public Parlamentar popularParlamentar(String jsonParlamentar)
+	public Parlamentar convertJsonToParlamentar(String jsonParlamentar)
 			throws NullParlamentarException {
 		try {
 			Parlamentar parlamentar = JSONHelper.listaParlamentarFromJSON(
 					jsonParlamentar).get(0);
 
 			return parlamentar;
+			
 		} catch (NullPointerException e) {
+			
 			return null;
 		}
 	}
 
-	public List<CotaParlamentar> popularCotaParlamentar(
+	public List<CotaParlamentar> convertJsonToCotaParlamentar(
 			String jsonCotaParlamentar) throws NullCotaParlamentarException {
 
 		try {
-			List<CotaParlamentar> listaCotas = JSONHelper
+			List<CotaParlamentar> listCotas = JSONHelper
 					.listaCotaParlamentarFromJSON(jsonCotaParlamentar);
 
-			return listaCotas;
+			return listCotas;
 		} catch (NullPointerException e) {
 			return null;
 		}
 	}
 
-	public Parlamentar fazerRequisicao(ResponseHandler<String> responseHandler,
+	public Parlamentar doRequest(ResponseHandler<String> responseHandler,
 			int idParlamentar) throws NullParlamentarException,
 			NullCotaParlamentarException {
 
 		String urlParlamentar = MontaURL.montaURLParlamentar(idParlamentar);
-		String resposta = HttpConnection.requisicaoParlamentar(responseHandler,
+		String jsonParlamentar = HttpConnection.requisicaoParlamentar(responseHandler,
 				urlParlamentar);
-		Parlamentar parlamentar = popularParlamentar(resposta);
+		
+		Parlamentar parlamentar = convertJsonToParlamentar(jsonParlamentar);
 
 		String urlCotas = MontaURL.montaURLCota(idParlamentar);
-		String cotasResposta = HttpConnection.requisicaoCota(responseHandler,
+		String jsonCotasParlamentar = HttpConnection.requisicaoCota(responseHandler,
 				urlCotas);
 
-		List<CotaParlamentar> cotas = popularCotaParlamentar(cotasResposta);
+		List<CotaParlamentar> cotas = convertJsonToCotaParlamentar(jsonCotasParlamentar);
 
 		parlamentar.setCotas(cotas);
 
 		return parlamentar;
 	}
 
-	public List<Parlamentar> getSelected(String nomeParlamentar) {
+	public List<Parlamentar> getSelected(String nameParlamentar) {
 
-		return parlamentarDao.getSelected(nomeParlamentar);
+		return parlamentarDao.getSelected(nameParlamentar);
 	}
 
 	public List<Parlamentar> getAll() {
@@ -103,13 +106,16 @@ public class ParlamentarUserController {
 		return result;
 	}
 
-	public List<Parlamentar> populateList(String json)
+	public List<Parlamentar> convertJsonToListParlamentar(String jsonParlamentares)
 			throws NullParlamentarException {
+		
 		try {
+			
 			List<Parlamentar> parlamentares = JSONHelper
-					.listaParlamentarFromJSON(json);
+					.listaParlamentarFromJSON(jsonParlamentares);
 
 			return parlamentares;
+			
 		} catch (NullPointerException npe) {
 
 			throw new  NullParlamentarException();
@@ -119,9 +125,9 @@ public class ParlamentarUserController {
 	public boolean insertAll(ResponseHandler<String> response) throws
 	NullParlamentarException {
  
-	String url = MontaURL.mountUrlAll(); 
-	String resposta = HttpConnection.requisicaoParlamentar(response, url); 
-	List<Parlamentar> parlamentares = populateList(resposta);
+	String urlParlamentares = MontaURL.mountUrlAll(); 
+	String jsonParlamentares = HttpConnection.requisicaoParlamentar(response, urlParlamentares); 
+	List<Parlamentar> parlamentares = convertJsonToListParlamentar(jsonParlamentares);
 
 	boolean initialized; 
  
@@ -142,14 +148,12 @@ public class ParlamentarUserController {
 }
 
 	public List<Parlamentar> getAllSelected() {
-
-		List<Parlamentar> result = parlamentarDao.getAllSelected();	
-		return result;
+	
+		return parlamentarDao.getAllSelected();
 	}
 	
 	public boolean checkEmptyDB() {
 		
-		boolean result = parlamentarDao.checkEmptyDB();
-		return result;
+		return parlamentarDao.checkEmptyDB();
 	}
 }

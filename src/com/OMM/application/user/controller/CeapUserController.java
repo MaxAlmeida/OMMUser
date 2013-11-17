@@ -13,57 +13,59 @@ import com.OMM.application.user.model.Parlamentar;
 import com.OMM.application.user.requests.HttpConnection;
 import com.OMM.application.user.requests.MontaURL;
 
-
 public class CeapUserController {
-	
-	private static CeapUserController instance;
-	
-	private CeapUserController() {
 
-		
+	private static CeapUserController instance;
+
+	private CeapUserController() {
+		// Empty Constructor
 	}
-	
+
 	public static CeapUserController getInstance() {
 
 		if (instance == null) {
+
 			instance = new CeapUserController();
 		}
 
 		return instance;
-
 	}
-	
-	private List<CotaParlamentar> popularCotas(String json)
+
+	private List<CotaParlamentar> convertJsonToCotaParlamentar(String jsonCota)
 			throws NullParlamentarException {
-		try{
+		try {
+
 			List<CotaParlamentar> cotas = JSONHelper
-					.listaCotaParlamentarFromJSON(json);
-			return cotas; 
-		}
-		catch (NullPointerException npe){
-		
-			throw new NullParlamentarException();
-		}						
-	}
-	
-	public boolean persistCotaDB(ResponseHandler<String> response, Parlamentar parlamentar) throws NullParlamentarException {
-		
-		boolean result = true;
-		String url = MontaURL.montaURLCota(parlamentar.getId());
-		String json = HttpConnection.requisicaoCota(response, url);
-		
-		List<CotaParlamentar> cotas = popularCotas(json);
-		CotaParlamentarUserDao cotaDao = CotaParlamentarUserDao.getInstance();
-		
-		Iterator<CotaParlamentar> iterator = cotas.iterator();
-		while(iterator.hasNext()){
-			boolean temp = cotaDao.insertSeguido(parlamentar, iterator.next());
-			result = result & temp;
+					.listaCotaParlamentarFromJSON(jsonCota);
+
+			return cotas;
 			
+		} catch (NullPointerException npe) {
+
+			throw new NullParlamentarException();
 		}
-		
-		return result;
-		
 	}
 
+	public boolean persistCotaDB(ResponseHandler<String> response,
+			Parlamentar parlamentar) throws NullParlamentarException {
+
+		boolean result = true;
+		String urlCota = MontaURL.montaURLCota(parlamentar.getId());
+		String jsonCota = HttpConnection.requisicaoCota(response, urlCota);
+
+		List<CotaParlamentar> cotas = convertJsonToCotaParlamentar(jsonCota);
+		CotaParlamentarUserDao cotaDao = CotaParlamentarUserDao.getInstance();
+
+		Iterator<CotaParlamentar> iterator = cotas.iterator();
+
+		while (iterator.hasNext()) {
+
+			boolean temporary = cotaDao.insertSeguido(parlamentar,
+					iterator.next());
+			
+			result = result & temporary;
+		}
+
+		return result;
+	}
 }
