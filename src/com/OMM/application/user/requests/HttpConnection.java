@@ -16,22 +16,23 @@ public abstract class HttpConnection {
 	public final static ResponseHandler<String> responseHandler = new ResponseHandler<String>() {
 
 		public String handleResponse(HttpResponse response) throws IOException {
-			// StatusLine status = response.getStatusLine();
 
 			HttpEntity entity = response.getEntity();
 			String result = null;
 
-			BufferedReader br = new BufferedReader(new InputStreamReader(
+			BufferedReader buffer = new BufferedReader(new InputStreamReader(
 					entity.getContent()));
-			StringBuilder sb = new StringBuilder();
+			
+			StringBuilder builder = new StringBuilder();
 			String line = null;
 
-			while ((line = br.readLine()) != null) {
-				sb.append(line + "\n");
+			while ((line = buffer.readLine()) != null) {
+				
+				builder.append(line + "\n");
 			}
 
-			br.close();
-			result = sb.toString();
+			buffer.close();
+			result = builder.toString();
 
 			return result;
 		}
@@ -41,43 +42,44 @@ public abstract class HttpConnection {
 		return responseHandler;
 	}
 
-	public static String requisicaoParlamentar(ResponseHandler<String> response,
+	public static String requestParlamentar(ResponseHandler<String> response,
 			String url) {
 
 		try {
 			DefaultHttpClient client = new DefaultHttpClient();
-			HttpGet httpMethod = new HttpGet(url);
+			HttpGet http = new HttpGet(url);
 
-			String result = client.execute(httpMethod, response);
+			String jsonParlamentar = client.execute(http, response);
 
-			return result;
+			return jsonParlamentar;
 
 		} catch (ClientProtocolException e) {
-			// do sth
+			// TODO: Exception Handling
 
 		} catch (IOException e) {
-			// do sth else
+			// TODO: Exception Handling
 		}
 
 		return null;
 	}
 
-	public static String requisicaoCota(ResponseHandler<String> response,
+	public static String requestCota(ResponseHandler<String> response,
 			String url) {
 
 		try {
+			
 			DefaultHttpClient client = new DefaultHttpClient();
-			HttpGet httpMethod = new HttpGet(url);
+			HttpGet http = new HttpGet(url);
 
-			String result = client.execute(httpMethod, response);
+			String jsonCotaParlamentar = client.execute(http, response);
 
-			return result;
+			return jsonCotaParlamentar;
 
 		} catch (ClientProtocolException e) {
-			// do sth
+			// TODO: Exception Handling
 
 		} catch (IOException e) {
-			// do sth else
+			// TODO: Exception Handling
 		}
 
 		return null;

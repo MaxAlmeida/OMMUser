@@ -68,14 +68,14 @@ public class ParlamentarUserController {
 			int idParlamentar) throws NullParlamentarException,
 			NullCotaParlamentarException {
 
-		String urlParlamentar = MontaURL.montaURLParlamentar(idParlamentar);
-		String jsonParlamentar = HttpConnection.requisicaoParlamentar(responseHandler,
+		String urlParlamentar = MontaURL.mountURLParlamentar(idParlamentar);
+		String jsonParlamentar = HttpConnection.requestParlamentar(responseHandler,
 				urlParlamentar);
 		
 		Parlamentar parlamentar = convertJsonToParlamentar(jsonParlamentar);
 
-		String urlCotas = MontaURL.montaURLCota(idParlamentar);
-		String jsonCotasParlamentar = HttpConnection.requisicaoCota(responseHandler,
+		String urlCotas = MontaURL.mountURLCota(idParlamentar);
+		String jsonCotasParlamentar = HttpConnection.requestCota(responseHandler,
 				urlCotas);
 
 		List<CotaParlamentar> cotas = convertJsonToCotaParlamentar(jsonCotasParlamentar);
@@ -126,7 +126,7 @@ public class ParlamentarUserController {
 	NullParlamentarException {
  
 	String urlParlamentares = MontaURL.mountUrlAll(); 
-	String jsonParlamentares = HttpConnection.requisicaoParlamentar(response, urlParlamentares); 
+	String jsonParlamentares = HttpConnection.requestParlamentar(response, urlParlamentares); 
 	List<Parlamentar> parlamentares = convertJsonToListParlamentar(jsonParlamentares);
 
 	boolean initialized; 

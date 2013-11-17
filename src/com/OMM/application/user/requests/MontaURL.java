@@ -3,28 +3,29 @@ package com.OMM.application.user.requests;
 public abstract class MontaURL {
 	
 	private static final String IP = "192.168.0.100";
+	
 	public  MontaURL(){
-		
+		// Empty Constructor
 	}
 		
-	public static String montaURLCota(int idParlamentar){
+	public static String mountURLCota(int idParlamentar){
 		 
-		String url = "http://" + IP + ":8080/OlhaMinhaMesada/cota?id=" + idParlamentar;
+		String urlCotaParlamentar = "http://" + IP + ":8080/OlhaMinhaMesada/cota?id=" + idParlamentar;
 		
-		return url;
+		return urlCotaParlamentar;
 	}
 	
-	public static String montaURLParlamentar (int idParlamentar){
+	public static String mountURLParlamentar (int idParlamentar){
 		 
-		String url = "http://" + IP + ":8080/OlhaMinhaMesada/parlamentar?id=" + idParlamentar;
+		String urlParlamentar = "http://" + IP + ":8080/OlhaMinhaMesada/parlamentar?id=" + idParlamentar;
 		
-		return url;	
+		return urlParlamentar;	
 	}
 	
 	public static String mountUrlAll(){
 		
-		String url = "http://"+IP+":8080/OlhaMinhaMesada/parlamentares";
+		String urlAllParlamentares = "http://" + IP + ":8080/OlhaMinhaMesada/parlamentares";
 		
-		return url;
+		return urlAllParlamentares;
 	}
 }

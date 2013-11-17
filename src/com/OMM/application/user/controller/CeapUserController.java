@@ -50,8 +50,8 @@ public class CeapUserController {
 			Parlamentar parlamentar) throws NullParlamentarException {
 
 		boolean result = true;
-		String urlCota = MontaURL.montaURLCota(parlamentar.getId());
-		String jsonCota = HttpConnection.requisicaoCota(response, urlCota);
+		String urlCota = MontaURL.mountURLCota(parlamentar.getId());
+		String jsonCota = HttpConnection.requestCota(response, urlCota);
 
 		List<CotaParlamentar> cotas = convertJsonToCotaParlamentar(jsonCota);
 		CotaParlamentarUserDao cotaDao = CotaParlamentarUserDao.getInstance();
