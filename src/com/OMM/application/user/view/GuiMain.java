@@ -1,7 +1,5 @@
 package com.OMM.application.user.view;
 
-import java.util.List;
-
 import org.apache.http.client.ResponseHandler;
 
 import android.app.Activity;
@@ -39,8 +37,8 @@ public class GuiMain extends Activity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.gui_main);
-		fragmentManager = this.getFragmentManager();    
-        
+		fragmentManager = this.getFragmentManager();
+
 		if (findViewById(R.id.fragment_container) != null) {
 
 			/* cria a primeira lista */
@@ -97,9 +95,9 @@ public class GuiMain extends Activity implements
 						loadParlamentarFragment();
 						Toast.makeText(getBaseContext(), PESQUISA,
 								Toast.LENGTH_SHORT).show();
-					}			
+					}
 				});
-		
+
 		btn_ranking_main.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -133,8 +131,17 @@ public class GuiMain extends Activity implements
 				}
 			}
 		});
-		
-		// TODO: requisição e tratamento da chamada da startRequestAll 
+
+		ParlamentarUserController parlamentarController = ParlamentarUserController
+				.getInstance(getBaseContext());
+
+		if (parlamentarController.checkEmptyDB() == true) {
+
+			startPopulateDB();
+
+		} else {
+			// nothing should be done
+		}
 	}
 
 	@Override
@@ -168,7 +175,7 @@ public class GuiMain extends Activity implements
 		parlamentar = startRequest(parlamentar);
 		if (parlamentar != null) {
 			// 1. Instantiate an AlertDialog.Builder with its constructor
-			
+
 		}
 		/* Substitui o detalhe */
 		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -192,55 +199,55 @@ public class GuiMain extends Activity implements
 			detailFragment.setText(parlamentar.getNome());
 		}
 	}
-	
+
 	private class initializeDBTask extends AsyncTask<Object, Void, Void> {
 		ProgressDialog progressDialog;
-		
+
 		@Override
 		protected void onPreExecute() {
 			progressDialog = ProgressDialog.show(GuiMain.this, "Aguarde...",
 					"Buscando Dados");
 		}
-		
+
 		@SuppressWarnings("unchecked")
 		@Override
 		protected Void doInBackground(Object... params) {
-			
+
 			ParlamentarUserController parlamentarController = ParlamentarUserController
 					.getInstance(getBaseContext());
 
 			ResponseHandler<String> responseHandler = (ResponseHandler<String>) params[0];
 
 			boolean result = false;
-			
+
 			try {
-				
+
 				result = parlamentarController.insertAll(responseHandler);
-				
+
 				if (result == true) {
 
-				    progressDialog.setMessage("Dados recebidos com sucesso!");
-				    
+					progressDialog.setMessage("Dados recebidos com sucesso!");
+
 				} else {
-					
-				    progressDialog.setMessage("Falha na requisição");
+
+					progressDialog.setMessage("Falha na requisição");
 				}
-				
+
 			} catch (Exception e) {
-				
+
 				progressDialog.dismiss();
 			}
 
 			Log.i("LOGS", "Sucesso da inicialização: " + result);
-			
+
 			return null;
 		}
-		
+
 		protected void onPostExecute(Void result) {
 			progressDialog.dismiss();
 		}
 	}
-	
+
 	private void startPopulateDB() {
 
 		ResponseHandler<String> responseHandler = HttpConnection
@@ -295,44 +302,41 @@ public class GuiMain extends Activity implements
 
 		return parlamentar;
 	}
-	
+
 	private void loadPSeguidoFragment() {
 		ParlamentarSeguidoListFragment newFragment = new ParlamentarSeguidoListFragment();
-		FragmentTransaction transaction = fragmentManager
-				.beginTransaction();
+		FragmentTransaction transaction = fragmentManager.beginTransaction();
 		transaction.replace(R.id.fragment_container, newFragment);
 		transaction.commit();
 	}
-	
+
 	private void loadParlamentarFragment() {
 		ParlamentarListFragment listFragment = new ParlamentarListFragment();
-		FragmentTransaction transaction = fragmentManager
-				.beginTransaction();
-		transaction.replace(R.id.fragment_container,
-				listFragment);
+		FragmentTransaction transaction = fragmentManager.beginTransaction();
+		transaction.replace(R.id.fragment_container, listFragment);
 		transaction.commit();
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.options_menu, menu);
-	    return true;
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.options_menu, menu);
+		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-	    switch (item.getItemId()) {
-	    case R.id.search:
-	        Button b = (Button) findViewById(R.id.btn_ic_rolagem);
-	        b.performClick();
-	        //b.setClickable(false);
-	        return true;
-	    default:
-	        break;
-	    }
+		switch (item.getItemId()) {
+		case R.id.search:
+			Button b = (Button) findViewById(R.id.btn_ic_rolagem);
+			b.performClick();
+			// b.setClickable(false);
+			return true;
+		default:
+			break;
+		}
 
-	    return false;
+		return false;
 	}
 
 }
