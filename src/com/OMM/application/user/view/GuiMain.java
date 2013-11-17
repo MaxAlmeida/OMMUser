@@ -20,7 +20,6 @@ import android.widget.Toast;
 
 import com.OMM.application.user.R;
 import com.OMM.application.user.controller.ParlamentarUserController;
-import com.OMM.application.user.dao.ParlamentarUserDao;
 import com.OMM.application.user.model.Parlamentar;
 import com.OMM.application.user.requests.HttpConnection;
 
@@ -38,32 +37,8 @@ public class GuiMain extends Activity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.gui_main);
-		fragmentManager = this.getFragmentManager();
-
-		/*
-		 * TODO Retirar esse código após primaira instalação paraEvitar a
-		 * criação de muitos parlamentares locaiscódigo usado apenas para teste,
-		 * quebra o esquemaarquitetural do MVC.
-		 */
-		// inicializa o banco e cria se ele nao existir
-		 ParlamentarUserDao dao = ParlamentarUserDao.getInstance(getBaseContext());
-		 /*Parlamentar po = new Parlamentar();
-		 po.setId(54373);
-		 po.setNome("Tiririca");
-		 po.setPartido("pcdob");
-		 po.setSeguido(0);
-		 po.setUf("DF");
-	     dao.insert(po);
-	     
-		 Parlamentar poe = new Parlamentar();
-		 poe.setId(54379);
-		 poe.setNome("Ramon");
-		 poe.setPartido("pcdob");
-		 poe.setSeguido(1);
-		 poe.setUf("DF");
-	     dao.insert(poe);	*/     
-         
-	     dao.checkEmptyDB();
+		fragmentManager = this.getFragmentManager();    
+        
 		if (findViewById(R.id.fragment_container) != null) {
 
 			/* cria a primeira lista */
@@ -120,10 +95,9 @@ public class GuiMain extends Activity implements
 						loadParlamentarFragment();
 						Toast.makeText(getBaseContext(), PESQUISA,
 								Toast.LENGTH_SHORT).show();
-					}
-
-					
+					}			
 				});
+		
 		btn_ranking_main.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -131,7 +105,6 @@ public class GuiMain extends Activity implements
 				loadPSeguidoFragment();
 				Toast.makeText(getBaseContext(), RANKINGS, Toast.LENGTH_SHORT)
 						.show();
-
 			}
 
 		});
@@ -158,6 +131,8 @@ public class GuiMain extends Activity implements
 				}
 			}
 		});
+		
+		// TODO: requisição e tratamento da chamada da startRequestAll 
 	}
 
 	@Override
@@ -215,8 +190,12 @@ public class GuiMain extends Activity implements
 			detailFragment.setText(parlamentar.getNome());
 		}
 	}
+	
+	// TODO: initializeDBTask
+	
+	// TODO: metodo de chamada da initializeDBTask
 
-	private class BuscaTask extends AsyncTask<Object, Void, String> {
+	private class BuscaTask extends AsyncTask<Object, Void, Parlamentar> {
 		ProgressDialog progressDialog;
 
 		@Override
@@ -227,7 +206,7 @@ public class GuiMain extends Activity implements
 
 		@SuppressWarnings("unchecked")
 		@Override
-		protected String doInBackground(Object... params) {
+		protected Parlamentar doInBackground(Object... params) {
 
 			ParlamentarUserController parlamentarController = ParlamentarUserController
 					.getInstance(getBaseContext());
@@ -243,13 +222,11 @@ public class GuiMain extends Activity implements
 			}
 			Log.i("LOGS", "Parlamentar:" + parlamentar.getNome());
 
-			String objeto = parlamentar.toString();
-
-			return objeto;
+			return parlamentar;
 		}
 
 		@Override
-		protected void onPostExecute(final String result) {
+		protected void onPostExecute(final Parlamentar result) {
 
 			progressDialog.dismiss();
 		}

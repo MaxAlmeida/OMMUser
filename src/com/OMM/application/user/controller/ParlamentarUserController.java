@@ -1,6 +1,5 @@
 package com.OMM.application.user.controller;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.http.client.ResponseHandler;
@@ -124,7 +123,6 @@ public class ParlamentarUserController {
 		return result;
 	}
 	
-	// TODO: criar metodo para chamar a checkEmptyDB da DAO
 	public boolean checkEmptyDB() {
 		
 		boolean result = parlamentarDao.checkEmptyDB();

@@ -58,7 +58,6 @@ public class ParlamentarUserDao {
 
 		ctv.put("ID_PARLAMENTAR", po.getId());
 		ctv.put("NOME_PARLAMENTAR", po.getNome());
-		ctv.put("SEGUIDO", po.isSeguido());
 
 		return (db.insert(nome_tabela, null, ctv) > 0);
 	}
