@@ -21,14 +21,16 @@ public class CotaParlamentarUserDao {
 	// "ID_COTA,ID_PARLAMENTAR, NUM_SUBCOTA ,DESCRICAO,MES,ANO,VALOR" };
 	// private static Parlamentar parlamentar;
 
-	private CotaParlamentarUserDao() {
+	private CotaParlamentarUserDao(Context context) {
+		this.context=context;
 		// Empty Constructor
 	}
 	
-	public static CotaParlamentarUserDao getInstance() {
+	public static CotaParlamentarUserDao getInstance(Context context) {
 
-		if (instance == null) {
-			instance = new CotaParlamentarUserDao();
+		if (instance == null)
+		{
+			instance = new CotaParlamentarUserDao(context);
 		}
 
 		return instance;

@@ -52,6 +52,7 @@ public class GuiMain extends Activity implements
 		final Button btn_pesquisar_parlamentar = (Button) findViewById(R.id.btn_pesquisar_parlamentar);
 		final Button btn_ranking_main = (Button) findViewById(R.id.btn_ranking);
 		final Button btn_mostra_outros = (Button) findViewById(R.id.btn_ic_rolagem);
+		
 
 		// agora vc deve implementar os metodos de captura de eventos
 
@@ -131,6 +132,8 @@ public class GuiMain extends Activity implements
 				}
 			}
 		});
+		
+		
 
 		ParlamentarUserController parlamentarController = ParlamentarUserController
 				.getInstance(getBaseContext());
@@ -151,7 +154,9 @@ public class GuiMain extends Activity implements
 		transaction.addToBackStack(null);
 		transaction.commitAllowingStateLoss();
 		getFragmentManager().executePendingTransactions();
-		detailFragment.setText(parlamentar.getNome());
+		detailFragment.setText(parlamentar);
+		
+		
 	}
 	
 	/*private void updateListFragment(ListFragment newFragment) {

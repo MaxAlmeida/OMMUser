@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.apache.http.client.ResponseHandler;
 
+import android.content.Context;
+
 import com.OMM.application.user.dao.CotaParlamentarUserDao;
 import com.OMM.application.user.exceptions.NullParlamentarException;
 import com.OMM.application.user.helper.JSONHelper;
@@ -17,15 +19,17 @@ public class CeapUserController {
 
 	private static CeapUserController instance;
 
-	private CeapUserController() {
-		// Empty Constructor
+	private CotaParlamentarUserDao cotaDao;
+	private CeapUserController(Context context) {
+		this.cotaDao=CotaParlamentarUserDao.getInstance(context);
+		
 	}
 
-	public static CeapUserController getInstance() {
+	public static CeapUserController getInstance(Context context) {
 
 		if (instance == null) {
 
-			instance = new CeapUserController();
+			instance = new CeapUserController(context);
 		}
 
 		return instance;
@@ -46,16 +50,11 @@ public class CeapUserController {
 		}
 	}
 
-	public boolean persistCotaDB(ResponseHandler<String> response,
-			Parlamentar parlamentar) throws NullParlamentarException {
+	public boolean persistCotaDB(Parlamentar parlamentar) throws NullParlamentarException {
 
 		boolean result = true;
-		String urlCota = MontaURL.mountURLCota(parlamentar.getId());
-		String jsonCota = HttpConnection.requestCota(response, urlCota);
-
-		List<CotaParlamentar> cotas = convertJsonToCotaParlamentar(jsonCota);
-		CotaParlamentarUserDao cotaDao = CotaParlamentarUserDao.getInstance();
-
+		
+		List<CotaParlamentar> cotas=parlamentar.getCotas();
 		Iterator<CotaParlamentar> iterator = cotas.iterator();
 
 		while (iterator.hasNext()) {
