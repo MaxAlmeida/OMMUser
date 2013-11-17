@@ -1,5 +1,7 @@
 package com.OMM.application.user.view;
 
+import java.util.List;
+
 import org.apache.http.client.ResponseHandler;
 
 import android.app.Activity;
@@ -191,7 +193,53 @@ public class GuiMain extends Activity implements
 		}
 	}
 	
-	// TODO: initializeDBTask
+	private class initializeDBTask extends AsyncTask<Object, Void, Void> {
+		ProgressDialog progressDialog;
+		
+		@Override
+		protected void onPreExecute() {
+			progressDialog = ProgressDialog.show(GuiMain.this, "Aguarde...",
+					"Buscando Dados");
+		}
+		
+		@SuppressWarnings("unchecked")
+		@Override
+		protected Void doInBackground(Object... params) {
+			
+			ParlamentarUserController parlamentarController = ParlamentarUserController
+					.getInstance(getBaseContext());
+
+			ResponseHandler<String> responseHandler = (ResponseHandler<String>) params[0];
+
+			boolean result = false;
+			
+			try {
+				
+				result = parlamentarController.insertAll(responseHandler);
+				
+				if (result == true) {
+
+				    progressDialog.setMessage("Dados recebidos com sucesso!");
+				    
+				} else {
+					
+				    progressDialog.setMessage("Falha na requisição");
+				}
+				
+			} catch (Exception e) {
+				
+				progressDialog.dismiss();
+			}
+
+			Log.i("LOGS", "Sucesso da inicialização: " + result);
+			
+			return null;
+		}
+		
+		protected void onPostExecute(Void result) {
+			progressDialog.dismiss();
+		}
+	}
 	
 	// TODO: metodo de chamada da initializeDBTask
 
