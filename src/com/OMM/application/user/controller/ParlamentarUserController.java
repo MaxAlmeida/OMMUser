@@ -1,5 +1,6 @@
 package com.OMM.application.user.controller;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.http.client.ResponseHandler;
@@ -115,7 +116,30 @@ public class ParlamentarUserController {
 		}
 	}
 
-	// TODO: criar metodo insertAll
+	public boolean insertAll(ResponseHandler<String> response) throws
+	NullParlamentarException {
+ 
+	String url = MontaURL.mountUrlAll(); 
+	String resposta = HttpConnection.requisicaoParlamentar(response, url); 
+	List<Parlamentar> parlamentares = populateList(resposta);
+
+	boolean initialized; 
+ 
+	if (parlamentarDao.checkEmptyDB()) {
+		Iterator<Parlamentar> iterator = parlamentares.iterator();
+		
+		while(iterator.hasNext()){ 
+			parlamentarDao.insert(iterator.next()); 
+		}
+ 
+		initialized = true; 
+ 
+	} else {
+		initialized = false; 
+	}
+
+	return initialized; 
+}
 
 	public List<Parlamentar> getAllSelected() {
 
