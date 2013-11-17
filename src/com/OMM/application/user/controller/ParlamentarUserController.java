@@ -116,25 +116,18 @@ public class ParlamentarUserController {
 		}
 	}
 
-	/*
-	 * public boolean insertAll(ResponseHandler<String> parametro) throws
-	 * NullParlamentarException{
-	 * 
-	 * String url = MontaURL.mountUrlAll(); String resposta =
-	 * HttpConnection.requisicao(parametro, url); List<Parlamentar>
-	 * parlamentares = populateList(resposta);
-	 * 
-	 * boolean initialized; if (parlamentarDao.checkEmptyDB()()){
-	 * Iterator<Parlamentar> iterator = parlamentares.iterator();
-	 * while(iterator.hasNext()){ parlamentarDao.insert(iterator.next()); }
-	 * 
-	 * initialized = true; } else { initialized = false; }
-	 * 
-	 * return initialized; }
-	 */
+	// TODO: criar metodo insertAll
 
 	public List<Parlamentar> getAllSelected() {
 
-		return parlamentarDao.getAllSelected();
+		List<Parlamentar> result = parlamentarDao.getAllSelected();	
+		return result;
+	}
+	
+	// TODO: criar metodo para chamar a checkEmptyDB da DAO
+	public boolean checkEmptyDB() {
+		
+		boolean result = parlamentarDao.checkEmptyDB();
+		return result;
 	}
 }
