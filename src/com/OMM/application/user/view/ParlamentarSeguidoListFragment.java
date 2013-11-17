@@ -27,12 +27,13 @@ public class ParlamentarSeguidoListFragment extends ListFragment {
 		super.onCreate(savedInstanceState);
 
 		ParlamentarUserController controllerParlamentar = ParlamentarUserController.getInstance(getActivity());
-		// TODO construir chamada dao parlamentares seguidos
 		List<Parlamentar> list = controllerParlamentar.getAllSelected();
 
 		ParlamentarSeguidoAdapter adapter = new ParlamentarSeguidoAdapter(
 				getActivity(), R.layout.fragment_parlamentar_seguido, list);
 
+		adapter = new ParlamentarSeguidoAdapter(getActivity(),
+				R.layout.fragment_parlamentar_seguido, list);
 		setListAdapter(adapter);
 		setRetainInstance(false);
 

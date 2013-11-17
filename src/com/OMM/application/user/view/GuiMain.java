@@ -144,59 +144,43 @@ public class GuiMain extends Activity implements
 		}
 	}
 
+	private void updateFragment(Parlamentar parlamentar, int viewId) {
+		ParlamentarDetailFragment detailFragment = new ParlamentarDetailFragment();
+		FragmentTransaction transaction = fragmentManager.beginTransaction();
+		transaction.replace(viewId, detailFragment);
+		transaction.addToBackStack(null);
+		transaction.commitAllowingStateLoss();
+		getFragmentManager().executePendingTransactions();
+		detailFragment.setText(parlamentar.getNome());
+	}
+	
+	/*private void updateListFragment(ListFragment newFragment) {
+		FragmentTransaction transaction = fragmentManager.beginTransaction();
+		transaction.replace(R.id.fragment_container, newFragment);
+		transaction.commit();
+	}*/
+	
+	
 	@Override
 	public void OnParlamentarSeguidoSelected(Parlamentar parlamentar) {
 		/* Substitui o detalhe */
 		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-			ParlamentarDetailFragment detailFragment = new ParlamentarDetailFragment();
-			FragmentTransaction transaction = fragmentManager
-					.beginTransaction();
-			transaction.replace(R.id.fragment_container, detailFragment);
-			// transaction.addToBackStack(null);
-			transaction.commitAllowingStateLoss();
-			getFragmentManager().executePendingTransactions();
-			detailFragment.setText(parlamentar.getNome());
+			updateFragment(parlamentar, R.id.fragment_container);
 
 		} else {
-			ParlamentarDetailFragment detailFragment = new ParlamentarDetailFragment();
-			FragmentTransaction transaction = fragmentManager
-					.beginTransaction();
-			transaction.replace(R.id.detail_fragment_container, detailFragment);
-			transaction.addToBackStack(null);
-			transaction.commit();
-			getFragmentManager().executePendingTransactions();
-			detailFragment.setText(parlamentar.getNome());
+			updateFragment(parlamentar, R.id.detail_fragment_container);
 		}
 	}
 
 	@Override
 	public void OnParlamentarSelected(Parlamentar parlamentar) {
 
-		parlamentar = startRequest(parlamentar);
-		if (parlamentar != null) {
-			// 1. Instantiate an AlertDialog.Builder with its constructor
-
-		}
 		/* Substitui o detalhe */
 		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-			ParlamentarDetailFragment detailFragment = new ParlamentarDetailFragment();
-			FragmentTransaction transaction = fragmentManager
-					.beginTransaction();
-			transaction.replace(R.id.fragment_container, detailFragment);
-			// transaction.addToBackStack(null);
-			transaction.commitAllowingStateLoss();
-			getFragmentManager().executePendingTransactions();
-			detailFragment.setText(parlamentar.getNome());
+			updateFragment(parlamentar, R.id.fragment_container);
 
 		} else {
-			ParlamentarDetailFragment detailFragment = new ParlamentarDetailFragment();
-			FragmentTransaction transaction = fragmentManager
-					.beginTransaction();
-			transaction.replace(R.id.detail_fragment_container, detailFragment);
-			transaction.addToBackStack(null);
-			transaction.commit();
-			getFragmentManager().executePendingTransactions();
-			detailFragment.setText(parlamentar.getNome());
+			updateFragment(parlamentar, R.id.detail_fragment_container);
 		}
 	}
 
@@ -254,53 +238,6 @@ public class GuiMain extends Activity implements
 				.getResponseHandler();
 		initializeDBTask task = new initializeDBTask();
 		task.execute(responseHandler);
-	}
-
-	private class BuscaTask extends AsyncTask<Object, Void, Parlamentar> {
-		ProgressDialog progressDialog;
-
-		@Override
-		protected void onPreExecute() {
-			progressDialog = ProgressDialog.show(GuiMain.this, "Aguarde...",
-					"Buscando Dados");
-		}
-
-		@SuppressWarnings("unchecked")
-		@Override
-		protected Parlamentar doInBackground(Object... params) {
-
-			ParlamentarUserController parlamentarController = ParlamentarUserController
-					.getInstance(getBaseContext());
-
-			ResponseHandler<String> rh = (ResponseHandler<String>) params[0];
-
-			Parlamentar parlamentar = (Parlamentar) params[1];
-			try {
-				parlamentar = parlamentarController.doRequest(rh,
-						parlamentar.getId());
-			} catch (Exception e) {
-				progressDialog.dismiss();
-			}
-			Log.i("LOGS", "Parlamentar:" + parlamentar.getNome());
-
-			return parlamentar;
-		}
-
-		@Override
-		protected void onPostExecute(final Parlamentar result) {
-
-			progressDialog.dismiss();
-		}
-	}
-
-	private Parlamentar startRequest(Parlamentar parlamentar) {
-
-		ResponseHandler<String> responseHandler = HttpConnection
-				.getResponseHandler();
-		BuscaTask task = new BuscaTask();
-		task.execute(responseHandler, parlamentar);
-
-		return parlamentar;
 	}
 
 	private void loadPSeguidoFragment() {
