@@ -241,7 +241,13 @@ public class GuiMain extends Activity implements
 		}
 	}
 	
-	// TODO: metodo de chamada da initializeDBTask
+	private void startPopulateDB() {
+
+		ResponseHandler<String> responseHandler = HttpConnection
+				.getResponseHandler();
+		initializeDBTask task = new initializeDBTask();
+		task.execute(responseHandler);
+	}
 
 	private class BuscaTask extends AsyncTask<Object, Void, Parlamentar> {
 		ProgressDialog progressDialog;
