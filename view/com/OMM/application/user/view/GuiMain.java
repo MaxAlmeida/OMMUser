@@ -5,6 +5,7 @@ import org.apache.http.client.ResponseHandler;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.ListFragment;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -93,7 +94,8 @@ public class GuiMain extends Activity implements
 						View view = findViewById(R.id.search);
 						view.performClick();
 						/* Substitui a lista */
-						loadParlamentarFragment();
+						ParlamentarListFragment listFragment = new ParlamentarListFragment(); 
+						loadFragment(listFragment);
 						Toast.makeText(getBaseContext(), PESQUISA,
 								Toast.LENGTH_SHORT).show();
 					}
@@ -103,7 +105,8 @@ public class GuiMain extends Activity implements
 
 			@Override
 			public void onClick(View v) {
-				loadPSeguidoFragment();
+				ParlamentarSeguidoListFragment listFragment = new ParlamentarSeguidoListFragment(); 
+				loadFragment(listFragment);
 				Toast.makeText(getBaseContext(), RANKINGS, Toast.LENGTH_SHORT)
 						.show();
 			}
@@ -245,15 +248,14 @@ public class GuiMain extends Activity implements
 		task.execute(responseHandler);
 	}
 
-	private void loadPSeguidoFragment() {
-		ParlamentarSeguidoListFragment newFragment = new ParlamentarSeguidoListFragment();
-		FragmentTransaction transaction = fragmentManager.beginTransaction();
-		transaction.replace(R.id.fragment_container, newFragment);
-		transaction.commit();
-	}
+//	private void loadPSeguidoFragment() {
+//		ParlamentarSeguidoListFragment newFragment = new ParlamentarSeguidoListFragment();
+//		FragmentTransaction transaction = fragmentManager.beginTransaction();
+//		transaction.replace(R.id.fragment_container, newFragment);
+//		transaction.commit();
+//	}
 
-	private void loadParlamentarFragment() {
-		ParlamentarListFragment listFragment = new ParlamentarListFragment();
+	private void loadFragment(ListFragment listFragment) {		
 		FragmentTransaction transaction = fragmentManager.beginTransaction();
 		transaction.replace(R.id.fragment_container, listFragment);
 		transaction.commit();
