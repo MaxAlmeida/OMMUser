@@ -12,7 +12,7 @@
 
     <instrumentation
         android:name="android.test.InstrumentationTestRunner"
-        android:targetPackage="com.OMM.application.user" >
+        android:targetPackage="com.OMM.test.user" >
     </instrumentation>
 
     <application

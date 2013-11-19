@@ -53,7 +53,6 @@ public class GuiMain extends Activity implements
 		final Button btn_pesquisar_parlamentar = (Button) findViewById(R.id.btn_pesquisar_parlamentar);
 		final Button btn_ranking_main = (Button) findViewById(R.id.btn_ranking);
 		final Button btn_mostra_outros = (Button) findViewById(R.id.btn_ic_rolagem);
-		
 
 		// agora vc deve implementar os metodos de captura de eventos
 
@@ -91,7 +90,7 @@ public class GuiMain extends Activity implements
 						View view = findViewById(R.id.search);
 						view.performClick();
 						/* Substitui a lista */
-						ParlamentarListFragment listFragment = new ParlamentarListFragment(); 
+						ParlamentarListFragment listFragment = new ParlamentarListFragment();
 						loadFragment(listFragment);
 						Toast.makeText(getBaseContext(), PESQUISA,
 								Toast.LENGTH_SHORT).show();
@@ -102,7 +101,7 @@ public class GuiMain extends Activity implements
 
 			@Override
 			public void onClick(View v) {
-				ParlamentarSeguidoListFragment listFragment = new ParlamentarSeguidoListFragment(); 
+				ParlamentarSeguidoListFragment listFragment = new ParlamentarSeguidoListFragment();
 				loadFragment(listFragment);
 				Toast.makeText(getBaseContext(), RANKINGS, Toast.LENGTH_SHORT)
 						.show();
@@ -132,7 +131,7 @@ public class GuiMain extends Activity implements
 				}
 			}
 		});
-		
+
 		ParlamentarUserController parlamentarController = ParlamentarUserController
 				.getInstance(getBaseContext());
 
@@ -153,9 +152,9 @@ public class GuiMain extends Activity implements
 		transaction.commitAllowingStateLoss();
 		getFragmentManager().executePendingTransactions();
 		detailFragment.setText(parlamentar);
-		
+
 	}
-	
+
 	@Override
 	public void OnParlamentarSeguidoSelected(Parlamentar parlamentar) {
 		/* Substitui o detalhe */
@@ -184,7 +183,8 @@ public class GuiMain extends Activity implements
 
 		@Override
 		protected void onPreExecute() {
-			progressDialog = ProgressDialog.show(GuiMain.this, "Instalando Banco de Dados...",
+			progressDialog = ProgressDialog.show(GuiMain.this,
+					"Instalando Banco de Dados...",
 					"Isso pode demorar alguns minutos");
 		}
 
@@ -235,14 +235,15 @@ public class GuiMain extends Activity implements
 		task.execute(responseHandler);
 	}
 
-//	private void loadPSeguidoFragment() {
-//		ParlamentarSeguidoListFragment newFragment = new ParlamentarSeguidoListFragment();
-//		FragmentTransaction transaction = fragmentManager.beginTransaction();
-//		transaction.replace(R.id.fragment_container, newFragment);
-//		transaction.commit();
-//	}
+	// private void loadPSeguidoFragment() {
+	// ParlamentarSeguidoListFragment newFragment = new
+	// ParlamentarSeguidoListFragment();
+	// FragmentTransaction transaction = fragmentManager.beginTransaction();
+	// transaction.replace(R.id.fragment_container, newFragment);
+	// transaction.commit();
+	// }
 
-	private void loadFragment(ListFragment listFragment) {		
+	private void loadFragment(ListFragment listFragment) {
 		FragmentTransaction transaction = fragmentManager.beginTransaction();
 		transaction.replace(R.id.fragment_container, listFragment);
 		transaction.commit();

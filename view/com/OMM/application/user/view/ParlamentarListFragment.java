@@ -57,7 +57,6 @@ public class ParlamentarListFragment extends ListFragment {
 				position);
 		Toast.makeText(getActivity(), "toquei!", Toast.LENGTH_SHORT).show();
 		updateDetail(parlamentar);
-		
 
 	}
 
@@ -130,11 +129,9 @@ public class ParlamentarListFragment extends ListFragment {
 	public void updateDetail(Parlamentar parlamentar) {
 
 		parlamentar = startRequest(parlamentar);
-	
-		
-		//listener.OnParlamentarSelected(startRequest(parlamentar));
-	}
 
+		// listener.OnParlamentarSelected(startRequest(parlamentar));
+	}
 
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {

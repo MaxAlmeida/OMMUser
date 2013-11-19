@@ -26,7 +26,8 @@ public class ParlamentarSeguidoListFragment extends ListFragment {
 
 		super.onCreate(savedInstanceState);
 
-		ParlamentarUserController controllerParlamentar = ParlamentarUserController.getInstance(getActivity());
+		ParlamentarUserController controllerParlamentar = ParlamentarUserController
+				.getInstance(getActivity());
 		List<Parlamentar> list = controllerParlamentar.getAllSelected();
 
 		ParlamentarSeguidoAdapter adapter = new ParlamentarSeguidoAdapter(
@@ -82,10 +83,10 @@ public class ParlamentarSeguidoListFragment extends ListFragment {
 
 	public void setListContent(List<Parlamentar> result) {
 
-//		ArrayAdapter listAdapter = (ArrayAdapter) getListAdapter();
-//		listAdapter.clear();
-//		listAdapter.addAll(result);
-//		parseTask.setFragment(null);
+		// ArrayAdapter listAdapter = (ArrayAdapter) getListAdapter();
+		// listAdapter.clear();
+		// listAdapter.addAll(result);
+		// parseTask.setFragment(null);
 
 	}
 

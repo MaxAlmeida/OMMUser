@@ -5,24 +5,23 @@
     android:background="@drawable/fundo"
     android:orientation="vertical" >
 
-   <LinearLayout
-       android:id="@+id/fragment"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:baselineAligned="false" >
+    <LinearLayout
+        android:id="@+id/fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:baselineAligned="false" >
 
-       <FrameLayout
-           android:id="@+id/fragment_container"
-           android:layout_width="0dip"
-           android:layout_height="match_parent"
-           android:layout_marginLeft="6dp"
-           android:layout_marginRight="6dp"
-           android:layout_weight="0.76"
-           android:orientation="vertical" >
-       </FrameLayout>
-   </LinearLayout>
-
-    <Button
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:layout_weight="0.76"
+            android:orientation="vertical" >
+        </FrameLayout>
+    </LinearLayout>
+    <Button
         android:id="@+id/btn_ic_rolagem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
