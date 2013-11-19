@@ -33,8 +33,6 @@ public class ParlamentarSeguidoListFragment extends ListFragment {
 		ParlamentarSeguidoAdapter adapter = new ParlamentarSeguidoAdapter(
 				getActivity(), R.layout.fragment_parlamentar_seguido, list);
 
-		adapter = new ParlamentarSeguidoAdapter(getActivity(),
-				R.layout.fragment_parlamentar_seguido, list);
 		setListAdapter(adapter);
 		setRetainInstance(false);
 

@@ -1,5 +1,7 @@
 package com.OMM.application.user.view;
 
+import java.util.List;
+
 import org.apache.http.client.ResponseHandler;
 
 import android.app.Activity;
@@ -7,6 +9,8 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.app.ProgressDialog;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
@@ -17,9 +21,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.OMM.application.user.R;
+import com.OMM.application.user.adapters.ParlamentarAdapter;
 import com.OMM.application.user.controller.ParlamentarUserController;
 import com.OMM.application.user.model.Parlamentar;
 import com.OMM.application.user.requests.HttpConnection;
@@ -47,6 +53,8 @@ public class GuiMain extends Activity implements
 			fragmentManager.beginTransaction()
 					.replace(R.id.fragment_container, fragment).commit();
 		}
+
+		handleIntent(getIntent());
 
 		final Button btn_sobre_main = (Button) findViewById(R.id.btn_sobre_main);
 		final Button btn_politico_main = (Button) findViewById(R.id.btn_politico_main);
@@ -253,6 +261,13 @@ public class GuiMain extends Activity implements
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.options_menu, menu);
+
+		SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+		SearchView searchView = (SearchView) menu.findItem(R.id.search)
+				.getActionView();
+		searchView.setSearchableInfo(searchManager
+				.getSearchableInfo(getComponentName()));
+
 		return true;
 	}
 
@@ -262,7 +277,9 @@ public class GuiMain extends Activity implements
 		case R.id.search:
 			Button b = (Button) findViewById(R.id.btn_ic_rolagem);
 			b.performClick();
-			// b.setClickable(false);
+			ListFragment f = (ListFragment) fragmentManager
+					.findFragmentById(R.id.fragment_container);
+
 			return true;
 		default:
 			break;
@@ -271,4 +288,30 @@ public class GuiMain extends Activity implements
 		return false;
 	}
 
+	@Override
+	protected void onNewIntent(Intent intent) {
+
+		handleIntent(intent);
+	}
+
+	private void handleIntent(Intent intent) {
+
+		if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+			String query = intent.getStringExtra(SearchManager.QUERY);
+			ListFragment listFragment = (ListFragment) fragmentManager
+					.findFragmentById(R.id.fragment_container);
+			ParlamentarUserController controller = ParlamentarUserController
+					.getInstance(getBaseContext());
+			List<Parlamentar> list = controller.getSelected(query);
+			if (list.size() >= 1) {
+				listFragment.setListAdapter(new ParlamentarAdapter(
+						getBaseContext(), R.layout.fragment_parlamentar, list));
+			}
+			else{
+				Toast.makeText(getBaseContext(),"Nenhum parlamentar com esse nome", Toast.LENGTH_SHORT).show();
+			}
+
+		}
+
+	}
 }
