@@ -77,10 +77,7 @@ public class GuiMain extends Activity implements
 			public void onClick(View v) {
 				/* Substitui a lista */
 				ParlamentarSeguidoListFragment listFragment = new ParlamentarSeguidoListFragment();
-				FragmentTransaction transaction = fragmentManager
-						.beginTransaction();
-				transaction.replace(R.id.fragment_container, listFragment);
-				transaction.commit();
+				loadFragment(listFragment);
 				Toast.makeText(getBaseContext(), SEGUIDOS, Toast.LENGTH_SHORT)
 						.show();
 			}
@@ -136,8 +133,6 @@ public class GuiMain extends Activity implements
 			}
 		});
 		
-		
-
 		ParlamentarUserController parlamentarController = ParlamentarUserController
 				.getInstance(getBaseContext());
 
@@ -159,15 +154,7 @@ public class GuiMain extends Activity implements
 		getFragmentManager().executePendingTransactions();
 		detailFragment.setText(parlamentar);
 		
-		
 	}
-	
-	/*private void updateListFragment(ListFragment newFragment) {
-		FragmentTransaction transaction = fragmentManager.beginTransaction();
-		transaction.replace(R.id.fragment_container, newFragment);
-		transaction.commit();
-	}*/
-	
 	
 	@Override
 	public void OnParlamentarSeguidoSelected(Parlamentar parlamentar) {

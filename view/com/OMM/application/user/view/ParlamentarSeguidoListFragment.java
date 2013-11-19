@@ -102,6 +102,7 @@ public class ParlamentarSeguidoListFragment extends ListFragment {
 	 * Faz a chamada para concatenar activities esse metodo so vai funcionar se
 	 * a interface anterior for implementada
 	 */
+
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
@@ -114,7 +115,7 @@ public class ParlamentarSeguidoListFragment extends ListFragment {
 		}
 	}
 
-	public void updateDetail(Parlamentar parlamentar) {
+	private void updateDetail(Parlamentar parlamentar) {
 
 		listener.OnParlamentarSeguidoSelected(parlamentar);
 	}
