@@ -7,6 +7,7 @@ import org.apache.http.client.ResponseHandler;
 import android.app.Activity;
 import android.app.ListFragment;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,8 +15,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.webkit.WebView.FindListener;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Toast;
+import android.widget.SearchView.OnQueryTextListener;
 
 import com.OMM.application.user.R;
 import com.OMM.application.user.adapters.ParlamentarAdapter;
@@ -27,19 +33,16 @@ public class ParlamentarListFragment extends ListFragment {
 
 	private OnParlamentarSelectedListener listener;
 	private static ParlamentarUserController controllerParlamentar;
-	ParseTask parseTask;
+	private ParseTask parseTask;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
 
-		/**
-		 * criando um botão ou campo de pesquisa na action bar da activity.
-		 * */
-		
-		controllerParlamentar = ParlamentarUserController.getInstance(getActivity());
-		
+		controllerParlamentar = ParlamentarUserController
+				.getInstance(getActivity());
+
 		setHasOptionsMenu(true);
 
 		ParlamentarUserController controllerParlamentar = ParlamentarUserController
@@ -62,7 +65,7 @@ public class ParlamentarListFragment extends ListFragment {
 		updateDetail(parlamentar);
 
 	}
-	//TODO corigir chamada da controller e bug NullPointer Exception
+
 	private static class ParseTask extends
 			AsyncTask<String, Void, List<Parlamentar>> {
 
@@ -74,7 +77,8 @@ public class ParlamentarListFragment extends ListFragment {
 
 		@Override
 		protected List<Parlamentar> doInBackground(String... params) {
-			List<Parlamentar> result = controllerParlamentar.getSelected(params[0]);
+			List<Parlamentar> result = controllerParlamentar
+					.getSelected(params[0]);
 			return result;
 		}
 
@@ -86,37 +90,36 @@ public class ParlamentarListFragment extends ListFragment {
 		}
 	}
 
-	public void updateListContent(String nome) {
+	public void updateListContent(String inputText) {
 
 		if (parseTask == null) {
 			parseTask = new ParseTask();
 			parseTask.setFragment(this);
-			parseTask.execute(nome);
+		}
+		try {
+			parseTask.execute(inputText);
+
+		}
+		// TODO tratar com a devida excessão lançada.
+		catch (Exception e) {
+			// IllegalStateException
 		}
 	}
 
 	public void setListContent(List<Parlamentar> result) {
 
-		// ArrayAdapter listAdapter = (ArrayAdapter) getListAdapter();
-		// listAdapter.clear();
-		// listAdapter.addAll(result);
-		// parseTask.setFragment(null);
+		ArrayAdapter<Parlamentar> listAdapter = (ArrayAdapter<Parlamentar>) getListAdapter();
+		listAdapter.clear();
+		listAdapter.addAll(result);
+		parseTask.setFragment(null);
+		parseTask = null;
 
 	}
 
-	/*
-	 * Responsavel por chamar uma activity, a natureza do fragment nao permite q
-	 * ele chame activities, enta eh preciso criar uma interface para outra
-	 * activity fazer a chamada, logo... a Main faz.
-	 */
 	public interface OnParlamentarSelectedListener {
 		public void OnParlamentarSelected(Parlamentar parlamentar);
 	}
 
-	/*
-	 * Faz a chamada para concatenar activities esse metodo so vai funcionar se
-	 * a interface anterior for implementada
-	 */
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
@@ -130,32 +133,36 @@ public class ParlamentarListFragment extends ListFragment {
 	}
 
 	public void updateDetail(Parlamentar parlamentar) {
-
 		parlamentar = startRequest(parlamentar);
-
-		// listener.OnParlamentarSelected(startRequest(parlamentar));
 	}
 
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		// Do something that differs the Activity's menu here
+
 		super.onCreateOptionsMenu(menu, inflater);
+		MenuItem search = menu.add("Pesquisa");
+		final SearchView sv = new SearchView(getActivity());
+		search.setActionView(sv);
+		search.setIcon(R.drawable.ic_search);
+		search.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		search.setNumericShortcut('0');
+		sv.setOnQueryTextListener(new OnQueryTextListener() {
+			@Override
+			public boolean onQueryTextSubmit(String query) {
+				updateListContent(query);
+				hideKeyboard();
+				return true;
+			}
+
+			@Override
+			public boolean onQueryTextChange(String newText) {
+				updateListContent(newText);
+				return false;
+			}
+		});
 	}
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.search:
-			// Not implemented here
-			return false;
-		default:
-			break;
-		}
-
-		return false;
-	}
-
-	private class BuscaTask extends AsyncTask<Object, Void, Parlamentar> {
+	private class RequestTask extends AsyncTask<Object, Void, Parlamentar> {
 		ProgressDialog progressDialog;
 
 		@Override
@@ -164,24 +171,22 @@ public class ParlamentarListFragment extends ListFragment {
 					"Buscando Dados");
 		}
 
-		@SuppressWarnings("unchecked")
 		@Override
 		protected Parlamentar doInBackground(Object... params) {
 
 			ParlamentarUserController parlamentarController = ParlamentarUserController
 					.getInstance(getActivity());
-
 			ResponseHandler<String> rh = (ResponseHandler<String>) params[0];
-
 			Parlamentar parlamentar = (Parlamentar) params[1];
 			try {
 				parlamentar = parlamentarController.doRequest(rh,
 						parlamentar.getId());
-			} catch (Exception e) {
+			}
+			// TODO corrigir tratamento de excessão, deve ser lançado pela
+			// controller.
+			catch (Exception e) {
 				progressDialog.dismiss();
 			}
-			Log.i("LOGS", "Parlamentar:" + parlamentar.getNome());
-
 			return parlamentar;
 		}
 
@@ -197,9 +202,16 @@ public class ParlamentarListFragment extends ListFragment {
 
 		ResponseHandler<String> responseHandler = HttpConnection
 				.getResponseHandler();
-		BuscaTask task = new BuscaTask();
+		RequestTask task = new RequestTask();
 		task.execute(responseHandler, parlamentar);
 
 		return parlamentar;
+	}
+
+	private void hideKeyboard() {
+		InputMethodManager inputManager = (InputMethodManager) getActivity()
+				.getSystemService(Context.INPUT_METHOD_SERVICE);
+		inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus()
+				.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 	}
 }

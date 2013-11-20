@@ -22,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SearchView;
+import android.widget.SearchView.OnQueryTextListener;
 import android.widget.Toast;
 
 import com.OMM.application.user.R;
@@ -55,16 +56,15 @@ public class GuiMain extends Activity implements
 					.replace(R.id.fragment_container, fragment).commit();
 		}
 
-		
 		Parlamentar p = new Parlamentar();
 		p.setNome("tiririca");
 		p.setId(001);
 		p.setPartido("ptb");
-		ParlamentarUserDao dao = ParlamentarUserDao.getInstance(getBaseContext());
+		ParlamentarUserDao dao = ParlamentarUserDao
+				.getInstance(getBaseContext());
 		dao.insertParlamentar(p);
 		dao.insertParlamentar(p);
 		dao.insertParlamentar(p);
-		handleIntent(getIntent());
 
 		final Button btn_sobre_main = (Button) findViewById(R.id.btn_sobre_main);
 		final Button btn_politico_main = (Button) findViewById(R.id.btn_politico_main);
@@ -72,19 +72,11 @@ public class GuiMain extends Activity implements
 		final Button btn_ranking_main = (Button) findViewById(R.id.btn_ranking);
 		final Button btn_mostra_outros = (Button) findViewById(R.id.btn_ic_rolagem);
 
-		// agora vc deve implementar os metodos de captura de eventos
-
 		btn_sobre_main.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				// esse comando chama outra activity
-
-				startActivity(new Intent(getBaseContext(), GuiSobre.class));// corrigir
-																			// //
-																			// a
-																			// classe
-
+				startActivity(new Intent(getBaseContext(), GuiSobre.class));
 			}
 		});
 
@@ -105,9 +97,6 @@ public class GuiMain extends Activity implements
 
 					@Override
 					public void onClick(View v) {
-						View view = findViewById(R.id.search);
-						view.performClick();
-						/* Substitui a lista */
 						ParlamentarListFragment listFragment = new ParlamentarListFragment();
 						loadFragment(listFragment);
 						Toast.makeText(getBaseContext(), PESQUISA,
@@ -263,49 +252,7 @@ public class GuiMain extends Activity implements
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.options_menu, menu);
-
-		SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-		SearchView searchView = (SearchView) menu.findItem(R.id.search)
-				.getActionView();
-		searchView.setSearchableInfo(searchManager
-				.getSearchableInfo(getComponentName()));
-
 		return true;
 	}
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.search:
-			Button b = (Button) findViewById(R.id.btn_ic_rolagem);
-			b.performClick();
-			ListFragment f = (ListFragment) fragmentManager
-					.findFragmentById(R.id.fragment_container);
-
-			return true;
-		default:
-			break;
-		}
-
-		return false;
-	}
-
-	@Override
-	protected void onNewIntent(Intent intent) {
-
-		handleIntent(intent);
-	}
-
-	private void handleIntent(Intent intent) {
-
-		if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-			String query = intent.getStringExtra(SearchManager.QUERY);
-			ListFragment listFragment = (ListFragment) fragmentManager
-					.findFragmentById(R.id.fragment_container);
-			
-			((ParlamentarSeguidoListFragment) listFragment).updateListContent(query);
-
-		}
-
-	}
 }
