@@ -87,5 +87,13 @@ public class Parlamentar {
 	public void setCotas(List<CotaParlamentar> cotas) {
 		this.cotas = cotas;
 	}
+	
+	
+	public boolean equals(Parlamentar parlamentar){
+		//Completar com os outros atributos..
+		if (this.nome.equals(parlamentar.getNome()) && this.id==parlamentar.getId() && this.partido.equals(parlamentar.getPartido()))
+			return true;
+		return false;
+	}
 
 }

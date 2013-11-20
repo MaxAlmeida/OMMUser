@@ -211,6 +211,14 @@ public class CotaParlamentar {
 	public void setEspecificacao(String especificacao) {
 		this.especificacao = especificacao;
 	}
+	
+	public boolean equals(CotaParlamentar cota){
+		//Completar com os outros atributos..
+		if (this.id==cota.getId() && (this.idParlamentar==cota.getIdParlamentar()))
+			return true;
+		return false;
+		
+	}
 
 
 }

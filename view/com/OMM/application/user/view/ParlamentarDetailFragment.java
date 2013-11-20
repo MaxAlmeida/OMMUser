@@ -25,7 +25,35 @@ public class ParlamentarDetailFragment extends Fragment {
 		View view = inflater.inflate(R.layout.gui_detalhe,
 				container, false);
 		
-		((Button) view.findViewById(R.id.btn_detalhe_seguir)).setOnClickListener(new View.OnClickListener() {
+		final Button btn_detalhe_seguir = (Button) view.findViewById(R.id.btn_detalhe_seguir);
+		final Button btn_detalhe_desseguir = (Button) view.findViewById(R.id.btn_detalhe_desseguir);
+		btn_detalhe_desseguir.setVisibility(View.INVISIBLE);
+	
+		btn_detalhe_desseguir.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+				ParlamentarUserController parlamentarController;
+				parlamentarController=ParlamentarUserController.getInstance(getActivity());
+				
+				try{
+					parlamentar.setSeguido(0);
+				parlamentarController.unFollowedParlamentar(parlamentar);
+				Toast.makeText(getActivity(), "Parlamentar DesSeguido", Toast.LENGTH_SHORT).show();
+				btn_detalhe_desseguir.setVisibility(View.GONE);
+				btn_detalhe_seguir.setVisibility(View.VISIBLE);
+
+				}catch(NullParlamentarException nullEx)
+				{
+					Toast.makeText(getActivity(), "Deu pau,compre outro celular", Toast.LENGTH_SHORT).show();
+					
+				}
+			}
+		});
+		
+		
+		btn_detalhe_seguir.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -37,7 +65,9 @@ public class ParlamentarDetailFragment extends Fragment {
 					parlamentar.setSeguido(1);
 				parlamentarController.followedParlamentar(parlamentar);
 				Toast.makeText(getActivity(), "Parlamentar Seguido", Toast.LENGTH_SHORT).show();
-				
+				btn_detalhe_seguir.setVisibility(View.GONE);
+				btn_detalhe_desseguir.setVisibility(View.VISIBLE);
+
 				}catch(NullParlamentarException nullEx)
 				{
 					Toast.makeText(getActivity(), "Deu pau,compre outro celular", Toast.LENGTH_SHORT).show();
