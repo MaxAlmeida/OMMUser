@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.OMM.application.user.R;
 import com.OMM.application.user.adapters.ParlamentarAdapter;
 import com.OMM.application.user.controller.ParlamentarUserController;
+import com.OMM.application.user.dao.ParlamentarUserDao;
 import com.OMM.application.user.model.Parlamentar;
 import com.OMM.application.user.requests.HttpConnection;
 
@@ -54,6 +55,15 @@ public class GuiMain extends Activity implements
 					.replace(R.id.fragment_container, fragment).commit();
 		}
 
+		
+		Parlamentar p = new Parlamentar();
+		p.setNome("tiririca");
+		p.setId(001);
+		p.setPartido("ptb");
+		ParlamentarUserDao dao = ParlamentarUserDao.getInstance(getBaseContext());
+		dao.insertParlamentar(p);
+		dao.insertParlamentar(p);
+		dao.insertParlamentar(p);
 		handleIntent(getIntent());
 
 		final Button btn_sobre_main = (Button) findViewById(R.id.btn_sobre_main);
@@ -243,14 +253,6 @@ public class GuiMain extends Activity implements
 		task.execute(responseHandler);
 	}
 
-	// private void loadPSeguidoFragment() {
-	// ParlamentarSeguidoListFragment newFragment = new
-	// ParlamentarSeguidoListFragment();
-	// FragmentTransaction transaction = fragmentManager.beginTransaction();
-	// transaction.replace(R.id.fragment_container, newFragment);
-	// transaction.commit();
-	// }
-
 	private void loadFragment(ListFragment listFragment) {
 		FragmentTransaction transaction = fragmentManager.beginTransaction();
 		transaction.replace(R.id.fragment_container, listFragment);
@@ -300,16 +302,8 @@ public class GuiMain extends Activity implements
 			String query = intent.getStringExtra(SearchManager.QUERY);
 			ListFragment listFragment = (ListFragment) fragmentManager
 					.findFragmentById(R.id.fragment_container);
-			ParlamentarUserController controller = ParlamentarUserController
-					.getInstance(getBaseContext());
-			List<Parlamentar> list = controller.getSelected(query);
-			if (list.size() >= 1) {
-				listFragment.setListAdapter(new ParlamentarAdapter(
-						getBaseContext(), R.layout.fragment_parlamentar, list));
-			}
-			else{
-				Toast.makeText(getBaseContext(),"Nenhum parlamentar com esse nome", Toast.LENGTH_SHORT).show();
-			}
+			
+			((ParlamentarSeguidoListFragment) listFragment).updateListContent(query);
 
 		}
 

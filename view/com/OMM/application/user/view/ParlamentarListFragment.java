@@ -26,7 +26,7 @@ import com.OMM.application.user.requests.HttpConnection;
 public class ParlamentarListFragment extends ListFragment {
 
 	private OnParlamentarSelectedListener listener;
-
+	private static ParlamentarUserController controllerParlamentar;
 	ParseTask parseTask;
 
 	@Override
@@ -37,6 +37,9 @@ public class ParlamentarListFragment extends ListFragment {
 		/**
 		 * criando um botão ou campo de pesquisa na action bar da activity.
 		 * */
+		
+		controllerParlamentar = ParlamentarUserController.getInstance(getActivity());
+		
 		setHasOptionsMenu(true);
 
 		ParlamentarUserController controllerParlamentar = ParlamentarUserController
@@ -59,7 +62,7 @@ public class ParlamentarListFragment extends ListFragment {
 		updateDetail(parlamentar);
 
 	}
-
+	//TODO corigir chamada da controller e bug NullPointer Exception
 	private static class ParseTask extends
 			AsyncTask<String, Void, List<Parlamentar>> {
 
@@ -70,10 +73,9 @@ public class ParlamentarListFragment extends ListFragment {
 		}
 
 		@Override
-		protected List<Parlamentar> doInBackground(String... arg0) {
-			// TODO Auto-generated method stub
-			// Aqui vai aparecer a chamda da controller.
-			return null;
+		protected List<Parlamentar> doInBackground(String... params) {
+			List<Parlamentar> result = controllerParlamentar.getSelected(params[0]);
+			return result;
 		}
 
 		@Override
@@ -84,11 +86,12 @@ public class ParlamentarListFragment extends ListFragment {
 		}
 	}
 
-	public void updateListContent() {
+	public void updateListContent(String nome) {
 
 		if (parseTask == null) {
 			parseTask = new ParseTask();
 			parseTask.setFragment(this);
+			parseTask.execute(nome);
 		}
 	}
 

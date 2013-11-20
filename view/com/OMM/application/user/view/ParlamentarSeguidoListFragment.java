@@ -1,6 +1,7 @@
 package com.OMM.application.user.view;
 
 import java.util.List;
+import java.util.ResourceBundle.Control;
 
 import android.app.Activity;
 import android.app.ListFragment;
@@ -18,7 +19,7 @@ import com.OMM.application.user.model.Parlamentar;
 public class ParlamentarSeguidoListFragment extends ListFragment {
 
 	private OnParlamentarSeguidoSelectedListener listener;
-
+	private static ParlamentarUserController controllerParlamentar;
 	ParseTask parseTask;
 
 	@Override
@@ -26,7 +27,7 @@ public class ParlamentarSeguidoListFragment extends ListFragment {
 
 		super.onCreate(savedInstanceState);
 
-		ParlamentarUserController controllerParlamentar = ParlamentarUserController
+		controllerParlamentar = ParlamentarUserController
 				.getInstance(getActivity());
 		List<Parlamentar> list = controllerParlamentar.getAllSelected();
 
@@ -46,7 +47,7 @@ public class ParlamentarSeguidoListFragment extends ListFragment {
 		updateDetail(parlamentar);
 
 	}
-
+	//TODO corigir chamada da controller e bug NullPointer Exception
 	private static class ParseTask extends
 			AsyncTask<String, Void, List<Parlamentar>> {
 
@@ -57,10 +58,9 @@ public class ParlamentarSeguidoListFragment extends ListFragment {
 		}
 
 		@Override
-		protected List<Parlamentar> doInBackground(String... arg0) {
-			// TODO Auto-generated method stub
-			// Aqui vai aparecer a chamda da controller.
-			return null;
+		protected List<Parlamentar> doInBackground(String... params) {
+			List<Parlamentar> result = controllerParlamentar.getSelected(params[0]);
+			return result;
 		}
 
 		@Override
@@ -71,11 +71,12 @@ public class ParlamentarSeguidoListFragment extends ListFragment {
 		}
 	}
 
-	public void updateListContent() {
+	public void updateListContent(String nome) {
 
 		if (parseTask == null) {
 			parseTask = new ParseTask();
 			parseTask.setFragment(this);
+			parseTask.execute(nome);
 		}
 	}
 
