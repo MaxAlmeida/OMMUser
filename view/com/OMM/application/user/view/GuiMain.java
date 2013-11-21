@@ -31,6 +31,7 @@ public class GuiMain extends Activity implements
 	private static final String PESQUISA = "Pesquisar Parlamentar";
 	private static final String RANKINGS = "Rankings entre parlamentares";
 
+	private static ParlamentarUserController parlamentarController;
 	private static FragmentManager fragmentManager;
 
 	@Override
@@ -47,15 +48,15 @@ public class GuiMain extends Activity implements
 					.replace(R.id.fragment_container, fragment).commit();
 		}
 
-//		Parlamentar p = new Parlamentar();
-//		p.setNome("tiririca");
-//		p.setId(001);
-//		p.setPartido("ptb");
-//		ParlamentarUserDao dao = ParlamentarUserDao
-//				.getInstance(getBaseContext());
-//		dao.insertParlamentar(p);
-//		dao.insertParlamentar(p);
-//		dao.insertParlamentar(p);
+		// Parlamentar p = new Parlamentar();
+		// p.setNome("tiririca");
+		// p.setId(001);
+		// p.setPartido("ptb");
+		// ParlamentarUserDao dao = ParlamentarUserDao
+		// .getInstance(getBaseContext());
+		// dao.insertParlamentar(p);
+		// dao.insertParlamentar(p);
+		// dao.insertParlamentar(p);
 
 		final Button btn_sobre_main = (Button) findViewById(R.id.btn_sobre_main);
 		final Button btn_politico_main = (Button) findViewById(R.id.btn_politico_main);
@@ -99,6 +100,7 @@ public class GuiMain extends Activity implements
 
 			@Override
 			public void onClick(View v) {
+				// TODO Criar lista de Rankings aqui
 				ParlamentarSeguidoListFragment listFragment = new ParlamentarSeguidoListFragment();
 				loadFragment(listFragment);
 				Toast.makeText(getBaseContext(), RANKINGS, Toast.LENGTH_SHORT)
@@ -130,9 +132,8 @@ public class GuiMain extends Activity implements
 			}
 		});
 
-		ParlamentarUserController parlamentarController = ParlamentarUserController
+		parlamentarController = ParlamentarUserController
 				.getInstance(getBaseContext());
-
 		if (parlamentarController.checkEmptyDB() == true) {
 
 			startPopulateDB();

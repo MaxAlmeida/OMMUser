@@ -46,6 +46,7 @@ public class ParlamentarSeguidoListFragment extends ListFragment {
 		updateDetail(parlamentar);
 
 	}
+	
 	//TODO corigir chamada da controller e bug NullPointer Exception
 	private static class ParseTask extends
 			AsyncTask<String, Void, List<Parlamentar>> {
