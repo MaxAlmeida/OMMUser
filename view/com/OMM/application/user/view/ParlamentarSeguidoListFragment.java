@@ -1,7 +1,6 @@
 package com.OMM.application.user.view;
 
 import java.util.List;
-import java.util.ResourceBundle.Control;
 
 import android.app.Activity;
 import android.app.ListFragment;
