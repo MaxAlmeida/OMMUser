@@ -1,16 +1,14 @@
 package com.OMM.application.user.view;
 
-import java.util.List;
-
 import org.apache.http.client.ResponseHandler;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.app.ProgressDialog;
-import android.app.SearchManager;
-import android.content.Context;
+import android.app.AlertDialog.Builder;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
@@ -18,17 +16,16 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.SearchView;
-import android.widget.SearchView.OnQueryTextListener;
 import android.widget.Toast;
 
 import com.OMM.application.user.R;
-import com.OMM.application.user.adapters.ParlamentarAdapter;
 import com.OMM.application.user.controller.ParlamentarUserController;
 import com.OMM.application.user.dao.ParlamentarUserDao;
+import com.OMM.application.user.exceptions.ConnectionFailedException;
+import com.OMM.application.user.exceptions.NullParlamentarException;
+import com.OMM.application.user.exceptions.RequestFailedException;
 import com.OMM.application.user.model.Parlamentar;
 import com.OMM.application.user.requests.HttpConnection;
 
@@ -39,7 +36,7 @@ public class GuiMain extends Activity implements
 	private static final String SEGUIDOS = "Parlamentares Seguidos";
 	private static final String PESQUISA = "Pesquisar Parlamentar";
 	private static final String RANKINGS = "Rankings entre parlamentares";
-
+	private static final String LOGS = "GuiMain";
 	private static FragmentManager fragmentManager;
 
 	@Override
@@ -56,7 +53,7 @@ public class GuiMain extends Activity implements
 					.replace(R.id.fragment_container, fragment).commit();
 		}
 
-		Parlamentar p = new Parlamentar();
+		/*Parlamentar p = new Parlamentar();
 		p.setNome("tiririca");
 		p.setId(001);
 		p.setPartido("ptb");
@@ -64,7 +61,7 @@ public class GuiMain extends Activity implements
 				.getInstance(getBaseContext());
 		dao.insertParlamentar(p);
 		dao.insertParlamentar(p);
-		dao.insertParlamentar(p);
+		dao.insertParlamentar(p);*/
 
 		final Button btn_sobre_main = (Button) findViewById(R.id.btn_sobre_main);
 		final Button btn_politico_main = (Button) findViewById(R.id.btn_politico_main);
@@ -186,6 +183,8 @@ public class GuiMain extends Activity implements
 	}
 
 	private class initializeDBTask extends AsyncTask<Object, Void, Void> {
+		
+		
 		ProgressDialog progressDialog;
 
 		@Override
@@ -205,32 +204,45 @@ public class GuiMain extends Activity implements
 			ResponseHandler<String> responseHandler = (ResponseHandler<String>) params[0];
 
 			boolean result = false;
+			
+			Log.i(LOGS, "Vai entrar no try!" + result);
 
 			try {
 
 				result = parlamentarController.insertAll(responseHandler);
+				Log.i(LOGS, "Resultado no try:" + result);
+				
 
-				if (result == true) {
-
-					progressDialog.setMessage("Dados recebidos com sucesso!");
-
-				} else {
-
-					progressDialog.setMessage("Falha na requisição");
-				}
-
-			} catch (Exception e) {
-
+			} catch (ConnectionFailedException cfe) {
+				
 				progressDialog.dismiss();
-			}
+				Log.i(LOGS, "Capturou ConnectionFailed");
+				
 
-			Log.i("LOGS", "Sucesso da inicialização: " + result);
+			}
+		     catch (NullParlamentarException cpe) {
+		    	 
+			    progressDialog.dismiss();
+			    Log.i(LOGS, "Capturou NullParlamentarException");
+		    }
+			 catch ( RequestFailedException rfe) {
+					
+					progressDialog.dismiss();
+					Log.i(LOGS, "Capturou RequestFailed");
+				}
+			catch (Exception e) {
+
+			    progressDialog.dismiss();
+			    Log.i(LOGS, "Capturou Exception");
+				
+			}
 
 			return null;
 		}
 
 		protected void onPostExecute(Void result) {
 			progressDialog.dismiss();
+			
 		}
 	}
 

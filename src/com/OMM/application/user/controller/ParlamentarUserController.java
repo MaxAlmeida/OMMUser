@@ -8,8 +8,10 @@ import org.apache.http.client.ResponseHandler;
 import android.content.Context;
 
 import com.OMM.application.user.dao.ParlamentarUserDao;
+import com.OMM.application.user.exceptions.ConnectionFailedException;
 import com.OMM.application.user.exceptions.NullCotaParlamentarException;
 import com.OMM.application.user.exceptions.NullParlamentarException;
+import com.OMM.application.user.exceptions.RequestFailedException;
 import com.OMM.application.user.helper.JSONHelper;
 import com.OMM.application.user.model.CotaParlamentar;
 import com.OMM.application.user.model.Parlamentar;
@@ -68,7 +70,7 @@ public class ParlamentarUserController {
 
 	public Parlamentar doRequest(ResponseHandler<String> responseHandler,
 			int idParlamentar) throws NullParlamentarException,
-			NullCotaParlamentarException {
+			NullCotaParlamentarException, ConnectionFailedException, RequestFailedException {
 
 		String urlParlamentar = MontaURL.mountURLParlamentar(idParlamentar);
 		String jsonParlamentar = HttpConnection.requestParlamentar(responseHandler,
@@ -126,7 +128,7 @@ public class ParlamentarUserController {
 	}
 
 	public boolean insertAll(ResponseHandler<String> response) throws
-	NullParlamentarException {
+	NullParlamentarException, ConnectionFailedException, RequestFailedException {
  
 	String urlParlamentares = MontaURL.mountUrlAll(); 
 	String jsonParlamentares = HttpConnection.requestParlamentar(response, urlParlamentares); 
