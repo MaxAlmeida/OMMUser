@@ -178,13 +178,17 @@ public class ParlamentarUserController {
 		return parlamentarDao.checkEmptyDB();
 	}
 	
-	/* 
-	 * TODO: Fazer um método public para requisitar o ranking dos maiores gastadores
-	 * 	  1. retorna uma lista de parlamentares RankingMaiores.
-	 *      2. recebe como parâmetros response handler.
-	 *      3. Montar Url do ranking 
-	 *      4. Conexão com o servidor para requisitar um ranking dos parlamentares
-	 *      5. Converter json para parlamentar 
-	 *      6. retornar a lista com o parlamentares RankingMaiores.
-	 */
+	public List<ParlamentarRankingMaiores> doRequestMajorRanking(ResponseHandler<String> responseHandler
+			) throws NullParlamentarRankingMaioresException {
+
+		String urlParlamentarRankingMaiores = MontaURL.mountUrlMajorRanking();
+		String jsonParlamentarRankingMaiores = HttpConnection.requestMajorRanking(responseHandler,
+				urlParlamentarRankingMaiores);
+		
+		List<ParlamentarRankingMaiores> majorRanking = 
+				convertJsonToListParlamentarRankingMaiores(jsonParlamentarRankingMaiores);
+
+		return majorRanking;
+	}
+	
 }
