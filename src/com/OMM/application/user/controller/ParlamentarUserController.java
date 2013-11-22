@@ -10,9 +10,11 @@ import android.content.Context;
 import com.OMM.application.user.dao.ParlamentarUserDao;
 import com.OMM.application.user.exceptions.NullCotaParlamentarException;
 import com.OMM.application.user.exceptions.NullParlamentarException;
+import com.OMM.application.user.exceptions.NullParlamentarRankingMaioresException;
 import com.OMM.application.user.helper.JSONHelper;
 import com.OMM.application.user.model.CotaParlamentar;
 import com.OMM.application.user.model.Parlamentar;
+import com.OMM.application.user.model.ParlamentarRankingMaiores;
 import com.OMM.application.user.requests.HttpConnection;
 import com.OMM.application.user.requests.MontaURL;
 
@@ -124,6 +126,22 @@ public class ParlamentarUserController {
 			throw new  NullParlamentarException();
 		}
 	}
+	
+	public List<ParlamentarRankingMaiores> convertJsonToListParlamentarRankingMaiores(
+			String jsonParlamentarRankingMaiores) throws NullParlamentarRankingMaioresException {
+		
+		try {
+			
+			List<ParlamentarRankingMaiores> majorRanking = JSONHelper
+					.listParlamentarRankingMaioresFromJSON(jsonParlamentarRankingMaiores);
+
+			return majorRanking;
+			
+		} catch (NullPointerException npe) {
+
+			throw new  NullParlamentarRankingMaioresException();
+		}
+	}
 
 	public boolean insertAll(ResponseHandler<String> response) throws
 	NullParlamentarException {
@@ -159,4 +177,14 @@ public class ParlamentarUserController {
 		
 		return parlamentarDao.checkEmptyDB();
 	}
+	
+	/* 
+	 * TODO: Fazer um método public para requisitar o ranking dos maiores gastadores
+	 * 	  1. retorna uma lista de parlamentares RankingMaiores.
+	 *      2. recebe como parâmetros response handler.
+	 *      3. Montar Url do ranking 
+	 *      4. Conexão com o servidor para requisitar um ranking dos parlamentares
+	 *      5. Converter json para parlamentar 
+	 *      6. retornar a lista com o parlamentares RankingMaiores.
+	 */
 }
