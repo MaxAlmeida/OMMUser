@@ -4,7 +4,7 @@ public class ParlamentarRankingMaiores {
 	
 	private int id;
 	
-	private double valorTotalAnual;
+	private double valor;
 	
 	private String nomeParlamentar;
 	
@@ -18,12 +18,12 @@ public class ParlamentarRankingMaiores {
 
 	public double getValor() {
 		
-		return valorTotalAnual;
+		return valor;
 	}
 
 	public void setValor(double valor) {
 		
-		this.valorTotalAnual = valor;
+		this.valor = valor;
 	}
 
 	public String getNomeParlamentar() {
@@ -44,16 +44,6 @@ public class ParlamentarRankingMaiores {
 	public void setId(int id) {
 		
 		this.id = id;
-	}
-
-	public double getValorTotalAnual() {
-		
-		return valorTotalAnual;
-	}
-
-	public void setValorTotalAnual(double valorTotalAnual)  {
-		
-		this.valorTotalAnual = valorTotalAnual;
 	}
 
 	public String getPartido() {
