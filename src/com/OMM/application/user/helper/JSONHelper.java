@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.OMM.application.user.model.CotaParlamentar;
 import com.OMM.application.user.model.Parlamentar;
-import com.OMM.application.user.model.ParlamentarRankingMaiores;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -32,12 +31,12 @@ public class JSONHelper
 		return listCotaParlamentar;
 	}
 
-	public static List<ParlamentarRankingMaiores> listParlamentarRankingMaioresFromJSON(
+	public static List<Parlamentar> listParlamentarRankingMaioresFromJSON(
 			String jsonParlamentarRankingMaiores) {
 		
 		Gson gson = new Gson();
-		List<ParlamentarRankingMaiores> listParlamentarRankingMaiores = gson.fromJson(
-				jsonParlamentarRankingMaiores, new TypeToken<List<ParlamentarRankingMaiores>>() {
+		List<Parlamentar> listParlamentarRankingMaiores = gson.fromJson(
+				jsonParlamentarRankingMaiores, new TypeToken<List<Parlamentar>>() {
 				}.getType());
 		
 		return listParlamentarRankingMaiores;

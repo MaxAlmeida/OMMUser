@@ -14,7 +14,6 @@ import com.OMM.application.user.exceptions.NullParlamentarRankingMaioresExceptio
 import com.OMM.application.user.helper.JSONHelper;
 import com.OMM.application.user.model.CotaParlamentar;
 import com.OMM.application.user.model.Parlamentar;
-import com.OMM.application.user.model.ParlamentarRankingMaiores;
 import com.OMM.application.user.requests.HttpConnection;
 import com.OMM.application.user.requests.MontaURL;
 
@@ -127,12 +126,12 @@ public class ParlamentarUserController {
 		}
 	}
 	
-	public List<ParlamentarRankingMaiores> convertJsonToListParlamentarRankingMaiores(
+	public List<Parlamentar> convertJsonToListParlamentarRankingMaiores(
 			String jsonParlamentarRankingMaiores) throws NullParlamentarRankingMaioresException {
 		
 		try {
 			
-			List<ParlamentarRankingMaiores> majorRanking = JSONHelper
+			List<Parlamentar> majorRanking = JSONHelper
 					.listParlamentarRankingMaioresFromJSON(jsonParlamentarRankingMaiores);
 
 			return majorRanking;
@@ -178,14 +177,14 @@ public class ParlamentarUserController {
 		return parlamentarDao.checkEmptyDB();
 	}
 	
-	public List<ParlamentarRankingMaiores> doRequestMajorRanking(ResponseHandler<String> responseHandler
+	public List<Parlamentar> doRequestMajorRanking(ResponseHandler<String> responseHandler
 			) throws NullParlamentarRankingMaioresException {
 
 		String urlParlamentarRankingMaiores = MontaURL.mountUrlMajorRanking();
 		String jsonParlamentarRankingMaiores = HttpConnection.requestMajorRanking(responseHandler,
 				urlParlamentarRankingMaiores);
 		
-		List<ParlamentarRankingMaiores> majorRanking = 
+		List<Parlamentar> majorRanking = 
 				convertJsonToListParlamentarRankingMaiores(jsonParlamentarRankingMaiores);
 
 		return majorRanking;
