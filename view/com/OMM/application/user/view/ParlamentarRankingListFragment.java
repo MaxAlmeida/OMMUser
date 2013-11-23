@@ -8,7 +8,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.ResponseHandler;
 
 import com.OMM.application.user.R;
-import com.OMM.application.user.adapters.ParlamentarAdapter;
+import com.OMM.application.user.adapters.ParlamentarRankingAdapter;
 import com.OMM.application.user.controller.ParlamentarUserController;
 import com.OMM.application.user.exceptions.NullParlamentarRankingMaioresException;
 import com.OMM.application.user.model.Parlamentar;
@@ -68,7 +68,7 @@ public class ParlamentarRankingListFragment extends ListFragment {
 			e.printStackTrace();
 		}
 
-		ParlamentarAdapter adapter = new ParlamentarAdapter(getActivity(),
+		ParlamentarRankingAdapter adapter = new ParlamentarRankingAdapter(getActivity(),
 				R.layout.fragment_ranking, list);
 
 		setListAdapter(adapter);
