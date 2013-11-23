@@ -22,10 +22,12 @@ import com.OMM.application.user.R;
 import com.OMM.application.user.controller.ParlamentarUserController;
 import com.OMM.application.user.model.Parlamentar;
 import com.OMM.application.user.requests.HttpConnection;
+import com.OMM.application.user.view.ParlamentarRankingListFragment.OnParlamentarRankingSelectedListener;
 
 public class GuiMain extends Activity implements
 		ParlamentarSeguidoListFragment.OnParlamentarSeguidoSelectedListener,
-		ParlamentarListFragment.OnParlamentarSelectedListener {
+		ParlamentarListFragment.OnParlamentarSelectedListener,
+		OnParlamentarRankingSelectedListener {
 
 	private static final String SEGUIDOS = "Parlamentares Seguidos";
 	private static final String PESQUISA = "Pesquisar Parlamentar";
@@ -101,7 +103,7 @@ public class GuiMain extends Activity implements
 			@Override
 			public void onClick(View v) {
 				// TODO Criar lista de Rankings aqui
-				ParlamentarSeguidoListFragment listFragment = new ParlamentarSeguidoListFragment();
+				ParlamentarRankingListFragment listFragment = new ParlamentarRankingListFragment();
 				loadFragment(listFragment);
 				Toast.makeText(getBaseContext(), RANKINGS, Toast.LENGTH_SHORT)
 						.show();
@@ -177,6 +179,16 @@ public class GuiMain extends Activity implements
 		}
 	}
 
+	public void OnParlamentarRankingSelected(Parlamentar parlamentar){
+		/* Substitui o detalhe */
+		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+			updateFragment(parlamentar, R.id.fragment_container);
+
+		} else {
+			updateFragment(parlamentar, R.id.detail_fragment_container);
+		}
+		
+	}
 	private class initializeDBTask extends AsyncTask<Object, Void, Void> {
 		ProgressDialog progressDialog;
 

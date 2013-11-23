@@ -32,7 +32,7 @@ import android.content.Context;
 
 public class ParlamentarRankingListFragment extends ListFragment {
 
-	private OnParlamentarSelectedListener listener;
+	private OnParlamentarRankingSelectedListener listener;
 	private static ParlamentarUserController controllerParlamentar;
 	private ParseTask parseTask;
 
@@ -69,7 +69,7 @@ public class ParlamentarRankingListFragment extends ListFragment {
 		}
 
 		ParlamentarAdapter adapter = new ParlamentarAdapter(getActivity(),
-				R.layout.fragment_parlamentar, list);
+				R.layout.fragment_ranking, list);
 
 		setListAdapter(adapter);
 		setRetainInstance(false);
@@ -134,15 +134,15 @@ public class ParlamentarRankingListFragment extends ListFragment {
 		parseTask = null;
 
 	}
-	public interface OnParlamentarSelectedListener {
+	public interface OnParlamentarRankingSelectedListener {
 		public void OnParlamentarSelected(Parlamentar parlamentar);
 	}
 
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
-		if (activity instanceof OnParlamentarSelectedListener) {
-			listener = (OnParlamentarSelectedListener) activity;
+		if (activity instanceof OnParlamentarRankingSelectedListener) {
+			listener = (OnParlamentarRankingSelectedListener) activity;
 		} else {
 			throw new ClassCastException(
 					activity.toString()
