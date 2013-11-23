@@ -6,6 +6,7 @@ import java.util.List;
 import android.content.Context;
 
 import com.OMM.application.user.dao.CotaParlamentarUserDao;
+import com.OMM.application.user.exceptions.NullCotaParlamentarException;
 import com.OMM.application.user.exceptions.NullParlamentarException;
 import com.OMM.application.user.exceptions.TransmissionException;
 import com.OMM.application.user.helper.JSONHelper;
@@ -35,7 +36,7 @@ public class CeapUserController {
 	}
 
 	public List<CotaParlamentar> convertJsonToCotaParlamentar(String jsonCota)
-			throws TransmissionException, NullParlamentarException {
+			throws TransmissionException, NullCotaParlamentarException {
 		List<CotaParlamentar> cotas = null;
 		try {
 
@@ -43,13 +44,13 @@ public class CeapUserController {
 
 		} catch (NullPointerException npe) {
 
-			throw new NullParlamentarException();
+			throw new NullCotaParlamentarException();
 		} catch (JsonSyntaxException jse) {
 
 			throw new TransmissionException();
 		}
 		if (cotas == null) {
-			throw new NullParlamentarException();
+			throw new NullCotaParlamentarException();
 		}
 		return cotas;
 	}
