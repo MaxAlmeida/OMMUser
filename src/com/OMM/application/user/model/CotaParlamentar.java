@@ -2,7 +2,7 @@ package com.OMM.application.user.model;
 
 public class CotaParlamentar {
 
-	private int id;
+	private int cod;
 	
 	private int idParlamentar;
 
@@ -48,7 +48,7 @@ public class CotaParlamentar {
 			double valorSetembro, double valorOutubro, double valorNovembro,
 			double valorDezembro, String descricao, String especificacao) {
 		super();
-		this.id = id;
+		this.cod = id;
 		this.idParlamentar = idParlamentar;
 		this.ano = ano;
 		this.numeroSubCota = numeroSubCota;
@@ -69,11 +69,11 @@ public class CotaParlamentar {
 	}
 
 	public int getId() {
-		return id;
+		return cod;
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		this.cod = id;
 	}
 
 	public int getIdParlamentar() {

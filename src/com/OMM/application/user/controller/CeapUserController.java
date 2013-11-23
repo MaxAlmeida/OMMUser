@@ -3,26 +3,25 @@ package com.OMM.application.user.controller;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.http.client.ResponseHandler;
-
 import android.content.Context;
 
 import com.OMM.application.user.dao.CotaParlamentarUserDao;
 import com.OMM.application.user.exceptions.NullParlamentarException;
+import com.OMM.application.user.exceptions.TransmissionException;
 import com.OMM.application.user.helper.JSONHelper;
 import com.OMM.application.user.model.CotaParlamentar;
 import com.OMM.application.user.model.Parlamentar;
-import com.OMM.application.user.requests.HttpConnection;
-import com.OMM.application.user.requests.MontaURL;
+import com.google.gson.JsonSyntaxException;
 
 public class CeapUserController {
 
 	private static CeapUserController instance;
 
 	private CotaParlamentarUserDao cotaDao;
+
 	private CeapUserController(Context context) {
-		this.cotaDao=CotaParlamentarUserDao.getInstance(context);
-		
+		this.cotaDao = CotaParlamentarUserDao.getInstance(context);
+
 	}
 
 	public static CeapUserController getInstance(Context context) {
@@ -35,33 +34,39 @@ public class CeapUserController {
 		return instance;
 	}
 
-	private List<CotaParlamentar> convertJsonToCotaParlamentar(String jsonCota)
-			throws NullParlamentarException {
+	public List<CotaParlamentar> convertJsonToCotaParlamentar(String jsonCota)
+			throws TransmissionException, NullParlamentarException {
+		List<CotaParlamentar> cotas = null;
 		try {
 
-			List<CotaParlamentar> cotas = JSONHelper
-					.listCotaParlamentarFromJSON(jsonCota);
+			cotas = JSONHelper.listCotaParlamentarFromJSON(jsonCota);
 
-			return cotas;
-			
 		} catch (NullPointerException npe) {
 
 			throw new NullParlamentarException();
+		} catch (JsonSyntaxException jse) {
+
+			throw new TransmissionException();
 		}
+		if (cotas == null) {
+			throw new NullParlamentarException();
+		}
+		return cotas;
 	}
 
-	public boolean persistCotaDB(Parlamentar parlamentar) throws NullParlamentarException {
+	public boolean persistCotaDB(Parlamentar parlamentar)
+			throws NullParlamentarException {
 
 		boolean result = true;
-		
-		List<CotaParlamentar> cotas=parlamentar.getCotas();
+
+		List<CotaParlamentar> cotas = parlamentar.getCotas();
 		Iterator<CotaParlamentar> iterator = cotas.iterator();
 
 		while (iterator.hasNext()) {
 
 			boolean temporary = cotaDao.insertFollowed(parlamentar,
 					iterator.next());
-			
+
 			result = result & temporary;
 		}
 
