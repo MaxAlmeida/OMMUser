@@ -1,7 +1,5 @@
 package com.OMM.application.user.view;
 
-import java.util.List;
-
 import org.apache.http.client.ResponseHandler;
 
 import android.app.Activity;
@@ -9,8 +7,6 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.app.ProgressDialog;
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
@@ -18,15 +14,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.SearchView;
-import android.widget.SearchView.OnQueryTextListener;
 import android.widget.Toast;
 
 import com.OMM.application.user.R;
-import com.OMM.application.user.adapters.ParlamentarAdapter;
 import com.OMM.application.user.controller.ParlamentarUserController;
 import com.OMM.application.user.dao.ParlamentarUserDao;
 import com.OMM.application.user.model.Parlamentar;
