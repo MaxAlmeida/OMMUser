@@ -47,4 +47,11 @@ public class ParlamentarTest {
 		assertNull(parlamentar.getFoto());
 	}
 	
+	@Test
+	public void testValor(){
+		parlamentar = new Parlamentar();
+		parlamentar.setValor(5690.45);
+		assertTrue(parlamentar.getValor() == 5690.45 );
+	}
+	
 }
