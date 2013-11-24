@@ -1,6 +1,6 @@
 package com.OMM.application.user.adapters;
 
-import android.widget.ArrayAdapter;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import android.content.Context;
@@ -34,8 +34,17 @@ public class ParlamentarRankingAdapter extends ArrayAdapter<Parlamentar> {
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		
 		View view = inflater.inflate(R.layout.fragment_ranking, null);
-		TextView textView = (TextView) view.findViewById(R.id.parlamentarlistfragment_txt_nome);
-		textView.setText(parlamentares.get(position).getNome());
+		TextView textViewNome = (TextView) view.findViewById(R.id.parlamentarlistfragment_txt_nome);
+		textViewNome.setText(parlamentares.get(position).getNome());
+		TextView textViewPartido = (TextView) view.findViewById(R.id.parlamentarRankinglistfragment_txt_partido);
+		textViewPartido.setText(parlamentares.get(position).getPartido());
+		TextView textViewUF = (TextView) view.findViewById(R.id.parlamentarRankinglistfragment_txt_uf);
+		textViewUF.setText(parlamentares.get(position).getUf());
+		TextView textViewValor = (TextView) view.findViewById(R.id.parlamentarRankinglistfragment_txt_valor);
+		DecimalFormat valor = new DecimalFormat("#,###.00");  		
+		textViewValor.setText("" + valor.format(parlamentares.get(position).getValor()));
+		
 		return view;
 	}
 }
+

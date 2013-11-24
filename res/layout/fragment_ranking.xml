@@ -10,25 +10,63 @@
         android:layout_width="match_parent"
         android:layout_height="100dp" >
 
-        <ImageView
-            android:id="@+id/rankinglistfragment_arte"
+        <TextView
+            android:id="@+id/parlamentarRankinglistfragment_txt_partido"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_margin="25dp"
-            android:layout_marginLeft="35dp"
-            android:contentDescription="TODO"
-            android:src="@drawable/muitas_moedas" />
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="33dp"
+            android:layout_marginTop="24dp"
+            android:layout_toRightOf="@+id/parlamentarlistfragment_txt_nome"
+            android:text="Partido" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/parlamentarRankinglistfragment_txt_partido"
+            android:layout_alignBottom="@+id/parlamentarRankinglistfragment_txt_partido"
+            android:layout_toRightOf="@+id/parlamentarRankinglistfragment_txt_partido"
+            android:text="-" />
+
+        <TextView
+            android:id="@+id/parlamentarRankinglistfragment_txt_uf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textView2"
+            android:layout_toRightOf="@+id/textView2"
+            android:text="UF" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/parlamentarRankinglistfragment_txt_valor"
+            android:layout_alignBottom="@+id/parlamentarRankinglistfragment_txt_valor"
+            android:layout_margin="1dp"
+            android:layout_marginRight="16dp"
+            android:layout_toLeftOf="@+id/parlamentarRankinglistfragment_txt_valor"
+            android:text="R$" />
+
+        <TextView
+            android:id="@+id/parlamentarRankinglistfragment_txt_valor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="18dp"
+            android:layout_marginRight="24dp"
+            android:text="Valor" />
 
         <TextView
             android:id="@+id/parlamentarlistfragment_txt_nome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/rankinglistfragment_arte"
-            android:text="TextView" />
-        
-        </RelativeLayout>
+            android:layout_alignBaseline="@+id/tparlamentarRankinglistfragment_txt_partido"
+            android:layout_alignBottom="@+id/parlamentarRankinglistfragment_txt_partido"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="36dp"
+            android:text="Nome" />
+    </RelativeLayout>
 
 </LinearLayout>
