@@ -10,18 +10,16 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.webkit.WebView.FindListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.Toast;
 import android.widget.SearchView.OnQueryTextListener;
+import android.widget.Toast;
 
 import com.OMM.application.user.R;
 import com.OMM.application.user.adapters.ParlamentarAdapter;
@@ -101,7 +99,7 @@ public class ParlamentarListFragment extends ListFragment {
 
 		}
 		// TODO tratar com a devida excessão lançada.
-		catch (Exception e) {
+		catch (IllegalStateException e) {
 			// IllegalStateException
 		}
 	}
@@ -145,7 +143,6 @@ public class ParlamentarListFragment extends ListFragment {
 		search.setActionView(sv);
 		search.setIcon(R.drawable.ic_search);
 		search.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-		search.setNumericShortcut('0');
 		sv.setOnQueryTextListener(new OnQueryTextListener() {
 			@Override
 			public boolean onQueryTextSubmit(String query) {

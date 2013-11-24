@@ -2,12 +2,12 @@ package com.OMM.application.user.requests;
 
 public abstract class MontaURL {
 	
-	private static final String IP = "192.168.0.100";
+	private static final String IP = "192.168.0.102";
 	
 	public  MontaURL(){
 		// Empty Constructor
 	}
-		
+	
 	public static String mountURLCota(int idParlamentar){
 		 
 		String urlCotaParlamentar = "http://" + IP + ":8080/OlhaMinhaMesada/cota?id=" + idParlamentar;
@@ -27,5 +27,12 @@ public abstract class MontaURL {
 		String urlAllParlamentares = "http://" + IP + ":8080/OlhaMinhaMesada/parlamentares";
 		
 		return urlAllParlamentares;
+	}
+	
+	public static String mountUrlMajorRanking(){
+		
+		String urlRankingParlamentares = "http://" + IP + ":8080/OlhaMinhaMesada/rankingMaiores";
+		
+		return urlRankingParlamentares;
 	}
 }

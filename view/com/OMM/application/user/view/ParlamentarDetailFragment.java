@@ -1,10 +1,5 @@
 package com.OMM.application.user.view;
 
-import com.OMM.application.user.R;
-import com.OMM.application.user.controller.ParlamentarUserController;
-import com.OMM.application.user.exceptions.NullParlamentarException;
-import com.OMM.application.user.model.Parlamentar;
-
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,6 +8,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.OMM.application.user.R;
+import com.OMM.application.user.controller.ParlamentarUserController;
+import com.OMM.application.user.exceptions.NullParlamentarException;
+import com.OMM.application.user.model.Parlamentar;
 
 public class ParlamentarDetailFragment extends Fragment {
 

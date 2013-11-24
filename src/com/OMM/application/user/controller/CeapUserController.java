@@ -3,19 +3,15 @@ package com.OMM.application.user.controller;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.http.client.ResponseHandler;
-
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-
 import com.OMM.application.user.dao.CotaParlamentarUserDao;
+import com.OMM.application.user.exceptions.NullCotaParlamentarException;
 import com.OMM.application.user.exceptions.NullParlamentarException;
-import com.OMM.application.user.helper.DB;
+import com.OMM.application.user.exceptions.TransmissionException;
 import com.OMM.application.user.helper.JSONHelper;
 import com.OMM.application.user.model.CotaParlamentar;
 import com.OMM.application.user.model.Parlamentar;
-import com.OMM.application.user.requests.HttpConnection;
-import com.OMM.application.user.requests.MontaURL;
+import com.google.gson.JsonSyntaxException;
 
 public class CeapUserController {
 
@@ -26,7 +22,7 @@ public class CeapUserController {
 
 	private CeapUserController(Context context) {
 		this.cotaDao = CotaParlamentarUserDao.getInstance(context);
-		this.context=context;
+		this.context = context;
 	}
 
 	public static CeapUserController getInstance(Context context) {
@@ -39,19 +35,24 @@ public class CeapUserController {
 		return instance;
 	}
 
-	private List<CotaParlamentar> convertJsonToCotaParlamentar(String jsonCota)
-			throws NullParlamentarException {
+	public List<CotaParlamentar> convertJsonToCotaParlamentar(String jsonCota)
+			throws TransmissionException, NullCotaParlamentarException {
+		List<CotaParlamentar> cotas = null;
 		try {
 
-			List<CotaParlamentar> cotas = JSONHelper
-					.listCotaParlamentarFromJSON(jsonCota);
-
-			return cotas;
+			cotas = JSONHelper.listCotaParlamentarFromJSON(jsonCota);
 
 		} catch (NullPointerException npe) {
 
-			throw new NullParlamentarException();
+			throw new NullCotaParlamentarException();
+		} catch (JsonSyntaxException jse) {
+
+			throw new TransmissionException();
 		}
+		if (cotas == null) {
+			throw new NullCotaParlamentarException();
+		}
+		return cotas;
 	}
 
 	public boolean persistCotaDB(Parlamentar parlamentar)
@@ -75,7 +76,8 @@ public class CeapUserController {
 
 	public boolean deleteCota(Parlamentar parlamentar) {
 
-		CotaParlamentarUserDao cota = CotaParlamentarUserDao.getInstance(context);
+		CotaParlamentarUserDao cota = CotaParlamentarUserDao
+				.getInstance(context);
 
 		return cota.deleteParlamentar(parlamentar);
 	}

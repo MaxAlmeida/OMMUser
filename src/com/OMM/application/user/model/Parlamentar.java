@@ -11,6 +11,8 @@ public class Parlamentar {
 	private String partido;
 
 	private String uf;
+	
+	private double valor;
 
 	private int seguido;
 
@@ -70,6 +72,16 @@ public class Parlamentar {
 
 	public void setUf(String uf) {
 		this.uf = uf;
+	}
+	
+	public double getValor( )
+	{
+		return valor;
+	}
+
+	public void setValor( double valor )
+	{
+		this.valor = valor;
 	}
 
 	public byte[] getFoto() {

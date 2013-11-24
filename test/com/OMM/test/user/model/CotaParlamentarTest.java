@@ -1,6 +1,5 @@
 package com.OMM.test.user.model;
 
-
 import static org.junit.Assert.*;
 
 import org.junit.After;
@@ -9,17 +8,16 @@ import org.junit.Test;
 
 import com.OMM.application.user.model.CotaParlamentar;
 
-public class CotaParlamentarTest{
-	
-	static CotaParlamentar cotaParlamentar;
-	
-	@BeforeClass
-	public static void setUp() throws Exception {
-		cotaParlamentar = new CotaParlamentar();
-	}
+public class CotaParlamentarTest {
 
-	@After
-	public void tearDown() throws Exception {
+	public CotaParlamentar cotaParlamentar = new CotaParlamentar();
+
+	@Test
+	public void testConstructor() {
+		cotaParlamentar = new CotaParlamentar(15, 20, 2013, 5, 500, 500, 500,
+				500, 500, 500, 500, 500, 500, 500, 500, 500, "descricao",
+				"especificacao");
+		assertEquals(cotaParlamentar.getId(), 15);
 	}
 
 	@Test
@@ -124,4 +122,9 @@ public class CotaParlamentarTest{
 		assertTrue(cotaParlamentar.getEspecificacao() == "Especificacao da cota parlamentar");
 	}
 
+	@Test
+	public void testIdParlamentar() {
+		cotaParlamentar.setIdParlamentar(0);
+		assertEquals(cotaParlamentar.getIdParlamentar(), 0);
+	}
 }

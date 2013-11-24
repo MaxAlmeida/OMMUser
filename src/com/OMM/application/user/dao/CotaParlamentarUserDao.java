@@ -22,7 +22,7 @@ public class CotaParlamentarUserDao {
 	// private static Parlamentar parlamentar;
 
 	private CotaParlamentarUserDao(Context context) {
-		this.context=context;
+		CotaParlamentarUserDao.context=context;
 		// Empty Constructor
 	}
 	
