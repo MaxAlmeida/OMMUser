@@ -56,7 +56,8 @@ public class ParlamentarTest {
 		parlamentar.setSeguido(1);
 		assertEquals(parlamentar.isSeguido(), 1);
 	}
-			
+	
+	@Test
 	public void testValor(){
 		parlamentar = new Parlamentar();
 		parlamentar.setValor(5690.45);
