@@ -127,6 +127,22 @@ public class ParlamentarUserController {
 			throw new NullParlamentarException();
 		}
 	}
+	
+	public List<Parlamentar> convertJsonToListParlamentarRankingMaiores(
+			String jsonParlamentarRankingMaiores) throws NullParlamentarException {
+		
+		try {
+			
+			List<Parlamentar> majorRanking = JSONHelper
+					.listParlamentarRankingMaioresFromJSON(jsonParlamentarRankingMaiores);
+
+			return majorRanking;
+			
+		} catch (NullPointerException npe) {
+
+			throw new  NullParlamentarException();
+		}
+	}
 
 	public boolean insertAll(ResponseHandler<String> response)
 			throws NullParlamentarException {
@@ -163,4 +179,18 @@ public class ParlamentarUserController {
 
 		return parlamentarDao.checkEmptyDB();
 	}
+	
+	public List<Parlamentar> doRequestMajorRanking(ResponseHandler<String> responseHandler
+			) throws NullParlamentarException {
+
+		String urlParlamentarRankingMaiores = MontaURL.mountUrlMajorRanking();
+		String jsonParlamentarRankingMaiores = HttpConnection.requestMajorRanking(responseHandler,
+				urlParlamentarRankingMaiores);
+		
+		List<Parlamentar> majorRanking = 
+				convertJsonToListParlamentarRankingMaiores(jsonParlamentarRankingMaiores);
+
+		return majorRanking;
+	}
+	
 }

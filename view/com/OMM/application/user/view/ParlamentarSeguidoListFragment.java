@@ -19,7 +19,7 @@ public class ParlamentarSeguidoListFragment extends ListFragment {
 
 	private OnParlamentarSeguidoSelectedListener listener;
 	private static ParlamentarUserController controllerParlamentar;
-	ParseTask parseTask;
+	//ParseTask parseTask;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -48,46 +48,46 @@ public class ParlamentarSeguidoListFragment extends ListFragment {
 	}
 	
 	//TODO corigir chamada da controller e bug NullPointer Exception
-	private static class ParseTask extends
-			AsyncTask<String, Void, List<Parlamentar>> {
-
-		private ParlamentarSeguidoListFragment fragment;
-
-		public void setFragment(ParlamentarSeguidoListFragment fragment) {
-			this.fragment = fragment;
-		}
-
-		@Override
-		protected List<Parlamentar> doInBackground(String... params) {
-			List<Parlamentar> result = controllerParlamentar.getSelected(params[0]);
-			return result;
-		}
-
-		@Override
-		protected void onPostExecute(List<Parlamentar> result) {
-
-			fragment.setListContent(result);
-
-		}
-	}
-
-	public void updateListContent(String nome) {
-
-		if (parseTask == null) {
-			parseTask = new ParseTask();
-			parseTask.setFragment(this);
-			parseTask.execute(nome);
-		}
-	}
-
-	public void setListContent(List<Parlamentar> result) {
-
-		// ArrayAdapter listAdapter = (ArrayAdapter) getListAdapter();
-		// listAdapter.clear();
-		// listAdapter.addAll(result);
-		// parseTask.setFragment(null);
-
-	}
+//	private static class ParseTask extends
+//			AsyncTask<String, Void, List<Parlamentar>> {
+//
+//		private ParlamentarSeguidoListFragment fragment;
+//
+//		public void setFragment(ParlamentarSeguidoListFragment fragment) {
+//			this.fragment = fragment;
+//		}
+//
+//		@Override
+//		protected List<Parlamentar> doInBackground(String... params) {
+//			List<Parlamentar> result = controllerParlamentar.getSelected(params[0]);
+//			return result;
+//		}
+//
+//		@Override
+//		protected void onPostExecute(List<Parlamentar> result) {
+//
+//			fragment.setListContent(result);
+//
+//		}
+//	}
+//
+//	public void updateListContent(String nome) {
+//
+//		if (parseTask == null) {
+//			parseTask = new ParseTask();
+//			parseTask.setFragment(this);
+//			parseTask.execute(nome);
+//		}
+//	}
+//
+//	public void setListContent(List<Parlamentar> result) {
+//
+//		// ArrayAdapter listAdapter = (ArrayAdapter) getListAdapter();
+//		// listAdapter.clear();
+//		// listAdapter.addAll(result);
+//		// parseTask.setFragment(null);
+//
+//	}
 
 	/*
 	 * Responsavel por chamar uma activity, a natureza do fragment nao permite q

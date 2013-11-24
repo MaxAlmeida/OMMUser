@@ -84,4 +84,25 @@ public abstract class HttpConnection {
 
 		return null;
 	}
+	
+	public static String requestMajorRanking(ResponseHandler<String> response, String url) {
+		
+		try {
+			
+			DefaultHttpClient client = new DefaultHttpClient();
+			HttpGet http = new HttpGet(url);
+
+			String jsonMajorRanking = client.execute(http, response);
+
+			return jsonMajorRanking;
+
+		} catch (ClientProtocolException e) {
+			// TODO: Exception Handling
+
+		} catch (IOException e) {
+			// TODO: Exception Handling
+		}
+		
+		return null;
+	}
 }

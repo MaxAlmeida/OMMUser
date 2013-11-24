@@ -28,4 +28,11 @@ public abstract class MontaURL {
 		
 		return urlAllParlamentares;
 	}
+	
+	public static String mountUrlMajorRanking(){
+		
+		String urlRankingParlamentares = "http://" + IP + ":8080/OlhaMinhaMesada/rankingMaiores";
+		
+		return urlRankingParlamentares;
+	}
 }
