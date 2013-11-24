@@ -79,10 +79,13 @@ public class ParlamentarDetailFragment extends Fragment {
 	}
 
 	
-	public void setText(Parlamentar parlamentar) {
+	public void setBarras(Parlamentar parlamentar) {
 		TextView view = (TextView) getView().findViewById(R.id.nome);
 		view.setText(parlamentar.getNome());
 		this.parlamentar=parlamentar;
+		
+		
+	
 	}
 	
 	
