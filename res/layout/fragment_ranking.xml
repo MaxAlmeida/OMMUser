@@ -62,11 +62,34 @@
             android:id="@+id/parlamentarlistfragment_txt_nome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/tparlamentarRankinglistfragment_txt_partido"
+            android:layout_alignBaseline="@+id/parlamentarRankinglistfragment_txt_partido"
             android:layout_alignBottom="@+id/parlamentarRankinglistfragment_txt_partido"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="36dp"
+            android:layout_marginLeft="16dp"
+            android:layout_toRightOf="@+id/moedinha"
             android:text="Nome" />
+
+        <ImageView
+            android:id="@+id/moedinha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/parlamentarlistfragment_txt_nome"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/moedinha" />
+
+        <TextView
+            android:id="@+id/parlamentarlistfragment_txt_posicao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/moedinha"
+            android:layout_alignBottom="@+id/moedinha"
+            android:layout_alignRight="@+id/moedinha"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="9dp"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:text="167" />
+
+
     </RelativeLayout>
 
 </LinearLayout>

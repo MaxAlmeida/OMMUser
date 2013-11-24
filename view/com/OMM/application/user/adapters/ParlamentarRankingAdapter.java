@@ -43,6 +43,8 @@ public class ParlamentarRankingAdapter extends ArrayAdapter<Parlamentar> {
 		TextView textViewValor = (TextView) view.findViewById(R.id.parlamentarRankinglistfragment_txt_valor);
 		DecimalFormat valor = new DecimalFormat("#,###.00");  		
 		textViewValor.setText("" + valor.format(parlamentares.get(position).getValor()));
+		TextView textViewPosicao = (TextView) view.findViewById(R.id.parlamentarlistfragment_txt_posicao);
+		textViewPosicao.setText("" + (position+1));
 		
 		return view;
 	}
