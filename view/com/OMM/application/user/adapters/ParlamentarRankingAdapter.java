@@ -25,9 +25,6 @@ public class ParlamentarRankingAdapter extends ArrayAdapter<Parlamentar> {
 
 		this.context = context;
 		this.parlamentares = parlamentares;
-		
-		
-		
 	}
 	
 	@Override
@@ -41,9 +38,4 @@ public class ParlamentarRankingAdapter extends ArrayAdapter<Parlamentar> {
 		textView.setText(parlamentares.get(position).getNome());
 		return view;
 	}
-}
-
-	
-	
-
 }
