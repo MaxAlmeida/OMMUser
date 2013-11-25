@@ -43,8 +43,6 @@ public class ParlamentarListFragment extends ListFragment {
 
 		setHasOptionsMenu(true);
 
-		ParlamentarUserController controllerParlamentar = ParlamentarUserController
-				.getInstance(getActivity());
 		List<Parlamentar> list = controllerParlamentar.getAll();
 
 		ParlamentarAdapter adapter = new ParlamentarAdapter(getActivity(),
@@ -57,10 +55,10 @@ public class ParlamentarListFragment extends ListFragment {
 
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
-		Parlamentar parlamentar = (Parlamentar) getListAdapter().getItem(
-				position);
+		controllerParlamentar.setParlamentar((Parlamentar) getListAdapter().getItem(
+				position));
 		Toast.makeText(getActivity(), "toquei!", Toast.LENGTH_SHORT).show();
-		updateDetail(parlamentar);
+		updateDetail(controllerParlamentar.getParlamentar());
 
 	}
 

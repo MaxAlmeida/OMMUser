@@ -33,13 +33,13 @@ public class ParlamentarDetailFragment extends Fragment {
 		final Button btn_detalhe_desseguir = (Button) view
 			.findViewById(R.id.btn_detalhe_desseguir);
 
-		//Log.i("PDF","" + parlamentarController.getParlamentar().isSeguido());
-		//if(parlamentarController.getParlamentar().isSeguido() == 1) {
+
+	//	if(parlamentarController.getParlamentar().isSeguido() == 1) {
 			btn_detalhe_desseguir.setVisibility(View.INVISIBLE);
 		
-		//} else {
-		//	btn_detalhe_seguir.setVisibility(View.INVISIBLE);
-		//}
+	//	} else {
+	//		btn_detalhe_seguir.setVisibility(View.INVISIBLE);
+	//	}
 		
 		createButtons(view);
 
@@ -53,8 +53,8 @@ public class ParlamentarDetailFragment extends Fragment {
 					parlamentarController.unFollowedParlamentar();
 					Toast.makeText(getActivity(), "Parlamentar DesSeguido",
 							Toast.LENGTH_SHORT).show();
-					btn_detalhe_desseguir.setVisibility(View.GONE);
-					btn_detalhe_seguir.setVisibility(View.VISIBLE);
+//					btn_detalhe_desseguir.setVisibility(View.GONE);
+//					btn_detalhe_seguir.setVisibility(View.VISIBLE);
 
 				} catch (NullParlamentarException nullEx) {
 					Toast.makeText(getActivity(),
@@ -89,6 +89,15 @@ public class ParlamentarDetailFragment extends Fragment {
 		return view;
 	}
 
+	@Override
+	public void onStart( )
+	{
+		// TODO Auto-generated method stub
+		super.onStart();
+		
+	
+	}
+	
 	public void setBarras(Parlamentar parlamentar) {
 		TextView view = (TextView) getView().findViewById(R.id.nome);
 		view.setText(parlamentar.getNome());
