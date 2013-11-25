@@ -1,17 +1,23 @@
 package com.OMM.application.user.view;
 
+import java.text.DecimalFormat;
+import java.util.Iterator;
+
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.OMM.application.user.R;
 import com.OMM.application.user.controller.ParlamentarUserController;
 import com.OMM.application.user.exceptions.NullParlamentarException;
+import com.OMM.application.user.model.CotaParlamentar;
 import com.OMM.application.user.model.Parlamentar;
 
 public class ParlamentarDetailFragment extends Fragment {
@@ -28,11 +34,8 @@ public class ParlamentarDetailFragment extends Fragment {
 		final Button btn_detalhe_desseguir = (Button) view
 				.findViewById(R.id.btn_detalhe_desseguir);
 		btn_detalhe_desseguir.setVisibility(View.INVISIBLE);
-		
+
 		createButtons(view);
-
-
-
 
 		btn_detalhe_desseguir.setOnClickListener(new View.OnClickListener() {
 
@@ -93,46 +96,463 @@ public class ParlamentarDetailFragment extends Fragment {
 		view.setText(parlamentar.getNome());
 		this.parlamentar = parlamentar;
 
+		Iterator<CotaParlamentar> iterator = parlamentar.getCotas().iterator();
 
+		while (iterator.hasNext()) {
+
+			CotaParlamentar cota = iterator.next();
+
+			if (cota.getMes() == 6) {
+				
+
+				double valorCota = cota.getValor();
+							
+				int numeroSubCota = cota.getNumeroSubCota();
+				
+				Log.i("ParlamentarDetailFragment","Valor da cota " + valorCota + " da nCota " + numeroSubCota);
+
+				DecimalFormat valorCotaDecimal = new DecimalFormat("#,###.00"); 
+				
+				switch (numeroSubCota) {
+
+				case 1:
+
+					ImageView barEscritorio = (ImageView) getActivity()
+							.findViewById(R.id.barra_cota_escritorio);
+					TextView textViewEscritorio = (TextView) getActivity().findViewById(R.id.valor_cota_escritorio);
+					textViewEscritorio.setText("R$ " + valorCotaDecimal.format(valorCota));
+					if (valorCota <= 500.00) {
+
+						//Nothing should be done
+
+					} else if (valorCota <= 2500.00) {
+
+						barEscritorio.setImageResource(R.drawable.barra_verde);
+
+					} else if (valorCota <= 5000.00) {
+
+						barEscritorio
+								.setImageResource(R.drawable.barra_amarela);
+
+					} else if (valorCota <= 7500) {
+
+						barEscritorio
+								.setImageResource(R.drawable.barra_laranja);
+
+					} else if (valorCota > 7500) {
+
+						barEscritorio
+								.setImageResource(R.drawable.barra_vermelha);
+
+					} else {
+						Log.i("Parlamentar detail Fragment",
+								"Valor Mensal Negativo");
+					}
+					break;
+
+				case 3:
+
+					ImageView barCombustivel = (ImageView) getActivity()
+							.findViewById(R.id.barra_cota_gasolina);
+					TextView textViewCombustivel = (TextView) getActivity().findViewById(R.id.valor_cota_gasolina);
+					textViewCombustivel.setText("R$ " + valorCotaDecimal.format(valorCota));
+					if (valorCota <= 500.00) {
+
+						//Nothing should be done
+
+					} else if (valorCota <= 2500.00) {
+
+						barCombustivel.setImageResource(R.drawable.barra_verde);
+
+					} else if (valorCota <= 5000.00) {
+
+						barCombustivel
+								.setImageResource(R.drawable.barra_amarela);
+
+					} else if (valorCota <= 7500) {
+
+						barCombustivel
+								.setImageResource(R.drawable.barra_laranja);
+
+					} else if (valorCota > 7500) {
+
+						barCombustivel
+								.setImageResource(R.drawable.barra_vermelha);
+
+					} else {
+						Log.i("Parlamentar detail Fragment",
+								"Valor Mensal Negativo");
+					}
+
+					break;
+
+				case 4:
+
+					ImageView barTrabalhoTecnico = (ImageView) getActivity()
+							.findViewById(R.id.barra_cota_trabalho_tecnico);
+					TextView textViewTrabalhoTecnico = (TextView) getActivity().findViewById(R.id.valor_cota_trabalho_tecnico);
+					textViewTrabalhoTecnico.setText("R$ " + valorCotaDecimal.format(valorCota));
+					if (valorCota <= 500.00) {
+
+						//Nothing should be done
+
+					} else if (valorCota <= 2500.00) {
+
+						barTrabalhoTecnico
+								.setImageResource(R.drawable.barra_verde);
+
+					} else if (valorCota <= 5000.00) {
+
+						barTrabalhoTecnico
+								.setImageResource(R.drawable.barra_amarela);
+
+					} else if (valorCota <= 7500) {
+
+						barTrabalhoTecnico
+								.setImageResource(R.drawable.barra_laranja);
+
+					} else if (valorCota > 7500) {
+
+						barTrabalhoTecnico
+								.setImageResource(R.drawable.barra_vermelha);
+
+					} else {
+						Log.i("Parlamentar detail Fragment",
+								"Valor Mensal Negativo");
+					}
+
+					break;
+
+				case 5:
+
+					ImageView barDivulgacao = (ImageView) getActivity()
+							.findViewById(R.id.barra_cota_divulgacao);
+					TextView textViewDivulgacao = (TextView) getActivity().findViewById(R.id.valor_cota_divulgacao);
+					textViewDivulgacao.setText("R$ " + valorCotaDecimal.format(valorCota));
+					if (valorCota <= 500.00) {
+
+						//Nothing should be done
+
+					} else if (valorCota <= 2500.00) {
+
+						barDivulgacao.setImageResource(R.drawable.barra_verde);
+
+					} else if (valorCota <= 5000.00) {
+
+						barDivulgacao
+								.setImageResource(R.drawable.barra_amarela);
+
+					} else if (valorCota <= 7500) {
+
+						barDivulgacao
+								.setImageResource(R.drawable.barra_laranja);
+
+					} else if (valorCota > 7500) {
+
+						barDivulgacao
+								.setImageResource(R.drawable.barra_vermelha);
+
+					} else {
+						Log.i("Parlamentar detail Fragment",
+								"Valor Mensal Negativo");
+					}
+
+					break;
+
+				case 8:
+
+					ImageView barSeguranca = (ImageView) getActivity()
+							.findViewById(R.id.barra_cota_seguranca);
+					TextView textViewSeguranca = (TextView) getActivity().findViewById(R.id.valor_cota_seguranca);
+					textViewSeguranca.setText("R$ " + valorCotaDecimal.format(valorCota));
+					if (valorCota <= 500.00) {
+
+						//Nothing should be done
+
+					} else if (valorCota <= 2500.00) {
+
+						barSeguranca.setImageResource(R.drawable.barra_verde);
+
+					} else if (valorCota <= 5000.00) {
+
+						barSeguranca.setImageResource(R.drawable.barra_amarela);
+
+					} else if (valorCota <= 7500) {
+
+						barSeguranca.setImageResource(R.drawable.barra_laranja);
+
+					} else if (valorCota > 7500) {
+
+						barSeguranca
+								.setImageResource(R.drawable.barra_vermelha);
+
+					} else {
+						Log.i("Parlamentar detail Fragment",
+								"Valor Mensal Negativo");
+					}
+
+					break;
+
+				case 9:
+
+					ImageView barAluguelAviao = (ImageView) getActivity()
+							.findViewById(R.id.barra_cota_aluguel_aviao);
+					TextView textViewAluguelAviao = (TextView) getActivity().findViewById(R.id.valor_cota_aluguel_aviao);
+					textViewAluguelAviao.setText("R$ " + valorCotaDecimal.format(valorCota));
+					if (valorCota <= 500.00) {
+
+						//Nothing should be done
+
+					} else if (valorCota <= 2500.00) {
+
+						barAluguelAviao
+								.setImageResource(R.drawable.barra_verde);
+
+					} else if (valorCota <= 5000.00) {
+
+						barAluguelAviao
+								.setImageResource(R.drawable.barra_amarela);
+
+					} else if (valorCota <= 7500) {
+
+						barAluguelAviao
+								.setImageResource(R.drawable.barra_laranja);
+
+					} else if (valorCota > 7500) {
+
+						barAluguelAviao
+								.setImageResource(R.drawable.barra_vermelha);
+
+					} else {
+						Log.i("Parlamentar detail Fragment",
+								"Valor Mensal Negativo");
+					}
+
+					break;
+
+				case 10:
+
+					ImageView barTelefonia = (ImageView) getActivity()
+							.findViewById(R.id.barra_cota_telefonia);
+					TextView textViewTelefonia = (TextView) getActivity().findViewById(R.id.valor_cota_telefonia);
+					textViewTelefonia.setText("R$ " + valorCotaDecimal.format(valorCota));
+					if (valorCota <= 500.00) {
+
+						//Nothing should be done
+
+					} else if (valorCota <= 2500.00) {
+
+						barTelefonia.setImageResource(R.drawable.barra_verde);
+
+					} else if (valorCota <= 5000.00) {
+
+						barTelefonia.setImageResource(R.drawable.barra_amarela);
+
+					} else if (valorCota <= 7500) {
+
+						barTelefonia.setImageResource(R.drawable.barra_laranja);
+
+					} else if (valorCota > 7500) {
+
+						barTelefonia
+								.setImageResource(R.drawable.barra_vermelha);
+
+					} else {
+						Log.i("Parlamentar detail Fragment",
+								"Valor Mensal Negativo");
+					}
+
+					break;
+
+				case 11:
+
+					ImageView barCorreios = (ImageView) getActivity()
+							.findViewById(R.id.barra_cota_correios);
+					TextView textViewCorreios = (TextView) getActivity().findViewById(R.id.valor_cota_correios);
+					textViewCorreios.setText("R$ " + valorCotaDecimal.format(valorCota));
+					if (valorCota <= 500.00) {
+
+						//Nothing should be done
+
+					} else if (valorCota <= 2500.00) {
+
+						barCorreios.setImageResource(R.drawable.barra_verde);
+
+					} else if (valorCota <= 5000.00) {
+
+						barCorreios.setImageResource(R.drawable.barra_amarela);
+
+					} else if (valorCota <= 7500) {
+
+						barCorreios.setImageResource(R.drawable.barra_laranja);
+
+					} else if (valorCota > 7500) {
+
+						barCorreios.setImageResource(R.drawable.barra_vermelha);
+
+					} else {
+						Log.i("Parlamentar detail Fragment",
+								"Valor Mensal Negativo");
+					}
+
+					break;
+
+				case 13:
+
+					ImageView barAlimentacao = (ImageView) getActivity()
+							.findViewById(R.id.barra_cota_alimentacao);
+					TextView textViewAlimentacao = (TextView) getActivity().findViewById(R.id.valor_cota_alimentacao);
+					textViewAlimentacao.setText("R$ " + valorCotaDecimal.format(valorCota));
+					if (valorCota <= 500.00) {
+
+						//Nothing should be done
+
+					} else if (valorCota <= 2500.00) {
+
+						barAlimentacao.setImageResource(R.drawable.barra_verde);
+
+					} else if (valorCota <= 5000.00) {
+
+						barAlimentacao
+								.setImageResource(R.drawable.barra_amarela);
+
+					} else if (valorCota <= 7500) {
+
+						barAlimentacao
+								.setImageResource(R.drawable.barra_laranja);
+
+					} else if (valorCota > 7500) {
+
+						barAlimentacao
+								.setImageResource(R.drawable.barra_vermelha);
+
+					} else {
+						Log.i("Parlamentar detail Fragment",
+								"Valor Mensal Negativo");
+					}
+
+					break;
+
+				case 14:
+
+					ImageView barHospedagem = (ImageView) getActivity()
+							.findViewById(R.id.barra_cota_hoespedagem);
+					TextView textViewHospedagam = (TextView) getActivity().findViewById(R.id.valor_cota_hospedagem);
+					textViewHospedagam.setText("R$ " + valorCotaDecimal.format(valorCota));
+					if (valorCota <= 500.00) {
+
+						//Nothing should be done
+
+					} else if (valorCota <= 2500.00) {
+
+						barHospedagem.setImageResource(R.drawable.barra_verde);
+
+					} else if (valorCota <= 5000.00) {
+
+						barHospedagem
+								.setImageResource(R.drawable.barra_amarela);
+
+					} else if (valorCota <= 7500) {
+
+						barHospedagem
+								.setImageResource(R.drawable.barra_laranja);
+
+					} else if (valorCota > 7500) {
+
+						barHospedagem
+								.setImageResource(R.drawable.barra_vermelha);
+
+					} else {
+						Log.i("Parlamentar detail Fragment",
+								"Valor Mensal Negativo");
+					}
+
+					break;
+
+				case 999:
+
+					ImageView barBilhetesAereos = (ImageView) getActivity()
+							.findViewById(R.id.barra_cota_bilhetes_aereos);
+					TextView textViewBilhetesAereos = (TextView) getActivity().findViewById(R.id.valor_cota_bilhetes_aereos);
+					textViewBilhetesAereos.setText("R$ " + valorCotaDecimal.format(valorCota));
+					if (valorCota <= 500.00) {
+
+						//Nothing should be done
+
+					} else if (valorCota <= 2500.00) {
+
+						barBilhetesAereos
+								.setImageResource(R.drawable.barra_verde);
+
+					} else if (valorCota <= 5000.00) {
+
+						barBilhetesAereos
+								.setImageResource(R.drawable.barra_amarela);
+
+					} else if (valorCota <= 7500) {
+
+						barBilhetesAereos
+								.setImageResource(R.drawable.barra_laranja);
+
+					} else if (valorCota > 7500) {
+
+						barBilhetesAereos
+								.setImageResource(R.drawable.barra_vermelha);
+
+					} else {
+						Log.i("Parlamentar detail Fragment",
+								"Valor Mensal Negativo");
+					}
+
+					break;
+					
+					default: 
+						Log.i("Parlamentar detail Fragment",
+								"Cod estranho");
+
+				}
+
+			}
+
+		}
 
 	}
 
 	public void createButtons(View view) {
-		
-		 final Button btn_cota_alimentacao = (Button) view
-		 .findViewById(R.id.btn_cota_alimentacao);
-		 final Button btn_cota_aluguel_aviao = (Button) view
-		 .findViewById(R.id.btn_cota_aluguel_aviao);
-		 final Button btn_cota_bilhetes_aereos = (Button) view
-		 .findViewById(R.id.btn_cota_bilhetes_aereos);
-		 final Button btn_cota_correios = (Button) view
-		 .findViewById(R.id.btn_cota_correios);
-		 final Button btn_cota_divulgacao = (Button) view
-		 .findViewById(R.id.btn_cota_divulgacao);
-		 final Button btn_cota_escritorio = (Button) view
-		 .findViewById(R.id.btn_cota_escritorio);
-		 final Button btn_cota_gasolina = (Button) view
-		 .findViewById(R.id.btn_cota_gasolina);
-		 final Button btn_cota_hospedagem = (Button) view
-		 .findViewById(R.id.btn_cota_hospedagem);
-		 final Button btn_cota_seguranca = (Button) view
-		 .findViewById(R.id.btn_cota_seguranca);
-		 final Button btn_cota_telefone = (Button) view
-		 .findViewById(R.id.btn_cota_telefone);
-		 final Button btn_cota_trabalho_tecnico = (Button) view
-		 .findViewById(R.id.btn_cota_trabalho_tecnico);
-		
-		
+
+		final Button btn_cota_alimentacao = (Button) view
+				.findViewById(R.id.btn_cota_alimentacao);
+		final Button btn_cota_aluguel_aviao = (Button) view
+				.findViewById(R.id.btn_cota_aluguel_aviao);
+		final Button btn_cota_bilhetes_aereos = (Button) view
+				.findViewById(R.id.btn_cota_bilhetes_aereos);
+		final Button btn_cota_correios = (Button) view
+				.findViewById(R.id.btn_cota_correios);
+		final Button btn_cota_divulgacao = (Button) view
+				.findViewById(R.id.btn_cota_divulgacao);
+		final Button btn_cota_escritorio = (Button) view
+				.findViewById(R.id.btn_cota_escritorio);
+		final Button btn_cota_gasolina = (Button) view
+				.findViewById(R.id.btn_cota_gasolina);
+		final Button btn_cota_hospedagem = (Button) view
+				.findViewById(R.id.btn_cota_hospedagem);
+		final Button btn_cota_seguranca = (Button) view
+				.findViewById(R.id.btn_cota_seguranca);
+		final Button btn_cota_telefone = (Button) view
+				.findViewById(R.id.btn_cota_telefone);
+		final Button btn_cota_trabalho_tecnico = (Button) view
+				.findViewById(R.id.btn_cota_trabalho_tecnico);
+
 		btn_cota_alimentacao.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(getActivity(), "Alimentação",
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(getActivity(), "Alimentação", Toast.LENGTH_SHORT)
+						.show();
 
 			}
 		});
-		
+
 		btn_cota_aluguel_aviao.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -142,7 +562,7 @@ public class ParlamentarDetailFragment extends Fragment {
 
 			}
 		});
-		
+
 		btn_cota_bilhetes_aereos.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -152,7 +572,7 @@ public class ParlamentarDetailFragment extends Fragment {
 
 			}
 		});
-		
+
 		btn_cota_correios.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -162,7 +582,7 @@ public class ParlamentarDetailFragment extends Fragment {
 
 			}
 		});
-		
+
 		btn_cota_correios.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -172,27 +592,29 @@ public class ParlamentarDetailFragment extends Fragment {
 
 			}
 		});
-		
+
 		btn_cota_divulgacao.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(getActivity(), "Divulgação da Atividade Parlamentar",
+				Toast.makeText(getActivity(),
+						"Divulgação da Atividade Parlamentar",
 						Toast.LENGTH_SHORT).show();
 
 			}
 		});
-		
+
 		btn_cota_escritorio.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(getActivity(), "Manutenção de Escritório de Apoio",
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(getActivity(),
+						"Manutenção de Escritório de Apoio", Toast.LENGTH_SHORT)
+						.show();
 
 			}
 		});
-		
+
 		btn_cota_gasolina.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -202,17 +624,17 @@ public class ParlamentarDetailFragment extends Fragment {
 
 			}
 		});
-		
+
 		btn_cota_hospedagem.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(getActivity(), "Hospedagem",
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(getActivity(), "Hospedagem", Toast.LENGTH_SHORT)
+						.show();
 
 			}
 		});
-		
+
 		btn_cota_seguranca.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -222,29 +644,29 @@ public class ParlamentarDetailFragment extends Fragment {
 
 			}
 		});
-		
+
 		btn_cota_telefone.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(getActivity(), "Telefonia",
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(getActivity(), "Telefonia", Toast.LENGTH_SHORT)
+						.show();
 
 			}
 		});
-		
-		btn_cota_trabalho_tecnico.setOnClickListener(new View.OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
-				Toast.makeText(getActivity(), "Consultorias, Pesquisas e Trabalhos Técnicos",
-						Toast.LENGTH_SHORT).show();
+		btn_cota_trabalho_tecnico
+				.setOnClickListener(new View.OnClickListener() {
 
-			}
-		});
-		
-		
-	
+					@Override
+					public void onClick(View v) {
+						Toast.makeText(getActivity(),
+								"Consultorias, Pesquisas e Trabalhos Técnicos",
+								Toast.LENGTH_SHORT).show();
+
+					}
+				});
+
 	}
 
 }
