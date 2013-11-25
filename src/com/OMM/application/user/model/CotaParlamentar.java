@@ -87,7 +87,7 @@ public class CotaParlamentar
 	
 	public boolean equals(CotaParlamentar cota){
 		//Completar com os outros atributos..
-		if (this.cod==cota.getId() && (this.idParlamentar==cota.getIdParlamentar()))
+		if (this.cod==cota.getCod() && (this.idParlamentar==cota.getIdParlamentar()))
 			return true;
 		return false;
 		

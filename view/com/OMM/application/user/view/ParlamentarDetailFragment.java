@@ -2,6 +2,7 @@ package com.OMM.application.user.view;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,37 +16,41 @@ import com.OMM.application.user.exceptions.NullParlamentarException;
 import com.OMM.application.user.model.Parlamentar;
 
 public class ParlamentarDetailFragment extends Fragment {
-
-	private Parlamentar parlamentar;
+	
+	ParlamentarUserController parlamentarController;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		
+		parlamentarController = ParlamentarUserController
+				.getInstance(getActivity());
+		
 		View view = inflater.inflate(R.layout.gui_detalhe, container, false);
-
+		
 		final Button btn_detalhe_seguir = (Button) view
 				.findViewById(R.id.btn_detalhe_seguir);
 		final Button btn_detalhe_desseguir = (Button) view
-				.findViewById(R.id.btn_detalhe_desseguir);
-		btn_detalhe_desseguir.setVisibility(View.INVISIBLE);
+			.findViewById(R.id.btn_detalhe_desseguir);
+
+		//Log.i("PDF","" + parlamentarController.getParlamentar().isSeguido());
+		//if(parlamentarController.getParlamentar().isSeguido() == 1) {
+			btn_detalhe_desseguir.setVisibility(View.INVISIBLE);
+		
+		//} else {
+		//	btn_detalhe_seguir.setVisibility(View.INVISIBLE);
+		//}
 		
 		createButtons(view);
-
-
-
 
 		btn_detalhe_desseguir.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 
-				ParlamentarUserController parlamentarController;
-				parlamentarController = ParlamentarUserController
-						.getInstance(getActivity());
-
 				try {
-					parlamentar.setSeguido(0);
-					parlamentarController.unFollowedParlamentar(parlamentar);
+					parlamentarController.getParlamentar().setSeguido(0);
+					parlamentarController.unFollowedParlamentar();
 					Toast.makeText(getActivity(), "Parlamentar DesSeguido",
 							Toast.LENGTH_SHORT).show();
 					btn_detalhe_desseguir.setVisibility(View.GONE);
@@ -65,13 +70,9 @@ public class ParlamentarDetailFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 
-				ParlamentarUserController parlamentarController;
-				parlamentarController = ParlamentarUserController
-						.getInstance(getActivity());
-
 				try {
-					parlamentar.setSeguido(1);
-					parlamentarController.followedParlamentar(parlamentar);
+					parlamentarController.getParlamentar().setSeguido(1);
+					parlamentarController.followedParlamentar();
 					Toast.makeText(getActivity(), "Parlamentar Seguido",
 							Toast.LENGTH_SHORT).show();
 					btn_detalhe_seguir.setVisibility(View.GONE);
@@ -91,10 +92,7 @@ public class ParlamentarDetailFragment extends Fragment {
 	public void setBarras(Parlamentar parlamentar) {
 		TextView view = (TextView) getView().findViewById(R.id.nome);
 		view.setText(parlamentar.getNome());
-		this.parlamentar = parlamentar;
-
-
-
+		parlamentarController.setParlamentar(parlamentar);
 	}
 
 	public void createButtons(View view) {
@@ -239,12 +237,8 @@ public class ParlamentarDetailFragment extends Fragment {
 			public void onClick(View v) {
 				Toast.makeText(getActivity(), "Consultorias, Pesquisas e Trabalhos Técnicos",
 						Toast.LENGTH_SHORT).show();
-
 			}
 		});
-		
-		
-	
 	}
 
 }
