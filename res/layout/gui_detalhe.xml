@@ -127,7 +127,7 @@
         android:layout_above="@+id/btn_cota_aluguel_aviao"
         android:layout_marginLeft="11dp"
         android:layout_toRightOf="@+id/btn_cota_alimentacao"
-        android:src="@drawable/barra_verde" />
+        android:src="@drawable/barra_verde_menor" />
 
     <ImageView
         android:id="@+id/barra_cota_aluguel_aviao"
@@ -135,7 +135,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/btn_cota_bilhetes_aereos"
         android:layout_alignLeft="@+id/barra_cota_alimentacao"
-        android:src="@drawable/barra_verde" />
+        android:src="@drawable/barra_verde_menor" />
 
     <ImageView
         android:id="@+id/barra_cota_bilhetes_aereos"
@@ -143,7 +143,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/btn_cota_bilhetes_aereos"
         android:layout_alignLeft="@+id/barra_cota_aluguel_aviao"
-        android:src="@drawable/barra_verde" />
+        android:src="@drawable/barra_verde_menor" />
 
     <ImageView
         android:id="@+id/barra_cota_correios"
@@ -151,7 +151,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/btn_cota_divulgacao"
         android:layout_alignLeft="@+id/barra_cota_bilhetes_aereos"
-        android:src="@drawable/barra_verde" />
+        android:src="@drawable/barra_verde_menor" />
 
     <ImageView
         android:id="@+id/barra_cota_divulgacao"
@@ -159,7 +159,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/btn_cota_escritorio"
         android:layout_alignLeft="@+id/barra_cota_correios"
-        android:src="@drawable/barra_verde" />
+        android:src="@drawable/barra_verde_menor" />
 
     <ImageView
         android:id="@+id/barra_cota_escritorio"
@@ -167,7 +167,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/btn_cota_escritorio"
         android:layout_alignLeft="@+id/barra_cota_divulgacao"
-        android:src="@drawable/barra_verde" />
+        android:src="@drawable/barra_verde_menor" />
 
     <ImageView
         android:id="@+id/barra_cota_gasolina"
@@ -175,7 +175,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/btn_cota_gasolina"
         android:layout_alignLeft="@+id/barra_cota_escritorio"
-        android:src="@drawable/barra_verde" />
+        android:src="@drawable/barra_verde_menor" />
 
     <ImageView
         android:id="@+id/barra_cota_hoespedagem"
@@ -183,7 +183,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/btn_cota_hospedagem"
         android:layout_alignLeft="@+id/barra_cota_gasolina"
-        android:src="@drawable/barra_verde" />
+        android:src="@drawable/barra_verde_menor" />
 
     <ImageView
         android:id="@+id/barra_cota_seguranca"
@@ -191,7 +191,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/btn_cota_seguranca"
         android:layout_alignLeft="@+id/barra_cota_hoespedagem"
-        android:src="@drawable/barra_verde" />
+        android:src="@drawable/barra_verde_menor" />
 
     <ImageView
         android:id="@+id/barra_cota_telefonia"
@@ -199,7 +199,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/btn_cota_telefone"
         android:layout_alignLeft="@+id/barra_cota_seguranca"
-        android:src="@drawable/barra_verde" />
+        android:src="@drawable/barra_verde_menor" />
 
     <ImageView
         android:id="@+id/barra_cota_trabalho_tecnico"
@@ -207,7 +207,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/btn_cota_trabalho_tecnico"
         android:layout_alignLeft="@+id/barra_cota_telefonia"
-        android:src="@drawable/barra_verde" />
+        android:src="@drawable/barra_verde_menor" />
 
     <TextView
         android:id="@+id/valor_cota_alimentacao"
@@ -215,7 +215,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/btn_cota_aluguel_aviao"
         android:layout_alignParentRight="true"
-        android:text="Medium Text"
+        android:text="R$ 0,00"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -224,7 +224,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/barra_cota_aluguel_aviao"
         android:layout_alignParentRight="true"
-        android:text="Medium Text"
+        android:text="R$ 0,00"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -233,7 +233,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/barra_cota_bilhetes_aereos"
         android:layout_alignParentRight="true"
-        android:text="Medium Text"
+        android:text="R$ 0,00"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -242,7 +242,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/barra_cota_correios"
         android:layout_alignParentRight="true"
-        android:text="Medium Text"
+        android:text="R$ 0,00"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -251,7 +251,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/btn_cota_escritorio"
         android:layout_alignParentRight="true"
-        android:text="Medium Text"
+        android:text="R$ 0,00"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -260,7 +260,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/btn_cota_gasolina"
         android:layout_alignParentRight="true"
-        android:text="Medium Text"
+        android:text="R$ 0,00"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -269,7 +269,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/btn_cota_hospedagem"
         android:layout_alignParentRight="true"
-        android:text="Medium Text"
+        android:text="R$ 0,00"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -278,7 +278,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/btn_cota_seguranca"
         android:layout_alignParentRight="true"
-        android:text="Medium Text"
+        android:text="R$ 0,00"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -287,7 +287,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/barra_cota_seguranca"
         android:layout_alignParentRight="true"
-        android:text="Medium Text"
+        android:text="R$ 0,00"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -296,7 +296,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/btn_cota_trabalho_tecnico"
         android:layout_alignParentRight="true"
-        android:text="Medium Text"
+        android:text="R$ 0,00"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -305,7 +305,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/barra_cota_trabalho_tecnico"
         android:layout_alignParentRight="true"
-        android:text="Medium Text"
+        android:text="R$ 0,00"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>
