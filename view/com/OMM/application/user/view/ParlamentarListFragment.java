@@ -136,6 +136,7 @@ public class ParlamentarListFragment extends ListFragment {
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 
 		super.onCreateOptionsMenu(menu, inflater);
+		menu.clear();
 		MenuItem search = menu.add("Pesquisa");
 		final SearchView sv = new SearchView(getActivity());
 		search.setActionView(sv);
