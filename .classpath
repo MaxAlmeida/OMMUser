@@ -8,7 +8,7 @@
 	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="src" path="view"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="C:/Users/Arthur Jahn/Desktop/hamcrest-core-1.3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Arthur Jahn/Desktop/junit-4.11.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Vinícius/Downloads/hamcrest-core-1.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Vinícius/Downloads/junit-4.11.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

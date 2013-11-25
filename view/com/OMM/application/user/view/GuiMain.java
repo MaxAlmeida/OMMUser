@@ -46,22 +46,10 @@ public class GuiMain extends Activity implements
 
 		if (findViewById(R.id.fragment_container) != null)
 		{
-
-			/* cria a primeira lista */
 			ParlamentarSeguidoListFragment fragment = new ParlamentarSeguidoListFragment();
 			fragmentManager.beginTransaction()
 					.replace(R.id.fragment_container, fragment).commit();
 		}
-
-		// Parlamentar p = new Parlamentar();
-		// p.setNome("tiririca");
-		// p.setId(001);
-		// p.setPartido("ptb");
-		// ParlamentarUserDao dao = ParlamentarUserDao
-		// .getInstance(getBaseContext());
-		// dao.insertParlamentar(p);
-		// dao.insertParlamentar(p);
-		// dao.insertParlamentar(p);
 
 		final Button btn_sobre_main = ( Button ) findViewById(R.id.btn_sobre_main);
 		final Button btn_politico_main = ( Button ) findViewById(R.id.btn_politico_main);

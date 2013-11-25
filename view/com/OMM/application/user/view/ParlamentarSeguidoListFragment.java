@@ -40,10 +40,12 @@ public class ParlamentarSeguidoListFragment extends ListFragment {
 
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
+
 		Parlamentar parlamentar = (Parlamentar) getListAdapter().getItem(
 				position);
 		Toast.makeText(getActivity(), "Toquei!", Toast.LENGTH_SHORT).show();
 		updateDetail(parlamentar);
+
 
 	}
 	

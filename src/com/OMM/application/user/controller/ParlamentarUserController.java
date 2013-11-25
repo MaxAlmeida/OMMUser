@@ -24,11 +24,28 @@ import com.google.gson.JsonSyntaxException;
 public class ParlamentarUserController {
 
 	private static ParlamentarUserController instance;
-	Parlamentar parlamentar;
+	private static Parlamentar parlamentar;
+	private static List<Parlamentar> parlamentares;
 	private ParlamentarUserDao parlamentarDao;
 	private Context context;
 	private CeapUserController ceapController;
-
+	
+	public Parlamentar getParlamentar() {
+		return this.parlamentar;
+	}
+	
+	public void setParlamentar(Parlamentar parlamentar) {
+		this.parlamentar = parlamentar;
+	}
+	
+	public List<Parlamentar> getParlamentares() {
+		return this.parlamentares;
+	}
+	
+	public void setParlamentares(List<Parlamentar> parlamentares) {
+		this.parlamentares = parlamentares;
+	}
+	
 	private ParlamentarUserController(Context context) {
 		ceapController = CeapUserController.getInstance(context);
 		parlamentarDao = ParlamentarUserDao.getInstance(context);
@@ -52,9 +69,7 @@ public class ParlamentarUserController {
 
 		try {
 			parlamentar = JSONHelper.listParlamentarFromJSON(jsonParlamentar)
-					.get(0);
-
-			
+					.get(0);		
 			
 		} catch (JsonSyntaxException jse) {
 			throw new TransmissionException();
@@ -104,7 +119,7 @@ public class ParlamentarUserController {
 		return parlamentarDao.getAll();
 	}
 
-	public boolean followedParlamentar(Parlamentar parlamentar)
+	public boolean followedParlamentar()
 			throws NullParlamentarException {
 
 		boolean result = true;
@@ -183,7 +198,7 @@ public class ParlamentarUserController {
 		return parlamentarDao.checkEmptyDB();
 	}
 
-	public boolean unFollowedParlamentar(Parlamentar parlamentar) throws NullParlamentarException {
+	public boolean unFollowedParlamentar() throws NullParlamentarException {
 		
 		boolean result = true;
 

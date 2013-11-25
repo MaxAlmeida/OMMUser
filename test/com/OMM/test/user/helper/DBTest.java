@@ -1,30 +1,17 @@
 package com.OMM.test.user.helper;
 
-import static org.junit.Assert.*;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import android.test.ActivityInstrumentationTestCase2;
 
 import com.OMM.application.user.helper.DB;
+import com.OMM.application.user.view.GuiMain;
 
-public class DBTest {
+public class DBTest extends ActivityInstrumentationTestCase2<GuiMain> {
 
-	@Before
-	public void setUp() throws Exception {
+	public DBTest(Class<GuiMain> activityClass)
+	{
+		super(activityClass);
+		// TODO Auto-generated constructor stub
 	}
 
-	@After
-	public void tearDown() throws Exception {
-	}
 
-	@Test
-	public void testConstructor() {
-		//DB db = new DB(null);
-		//assertEquals(db.getClass(), DB.class);
-	}
-	@Test
-	public void stringTests(){
-		
-	}
 }
