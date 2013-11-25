@@ -21,33 +21,31 @@ import com.OMM.application.user.model.CotaParlamentar;
 import com.OMM.application.user.model.Parlamentar;
 
 public class ParlamentarDetailFragment extends Fragment {
-	
+
 	ParlamentarUserController parlamentarController;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		
+
 		parlamentarController = ParlamentarUserController
 				.getInstance(getActivity());
-		
+
 		View view = inflater.inflate(R.layout.gui_detalhe, container, false);
-		
+
 		final Button btn_detalhe_seguir = (Button) view
 				.findViewById(R.id.btn_detalhe_seguir);
 		final Button btn_detalhe_desseguir = (Button) view
 				.findViewById(R.id.btn_detalhe_desseguir);
 		btn_detalhe_desseguir.setVisibility(View.INVISIBLE);
 
+		// if(parlamentarController.getParlamentar().isSeguido() == 1) {
+		btn_detalhe_desseguir.setVisibility(View.INVISIBLE);
 
+		// } else {
+		// btn_detalhe_seguir.setVisibility(View.INVISIBLE);
+		// }
 
-	//	if(parlamentarController.getParlamentar().isSeguido() == 1) {
-			btn_detalhe_desseguir.setVisibility(View.INVISIBLE);
-		
-	//	} else {
-	//		btn_detalhe_seguir.setVisibility(View.INVISIBLE);
-	//	}
-		
 		createButtons(view);
 
 		btn_detalhe_desseguir.setOnClickListener(new View.OnClickListener() {
@@ -60,8 +58,8 @@ public class ParlamentarDetailFragment extends Fragment {
 					parlamentarController.unFollowedParlamentar();
 					Toast.makeText(getActivity(), "Parlamentar DesSeguido",
 							Toast.LENGTH_SHORT).show();
-//					btn_detalhe_desseguir.setVisibility(View.GONE);
-//					btn_detalhe_seguir.setVisibility(View.VISIBLE);
+					// btn_detalhe_desseguir.setVisibility(View.GONE);
+					// btn_detalhe_seguir.setVisibility(View.VISIBLE);
 
 				} catch (NullParlamentarException nullEx) {
 					Toast.makeText(getActivity(),
@@ -97,14 +95,12 @@ public class ParlamentarDetailFragment extends Fragment {
 	}
 
 	@Override
-	public void onStart( )
-	{
+	public void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
-		
-	
+
 	}
-	
+
 	public void setBarras(Parlamentar parlamentar) {
 		TextView view = (TextView) getView().findViewById(R.id.nome);
 		view.setText(parlamentar.getNome());
@@ -116,7 +112,7 @@ public class ParlamentarDetailFragment extends Fragment {
 		while (iterator.hasNext()) {
 
 			CotaParlamentar cota = iterator.next();
-
+//TODO: Corrigir mês solicitado
 			if (cota.getMes() == 6) {
 				
 
@@ -136,33 +132,9 @@ public class ParlamentarDetailFragment extends Fragment {
 							.findViewById(R.id.barra_cota_escritorio);
 					TextView textViewEscritorio = (TextView) getActivity().findViewById(R.id.valor_cota_escritorio);
 					textViewEscritorio.setText("R$ " + valorCotaDecimal.format(valorCota));
-					if (valorCota <= 500.00) {
-
-						//Nothing should be done
-
-					} else if (valorCota <= 2500.00) {
-
-						barEscritorio.setImageResource(R.drawable.barra_verde);
-
-					} else if (valorCota <= 5000.00) {
-
-						barEscritorio
-								.setImageResource(R.drawable.barra_amarela);
-
-					} else if (valorCota <= 7500) {
-
-						barEscritorio
-								.setImageResource(R.drawable.barra_laranja);
-
-					} else if (valorCota > 7500) {
-
-						barEscritorio
-								.setImageResource(R.drawable.barra_vermelha);
-
-					} else {
-						Log.i("Parlamentar detail Fragment",
-								"Valor Mensal Negativo");
-					}
+				
+					sizeBar(barEscritorio, valorCota);
+					
 					break;
 
 				case 3:
@@ -171,33 +143,8 @@ public class ParlamentarDetailFragment extends Fragment {
 							.findViewById(R.id.barra_cota_gasolina);
 					TextView textViewCombustivel = (TextView) getActivity().findViewById(R.id.valor_cota_gasolina);
 					textViewCombustivel.setText("R$ " + valorCotaDecimal.format(valorCota));
-					if (valorCota <= 500.00) {
-
-						//Nothing should be done
-
-					} else if (valorCota <= 2500.00) {
-
-						barCombustivel.setImageResource(R.drawable.barra_verde);
-
-					} else if (valorCota <= 5000.00) {
-
-						barCombustivel
-								.setImageResource(R.drawable.barra_amarela);
-
-					} else if (valorCota <= 7500) {
-
-						barCombustivel
-								.setImageResource(R.drawable.barra_laranja);
-
-					} else if (valorCota > 7500) {
-
-						barCombustivel
-								.setImageResource(R.drawable.barra_vermelha);
-
-					} else {
-						Log.i("Parlamentar detail Fragment",
-								"Valor Mensal Negativo");
-					}
+				
+					sizeBar(barCombustivel, valorCota);
 
 					break;
 
@@ -207,34 +154,8 @@ public class ParlamentarDetailFragment extends Fragment {
 							.findViewById(R.id.barra_cota_trabalho_tecnico);
 					TextView textViewTrabalhoTecnico = (TextView) getActivity().findViewById(R.id.valor_cota_trabalho_tecnico);
 					textViewTrabalhoTecnico.setText("R$ " + valorCotaDecimal.format(valorCota));
-					if (valorCota <= 500.00) {
-
-						//Nothing should be done
-
-					} else if (valorCota <= 2500.00) {
-
-						barTrabalhoTecnico
-								.setImageResource(R.drawable.barra_verde);
-
-					} else if (valorCota <= 5000.00) {
-
-						barTrabalhoTecnico
-								.setImageResource(R.drawable.barra_amarela);
-
-					} else if (valorCota <= 7500) {
-
-						barTrabalhoTecnico
-								.setImageResource(R.drawable.barra_laranja);
-
-					} else if (valorCota > 7500) {
-
-						barTrabalhoTecnico
-								.setImageResource(R.drawable.barra_vermelha);
-
-					} else {
-						Log.i("Parlamentar detail Fragment",
-								"Valor Mensal Negativo");
-					}
+					
+					sizeBar(barTrabalhoTecnico, valorCota);
 
 					break;
 
@@ -244,33 +165,8 @@ public class ParlamentarDetailFragment extends Fragment {
 							.findViewById(R.id.barra_cota_divulgacao);
 					TextView textViewDivulgacao = (TextView) getActivity().findViewById(R.id.valor_cota_divulgacao);
 					textViewDivulgacao.setText("R$ " + valorCotaDecimal.format(valorCota));
-					if (valorCota <= 500.00) {
-
-						//Nothing should be done
-
-					} else if (valorCota <= 2500.00) {
-
-						barDivulgacao.setImageResource(R.drawable.barra_verde);
-
-					} else if (valorCota <= 5000.00) {
-
-						barDivulgacao
-								.setImageResource(R.drawable.barra_amarela);
-
-					} else if (valorCota <= 7500) {
-
-						barDivulgacao
-								.setImageResource(R.drawable.barra_laranja);
-
-					} else if (valorCota > 7500) {
-
-						barDivulgacao
-								.setImageResource(R.drawable.barra_vermelha);
-
-					} else {
-						Log.i("Parlamentar detail Fragment",
-								"Valor Mensal Negativo");
-					}
+			
+					sizeBar(barDivulgacao, valorCota);
 
 					break;
 
@@ -280,31 +176,8 @@ public class ParlamentarDetailFragment extends Fragment {
 							.findViewById(R.id.barra_cota_seguranca);
 					TextView textViewSeguranca = (TextView) getActivity().findViewById(R.id.valor_cota_seguranca);
 					textViewSeguranca.setText("R$ " + valorCotaDecimal.format(valorCota));
-					if (valorCota <= 500.00) {
 
-						//Nothing should be done
-
-					} else if (valorCota <= 2500.00) {
-
-						barSeguranca.setImageResource(R.drawable.barra_verde);
-
-					} else if (valorCota <= 5000.00) {
-
-						barSeguranca.setImageResource(R.drawable.barra_amarela);
-
-					} else if (valorCota <= 7500) {
-
-						barSeguranca.setImageResource(R.drawable.barra_laranja);
-
-					} else if (valorCota > 7500) {
-
-						barSeguranca
-								.setImageResource(R.drawable.barra_vermelha);
-
-					} else {
-						Log.i("Parlamentar detail Fragment",
-								"Valor Mensal Negativo");
-					}
+					sizeBar(barSeguranca, valorCota);
 
 					break;
 
@@ -314,34 +187,8 @@ public class ParlamentarDetailFragment extends Fragment {
 							.findViewById(R.id.barra_cota_aluguel_aviao);
 					TextView textViewAluguelAviao = (TextView) getActivity().findViewById(R.id.valor_cota_aluguel_aviao);
 					textViewAluguelAviao.setText("R$ " + valorCotaDecimal.format(valorCota));
-					if (valorCota <= 500.00) {
 
-						//Nothing should be done
-
-					} else if (valorCota <= 2500.00) {
-
-						barAluguelAviao
-								.setImageResource(R.drawable.barra_verde);
-
-					} else if (valorCota <= 5000.00) {
-
-						barAluguelAviao
-								.setImageResource(R.drawable.barra_amarela);
-
-					} else if (valorCota <= 7500) {
-
-						barAluguelAviao
-								.setImageResource(R.drawable.barra_laranja);
-
-					} else if (valorCota > 7500) {
-
-						barAluguelAviao
-								.setImageResource(R.drawable.barra_vermelha);
-
-					} else {
-						Log.i("Parlamentar detail Fragment",
-								"Valor Mensal Negativo");
-					}
+					sizeBar(barAluguelAviao, valorCota);
 
 					break;
 
@@ -351,31 +198,8 @@ public class ParlamentarDetailFragment extends Fragment {
 							.findViewById(R.id.barra_cota_telefonia);
 					TextView textViewTelefonia = (TextView) getActivity().findViewById(R.id.valor_cota_telefonia);
 					textViewTelefonia.setText("R$ " + valorCotaDecimal.format(valorCota));
-					if (valorCota <= 500.00) {
 
-						//Nothing should be done
-
-					} else if (valorCota <= 2500.00) {
-
-						barTelefonia.setImageResource(R.drawable.barra_verde);
-
-					} else if (valorCota <= 5000.00) {
-
-						barTelefonia.setImageResource(R.drawable.barra_amarela);
-
-					} else if (valorCota <= 7500) {
-
-						barTelefonia.setImageResource(R.drawable.barra_laranja);
-
-					} else if (valorCota > 7500) {
-
-						barTelefonia
-								.setImageResource(R.drawable.barra_vermelha);
-
-					} else {
-						Log.i("Parlamentar detail Fragment",
-								"Valor Mensal Negativo");
-					}
+					sizeBar(barTelefonia, valorCota);
 
 					break;
 
@@ -385,30 +209,9 @@ public class ParlamentarDetailFragment extends Fragment {
 							.findViewById(R.id.barra_cota_correios);
 					TextView textViewCorreios = (TextView) getActivity().findViewById(R.id.valor_cota_correios);
 					textViewCorreios.setText("R$ " + valorCotaDecimal.format(valorCota));
-					if (valorCota <= 500.00) {
 
-						//Nothing should be done
 
-					} else if (valorCota <= 2500.00) {
-
-						barCorreios.setImageResource(R.drawable.barra_verde);
-
-					} else if (valorCota <= 5000.00) {
-
-						barCorreios.setImageResource(R.drawable.barra_amarela);
-
-					} else if (valorCota <= 7500) {
-
-						barCorreios.setImageResource(R.drawable.barra_laranja);
-
-					} else if (valorCota > 7500) {
-
-						barCorreios.setImageResource(R.drawable.barra_vermelha);
-
-					} else {
-						Log.i("Parlamentar detail Fragment",
-								"Valor Mensal Negativo");
-					}
+					sizeBar(barCorreios, valorCota);
 
 					break;
 
@@ -418,33 +221,8 @@ public class ParlamentarDetailFragment extends Fragment {
 							.findViewById(R.id.barra_cota_alimentacao);
 					TextView textViewAlimentacao = (TextView) getActivity().findViewById(R.id.valor_cota_alimentacao);
 					textViewAlimentacao.setText("R$ " + valorCotaDecimal.format(valorCota));
-					if (valorCota <= 500.00) {
 
-						//Nothing should be done
-
-					} else if (valorCota <= 2500.00) {
-
-						barAlimentacao.setImageResource(R.drawable.barra_verde);
-
-					} else if (valorCota <= 5000.00) {
-
-						barAlimentacao
-								.setImageResource(R.drawable.barra_amarela);
-
-					} else if (valorCota <= 7500) {
-
-						barAlimentacao
-								.setImageResource(R.drawable.barra_laranja);
-
-					} else if (valorCota > 7500) {
-
-						barAlimentacao
-								.setImageResource(R.drawable.barra_vermelha);
-
-					} else {
-						Log.i("Parlamentar detail Fragment",
-								"Valor Mensal Negativo");
-					}
+					sizeBar(barAlimentacao, valorCota);
 
 					break;
 
@@ -454,33 +232,8 @@ public class ParlamentarDetailFragment extends Fragment {
 							.findViewById(R.id.barra_cota_hoespedagem);
 					TextView textViewHospedagam = (TextView) getActivity().findViewById(R.id.valor_cota_hospedagem);
 					textViewHospedagam.setText("R$ " + valorCotaDecimal.format(valorCota));
-					if (valorCota <= 500.00) {
-
-						//Nothing should be done
-
-					} else if (valorCota <= 2500.00) {
-
-						barHospedagem.setImageResource(R.drawable.barra_verde);
-
-					} else if (valorCota <= 5000.00) {
-
-						barHospedagem
-								.setImageResource(R.drawable.barra_amarela);
-
-					} else if (valorCota <= 7500) {
-
-						barHospedagem
-								.setImageResource(R.drawable.barra_laranja);
-
-					} else if (valorCota > 7500) {
-
-						barHospedagem
-								.setImageResource(R.drawable.barra_vermelha);
-
-					} else {
-						Log.i("Parlamentar detail Fragment",
-								"Valor Mensal Negativo");
-					}
+					
+					sizeBar(barHospedagem, valorCota);
 
 					break;
 
@@ -490,38 +243,13 @@ public class ParlamentarDetailFragment extends Fragment {
 							.findViewById(R.id.barra_cota_bilhetes_aereos);
 					TextView textViewBilhetesAereos = (TextView) getActivity().findViewById(R.id.valor_cota_bilhetes_aereos);
 					textViewBilhetesAereos.setText("R$ " + valorCotaDecimal.format(valorCota));
-					if (valorCota <= 500.00) {
 
-						//Nothing should be done
-
-					} else if (valorCota <= 2500.00) {
-
-						barBilhetesAereos
-								.setImageResource(R.drawable.barra_verde);
-
-					} else if (valorCota <= 5000.00) {
-
-						barBilhetesAereos
-								.setImageResource(R.drawable.barra_amarela);
-
-					} else if (valorCota <= 7500) {
-
-						barBilhetesAereos
-								.setImageResource(R.drawable.barra_laranja);
-
-					} else if (valorCota > 7500) {
-
-						barBilhetesAereos
-								.setImageResource(R.drawable.barra_vermelha);
-
-					} else {
-						Log.i("Parlamentar detail Fragment",
-								"Valor Mensal Negativo");
-					}
-
+					sizeBar(barBilhetesAereos, valorCota);
+					
+					
 					break;
 					
-					default: 
+				default: 
 						Log.i("Parlamentar detail Fragment",
 								"Cod estranho");
 
@@ -529,6 +257,34 @@ public class ParlamentarDetailFragment extends Fragment {
 
 			}
 
+		}
+
+	}
+
+	public void sizeBar(ImageView bar, double valorCota) {
+
+		if (valorCota <= 500) {
+
+			// Nothing should be done
+
+		} else if (valorCota <= 1500) {
+
+			bar.setImageResource(R.drawable.barra_verde);
+
+		} else if (valorCota <= 3000) {
+
+			bar.setImageResource(R.drawable.barra_amarela);
+
+		} else if (valorCota <= 5000) {
+
+			bar.setImageResource(R.drawable.barra_laranja);
+
+		} else if (valorCota > 5000) {
+
+			bar.setImageResource(R.drawable.barra_vermelha);
+
+		} else {
+			Log.i("Parlamentar detail Fragment", "Valor Mensal Negativo");
 		}
 
 	}
