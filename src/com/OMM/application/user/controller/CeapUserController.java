@@ -4,7 +4,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import android.content.Context;
-
 import com.OMM.application.user.dao.CotaParlamentarUserDao;
 import com.OMM.application.user.exceptions.NullCotaParlamentarException;
 import com.OMM.application.user.exceptions.NullParlamentarException;
@@ -19,10 +18,11 @@ public class CeapUserController {
 	private static CeapUserController instance;
 
 	private CotaParlamentarUserDao cotaDao;
+	private Context context;
 
 	private CeapUserController(Context context) {
 		this.cotaDao = CotaParlamentarUserDao.getInstance(context);
-
+		this.context = context;
 	}
 
 	public static CeapUserController getInstance(Context context) {
@@ -73,4 +73,13 @@ public class CeapUserController {
 
 		return result;
 	}
+
+	public boolean deleteCota(Parlamentar parlamentar) {
+
+		CotaParlamentarUserDao cota = CotaParlamentarUserDao
+				.getInstance(context);
+
+		return cota.deleteParlamentar(parlamentar);
+	}
+
 }

@@ -6,9 +6,12 @@ import java.util.List;
 import org.apache.http.client.ResponseHandler;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 
 import com.OMM.application.user.dao.ParlamentarUserDao;
 import com.OMM.application.user.exceptions.NullCotaParlamentarException;
+import com.OMM.application.user.exceptions.NullParlamentarException;
+import com.OMM.application.user.helper.DB;
 import com.OMM.application.user.exceptions.NullParlamentarException;
 import com.OMM.application.user.exceptions.TransmissionException;
 import com.OMM.application.user.helper.JSONHelper;
@@ -178,6 +181,18 @@ public class ParlamentarUserController {
 	public boolean checkEmptyDB() {
 
 		return parlamentarDao.checkEmptyDB();
+	}
+
+	public boolean unFollowedParlamentar(Parlamentar parlamentar) throws NullParlamentarException {
+		
+		boolean result = true;
+
+		CeapUserController controllerCeap = CeapUserController.getInstance(context);
+		ParlamentarUserDao parlamentarDAO=ParlamentarUserDao.getInstance(context);
+		
+		result = controllerCeap.deleteCota( parlamentar)&parlamentarDAO.updateParlamentar(parlamentar);
+
+		return result;
 	}
 	
 	public List<Parlamentar> doRequestMajorRanking(ResponseHandler<String> responseHandler

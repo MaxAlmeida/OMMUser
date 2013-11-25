@@ -1,131 +1,311 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/fundo"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:layout_height="match_parent" >
 
-    <ImageView
-        android:id="@+id/telefonia"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/btn_detalhe_desseguir"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/combustivel"
-        android:layout_below="@+id/combustivel"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/barra_laranja" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:text="Forget" />
 
-    <ImageView
-        android:id="@+id/passagemAerea"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/btn_detalhe_seguir"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/telefonia"
-        android:layout_below="@+id/telefonia"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/barra_vermelha" />
-
-    <ImageView
-        android:id="@+id/combustivel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/imageView2"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="10dp"
-        android:layout_toRightOf="@+id/imageView2"
-        android:src="@drawable/barra_verde" />
-
-    <ImageView
-        android:id="@+id/servicoPostal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/passagemAerea"
-        android:layout_below="@+id/passagemAerea"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/barra_amarela" />
-
-    <ImageView
-        android:id="@+id/alimentacaoParlamentar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/manutencaoParlamentar"
-        android:layout_below="@+id/manutencaoParlamentar"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/barra_verde" />
-
-    <ImageView
-        android:id="@+id/manutencaoParlamentar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/servicoPostal"
-        android:layout_below="@+id/servicoPostal"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/barra_vermelha" />
-
-    <ImageView
-        android:id="@+id/assinaturaPublicacoes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/alimentacaoParlamentar"
-        android:layout_below="@+id/alimentacaoParlamentar"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/barra_amarela" />
-
-    <ImageView
-        android:id="@+id/servicoSeguranca"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/assinaturaPublicacoes"
-        android:layout_below="@+id/assinaturaPublicacoes"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/barra_laranja" />
-
-    <ImageView
-        android:id="@+id/trabalhosTecnicos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/servicoSeguranca"
-        android:layout_below="@+id/servicoSeguranca"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/barra_vermelha" />
-
-    <ImageView
-        android:id="@+id/divulgacaoAtividade"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/trabalhosTecnicos"
-        android:layout_below="@+id/trabalhosTecnicos"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/barra_laranja" />
-
-    <ImageView
-        android:id="@+id/emissaoBoletoAereo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/divulgacaoAtividade"
-        android:layout_below="@+id/divulgacaoAtividade"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/barra_vermelha" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="40dp"
-        android:layout_height="300dp"
-        android:layout_centerVertical="true"
-        android:src="@drawable/icones_cotas" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:text="Seguir" />
 
     <TextView
         android:id="@+id/nome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="23dp"
-        android:layout_toRightOf="@+id/telefonia"
-        android:text="TextView" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
-        android:id="@+id/btn_detalhe_seguir"
-        android:layout_width="match_parent"
+        android:id="@+id/btn_cota_alimentacao"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/nome"
+        android:layout_marginLeft="22dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/cota_alimentacao" />
+
+    <Button
+        android:id="@+id/btn_cota_aluguel_aviao"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@+id/btn_cota_alimentacao"
+        android:layout_below="@+id/btn_cota_alimentacao"
+        android:background="@drawable/cota_aluguel_aviao" />
+
+    <Button
+        android:id="@+id/btn_cota_bilhetes_aereos"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@+id/btn_cota_aluguel_aviao"
+        android:layout_below="@+id/btn_cota_aluguel_aviao"
+        android:background="@drawable/cota_bilhetes_aereos" />
+
+    <Button
+        android:id="@+id/btn_cota_correios"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@+id/btn_cota_bilhetes_aereos"
+        android:layout_below="@+id/btn_cota_bilhetes_aereos"
+        android:background="@drawable/cota_correios" />
+
+    <Button
+        android:id="@+id/btn_cota_divulgacao"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@+id/btn_cota_correios"
+        android:layout_below="@+id/btn_cota_correios"
+        android:background="@drawable/cota_divulgacao" />
+
+    <Button
+        android:id="@+id/btn_cota_escritorio"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@+id/btn_cota_divulgacao"
+        android:layout_below="@+id/btn_cota_divulgacao"
+        android:background="@drawable/cota_escritorio" />
+
+    <Button
+        android:id="@+id/btn_cota_gasolina"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@+id/btn_cota_escritorio"
+        android:layout_below="@+id/btn_cota_escritorio"
+        android:background="@drawable/cota_gasolina" />
+
+    <Button
+        android:id="@+id/btn_cota_hospedagem"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@+id/btn_cota_gasolina"
+        android:layout_below="@+id/btn_cota_gasolina"
+        android:background="@drawable/cota_hospedagem" />
+
+    <Button
+        android:id="@+id/btn_cota_seguranca"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@+id/btn_cota_hospedagem"
+        android:layout_below="@+id/btn_cota_hospedagem"
+        android:background="@drawable/cota_seguranca" />
+
+    <Button
+        android:id="@+id/btn_cota_telefone"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@+id/btn_cota_seguranca"
+        android:layout_below="@+id/btn_cota_seguranca"
+        android:background="@drawable/cota_telefone" />
+
+    <Button
+        android:id="@+id/btn_cota_trabalho_tecnico"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@+id/btn_cota_telefone"
+        android:layout_below="@+id/btn_cota_telefone"
+        android:background="@drawable/cota_trabalho_tecnico" />
+
+    <ImageView
+        android:id="@+id/barra_cota_alimentacao"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView2"
-        android:layout_centerHorizontal="true"
-        android:text="Seguir" />
+        android:layout_above="@+id/btn_cota_aluguel_aviao"
+        android:layout_marginLeft="11dp"
+        android:layout_toRightOf="@+id/btn_cota_alimentacao"
+        android:src="@drawable/barra_verde" />
+
+    <ImageView
+        android:id="@+id/barra_cota_aluguel_aviao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_cota_bilhetes_aereos"
+        android:layout_alignLeft="@+id/barra_cota_alimentacao"
+        android:src="@drawable/barra_verde" />
+
+    <ImageView
+        android:id="@+id/barra_cota_bilhetes_aereos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/btn_cota_bilhetes_aereos"
+        android:layout_alignLeft="@+id/barra_cota_aluguel_aviao"
+        android:src="@drawable/barra_verde" />
+
+    <ImageView
+        android:id="@+id/barra_cota_correios"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_cota_divulgacao"
+        android:layout_alignLeft="@+id/barra_cota_bilhetes_aereos"
+        android:src="@drawable/barra_verde" />
+
+    <ImageView
+        android:id="@+id/barra_cota_divulgacao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_cota_escritorio"
+        android:layout_alignLeft="@+id/barra_cota_correios"
+        android:src="@drawable/barra_verde" />
+
+    <ImageView
+        android:id="@+id/barra_cota_escritorio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/btn_cota_escritorio"
+        android:layout_alignLeft="@+id/barra_cota_divulgacao"
+        android:src="@drawable/barra_verde" />
+
+    <ImageView
+        android:id="@+id/barra_cota_gasolina"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/btn_cota_gasolina"
+        android:layout_alignLeft="@+id/barra_cota_escritorio"
+        android:src="@drawable/barra_verde" />
+
+    <ImageView
+        android:id="@+id/barra_cota_hoespedagem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/btn_cota_hospedagem"
+        android:layout_alignLeft="@+id/barra_cota_gasolina"
+        android:src="@drawable/barra_verde" />
+
+    <ImageView
+        android:id="@+id/barra_cota_seguranca"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/btn_cota_seguranca"
+        android:layout_alignLeft="@+id/barra_cota_hoespedagem"
+        android:src="@drawable/barra_verde" />
+
+    <ImageView
+        android:id="@+id/barra_cota_telefonia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/btn_cota_telefone"
+        android:layout_alignLeft="@+id/barra_cota_seguranca"
+        android:src="@drawable/barra_verde" />
+
+    <ImageView
+        android:id="@+id/barra_cota_trabalho_tecnico"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/btn_cota_trabalho_tecnico"
+        android:layout_alignLeft="@+id/barra_cota_telefonia"
+        android:src="@drawable/barra_verde" />
+
+    <TextView
+        android:id="@+id/valor_cota_alimentacao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_cota_aluguel_aviao"
+        android:layout_alignParentRight="true"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/valor_cota_aluguel_aviao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/barra_cota_aluguel_aviao"
+        android:layout_alignParentRight="true"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/valor_cota_bilhetes_aereos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/barra_cota_bilhetes_aereos"
+        android:layout_alignParentRight="true"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/valor_cota_correios"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/barra_cota_correios"
+        android:layout_alignParentRight="true"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/valor_cota_divulgacao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_cota_escritorio"
+        android:layout_alignParentRight="true"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/valor_cota_escritorio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_cota_gasolina"
+        android:layout_alignParentRight="true"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/valor_cota_gasolina"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_cota_hospedagem"
+        android:layout_alignParentRight="true"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/valor_cota_hospedagem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_cota_seguranca"
+        android:layout_alignParentRight="true"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/valor_cota_seguranca"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/barra_cota_seguranca"
+        android:layout_alignParentRight="true"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/valor_cota_telefonia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_cota_trabalho_tecnico"
+        android:layout_alignParentRight="true"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/valor_cota_trabalho_tecnico"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/barra_cota_trabalho_tecnico"
+        android:layout_alignParentRight="true"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

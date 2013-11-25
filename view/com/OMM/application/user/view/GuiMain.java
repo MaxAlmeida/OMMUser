@@ -169,7 +169,7 @@ public class GuiMain extends Activity implements
 		transaction.addToBackStack(null);
 		transaction.commitAllowingStateLoss();
 		getFragmentManager().executePendingTransactions();
-		detailFragment.setText(parlamentar);
+		detailFragment.setBarras(parlamentar);
 
 	}
 
