@@ -27,7 +27,7 @@ public class JSONHelperTest {
 	public void testListCotaParlamentarFromJSON() {
 
 		CotaParlamentar cota = new CotaParlamentar();
-		cota.setId(144068);
+		cota.setCod(144068);
 		cota.setIdParlamentar(373);
 
 		CotaParlamentar cota2 = JSONHelper
@@ -35,7 +35,7 @@ public class JSONHelperTest {
 						"[{\"cod\":144068,\"idParlamentar\":373,\"mes\":7,\"ano\":2013,\"numeroSubCota\":3,\"descricao\":\"COMBUST\",\"valor\":150.0}]")
 				.get(0);
 
-		assertEquals(cota.getId(), cota2.getId());
+		assertEquals(cota.getCod(), cota2.getCod());
 
 	}
 

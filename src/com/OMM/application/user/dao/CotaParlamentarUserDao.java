@@ -41,13 +41,13 @@ public class CotaParlamentarUserDao {
 		SQLiteDatabase database = new DB(context).getWritableDatabase();
 		ContentValues content = new ContentValues();
 
-		content.put("ID_COTA", cota.getId());
+		content.put("ID_COTA", cota.getCod());
 		content.put("ID_PARLAMENTAR", cota.getIdParlamentar());
 		content.put("DESCRICAO", cota.getDescricao());
 		
 		content.put("MES", 10);
 		content.put("ANO", cota.getAno());
-		content.put("VALOR", cota.getValorOutubro());
+		content.put("VALOR", cota.getValor());
 		content.put("NUM_SUBCOTA", cota.getNumeroSubCota());
 
 		return (database.insert(nome_tabela, null, content) > 0);
@@ -67,7 +67,7 @@ public class CotaParlamentarUserDao {
 			
 			CotaParlamentar cota = new CotaParlamentar();
 			cota.setDescricao(cursor.getString(0));
-			cota.setValorOutubro(cursor.getDouble(1));
+			cota.setValor(cursor.getDouble(1));
 			
 			listCotas.add(cota);
 		}
