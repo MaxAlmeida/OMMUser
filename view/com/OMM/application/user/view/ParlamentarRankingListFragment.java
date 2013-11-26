@@ -13,8 +13,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
-
 import com.OMM.application.user.R;
 import com.OMM.application.user.adapters.ParlamentarRankingAdapter;
 import com.OMM.application.user.controller.ParlamentarUserController;
@@ -34,12 +32,14 @@ public class ParlamentarRankingListFragment extends ListFragment
 		controllerParlamentar = ParlamentarUserController
 				.getInstance(getActivity());
 		ResponseHandler<String> responseHandler = HttpConnection.getResponseHandler();
-		List<Parlamentar> list = startRequest(new ArrayList<Parlamentar>());
+		
+		startRequest();
+		
 		super.onCreate(savedInstanceState);
 
 		setHasOptionsMenu(true);
 		ParlamentarRankingAdapter adapter = new ParlamentarRankingAdapter(
-				getActivity(), R.layout.fragment_ranking, list);
+				getActivity(), R.layout.fragment_ranking, controllerParlamentar.getParlamentares());
 
 		setListAdapter(adapter);
 		setRetainInstance(false);
@@ -49,15 +49,14 @@ public class ParlamentarRankingListFragment extends ListFragment
 	@Override
 	public void onListItemClick( ListView l, View v, int position, long id )
 	{
-		Parlamentar parlamentar = ( Parlamentar ) getListAdapter().getItem(
-				position);
-		Toast.makeText(getActivity(), "toquei!", Toast.LENGTH_SHORT).show();
-		updateDetail(parlamentar);
+		controllerParlamentar.setParlamentar(( Parlamentar ) getListAdapter().getItem(
+				position));
+		updateDetail();
 
 	}
 
 	private static class ParseTask extends
-			AsyncTask<String, Void, List<Parlamentar>>
+			AsyncTask<String, Void, Void>
 	{
 
 		private ParlamentarRankingListFragment fragment;
@@ -68,18 +67,17 @@ public class ParlamentarRankingListFragment extends ListFragment
 		}
 
 		@Override
-		protected List<Parlamentar> doInBackground( String... params )
+		protected Void doInBackground( String... params )
 		{
-			List<Parlamentar> result = controllerParlamentar
-					.getSelected(params[ 0 ]);
-			return result;
+			controllerParlamentar.getSelected(params[ 0 ]);
+			return null;
 		}
 
 		@Override
-		protected void onPostExecute( List<Parlamentar> result )
+		protected void onPostExecute(Void result)
 		{
 
-			fragment.setListContent(result);
+			fragment.setListContent(controllerParlamentar.getParlamentares());
 
 		}
 	}
@@ -104,10 +102,10 @@ public class ParlamentarRankingListFragment extends ListFragment
 		}
 	}
 
-	public void setListContent( List<Parlamentar> result )
+	public void setListContent( List result )
 	{
 
-		ArrayAdapter<Parlamentar> listAdapter = ( ArrayAdapter<Parlamentar> ) getListAdapter();
+		ArrayAdapter listAdapter = ( ArrayAdapter ) getListAdapter();
 		listAdapter.clear();
 		listAdapter.addAll(result);
 		parseTask.setFragment(null);
@@ -117,7 +115,7 @@ public class ParlamentarRankingListFragment extends ListFragment
 
 	public interface OnParlamentarRankingSelectedListener
 	{
-		public void OnParlamentarRankingSelected( Parlamentar parlamentar );
+		public void OnParlamentarRankingSelected();
 	}
 
 	@Override
@@ -135,12 +133,12 @@ public class ParlamentarRankingListFragment extends ListFragment
 		}
 	}
 
-	public void updateDetail( Parlamentar parlamentar )
+	public void updateDetail()
 	{
-		//parlamentar = startRequest(parlamentar);
+		startRequest();
 	}
 
-	private class RequestTask extends AsyncTask<Object, Void, List<Parlamentar>>
+	private class RequestTask extends AsyncTask<Object, Void, Void>
 	{
 		ProgressDialog progressDialog;
 
@@ -152,17 +150,12 @@ public class ParlamentarRankingListFragment extends ListFragment
 		}
 
 		@Override
-		protected List<Parlamentar> doInBackground( Object... params )
+		protected Void doInBackground( Object... params )
 		{
-
-			ParlamentarUserController parlamentarController = ParlamentarUserController
-					.getInstance(getActivity());
 			ResponseHandler<String> rh = ( ResponseHandler<String> ) params[ 0 ];
-			List<Parlamentar> list = null;
 			try
 			{
-				list = ( List<Parlamentar> ) parlamentarController
-						.doRequestMajorRanking(rh);
+				controllerParlamentar.doRequestMajorRanking(rh);
 			}
 			// TODO corrigir tratamento de excessão, deve ser lançado pela
 			// controller.
@@ -170,29 +163,27 @@ public class ParlamentarRankingListFragment extends ListFragment
 			{
 				progressDialog.dismiss();
 			}
-			return list;
+			return null;
 		}
 
 		@Override
-		protected void onPostExecute( List<Parlamentar> list )
+		protected void onPostExecute(Void result)
 		{
 
 			progressDialog.dismiss();
-			ArrayAdapter<Parlamentar> listAdapter = ( ArrayAdapter<Parlamentar> ) getListAdapter();
+			ArrayAdapter listAdapter = ( ArrayAdapter ) getListAdapter();
 			listAdapter.clear();
-			listAdapter.addAll(list);
+			listAdapter.addAll(controllerParlamentar.getParlamentares());
 		}
 	}
 
-	private List<Parlamentar> startRequest( List<Parlamentar> parlamentar )
+	private void startRequest()
 	{
 
 		ResponseHandler<String> responseHandler = HttpConnection
 				.getResponseHandler();
 		RequestTask task = new RequestTask();
-		task.execute(responseHandler, parlamentar);
-
-		return parlamentar;
+		task.execute(responseHandler);
 	}
 
 }

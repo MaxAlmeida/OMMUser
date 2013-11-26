@@ -149,50 +149,57 @@ public class GuiMain extends Activity implements
 		}
 	}
 
-	private void updateFragment( Parlamentar parlamentar, int viewId )
+	private void updateFragment( int viewId )
 	{
 		ParlamentarDetailFragment detailFragment = new ParlamentarDetailFragment();
 		FragmentTransaction transaction = fragmentManager.beginTransaction();
 		transaction.replace(viewId, detailFragment);
 		transaction.addToBackStack(null);
-		transaction.commitAllowingStateLoss();
+		transaction.commit();
 		getFragmentManager().executePendingTransactions();
-		detailFragment.setBarras(parlamentar);
+		detailFragment.setBarras(parlamentarController.getParlamentar());
 
 	}
 
 	@Override
-	public void OnParlamentarSeguidoSelected( Parlamentar parlamentar )
+	public void OnParlamentarSeguidoSelected( )
 	{
 		/* Substitui o detalhe */
 		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
 		{
-			updateFragment(parlamentar, R.id.fragment_container);
+			updateFragment(R.id.fragment_container);
 
 		} else
 		{
-			updateFragment(parlamentar, R.id.detail_fragment_container);
+			updateFragment(R.id.detail_fragment_container);
 		}
 	}
 
 	@Override
-	public void OnParlamentarSelected( Parlamentar parlamentar )
+	public void OnParlamentarSelected()
 	{
 
 		/* Substitui o detalhe */
 		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
 		{
-			updateFragment(parlamentar, R.id.fragment_container);
+			updateFragment(R.id.fragment_container);
 
 		} else
 		{
-			updateFragment(parlamentar, R.id.detail_fragment_container);
+			updateFragment(R.id.detail_fragment_container);
 		}
 	}
 
-	public void OnParlamentarRankingSelected( Parlamentar parlamentar )
+	public void OnParlamentarRankingSelected( )
 	{
-		// TODO ainda não sei o q deve vir aqui.
+		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+		{
+			updateFragment(R.id.fragment_container);
+
+		} else
+		{
+			updateFragment(R.id.detail_fragment_container);
+		}
 	}
 
 	private class initializeDBTask extends AsyncTask<Object, Void, Void>
@@ -221,17 +228,14 @@ public class GuiMain extends Activity implements
 
 			try
 			{
-
 				result = parlamentarController.insertAll(responseHandler);
 
 				if (result == true)
 				{
-
 					progressDialog.setMessage("Dados recebidos com sucesso!");
 
 				} else
 				{
-
 					progressDialog.setMessage("Falha na requisição");
 				}
 
@@ -254,7 +258,6 @@ public class GuiMain extends Activity implements
 
 	private void startPopulateDB( )
 	{
-
 		ResponseHandler<String> responseHandler = HttpConnection
 				.getResponseHandler();
 		initializeDBTask task = new initializeDBTask();

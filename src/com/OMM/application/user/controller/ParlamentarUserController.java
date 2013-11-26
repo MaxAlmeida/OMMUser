@@ -1,17 +1,15 @@
 package com.OMM.application.user.controller;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import org.apache.http.client.ResponseHandler;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 
 import com.OMM.application.user.dao.ParlamentarUserDao;
 import com.OMM.application.user.exceptions.NullCotaParlamentarException;
-import com.OMM.application.user.exceptions.NullParlamentarException;
-import com.OMM.application.user.helper.DB;
 import com.OMM.application.user.exceptions.NullParlamentarException;
 import com.OMM.application.user.exceptions.TransmissionException;
 import com.OMM.application.user.helper.JSONHelper;
@@ -30,28 +28,6 @@ public class ParlamentarUserController {
 	private Context context;
 	private CeapUserController ceapController;
 	
-	public Parlamentar getParlamentar() {
-		return this.parlamentar;
-	}
-	
-	public void setParlamentar(Parlamentar parlamentar) {
-		this.parlamentar = parlamentar;
-	}
-	
-	public List<Parlamentar> getParlamentares() {
-		return this.parlamentares;
-	}
-	
-	public void setParlamentares(List<Parlamentar> parlamentares) {
-		this.parlamentares = parlamentares;
-	}
-	
-	private ParlamentarUserController(Context context) {
-		ceapController = CeapUserController.getInstance(context);
-		parlamentarDao = ParlamentarUserDao.getInstance(context);
-		this.context = context;
-	}
-
 	public static ParlamentarUserController getInstance(Context context) {
 
 		if (instance == null) {
@@ -60,6 +36,29 @@ public class ParlamentarUserController {
 
 		return instance;
 
+	}
+	
+	public Parlamentar getParlamentar() {
+		return ParlamentarUserController.parlamentar;
+	}
+	
+	public void setParlamentar(Parlamentar parlamentar) {
+		ParlamentarUserController.parlamentar = parlamentar;
+	}
+	
+	public List<Parlamentar> getParlamentares() {
+		return ParlamentarUserController.parlamentares;
+	}
+	
+	public void setParlamentares(List<Parlamentar> parlamentares) {
+		ParlamentarUserController.parlamentares = parlamentares;
+	}
+	
+	private ParlamentarUserController(Context context) {
+		ceapController = CeapUserController.getInstance(context);
+		parlamentarDao = ParlamentarUserDao.getInstance(context);
+		this.context = context;
+		parlamentares = new ArrayList<Parlamentar>();
 	}
 
 	public Parlamentar convertJsonToParlamentar(String jsonParlamentar)
@@ -84,19 +83,19 @@ public class ParlamentarUserController {
 		return parlamentar;
 	}
 
-	public Parlamentar doRequest(ResponseHandler<String> responseHandler,
-			int idParlamentar) throws NullParlamentarException,
+	public Parlamentar doRequest(ResponseHandler<String> responseHandler) throws NullParlamentarException,
 			NullCotaParlamentarException, TransmissionException {
 		
 		if(responseHandler == null){
 			throw new TransmissionException();
 		}
-		
+		int idParlamentar = parlamentar.getId();
 		String urlParlamentar = MontaURL.mountURLParlamentar(idParlamentar);
 		String jsonParlamentar = HttpConnection.requestParlamentar(
 				responseHandler, urlParlamentar);
 
-		Parlamentar parlamentar = convertJsonToParlamentar(jsonParlamentar);
+		
+		parlamentar = convertJsonToParlamentar(jsonParlamentar);
 
 		String urlCotas = MontaURL.mountURLCota(idParlamentar);
 		String jsonCotasParlamentar = HttpConnection.requestCota(
@@ -111,7 +110,9 @@ public class ParlamentarUserController {
 
 	public List<Parlamentar> getSelected(String nameParlamentar) {
 
-		return parlamentarDao.getSelected(nameParlamentar);
+		parlamentares = parlamentarDao.getSelected(nameParlamentar);
+		
+		return parlamentares;
 	}
 
 	public List<Parlamentar> getAll() {
@@ -217,10 +218,10 @@ public class ParlamentarUserController {
 		String jsonParlamentarRankingMaiores = HttpConnection.requestMajorRanking(responseHandler,
 				urlParlamentarRankingMaiores);
 		
-		List<Parlamentar> majorRanking = 
+		parlamentares = 
 				convertJsonToListParlamentarRankingMaiores(jsonParlamentarRankingMaiores);
 
-		return majorRanking;
+		return parlamentares;
 	}
 	
 }

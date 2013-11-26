@@ -113,7 +113,7 @@ public class ParlamentarListFragment extends ListFragment {
 	}
 
 	public interface OnParlamentarSelectedListener {
-		public void OnParlamentarSelected(Parlamentar parlamentar);
+		public void OnParlamentarSelected();
 	}
 
 	@Override
@@ -157,7 +157,7 @@ public class ParlamentarListFragment extends ListFragment {
 		});
 	}
 
-	private class RequestTask extends AsyncTask<Object, Void, Parlamentar> {
+	private class RequestTask extends AsyncTask<Object, Void, Void> {
 		ProgressDialog progressDialog;
 
 		@Override
@@ -167,29 +167,28 @@ public class ParlamentarListFragment extends ListFragment {
 		}
 
 		@Override
-		protected Parlamentar doInBackground(Object... params) {
+		protected Void doInBackground(Object... params) {
 
 			ParlamentarUserController parlamentarController = ParlamentarUserController
 					.getInstance(getActivity());
 			ResponseHandler<String> rh = (ResponseHandler<String>) params[0];
-			Parlamentar parlamentar = (Parlamentar) params[1];
 			try {
-				parlamentar = parlamentarController.doRequest(rh,
-						parlamentar.getId());
+					parlamentarController.doRequest(rh);
 			}
 			// TODO corrigir tratamento de excessão, deve ser lançado pela
 			// controller.
 			catch (Exception e) {
 				progressDialog.dismiss();
 			}
-			return parlamentar;
+			return null;
 		}
 
+		
+		
 		@Override
-		protected void onPostExecute(final Parlamentar result) {
-
+		protected void onPostExecute(Void result) {
 			progressDialog.dismiss();
-			listener.OnParlamentarSelected(result);
+			listener.OnParlamentarSelected();
 		}
 	}
 

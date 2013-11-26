@@ -54,7 +54,7 @@ public class ParlamentarUserControllerTest {
 	
 	@Test(expected = TransmissionException.class)
 	public void doRequestTest() throws NullParlamentarException, NullCotaParlamentarException, TransmissionException{
-			p = controller.doRequest(null, 0);	
+			p = controller.doRequest(null);	
 	}
 	
 	@Test

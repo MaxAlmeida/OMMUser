@@ -43,7 +43,7 @@ public class ParlamentarSeguidoListFragment extends ListFragment {
 		controllerParlamentar.setParlamentar((Parlamentar) getListAdapter().getItem(
 				position));
 		Toast.makeText(getActivity(), "toquei!", Toast.LENGTH_SHORT).show();
-		updateDetail(controllerParlamentar.getParlamentar());
+		updateDetail();
 
 	}
 	
@@ -95,7 +95,7 @@ public class ParlamentarSeguidoListFragment extends ListFragment {
 	 * activity fazer a chamada, logo... a Main faz.
 	 */
 	public interface OnParlamentarSeguidoSelectedListener {
-		public void OnParlamentarSeguidoSelected(Parlamentar parlamentar);
+		public void OnParlamentarSeguidoSelected();
 	}
 
 	/*
@@ -115,9 +115,9 @@ public class ParlamentarSeguidoListFragment extends ListFragment {
 		}
 	}
 
-	private void updateDetail(Parlamentar parlamentar) {
+	private void updateDetail() {
 
-		listener.OnParlamentarSeguidoSelected(parlamentar);
+		listener.OnParlamentarSeguidoSelected();
 	}
 
 }
