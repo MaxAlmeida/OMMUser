@@ -291,7 +291,7 @@ public class ParlamentarDetailFragment extends Fragment {
 
 	public void createButtons(View view) {
 
-		final Button btn_cota_alimentacao = (Button) view
+		final TextView btn_cota_alimentacao = (TextView) view
 				.findViewById(R.id.btn_cota_alimentacao);
 		final Button btn_cota_aluguel_aviao = (Button) view
 				.findViewById(R.id.btn_cota_aluguel_aviao);
