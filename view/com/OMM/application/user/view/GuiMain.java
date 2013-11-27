@@ -249,43 +249,99 @@ public class GuiMain extends Activity implements
 
 				progressDialog.dismiss();
 				Log.i(LOGS, "Capturou NullParlamentarException");
+				exception = 2;
 			} catch (RequestFailedException rfe)
 			{
 
 				progressDialog.dismiss();
 				Log.i(LOGS, "Capturou RequestFailed");
+				exception = 3;
 			} catch (Exception e)
 			{
 
 				progressDialog.dismiss();
 				Log.i(LOGS, "Capturou Exception");
+				exception = 4;
 
 			}
 
 			return exception;
 		}
 
-		protected void onPostExecute(Integer result) {
-			
-			
-				if ( result == 1){
+		protected void onPostExecute( Integer result )
+		{
+
+			progressDialog.dismiss();
+
+			switch (result)
+			{
+
+				case 1:
+
+					AlertDialog.Builder builderCase1 = new AlertDialog.Builder(
+							GuiMain.this);
+
+					AlertDialog messageCase1 = builderCase1.create();
+					builderCase1.setTitle("Ops!");
+					builderCase1.setMessage("Falha na conexão.");
+					builderCase1.setNeutralButton("OK", null);
+					builderCase1.show();
+
+					Log.i("Exception", "Exception ConnectionFailed");
 					
-					Log.i("mensagem", "result igual " + result);
+					break;
+
+				case 2:
+
+					AlertDialog.Builder builderCase2 = new AlertDialog.Builder(
+							GuiMain.this);
+
+					AlertDialog messageCase2 = builderCase2.create();
+					builderCase2.setTitle("Ops!");
+					builderCase2
+							.setMessage("Falha na requisição com banco de dados.");
+					builderCase2.setNeutralButton("OK", null);
+					builderCase2.show();
+
+					Log.i("Exception", "Exception NullParlamentarException.");
 					
-					AlertDialog.Builder builder = new AlertDialog.Builder(GuiMain.this);
+					break;
+
+				case 3:
+
+					AlertDialog.Builder builderCase3 = new AlertDialog.Builder(
+							GuiMain.this);
+
+					AlertDialog messageCase3 = builderCase3.create();
+					builderCase3.setTitle("Ops!");
+					builderCase3.setMessage("Falha na conexão com servidor.");
+					builderCase3.setNeutralButton("OK", null);
+					builderCase3.show();
+
+					Log.i("Exception", "Exception RequestFailed");
 					
-					AlertDialog mensagem = builder.create();
-               builder.setTitle("Ops!");
-               builder.setMessage("Falha na conexão com a internet");
-               builder.setNeutralButton("OK", null);
-               
-               builder.show();
+					break;
+
+				case 4:
+
+					AlertDialog.Builder builderCase4 = new AlertDialog.Builder(
+							GuiMain.this);
+
+					AlertDialog messageCase4 = builderCase4.create();
+					builderCase4.setTitle("Ops!");
+					builderCase4.setMessage("Falha inesperada.");
+					builderCase4.setNeutralButton("OK", null);
+					builderCase4.show();
+
+					Log.i("Exception", "Exception");
 					
-				}
-				else
-					Log.i("mensagem", "result igual " + result);
-				
-				progressDialog.dismiss();
+					break;
+
+				default:
+
+					Log.i("Exception",
+							"Não houve exceção na requisição para instalação do banco de dados local");
+			}
 		}
 	}
 
