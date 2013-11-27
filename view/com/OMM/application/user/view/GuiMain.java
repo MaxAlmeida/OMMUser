@@ -3,12 +3,10 @@ package com.OMM.application.user.view;
 import org.apache.http.client.ResponseHandler;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.app.ProgressDialog;
-import android.app.AlertDialog.Builder;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
@@ -22,7 +20,6 @@ import android.widget.Toast;
 
 import com.OMM.application.user.R;
 import com.OMM.application.user.controller.ParlamentarUserController;
-import com.OMM.application.user.dao.ParlamentarUserDao;
 import com.OMM.application.user.exceptions.ConnectionFailedException;
 import com.OMM.application.user.exceptions.NullParlamentarException;
 import com.OMM.application.user.exceptions.RequestFailedException;
@@ -37,7 +34,6 @@ public class GuiMain extends Activity implements
 	private static final String SEGUIDOS = "Parlamentares Seguidos";
 	private static final String PESQUISA = "Pesquisar Parlamentar";
 	private static final String RANKINGS = "Rankings entre parlamentares";
-	private static final String LOGS = "GuiMain";
 	private static FragmentManager fragmentManager;
 
 	@Override
@@ -229,38 +225,35 @@ public class GuiMain extends Activity implements
 
 			boolean result = false;
 
-			Log.i(LOGS, "Vai entrar no try!" + result);
-
 			try
 			{
 
 				result = parlamentarController.insertAll(responseHandler);
-				Log.i(LOGS, "Resultado no try:" + result);
+				
+				if(result == true){
+					Log.i("GuiMain"," Inserção concluída com sucesso.");					
+				}
+				else {
+					Log.i("GuiMain"," Inserção não concluída com sucesso.");					
+				}
 
 			} catch (ConnectionFailedException cfe)
 			{
 
-				progressDialog.dismiss();
-				Log.i(LOGS, "Capturou ConnectionFailed");
+				//TODO: Fazer constantes para retirar números mágicos
 				exception = 1;
 
 			} catch (NullParlamentarException cpe)
 			{
 
-				progressDialog.dismiss();
-				Log.i(LOGS, "Capturou NullParlamentarException");
 				exception = 2;
 			} catch (RequestFailedException rfe)
 			{
 
-				progressDialog.dismiss();
-				Log.i(LOGS, "Capturou RequestFailed");
 				exception = 3;
+				
 			} catch (Exception e)
 			{
-
-				progressDialog.dismiss();
-				Log.i(LOGS, "Capturou Exception");
 				exception = 4;
 
 			}
@@ -278,73 +271,27 @@ public class GuiMain extends Activity implements
 
 				case 1:
 					
-					Alerts.conectionFailed(GuiMain.this);
-
-/*				
-					AlertDialog.Builder builderCase1 = new AlertDialog.Builder(
-							GuiMain.this);
-
-					AlertDialog messageCase1 = builderCase1.create();
-					builderCase1.setTitle("Ops!");
-					builderCase1.setMessage("Falha na conexão.");
-					builderCase1.setNeutralButton("OK", null);
-					builderCase1.show();
-*/					
-
-					Log.i("Exception", "Exception ConnectionFailed");
-					
+					Alerts.conectionFailedAlert(GuiMain.this);									
 					break;
 
 				case 2:
 
-					AlertDialog.Builder builderCase2 = new AlertDialog.Builder(
-							GuiMain.this);
-
-					AlertDialog messageCase2 = builderCase2.create();
-					builderCase2.setTitle("Ops!");
-					builderCase2
-							.setMessage("Falha na requisição com banco de dados.");
-					builderCase2.setNeutralButton("OK", null);
-					builderCase2.show();
-
-					Log.i("Exception", "Exception NullParlamentarException.");
-					
+					Alerts.parlamentarFailedAlert(GuiMain.this);							
 					break;
-
+					
 				case 3:
 
-					AlertDialog.Builder builderCase3 = new AlertDialog.Builder(
-							GuiMain.this);
-
-					AlertDialog messageCase3 = builderCase3.create();
-					builderCase3.setTitle("Ops!");
-					builderCase3.setMessage("Falha na conexão com servidor.");
-					builderCase3.setNeutralButton("OK", null);
-					builderCase3.show();
-
-					Log.i("Exception", "Exception RequestFailed");
-					
+					Alerts.requestFailedAlert(GuiMain.this);
 					break;
 
 				case 4:
 
-					AlertDialog.Builder builderCase4 = new AlertDialog.Builder(
-							GuiMain.this);
-
-					AlertDialog messageCase4 = builderCase4.create();
-					builderCase4.setTitle("Ops!");
-					builderCase4.setMessage("Falha inesperada.");
-					builderCase4.setNeutralButton("OK", null);
-					builderCase4.show();
-
-					Log.i("Exception", "Exception");
-					
+					Alerts.unexpectedFailedAlert(GuiMain.this);
 					break;
 
 				default:
 
-					Log.i("Exception",
-							"Não houve exceção na requisição para instalação do banco de dados local");
+					//Nothing should be done
 			}
 		}
 	}
