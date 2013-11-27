@@ -7,8 +7,5 @@
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="src" path="view"/>
-	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="C:/Users/Tomáz Martins/Programação/Java/External Jars/Junit for Android e Eclema/hamcrest-core-1.3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Tomáz Martins/Programação/Java/External Jars/Junit for Android e Eclema/junit-4.11.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

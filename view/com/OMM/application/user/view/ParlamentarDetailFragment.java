@@ -18,7 +18,6 @@ import com.OMM.application.user.R;
 import com.OMM.application.user.controller.ParlamentarUserController;
 import com.OMM.application.user.exceptions.NullParlamentarException;
 import com.OMM.application.user.model.CotaParlamentar;
-import com.OMM.application.user.model.Parlamentar;
 
 public class ParlamentarDetailFragment extends Fragment {
 
@@ -101,13 +100,13 @@ public class ParlamentarDetailFragment extends Fragment {
 
 	}
 
-	public void setBarras(Parlamentar parlamentar) {
-		TextView view = (TextView) getView().findViewById(R.id.nome);
-		view.setText(parlamentar.getNome());
+	public void setBarras() {
+		
+		parlamentarController.getParlamentar();
 
-		parlamentarController.setParlamentar(parlamentar);
-
-		Iterator<CotaParlamentar> iterator = parlamentar.getCotas().iterator();
+		TextView view = (TextView) getView().findViewById(R.id.nome);	
+		view.setText(parlamentarController.getParlamentar().getNome());		
+		Iterator<CotaParlamentar> iterator = parlamentarController.getParlamentar().getCotas().iterator();
 
 		while (iterator.hasNext()) {
 

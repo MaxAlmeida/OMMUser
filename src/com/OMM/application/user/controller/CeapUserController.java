@@ -25,6 +25,7 @@ public class CeapUserController {
 		this.context = context;
 	}
 
+	//TODO: Verificar a necessidade do Context no construtor
 	public static CeapUserController getInstance(Context context) {
 
 		if (instance == null) {

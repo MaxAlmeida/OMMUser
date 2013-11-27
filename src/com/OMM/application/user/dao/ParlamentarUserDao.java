@@ -13,6 +13,8 @@ import com.OMM.application.user.helper.DB;
 import com.OMM.application.user.model.Parlamentar;
 
 public class ParlamentarUserDao {
+	
+	//TODO:Fazer try catch do banco
 
 	private static String nome_tabela = "PARLAMENTAR";
 	private static Context context;

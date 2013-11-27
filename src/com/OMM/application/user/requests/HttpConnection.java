@@ -11,6 +11,9 @@ import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import com.OMM.application.user.exceptions.ConnectionFailedException;
+import com.OMM.application.user.exceptions.RequestFailedException;
+
 public abstract class HttpConnection {
 
 	public final static ResponseHandler<String> responseHandler = new ResponseHandler<String>() {
@@ -43,46 +46,45 @@ public abstract class HttpConnection {
 	}
 
 	public static String requestParlamentar(ResponseHandler<String> response,
-			String url) {
+			String url) throws ConnectionFailedException, RequestFailedException {
 
 		try {
+
 			DefaultHttpClient client = new DefaultHttpClient();
 			HttpGet http = new HttpGet(url);
-
+			
 			String jsonParlamentar = client.execute(http, response);
 
 			return jsonParlamentar;
 
 		} catch (ClientProtocolException e) {
-			// TODO: Exception Handling
+			throw new RequestFailedException();
 
-		} catch (IOException e) {
-			// TODO: Exception Handling
+		} catch (IOException ioe) {;
+			throw new ConnectionFailedException();
 		}
-
-		return null;
 	}
 
 	public static String requestCota(ResponseHandler<String> response,
-			String url) {
+			String url) throws ConnectionFailedException, RequestFailedException{
+		
+		DefaultHttpClient client = new DefaultHttpClient();
+		HttpGet http = new HttpGet(url);
+		
+		String jsonCotaParlamentar = null;
 
 		try {
 			
-			DefaultHttpClient client = new DefaultHttpClient();
-			HttpGet http = new HttpGet(url);
-
-			String jsonCotaParlamentar = client.execute(http, response);
-
-			return jsonCotaParlamentar;
+			jsonCotaParlamentar = client.execute(http, response);
 
 		} catch (ClientProtocolException e) {
-			// TODO: Exception Handling
+			throw new RequestFailedException();
 
-		} catch (IOException e) {
-			// TODO: Exception Handling
+		} catch (IOException ioe) {;
+			throw new ConnectionFailedException();
 		}
 
-		return null;
+		return jsonCotaParlamentar;
 	}
 	
 	public static String requestMajorRanking(ResponseHandler<String> response, String url) {
