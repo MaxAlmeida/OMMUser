@@ -31,7 +31,8 @@ import com.OMM.application.user.requests.HttpConnection;
 
 public class GuiMain extends Activity implements
 		ParlamentarSeguidoListFragment.OnParlamentarSeguidoSelectedListener,
-		ParlamentarListFragment.OnParlamentarSelectedListener {
+		ParlamentarListFragment.OnParlamentarSelectedListener
+{
 
 	private static final String SEGUIDOS = "Parlamentares Seguidos";
 	private static final String PESQUISA = "Pesquisar Parlamentar";
@@ -40,12 +41,14 @@ public class GuiMain extends Activity implements
 	private static FragmentManager fragmentManager;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate( Bundle savedInstanceState )
+	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.gui_main);
 		fragmentManager = this.getFragmentManager();
 
-		if (findViewById(R.id.fragment_container) != null) {
+		if (findViewById(R.id.fragment_container) != null)
+		{
 
 			/* cria a primeira lista */
 			ParlamentarSeguidoListFragment fragment = new ParlamentarSeguidoListFragment();
@@ -53,34 +56,35 @@ public class GuiMain extends Activity implements
 					.replace(R.id.fragment_container, fragment).commit();
 		}
 
-		/*Parlamentar p = new Parlamentar();
-		p.setNome("tiririca");
-		p.setId(001);
-		p.setPartido("ptb");
-		ParlamentarUserDao dao = ParlamentarUserDao
-				.getInstance(getBaseContext());
-		dao.insertParlamentar(p);
-		dao.insertParlamentar(p);
-		dao.insertParlamentar(p);*/
+		/*
+		 * Parlamentar p = new Parlamentar(); p.setNome("tiririca"); p.setId(001);
+		 * p.setPartido("ptb"); ParlamentarUserDao dao = ParlamentarUserDao
+		 * .getInstance(getBaseContext()); dao.insertParlamentar(p);
+		 * dao.insertParlamentar(p); dao.insertParlamentar(p);
+		 */
 
-		final Button btn_sobre_main = (Button) findViewById(R.id.btn_sobre_main);
-		final Button btn_politico_main = (Button) findViewById(R.id.btn_politico_main);
-		final Button btn_pesquisar_parlamentar = (Button) findViewById(R.id.btn_pesquisar_parlamentar);
-		final Button btn_ranking_main = (Button) findViewById(R.id.btn_ranking);
-		final Button btn_mostra_outros = (Button) findViewById(R.id.btn_ic_rolagem);
+		final Button btn_sobre_main = ( Button ) findViewById(R.id.btn_sobre_main);
+		final Button btn_politico_main = ( Button ) findViewById(R.id.btn_politico_main);
+		final Button btn_pesquisar_parlamentar = ( Button ) findViewById(R.id.btn_pesquisar_parlamentar);
+		final Button btn_ranking_main = ( Button ) findViewById(R.id.btn_ranking);
+		final Button btn_mostra_outros = ( Button ) findViewById(R.id.btn_ic_rolagem);
 
-		btn_sobre_main.setOnClickListener(new View.OnClickListener() {
+		btn_sobre_main.setOnClickListener(new View.OnClickListener()
+		{
 
 			@Override
-			public void onClick(View v) {
+			public void onClick( View v )
+			{
 				startActivity(new Intent(getBaseContext(), GuiSobre.class));
 			}
 		});
 
-		btn_politico_main.setOnClickListener(new View.OnClickListener() {
+		btn_politico_main.setOnClickListener(new View.OnClickListener()
+		{
 
 			@Override
-			public void onClick(View v) {
+			public void onClick( View v )
+			{
 				/* Substitui a lista */
 				ParlamentarSeguidoListFragment listFragment = new ParlamentarSeguidoListFragment();
 				loadFragment(listFragment);
@@ -89,22 +93,25 @@ public class GuiMain extends Activity implements
 			}
 		});
 
-		btn_pesquisar_parlamentar
-				.setOnClickListener(new View.OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-						ParlamentarListFragment listFragment = new ParlamentarListFragment();
-						loadFragment(listFragment);
-						Toast.makeText(getBaseContext(), PESQUISA,
-								Toast.LENGTH_SHORT).show();
-					}
-				});
-
-		btn_ranking_main.setOnClickListener(new View.OnClickListener() {
+		btn_pesquisar_parlamentar.setOnClickListener(new View.OnClickListener()
+		{
 
 			@Override
-			public void onClick(View v) {
+			public void onClick( View v )
+			{
+				ParlamentarListFragment listFragment = new ParlamentarListFragment();
+				loadFragment(listFragment);
+				Toast.makeText(getBaseContext(), PESQUISA, Toast.LENGTH_SHORT)
+						.show();
+			}
+		});
+
+		btn_ranking_main.setOnClickListener(new View.OnClickListener()
+		{
+
+			@Override
+			public void onClick( View v )
+			{
 				ParlamentarSeguidoListFragment listFragment = new ParlamentarSeguidoListFragment();
 				loadFragment(listFragment);
 				Toast.makeText(getBaseContext(), RANKINGS, Toast.LENGTH_SHORT)
@@ -113,19 +120,23 @@ public class GuiMain extends Activity implements
 
 		});
 
-		btn_mostra_outros.setOnClickListener(new View.OnClickListener() {
+		btn_mostra_outros.setOnClickListener(new View.OnClickListener()
+		{
 
 			@Override
-			public void onClick(View v) {
+			public void onClick( View v )
+			{
 				/* Modificando a visibilidade dos botoes */
-				if (btn_pesquisar_parlamentar.getVisibility() == View.GONE) {
+				if (btn_pesquisar_parlamentar.getVisibility() == View.GONE)
+				{
 					btn_pesquisar_parlamentar.setVisibility(View.VISIBLE);
 					btn_politico_main.setVisibility(View.VISIBLE);
 					btn_ranking_main.setVisibility(View.VISIBLE);
 					btn_sobre_main.setVisibility(View.VISIBLE);
 					btn_mostra_outros.setScaleX(1.0f);
 					btn_mostra_outros.setScaleY(1.0f);
-				} else {
+				} else
+				{
 					btn_pesquisar_parlamentar.setVisibility(View.GONE);
 					btn_politico_main.setVisibility(View.GONE);
 					btn_ranking_main.setVisibility(View.GONE);
@@ -139,16 +150,19 @@ public class GuiMain extends Activity implements
 		ParlamentarUserController parlamentarController = ParlamentarUserController
 				.getInstance(getBaseContext());
 
-		if (parlamentarController.checkEmptyDB() == true) {
+		if (parlamentarController.checkEmptyDB() == true)
+		{
 
 			startPopulateDB();
 
-		} else {
+		} else
+		{
 			// nothing should be done
 		}
 	}
 
-	private void updateFragment(Parlamentar parlamentar, int viewId) {
+	private void updateFragment( Parlamentar parlamentar, int viewId )
+	{
 		ParlamentarDetailFragment detailFragment = new ParlamentarDetailFragment();
 		FragmentTransaction transaction = fragmentManager.beginTransaction();
 		transaction.replace(viewId, detailFragment);
@@ -160,93 +174,123 @@ public class GuiMain extends Activity implements
 	}
 
 	@Override
-	public void OnParlamentarSeguidoSelected(Parlamentar parlamentar) {
+	public void OnParlamentarSeguidoSelected( Parlamentar parlamentar )
+	{
 		/* Substitui o detalhe */
-		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+		{
 			updateFragment(parlamentar, R.id.fragment_container);
 
-		} else {
+		} else
+		{
 			updateFragment(parlamentar, R.id.detail_fragment_container);
 		}
 	}
 
 	@Override
-	public void OnParlamentarSelected(Parlamentar parlamentar) {
+	public void OnParlamentarSelected( Parlamentar parlamentar )
+	{
 
 		/* Substitui o detalhe */
-		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+		{
 			updateFragment(parlamentar, R.id.fragment_container);
 
-		} else {
+		} else
+		{
 			updateFragment(parlamentar, R.id.detail_fragment_container);
 		}
 	}
 
-	private class initializeDBTask extends AsyncTask<Object, Void, Void> {
-		
-		
+	private class initializeDBTask extends AsyncTask<Object, Void, Integer>
+	{
+
 		ProgressDialog progressDialog;
 
+		Integer exception = 0;
+
 		@Override
-		protected void onPreExecute() {
+		protected void onPreExecute( )
+		{
 			progressDialog = ProgressDialog.show(GuiMain.this,
 					"Instalando Banco de Dados...",
 					"Isso pode demorar alguns minutos");
 		}
 
-		@SuppressWarnings("unchecked")
+		@SuppressWarnings( "unchecked" )
 		@Override
-		protected Void doInBackground(Object... params) {
+		protected Integer doInBackground( Object... params )
+		{
 
 			ParlamentarUserController parlamentarController = ParlamentarUserController
 					.getInstance(getBaseContext());
 
-			ResponseHandler<String> responseHandler = (ResponseHandler<String>) params[0];
+			ResponseHandler<String> responseHandler = ( ResponseHandler<String> ) params[ 0 ];
 
 			boolean result = false;
-			
+
 			Log.i(LOGS, "Vai entrar no try!" + result);
 
-			try {
+			try
+			{
 
 				result = parlamentarController.insertAll(responseHandler);
 				Log.i(LOGS, "Resultado no try:" + result);
-				
 
-			} catch (ConnectionFailedException cfe) {
-				
+			} catch (ConnectionFailedException cfe)
+			{
+
 				progressDialog.dismiss();
 				Log.i(LOGS, "Capturou ConnectionFailed");
-				
+				exception = 1;
+
+			} catch (NullParlamentarException cpe)
+			{
+
+				progressDialog.dismiss();
+				Log.i(LOGS, "Capturou NullParlamentarException");
+			} catch (RequestFailedException rfe)
+			{
+
+				progressDialog.dismiss();
+				Log.i(LOGS, "Capturou RequestFailed");
+			} catch (Exception e)
+			{
+
+				progressDialog.dismiss();
+				Log.i(LOGS, "Capturou Exception");
 
 			}
-		     catch (NullParlamentarException cpe) {
-		    	 
-			    progressDialog.dismiss();
-			    Log.i(LOGS, "Capturou NullParlamentarException");
-		    }
-			 catch ( RequestFailedException rfe) {
-					
-					progressDialog.dismiss();
-					Log.i(LOGS, "Capturou RequestFailed");
-				}
-			catch (Exception e) {
 
-			    progressDialog.dismiss();
-			    Log.i(LOGS, "Capturou Exception");
-				
-			}
-
-			return null;
+			return exception;
 		}
 
-		protected void onPostExecute(Void result) {
-			progressDialog.dismiss();
+		protected void onPostExecute(Integer result) {
 			
+			
+				if ( result == 1){
+					
+					Log.i("mensagem", "result igual " + result);
+					
+					AlertDialog.Builder builder = new AlertDialog.Builder(GuiMain.this);
+					
+					AlertDialog mensagem = builder.create();
+               builder.setTitle("Ops!");
+               builder.setMessage("Falha na conexão com a internet");
+               builder.setNeutralButton("OK", null);
+               
+               builder.show();
+					
+				}
+				else
+					Log.i("mensagem", "result igual " + result);
+				
+				progressDialog.dismiss();
 		}
 	}
 
-	private void startPopulateDB() {
+	private void startPopulateDB( )
+	{
 
 		ResponseHandler<String> responseHandler = HttpConnection
 				.getResponseHandler();
@@ -254,14 +298,16 @@ public class GuiMain extends Activity implements
 		task.execute(responseHandler);
 	}
 
-	private void loadFragment(ListFragment listFragment) {
+	private void loadFragment( ListFragment listFragment )
+	{
 		FragmentTransaction transaction = fragmentManager.beginTransaction();
 		transaction.replace(R.id.fragment_container, listFragment);
 		transaction.commit();
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
+	public boolean onCreateOptionsMenu( Menu menu )
+	{
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.options_menu, menu);
 		return true;
