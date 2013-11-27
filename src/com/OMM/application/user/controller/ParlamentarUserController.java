@@ -18,22 +18,26 @@ import com.OMM.application.user.model.Parlamentar;
 import com.OMM.application.user.requests.HttpConnection;
 import com.OMM.application.user.requests.MontaURL;
 
-public class ParlamentarUserController {
+public class ParlamentarUserController
+{
 
 	private static ParlamentarUserController instance;
 	Parlamentar parlamentar;
 	private ParlamentarUserDao parlamentarDao;
 	private Context context;
 
-	private ParlamentarUserController(Context context) {
+	private ParlamentarUserController(Context context)
+	{
 
 		parlamentarDao = ParlamentarUserDao.getInstance(context);
-		this.context=context;
+		this.context = context;
 	}
 
-	public static ParlamentarUserController getInstance(Context context) {
+	public static ParlamentarUserController getInstance( Context context )
+	{
 
-		if (instance == null) {
+		if (instance == null)
+		{
 			instance = new ParlamentarUserController(context);
 		}
 
@@ -41,41 +45,54 @@ public class ParlamentarUserController {
 
 	}
 
-	public Parlamentar convertJsonToParlamentar(String jsonParlamentar)
-			throws NullParlamentarException {
-		try {
+	public Parlamentar convertJsonToParlamentar( String jsonParlamentar )
+			throws NullParlamentarException
+	{
+		try
+		{
 			Parlamentar parlamentar = JSONHelper.listParlamentarFromJSON(
 					jsonParlamentar).get(0);
 
 			return parlamentar;
-			
-		} catch (NullPointerException e) {
-			
+
+		} catch (NullPointerException e)
+		{
+
 			return null;
 		}
 	}
 
+	// TODO: Fazer direcionamento pela controller
 	public List<CotaParlamentar> convertJsonToCotaParlamentar(
-			String jsonCotaParlamentar) throws NullCotaParlamentarException {
 
-		try {
+	String jsonCotaParlamentar ) throws NullCotaParlamentarException
+	{
+
+		try
+		{
 			List<CotaParlamentar> listCotas = JSONHelper
 					.listCotaParlamentarFromJSON(jsonCotaParlamentar);
-
 			return listCotas;
-		} catch (NullPointerException e) {
-			return null;
+		
+
+		} catch (NullPointerException e)
+		{
+
+			throw new NullCotaParlamentarException();
 		}
+
 	}
 
-	public Parlamentar doRequest(ResponseHandler<String> responseHandler,
-			int idParlamentar) throws NullParlamentarException,
-			NullCotaParlamentarException, ConnectionFailedException, RequestFailedException {
+	public Parlamentar doRequest( ResponseHandler<String> responseHandler,
+			int idParlamentar ) throws NullParlamentarException,
+			NullCotaParlamentarException, ConnectionFailedException,
+			RequestFailedException
+	{
 
 		String urlParlamentar = MontaURL.mountURLParlamentar(idParlamentar);
-		String jsonParlamentar = HttpConnection.requestParlamentar(responseHandler,
-				urlParlamentar);
-		
+		String jsonParlamentar = HttpConnection.requestParlamentar(
+				responseHandler, urlParlamentar);
+
 		Parlamentar parlamentar = convertJsonToParlamentar(jsonParlamentar);
 
 		String urlCotas = MontaURL.mountURLCota(idParlamentar);
@@ -89,76 +106,94 @@ public class ParlamentarUserController {
 		return parlamentar;
 	}
 
-	public List<Parlamentar> getSelected(String nameParlamentar) {
+	public List<Parlamentar> getSelected( String nameParlamentar )
+	{
 
 		return parlamentarDao.getSelected(nameParlamentar);
 	}
 
-	public List<Parlamentar> getAll() {
+	public List<Parlamentar> getAll( )
+	{
 
 		return parlamentarDao.getAll();
 	}
 
-	public boolean followedParlamentar(Parlamentar parlamentar) throws NullParlamentarException {
+	public boolean followedParlamentar( Parlamentar parlamentar )
+			throws NullParlamentarException
+	{
 
 		boolean result = true;
 
-		CeapUserController controllerCeap = CeapUserController.getInstance(context);
-		ParlamentarUserDao parlamentarDAO=ParlamentarUserDao.getInstance(context);
-		
-		result = controllerCeap.persistCotaDB( parlamentar)&parlamentarDAO.updateParlamentar(parlamentar);
+		CeapUserController controllerCeap = CeapUserController
+				.getInstance(context);
+		ParlamentarUserDao parlamentarDAO = ParlamentarUserDao
+				.getInstance(context);
+
+		result = controllerCeap.persistCotaDB(parlamentar)
+				& parlamentarDAO.updateParlamentar(parlamentar);
 
 		return result;
 	}
 
-	public List<Parlamentar> convertJsonToListParlamentar(String jsonParlamentares)
-			throws NullParlamentarException {
-		
-		try {
-			
+	public List<Parlamentar> convertJsonToListParlamentar(
+			String jsonParlamentares ) throws NullParlamentarException
+	{
+
+		try
+		{
+
 			List<Parlamentar> parlamentares = JSONHelper
 					.listParlamentarFromJSON(jsonParlamentares);
 
 			return parlamentares;
-			
-		} catch (NullPointerException npe) {
 
-			throw new  NullParlamentarException();
+		} catch (NullPointerException npe)
+		{
+
+			throw new NullParlamentarException();
 		}
 	}
 
-	public boolean insertAll(ResponseHandler<String> response) throws
-	NullParlamentarException, ConnectionFailedException, RequestFailedException {
- 
-	String urlParlamentares = MontaURL.mountUrlAll(); 
-	String jsonParlamentares = HttpConnection.requestParlamentar(response, urlParlamentares); 
-	List<Parlamentar> parlamentares = convertJsonToListParlamentar(jsonParlamentares);
+	public boolean insertAll( ResponseHandler<String> response )
+			throws NullParlamentarException, ConnectionFailedException,
+			RequestFailedException
+	{
 
-	boolean initialized; 
- 
-	if (parlamentarDao.checkEmptyDB()) {
-		Iterator<Parlamentar> iterator = parlamentares.iterator();
-		
-		while(iterator.hasNext()){ 
-			parlamentarDao.insertParlamentar(iterator.next()); 
+		String urlParlamentares = MontaURL.mountUrlAll();
+		String jsonParlamentares = HttpConnection.requestParlamentar(response,
+				urlParlamentares);
+		List<Parlamentar> parlamentares = convertJsonToListParlamentar(jsonParlamentares);
+
+		boolean initialized;
+
+		if (parlamentarDao.checkEmptyDB())
+		{
+			Iterator<Parlamentar> iterator = parlamentares.iterator();
+
+			while (iterator.hasNext())
+			{
+				parlamentarDao.insertParlamentar(iterator.next());
+			}
+
+			initialized = true;
+
+		} else
+		{
+			initialized = false;
 		}
- 
-		initialized = true; 
- 
-	} else {
-		initialized = false; 
+
+		return initialized;
 	}
 
-	return initialized; 
-}
+	public List<Parlamentar> getAllSelected( )
+	{
 
-	public List<Parlamentar> getAllSelected() {
-	
 		return parlamentarDao.getAllSelected();
 	}
-	
-	public boolean checkEmptyDB() {
-		
+
+	public boolean checkEmptyDB( )
+	{
+
 		return parlamentarDao.checkEmptyDB();
 	}
 }

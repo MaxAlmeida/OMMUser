@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,7 +39,7 @@ public class ParlamentarDetailFragment extends Fragment {
 				
 				}catch(NullParlamentarException nullEx)
 				{
-					Toast.makeText(getActivity(), "Deu pau,compre outro celular", Toast.LENGTH_SHORT).show();
+					Toast.makeText(getActivity(), "Falha", Toast.LENGTH_SHORT).show();
 					
 				}
 			}

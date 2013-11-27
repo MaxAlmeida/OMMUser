@@ -11,8 +11,6 @@ import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import android.util.Log;
-
 import com.OMM.application.user.exceptions.ConnectionFailedException;
 import com.OMM.application.user.exceptions.RequestFailedException;
 
@@ -60,17 +58,15 @@ public abstract class HttpConnection {
 			return jsonParlamentar;
 
 		} catch (ClientProtocolException e) {
-			Log.i("Http", "Internet CPE");
 			throw new RequestFailedException();
 
-		} catch (IOException ioe) {
-			Log.i("Http", "Internet ioe");
+		} catch (IOException ioe) {;
 			throw new ConnectionFailedException();
 		}
 	}
 
 	public static String requestCota(ResponseHandler<String> response,
-			String url) {
+			String url) throws ConnectionFailedException, RequestFailedException{
 		
 		DefaultHttpClient client = new DefaultHttpClient();
 		HttpGet http = new HttpGet(url);
@@ -81,11 +77,11 @@ public abstract class HttpConnection {
 			
 			jsonCotaParlamentar = client.execute(http, response);
 
-		} catch (ClientProtocolException cpe) {
-			// TODO: Exception Handling
+		} catch (ClientProtocolException e) {
+			throw new RequestFailedException();
 
-		} catch (IOException ioe) {
-			// TODO: Exception Handling
+		} catch (IOException ioe) {;
+			throw new ConnectionFailedException();
 		}
 
 		return jsonCotaParlamentar;

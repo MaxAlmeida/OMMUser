@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.OMM.application.user.R;
 import com.OMM.application.user.controller.ParlamentarUserController;
+import com.OMM.application.user.dao.ParlamentarUserDao;
 import com.OMM.application.user.exceptions.ConnectionFailedException;
 import com.OMM.application.user.exceptions.NullParlamentarException;
 import com.OMM.application.user.exceptions.RequestFailedException;
@@ -52,12 +53,14 @@ public class GuiMain extends Activity implements
 					.replace(R.id.fragment_container, fragment).commit();
 		}
 
-		/*
-		 * Parlamentar p = new Parlamentar(); p.setNome("tiririca"); p.setId(001);
-		 * p.setPartido("ptb"); ParlamentarUserDao dao = ParlamentarUserDao
-		 * .getInstance(getBaseContext()); dao.insertParlamentar(p);
-		 * dao.insertParlamentar(p); dao.insertParlamentar(p);
-		 */
+		Parlamentar p = new Parlamentar();
+		p.setNome("tiririca");
+		p.setId(001);
+		p.setPartido("ptb");
+		ParlamentarUserDao dao = ParlamentarUserDao.getInstance(getBaseContext());
+		dao.insertParlamentar(p);
+		dao.insertParlamentar(p);
+		dao.insertParlamentar(p);
 
 		final Button btn_sobre_main = ( Button ) findViewById(R.id.btn_sobre_main);
 		final Button btn_politico_main = ( Button ) findViewById(R.id.btn_politico_main);
@@ -229,18 +232,19 @@ public class GuiMain extends Activity implements
 			{
 
 				result = parlamentarController.insertAll(responseHandler);
-				
-				if(result == true){
-					Log.i("GuiMain"," Inserção concluída com sucesso.");					
-				}
-				else {
-					Log.i("GuiMain"," Inserção não concluída com sucesso.");					
+
+				if (result == true)
+				{
+					Log.i("GuiMain", " Inserção concluída com sucesso.");
+				} else
+				{
+					Log.i("GuiMain", " Inserção não concluída com sucesso.");
 				}
 
 			} catch (ConnectionFailedException cfe)
 			{
 
-				//TODO: Fazer constantes para retirar números mágicos
+				// TODO: Fazer constantes para retirar números mágicos
 				exception = 1;
 
 			} catch (NullParlamentarException cpe)
@@ -251,7 +255,7 @@ public class GuiMain extends Activity implements
 			{
 
 				exception = 3;
-				
+
 			} catch (Exception e)
 			{
 				exception = 4;
@@ -270,15 +274,15 @@ public class GuiMain extends Activity implements
 			{
 
 				case 1:
-					
-					Alerts.conectionFailedAlert(GuiMain.this);									
+
+					Alerts.conectionFailedAlert(GuiMain.this);
 					break;
 
 				case 2:
 
-					Alerts.parlamentarFailedAlert(GuiMain.this);							
+					Alerts.parlamentarFailedAlert(GuiMain.this);
 					break;
-					
+
 				case 3:
 
 					Alerts.requestFailedAlert(GuiMain.this);
@@ -291,7 +295,7 @@ public class GuiMain extends Activity implements
 
 				default:
 
-					//Nothing should be done
+					// Nothing should be done
 			}
 		}
 	}
