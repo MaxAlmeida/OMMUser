@@ -55,5 +55,17 @@ public abstract class Alerts
 		Log.i("Alerts", "Exception.");
 	}
 	
+	public static void cotaParlamentarFailedAlert( Context context ) {
+		
+		AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+		builder.setTitle("Ops!");
+		builder.setMessage("Falha na requisição com banco de dados.");
+		builder.setNeutralButton("OK", null);
+		builder.show();
+		
+		Log.i("Alerts", "Exception.");
+	}
+	
 	
 }
