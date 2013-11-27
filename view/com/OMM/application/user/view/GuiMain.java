@@ -277,7 +277,10 @@ public class GuiMain extends Activity implements
 			{
 
 				case 1:
+					
+					Alerts.conectionFailed(GuiMain.this);
 
+/*				
 					AlertDialog.Builder builderCase1 = new AlertDialog.Builder(
 							GuiMain.this);
 
@@ -286,6 +289,7 @@ public class GuiMain extends Activity implements
 					builderCase1.setMessage("Falha na conexão.");
 					builderCase1.setNeutralButton("OK", null);
 					builderCase1.show();
+*/					
 
 					Log.i("Exception", "Exception ConnectionFailed");
 					
