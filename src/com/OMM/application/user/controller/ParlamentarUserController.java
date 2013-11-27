@@ -156,7 +156,9 @@ public class ParlamentarUserController {
 
 	public List<Parlamentar> getAll() {
 
-		return parlamentarDao.getAll();
+		parlamentares = parlamentarDao.getAll();
+		
+		return parlamentares;
 	}
 
 	public boolean followedParlamentar()

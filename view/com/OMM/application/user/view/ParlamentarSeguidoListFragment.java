@@ -4,11 +4,9 @@ import java.util.List;
 
 import android.app.Activity;
 import android.app.ListFragment;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.OMM.application.user.R;
 import com.OMM.application.user.adapters.ParlamentarSeguidoAdapter;
@@ -43,10 +41,7 @@ public class ParlamentarSeguidoListFragment extends ListFragment {
 
 		controllerParlamentar.setParlamentar((Parlamentar) getListAdapter().getItem(
 				position));
-		Toast.makeText(getActivity(), "Toquei!", Toast.LENGTH_SHORT).show();
 		updateDetail();
-
-
 	}
 	
 	//TODO corigir chamada da controller e bug NullPointer Exception

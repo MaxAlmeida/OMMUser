@@ -19,8 +19,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
-import android.widget.Toast;
-
 import com.OMM.application.user.R;
 import com.OMM.application.user.adapters.ParlamentarAdapter;
 import com.OMM.application.user.controller.ParlamentarUserController;
@@ -47,7 +45,7 @@ public class ParlamentarListFragment extends ListFragment
 
 		controllerParlamentar = ParlamentarUserController
 				.getInstance(getActivity());
-
+		controllerParlamentar.getAll();
 		setHasOptionsMenu(true);
 		ParlamentarAdapter adapter = new ParlamentarAdapter(getActivity(),
 				R.layout.fragment_parlamentar, controllerParlamentar.getParlamentares());
@@ -61,7 +59,6 @@ public class ParlamentarListFragment extends ListFragment
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		controllerParlamentar.setParlamentar((Parlamentar) getListAdapter().getItem(
 				position));
-		Toast.makeText(getActivity(), "toquei!", Toast.LENGTH_SHORT).show();
 		updateDetail();
 
 

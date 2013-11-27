@@ -62,7 +62,7 @@ public class ParlamentarDetailFragment extends Fragment {
 
 				} catch (NullParlamentarException nullEx) {
 					Toast.makeText(getActivity(),
-							"Deu pau,compre outro celular", Toast.LENGTH_SHORT)
+							"Erro na requisição", Toast.LENGTH_SHORT)
 							.show();
 
 				}
@@ -84,7 +84,7 @@ public class ParlamentarDetailFragment extends Fragment {
 
 				} catch (NullParlamentarException nullEx) {
 					Toast.makeText(getActivity(),
-							"Deu pau,compre outro celular", Toast.LENGTH_SHORT)
+							"Erro na requisição", Toast.LENGTH_SHORT)
 							.show();
 
 				}
