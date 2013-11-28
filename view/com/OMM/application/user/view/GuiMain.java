@@ -31,9 +31,12 @@ public class GuiMain extends Activity implements
 	private static final String SEGUIDOS = "Parlamentares Seguidos";
 	private static final String PESQUISA = "Pesquisar Parlamentar";
 	private static final String RANKINGS = "Rankings entre parlamentares";
+	private static final int ANGULO_SEGUIDOS = 30;
+	private static final int ANGULO_TODOS = 0;
+	private static final int ANGULO_RANKING = -30;
 	private static ParlamentarUserController parlamentarController;
 	private static FragmentManager fragmentManager;
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -69,6 +72,7 @@ public class GuiMain extends Activity implements
 				loadFragment(listFragment);
 				Toast.makeText(getBaseContext(), SEGUIDOS, Toast.LENGTH_SHORT)
 						.show();
+				btn_mostra_outros.setRotation(ANGULO_SEGUIDOS);
 			}
 		});
 
@@ -81,6 +85,7 @@ public class GuiMain extends Activity implements
 						loadFragment(listFragment);
 						Toast.makeText(getBaseContext(), PESQUISA,
 								Toast.LENGTH_SHORT).show();
+						btn_mostra_outros.setRotation(ANGULO_TODOS);
 					}
 				});
 
@@ -92,6 +97,7 @@ public class GuiMain extends Activity implements
 				loadFragment(listFragment);
 				Toast.makeText(getBaseContext(), RANKINGS, Toast.LENGTH_SHORT)
 						.show();
+				btn_mostra_outros.setRotation(ANGULO_RANKING);
 			}
 		});
 
