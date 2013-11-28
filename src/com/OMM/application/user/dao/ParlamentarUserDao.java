@@ -95,7 +95,7 @@ public class ParlamentarUserDao {
 			
 			parlamentar = new Parlamentar();
 			parlamentar.setId(Integer.parseInt(cursor.getString(cursor
-					.getColumnIndex("ID_CLIENTE"))));
+					.getColumnIndex("ID_PARLAMENTAR"))));
 			
 			parlamentar.setNome(cursor.getString(cursor.getColumnIndex("NOME_PARLAMENTAR")));
 

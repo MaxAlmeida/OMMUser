@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import android.content.Context;
+
 import com.OMM.application.user.dao.CotaParlamentarUserDao;
 import com.OMM.application.user.exceptions.NullCotaParlamentarException;
 import com.OMM.application.user.exceptions.NullParlamentarException;
@@ -17,11 +18,11 @@ public class CeapUserController {
 
 	private static CeapUserController instance;
 
-	private CotaParlamentarUserDao cotaDao;
+	private CotaParlamentarUserDao cotaParlamentarDao;
 	private Context context;
 
 	private CeapUserController(Context context) {
-		this.cotaDao = CotaParlamentarUserDao.getInstance(context);
+		this.cotaParlamentarDao = CotaParlamentarUserDao.getInstance(context);
 		this.context = context;
 	}
 
@@ -66,7 +67,7 @@ public class CeapUserController {
 
 		while (iterator.hasNext()) {
 
-			boolean temporary = cotaDao.insertFollowed(parlamentar,
+			boolean temporary = cotaParlamentarDao.insertFollowed(parlamentar,
 					iterator.next());
 
 			result = result & temporary;
@@ -77,10 +78,10 @@ public class CeapUserController {
 
 	public boolean deleteCota(Parlamentar parlamentar) {
 
-		CotaParlamentarUserDao cota = CotaParlamentarUserDao
-				.getInstance(context);
-
-		return cota.deleteParlamentar(parlamentar);
+		return cotaParlamentarDao.deleteParlamentar(parlamentar);
 	}
 
+	public List<CotaParlamentar> getCotasByIdParlamentar(int idParlmanetar){
+		 return cotaParlamentarDao.getCotasByIdParlamentar(idParlmanetar);
+	}
 }
