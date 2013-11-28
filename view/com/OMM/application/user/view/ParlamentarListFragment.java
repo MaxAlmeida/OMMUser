@@ -47,10 +47,8 @@ public class ParlamentarListFragment extends ListFragment {
 		ParlamentarAdapter adapter = new ParlamentarAdapter(getActivity(),
 				R.layout.fragment_parlamentar,
 				controllerParlamentar.getParlamentares());
-
 		setListAdapter(adapter);
 		setRetainInstance(false);
-
 	}
 
 	@Override
@@ -58,7 +56,6 @@ public class ParlamentarListFragment extends ListFragment {
 		controllerParlamentar.setParlamentar((Parlamentar) getListAdapter()
 				.getItem(position));
 		updateDetail();
-
 	}
 
 	private static class ParseTask extends AsyncTask<String, Void, Void> {
@@ -77,7 +74,6 @@ public class ParlamentarListFragment extends ListFragment {
 
 		@Override
 		protected void onPostExecute(Void result) {
-
 			fragment.setListContent(controllerParlamentar.getParlamentares());
 		}
 	}
@@ -90,7 +86,6 @@ public class ParlamentarListFragment extends ListFragment {
 		}
 		try {
 			parseTask.execute(inputText);
-
 		}
 		// TODO tratar com a devida excessão lançada.
 		catch (IllegalStateException e) {
@@ -99,13 +94,11 @@ public class ParlamentarListFragment extends ListFragment {
 	}
 
 	public void setListContent(List result) {
-
 		ArrayAdapter listAdapter = (ArrayAdapter) getListAdapter();
 		listAdapter.clear();
 		listAdapter.addAll(result);
 		parseTask.setFragment(null);
 		parseTask = null;
-
 	}
 
 	public interface OnParlamentarSelectedListener {
