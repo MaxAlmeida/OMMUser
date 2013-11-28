@@ -73,7 +73,7 @@ public class ParlamentarDetailFragment extends Fragment {
 				}
 			}
 		});
-
+		
 		btn_detalhe_seguir.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -100,13 +100,18 @@ public class ParlamentarDetailFragment extends Fragment {
 	}
 
 	public void setBarras() {
-
+		//TODO retirar Logs
+		DecimalFormat valorCotaDecimal = new DecimalFormat("#,###.00");
+		double totalValue=0;
+		resetBarras();
 		TextView view = (TextView) getView().findViewById(R.id.nome);
 		view.setText(parlamentarController.getParlamentar().getNome());
 		view = (TextView) getView().findViewById(R.id.partido);
 		view.setText(parlamentarController.getParlamentar().getPartido());
 		view = (TextView) getView().findViewById(R.id.uf);
 		view.setText(parlamentarController.getParlamentar().getUf());
+		TextView textMes = (TextView) getView().findViewById(R.id.mes);
+		textMes.setText("Valores do mês "+ selectedMes);
 		if(parlamentarController.getParlamentar().isSeguido()==1){
 			ImageView imgView = (ImageView)getView().findViewById(R.id.foto);
 			imgView.setImageResource(R.drawable.parlamentar_seguido_foto);
@@ -124,7 +129,6 @@ public class ParlamentarDetailFragment extends Fragment {
 				
 				double valorCota = cota.getValor();
 				int numeroSubCota = cota.getNumeroSubCota();
-				DecimalFormat valorCotaDecimal = new DecimalFormat("#,###.00");
 				switch (numeroSubCota) {
 
 				case 1:
@@ -274,11 +278,13 @@ public class ParlamentarDetailFragment extends Fragment {
 
 				}
 				
+				totalValue+=valorCota;
 				
-
 			}
 
 		}
+		TextView total = (TextView) getActivity().findViewById(R.id.total);
+		total.setText("Total: R$ "+valorCotaDecimal.format(totalValue));
 
 	}
 
@@ -287,7 +293,7 @@ public class ParlamentarDetailFragment extends Fragment {
 
 		if (valorCota <= 500) {
 
-			// Nothing should be done
+			bar.setImageResource(R.drawable.barra_branca);
 
 		} else if (valorCota <= 1500) {
 
@@ -480,8 +486,6 @@ public class ParlamentarDetailFragment extends Fragment {
 		sub.add(0,Menu.FIRST+9,0,"Outubro");
 		sub.add(0,Menu.FIRST+10,0,"Novembro");
 		sub.add(0,Menu.FIRST+11,0,"Dezembro");
-		
-		
 	}
 	
 	public boolean onOptionsItemSelected(MenuItem item){
@@ -541,9 +545,87 @@ public class ParlamentarDetailFragment extends Fragment {
 		default:
 			break;
 		}
-	onCreate(null);	
 	setBarras();
 	return true;
 	}
 	
+	public void resetBarras(){
+		double valorCota = 0;
+		ImageView barEscritorio = (ImageView) getActivity()
+				.findViewById(R.id.barra_cota_escritorio);
+		TextView textViewEscritorio = (TextView) getActivity()
+				.findViewById(R.id.valor_cota_escritorio);
+		textViewEscritorio.setText(VAZIO);
+		sizeBar(barEscritorio, valorCota);
+
+		ImageView barCombustivel = (ImageView) getActivity()
+				.findViewById(R.id.barra_cota_gasolina);
+		TextView textViewCombustivel = (TextView) getActivity()
+				.findViewById(R.id.valor_cota_gasolina);
+		textViewCombustivel.setText(VAZIO);
+		sizeBar(barCombustivel, valorCota);
+
+		ImageView barTrabalhoTecnico = (ImageView) getActivity()
+				.findViewById(R.id.barra_cota_trabalho_tecnico);
+		TextView textViewTrabalhoTecnico = (TextView) getActivity()
+				.findViewById(R.id.valor_cota_trabalho_tecnico);
+		textViewTrabalhoTecnico.setText(VAZIO);
+		sizeBar(barTrabalhoTecnico, valorCota);
+
+		ImageView barDivulgacao = (ImageView) getActivity()
+				.findViewById(R.id.barra_cota_divulgacao);
+		TextView textViewDivulgacao = (TextView) getActivity()
+				.findViewById(R.id.valor_cota_divulgacao);
+		textViewDivulgacao.setText(VAZIO);
+		sizeBar(barDivulgacao, valorCota);
+
+		ImageView barSeguranca = (ImageView) getActivity()
+				.findViewById(R.id.barra_cota_seguranca);
+		TextView textViewSeguranca = (TextView) getActivity()
+				.findViewById(R.id.valor_cota_seguranca);
+		textViewSeguranca.setText(VAZIO);
+		sizeBar(barSeguranca, valorCota);
+
+		ImageView barAluguelAviao = (ImageView) getActivity()
+				.findViewById(R.id.barra_cota_aluguel_aviao);
+		TextView textViewAluguelAviao = (TextView) getActivity()
+				.findViewById(R.id.valor_cota_aluguel_aviao);
+		textViewAluguelAviao.setText(VAZIO);
+		sizeBar(barAluguelAviao, valorCota);
+
+		ImageView barTelefonia = (ImageView) getActivity()
+				.findViewById(R.id.barra_cota_telefonia);
+		TextView textViewTelefonia = (TextView) getActivity()
+				.findViewById(R.id.valor_cota_telefonia);
+		textViewTelefonia.setText(VAZIO);
+		sizeBar(barTelefonia, valorCota);
+
+		ImageView barCorreios = (ImageView) getActivity()
+				.findViewById(R.id.barra_cota_correios);
+		TextView textViewCorreios = (TextView) getActivity()
+				.findViewById(R.id.valor_cota_correios);
+		textViewCorreios.setText(VAZIO);
+		sizeBar(barCorreios, valorCota);
+
+		ImageView barAlimentacao = (ImageView) getActivity()
+				.findViewById(R.id.barra_cota_alimentacao);
+		TextView textViewAlimentacao = (TextView) getActivity()
+				.findViewById(R.id.valor_cota_alimentacao);
+		textViewAlimentacao.setText(VAZIO);
+		sizeBar(barAlimentacao, valorCota);
+
+		ImageView barHospedagem = (ImageView) getActivity()
+				.findViewById(R.id.barra_cota_hoespedagem);
+		TextView textViewHospedagam = (TextView) getActivity()
+				.findViewById(R.id.valor_cota_hospedagem);
+		textViewHospedagam.setText(VAZIO);
+		sizeBar(barHospedagem, valorCota);
+
+		ImageView barBilhetesAereos = (ImageView) getActivity()
+				.findViewById(R.id.barra_cota_bilhetes_aereos);
+		TextView textViewBilhetesAereos = (TextView) getActivity()
+				.findViewById(R.id.valor_cota_bilhetes_aereos);
+		textViewBilhetesAereos.setText(VAZIO);
+		sizeBar(barBilhetesAereos, valorCota);
+	}
 }

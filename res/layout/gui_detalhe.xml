@@ -2,11 +2,19 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fundo" >
+    android:background="@drawable/fundo_detalhe" >
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/detalhe_fundo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/uf"
+            android:src="@drawable/detalheparlamentar_fundo" />
 
         <Button
             android:id="@+id/btn_detalhe_seguir"
@@ -37,7 +45,7 @@
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/partido"
             android:layout_marginLeft="22dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="25dp"
             android:background="@drawable/cota_alimentacao" />
 
         <Button
@@ -215,6 +223,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/btn_cota_aluguel_aviao"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
             android:text="R$ 0,00"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -224,6 +233,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/barra_cota_aluguel_aviao"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
             android:text="R$ 0,00"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -233,6 +243,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/barra_cota_bilhetes_aereos"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
             android:text="R$ 0,00"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -242,6 +253,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/barra_cota_correios"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
             android:text="R$ 0,00"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -251,6 +263,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/btn_cota_escritorio"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
             android:text="R$ 0,00"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -260,6 +273,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/btn_cota_gasolina"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
             android:text="R$ 0,00"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -269,6 +283,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/btn_cota_hospedagem"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
             android:text="R$ 0,00"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -278,6 +293,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/btn_cota_seguranca"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
             android:text="R$ 0,00"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -287,6 +303,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/barra_cota_seguranca"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
             android:text="R$ 0,00"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -296,6 +313,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/btn_cota_trabalho_tecnico"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
             android:text="R$ 0,00"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -305,28 +323,9 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/barra_cota_trabalho_tecnico"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
             android:text="R$ 0,00"
             android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <TextView
-            android:id="@+id/partido"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/foto"
-            android:layout_toRightOf="@+id/foto"
-            android:layout_marginLeft="30dp"
-            android:text="Mid Text"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <TextView
-            android:id="@+id/nome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/partido"
-            android:layout_alignTop="@+id/foto"
-            android:layout_marginTop="16dp"
-            android:text="Large Text"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <ImageView
             android:id="@+id/foto"
@@ -337,14 +336,75 @@
             android:src="@drawable/parlamentar_foto" />
 
         <TextView
+            android:id="@+id/total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignRight="@+id/valor_cota_trabalho_tecnico"
+            android:text="Total"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/mes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/partido"
+            android:layout_toRightOf="@+id/barra_cota_alimentacao"
+            android:layout_marginTop="5dp"
+            android:text="gastos do mes"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_above="@+id/detalhe_fundo"
+            android:layout_alignTop="@+id/partido"
+            android:layout_marginLeft="20dp"
+            android:layout_toLeftOf="@+id/partido"
+            android:layout_toRightOf="@+id/foto"
+            android:src="@drawable/partido" />
+
+        <ImageView
+            android:id="@+id/img_uf"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignBottom="@+id/uf"
+            android:layout_alignTop="@+id/uf"
+            android:layout_toLeftOf="@+id/uf"
+            android:src="@drawable/uf" />
+
+        <TextView
             android:id="@+id/uf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/btn_cota_alimentacao"
-            android:layout_marginLeft="18dp"
-            android:layout_toRightOf="@+id/nome"
+            android:layout_alignBaseline="@+id/partido"
+            android:layout_alignBottom="@+id/partido"
+            android:layout_alignRight="@+id/valor_cota_alimentacao"
             android:text="MTx"
             android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/partido"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/foto"
+            android:layout_marginBottom="14dp"
+            android:layout_marginRight="24dp"
+            android:layout_toLeftOf="@+id/img_uf"
+            android:text="Mid Text"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/nome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/imageView2"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="26dp"
+            android:text="Large Text"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
     </RelativeLayout>
 
 </ScrollView>
