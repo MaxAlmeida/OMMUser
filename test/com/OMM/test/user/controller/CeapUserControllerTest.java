@@ -9,7 +9,9 @@ import android.test.ActivityInstrumentationTestCase2;
 
 import com.OMM.application.user.controller.CeapUserController;
 import com.OMM.application.user.dao.CotaParlamentarUserDao;
+import com.OMM.application.user.exceptions.NullCotaParlamentarException;
 import com.OMM.application.user.exceptions.NullParlamentarException;
+import com.OMM.application.user.exceptions.TransmissionException;
 import com.OMM.application.user.helper.JSONHelper;
 import com.OMM.application.user.model.CotaParlamentar;
 import com.OMM.application.user.model.Parlamentar;
@@ -63,14 +65,14 @@ public class CeapUserControllerTest extends ActivityInstrumentationTestCase2<Gui
 	}
 //TODO Verificar teste no junit 3 com exceção
 
-/*public void testConvertJsonToCotaParlamentar(){
+public void testConvertJsonToCotaParlamentar() throws NullCotaParlamentarException,TransmissionException {
 		
 		String json = "[{\"cod\":144068,\"idParlamentar\":373,\"mes\":7,\"ano\":2013,\"numeroSubCota\":3,\"descricao\":\"COMBUST\",\"valor\":150.0}]";
 		List<CotaParlamentar> list = JSONHelper.listCotaParlamentarFromJSON(json);
 		
 		Assert.assertEquals(list, controller.convertJsonToCotaParlamentar(json));
 		
-	}*/
+	}
 
 public void testPersistCotaDB() throws NullParlamentarException{
 	
