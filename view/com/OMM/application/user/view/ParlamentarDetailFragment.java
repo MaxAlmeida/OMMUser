@@ -119,6 +119,8 @@ public class ParlamentarDetailFragment extends Fragment {
 		else{
 			//nothing here.
 		}
+		double valorSubcotaRevista = 0;
+		double valorSubcotaFrete = 0;
 		Iterator<CotaParlamentar> iterator = parlamentarController
 				.getParlamentar().getCotas().iterator();
 		while (iterator.hasNext()) {
@@ -126,20 +128,19 @@ public class ParlamentarDetailFragment extends Fragment {
 			CotaParlamentar cota = iterator.next();
 			
 			if (cota.getMes() == selectedMes) {
-				
 				double valorCota = cota.getValor();
 				int numeroSubCota = cota.getNumeroSubCota();
 				switch (numeroSubCota) {
 
 				case 1:
-
+					valorCota+=valorSubcotaRevista;
 					ImageView barEscritorio = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_escritorio);
 					TextView textViewEscritorio = (TextView) getActivity()
 							.findViewById(R.id.valor_cota_escritorio);
 					textViewEscritorio.setText("R$ "
 							+ valorCotaDecimal.format(valorCota));
-
+					valorSubcotaRevista = valorCota;
 					sizeBar(barEscritorio, valorCota);
 
 					break;
@@ -197,18 +198,18 @@ public class ParlamentarDetailFragment extends Fragment {
 					break;
 
 				case 9:
-
+					valorCota += valorSubcotaFrete; 
 					ImageView barAluguelAviao = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_aluguel_aviao);
 					TextView textViewAluguelAviao = (TextView) getActivity()
 							.findViewById(R.id.valor_cota_aluguel_aviao);
 					textViewAluguelAviao.setText("R$ "
 							+ valorCotaDecimal.format(valorCota));
-
+					valorSubcotaFrete = valorCota;
 					sizeBar(barAluguelAviao, valorCota);
 
 					break;
-
+					
 				case 10:
 
 					ImageView barTelefonia = (ImageView) getActivity()
@@ -234,7 +235,20 @@ public class ParlamentarDetailFragment extends Fragment {
 					sizeBar(barCorreios, valorCota);
 
 					break;
+				
+				case 12:
+					valorCota+=valorSubcotaRevista;
+					ImageView barEscritorio2 = (ImageView) getActivity()
+							.findViewById(R.id.barra_cota_escritorio);
+					TextView textViewEscritorio2 = (TextView) getActivity()
+							.findViewById(R.id.valor_cota_escritorio);
+					textViewEscritorio2.setText("R$ "
+							+ valorCotaDecimal.format(valorCota));
+					valorSubcotaRevista = valorCota;
+					sizeBar(barEscritorio2, valorCota);
 
+					break;	
+					
 				case 13:
 
 					ImageView barAlimentacao = (ImageView) getActivity()
@@ -258,6 +272,19 @@ public class ParlamentarDetailFragment extends Fragment {
 							+ valorCotaDecimal.format(valorCota));
 
 					sizeBar(barHospedagem, valorCota);
+
+					break;
+
+				case 15:
+					valorCota += valorSubcotaFrete; 
+					ImageView barAluguelAviao2 = (ImageView) getActivity()
+							.findViewById(R.id.barra_cota_aluguel_aviao);
+					TextView textViewAluguelAviao2 = (TextView) getActivity()
+							.findViewById(R.id.valor_cota_aluguel_aviao);
+					textViewAluguelAviao2.setText("R$ "
+							+ valorCotaDecimal.format(valorCota));
+					valorSubcotaFrete = valorCota;
+					sizeBar(barAluguelAviao2, valorCota);
 
 					break;
 
@@ -366,16 +393,6 @@ public class ParlamentarDetailFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				Toast.makeText(getActivity(), "Bilhetes Aéreos",
-						Toast.LENGTH_SHORT).show();
-
-			}
-		});
-
-		btn_cota_correios.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				Toast.makeText(getActivity(), "Serviços Postais",
 						Toast.LENGTH_SHORT).show();
 
 			}

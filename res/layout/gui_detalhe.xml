@@ -223,7 +223,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/btn_cota_aluguel_aviao"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="15dp"
             android:text="R$ 0,00"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -342,28 +342,8 @@
             android:layout_alignParentBottom="true"
             android:layout_alignRight="@+id/valor_cota_trabalho_tecnico"
             android:text="Total"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <TextView
-            android:id="@+id/mes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/partido"
-            android:layout_toRightOf="@+id/barra_cota_alimentacao"
-            android:layout_marginTop="5dp"
-            android:text="gastos do mes"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_above="@+id/detalhe_fundo"
-            android:layout_alignTop="@+id/partido"
-            android:layout_marginLeft="20dp"
-            android:layout_toLeftOf="@+id/partido"
-            android:layout_toRightOf="@+id/foto"
-            android:src="@drawable/partido" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/img_uf"
@@ -384,26 +364,45 @@
             android:text="MTx"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
+        <ImageView
+            android:id="@+id/img_partido"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_above="@+id/detalhe_fundo"
+            android:layout_alignLeft="@+id/nome"
+            android:layout_alignTop="@+id/partido"
+            android:src="@drawable/partido" />
+
+        <TextView
+            android:id="@+id/nome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/partido"
+            android:layout_marginBottom="14dp"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@+id/foto"
+            android:text="Large Text"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
         <TextView
             android:id="@+id/partido"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/foto"
             android:layout_marginBottom="14dp"
-            android:layout_marginRight="24dp"
-            android:layout_toLeftOf="@+id/img_uf"
-            android:text="Mid Text"
+            android:layout_toRightOf="@+id/img_partido"
+            android:text="Text"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
-            android:id="@+id/nome"
+            android:id="@+id/mes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/imageView2"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="26dp"
-            android:text="Large Text"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="100dp"
+            android:text="Small Text"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
     </RelativeLayout>
 

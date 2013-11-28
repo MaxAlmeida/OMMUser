@@ -38,7 +38,8 @@
         android:layout_alignParentRight="true"
         android:layout_marginBottom="-70dp"
         android:layout_marginRight="-70dp"
-        android:background="@drawable/btn_rolagem" />
+        android:background="@drawable/btn_rolagem"
+        android:rotation="30" />
 
     <Button
         android:id="@+id/btn_sobre_main"
