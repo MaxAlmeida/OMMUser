@@ -221,6 +221,8 @@ public class ParlamentarUserController {
 			
 			while (iterator.hasNext()) {
 				Parlamentar p = iterator.next();
+				Log.i("Banco", "partido:"+p.getPartido());
+				Log.i("Banco", "uf:"+p.getUf());
 				p.setSeguido(0);
 				parlamentarDao.insertParlamentar(p);
 			}
