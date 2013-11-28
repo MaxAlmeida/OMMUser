@@ -3,8 +3,11 @@ package com.OMM.test.user.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import junit.framework.Assert;
+
 import android.test.ActivityInstrumentationTestCase2;
 
+import com.OMM.application.user.controller.CeapUserController;
 import com.OMM.application.user.dao.CotaParlamentarUserDao;
 import com.OMM.application.user.model.CotaParlamentar;
 import com.OMM.application.user.model.Parlamentar;
@@ -15,7 +18,7 @@ public class CeapUserControllerTest extends ActivityInstrumentationTestCase2<Gui
 
 	private Parlamentar parlamentar;
 	private CotaParlamentar cota;
-	private CotaParlamentarUserDao dao;
+	private CeapUserController controller;
 	private GuiMain guiMain;
 	
 
@@ -31,7 +34,7 @@ public class CeapUserControllerTest extends ActivityInstrumentationTestCase2<Gui
 		guiMain=getActivity();
 		parlamentar = new Parlamentar();
 		cota = new CotaParlamentar();
-		dao  = CotaParlamentarUserDao.getInstance(guiMain);
+		controller  = CeapUserController.getInstance(guiMain);
 		parlamentar.setId(111);
 		parlamentar.setPartido("PT");
 		parlamentar.setNome("Tiririca");
@@ -48,31 +51,17 @@ public class CeapUserControllerTest extends ActivityInstrumentationTestCase2<Gui
 	}
 	
 	
-	public void testGetInstance() 
+	public void testGetInstanceCota() 
 	{
 
-		CotaParlamentarUserDao dao1=CotaParlamentarUserDao.getInstance(guiMain);
-		CotaParlamentarUserDao dao2=CotaParlamentarUserDao.getInstance(guiMain);
+		CeapUserController controller1 = CeapUserController.getInstance(guiMain);
+		CeapUserController controller2 = CeapUserController.getInstance(guiMain);
 		
-		assertSame(dao1, dao2);
+		assertSame(controller1, controller2);
 	}
 
-	
-	public void testInsertFollowed() {
-		
-		assertTrue(dao.insertFollowed(parlamentar, cota));
-		
-		assertTrue(dao.deleteParlamentar(parlamentar));
-	}
 
 	
-	public void testGetAllCotas() {
-		
-		List<CotaParlamentar> listaCotas=new ArrayList<CotaParlamentar>();
-		//listaCotas=dao.getAllCotas(parlamentar);
-		assertNotNull(listaCotas);
-	
-	}
 
 
 
