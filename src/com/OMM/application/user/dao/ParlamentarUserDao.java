@@ -81,6 +81,13 @@ public class ParlamentarUserDao {
 		return (database.update(nome_tabela, content, "ID_PARLAMENTAR=?",
 				new String[] { parlamentar.getId() + "" }) > 0);
 	}
+	
+	public  void dropTable()
+	{
+		SQLiteDatabase database = new DB(context).getWritableDatabase();
+		database.execSQL("delete from PARLAMENTAR;");
+		
+	}
 
 	public Parlamentar getById(Integer ID_PARLAMENTAR) {
 		
@@ -95,7 +102,7 @@ public class ParlamentarUserDao {
 			
 			parlamentar = new Parlamentar();
 			parlamentar.setId(Integer.parseInt(cursor.getString(cursor
-					.getColumnIndex("ID_CLIENTE"))));
+					.getColumnIndex("ID_PARLAMENTAR"))));
 			
 			parlamentar.setNome(cursor.getString(cursor.getColumnIndex("NOME_PARLAMENTAR")));
 
@@ -124,7 +131,7 @@ public class ParlamentarUserDao {
 
 	/*
 	 * TODO: Metodo utilizado para realizar o filtro de parlamentares ele deve ser
-	 * 		 trabalhado melhor para condição de nao encontrar um parlamentar
+	 * 		 trabalhado melhor para condiï¿½ï¿½o de nao encontrar um parlamentar
 	 */
 	public List<Parlamentar> getSelected(String nameParlamentar) {
 
@@ -167,4 +174,5 @@ public class ParlamentarUserDao {
 		
 		return listParlamentar;
 	}
+	
 }
