@@ -69,7 +69,7 @@ public class ParlamentarRankingListFragment extends ListFragment
 		@Override
 		protected Void doInBackground( String... params )
 		{
-			controllerParlamentar.getSelected(params[ 0 ]);
+			controllerParlamentar.getByName(params[ 0 ]);
 			return null;
 		}
 
