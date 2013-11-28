@@ -7,6 +7,8 @@ import java.util.List;
 import org.apache.http.client.ResponseHandler;
 
 import android.content.Context;
+import android.util.Log;
+
 import com.OMM.application.user.dao.ParlamentarUserDao;
 import com.OMM.application.user.exceptions.ConnectionFailedException;
 import com.OMM.application.user.exceptions.NullCotaParlamentarException;
@@ -214,13 +216,14 @@ public class ParlamentarUserController {
 		String jsonParlamentares = HttpConnection.requestParlamentar(response,
 				urlParlamentares);
 		List<Parlamentar> parlamentares = convertJsonToListParlamentar(jsonParlamentares);
-
 		boolean initialized;
 		if (parlamentarDao.checkEmptyDB()) {
 			Iterator<Parlamentar> iterator = parlamentares.iterator();
-
+			
 			while (iterator.hasNext()) {
-				parlamentarDao.insertParlamentar(iterator.next());
+				Parlamentar p = iterator.next();
+				p.setSeguido(0);
+				parlamentarDao.insertParlamentar(p);
 			}
 
 			initialized = true;

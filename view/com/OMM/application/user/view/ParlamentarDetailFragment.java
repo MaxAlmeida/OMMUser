@@ -41,10 +41,12 @@ public class ParlamentarDetailFragment extends Fragment {
 				.findViewById(R.id.btn_detalhe_desseguir);
 
 		if(parlamentarController.getParlamentar().isSeguido() == 1) {
-		btn_detalhe_desseguir.setVisibility(View.INVISIBLE);
+		btn_detalhe_seguir.setVisibility(View.INVISIBLE);
+		btn_detalhe_desseguir.setVisibility(View.VISIBLE);
 
 		} else {
-		 btn_detalhe_seguir.setVisibility(View.INVISIBLE);
+		 btn_detalhe_desseguir.setVisibility(View.INVISIBLE);
+		 btn_detalhe_seguir.setVisibility(View.VISIBLE);
 		}
 
 		createButtons(view);
@@ -294,7 +296,7 @@ public class ParlamentarDetailFragment extends Fragment {
 
 	public void createButtons(View view) {
 
-		final TextView btn_cota_alimentacao = (TextView) view
+		final Button btn_cota_alimentacao = (Button) view
 				.findViewById(R.id.btn_cota_alimentacao);
 		final Button btn_cota_aluguel_aviao = (Button) view
 				.findViewById(R.id.btn_cota_aluguel_aviao);

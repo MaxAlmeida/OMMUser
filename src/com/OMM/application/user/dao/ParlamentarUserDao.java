@@ -59,6 +59,9 @@ public class ParlamentarUserDao {
 
 		content.put("ID_PARLAMENTAR", parlamentar.getId());
 		content.put("NOME_PARLAMENTAR", parlamentar.getNome());
+		content.put("SEGUIDO", parlamentar.isSeguido());
+		content.put("PARTIDO", parlamentar.getPartido());
+		content.put("UF", parlamentar.getUf());
 
 		return (database.insert(nome_tabela, null, content) > 0);
 	}
@@ -89,16 +92,18 @@ public class ParlamentarUserDao {
 		Cursor cursor = database.query(nome_tabela, colunas, "ID_PARLAMENTAR=?",
 				new String[] { ID_PARLAMENTAR.toString() }, null, null, null);
 
-		Parlamentar parlamentar = null;
+		Parlamentar parlamentar = new Parlamentar();
 		
 		if (cursor.moveToFirst()) {
-			
-			parlamentar = new Parlamentar();
+		
 			parlamentar.setId(Integer.parseInt(cursor.getString(cursor
 					.getColumnIndex("ID_PARLAMENTAR"))));
-			
 			parlamentar.setNome(cursor.getString(cursor.getColumnIndex("NOME_PARLAMENTAR")));
-
+			parlamentar.setSeguido(Integer.parseInt(cursor.getString(cursor
+					.getColumnIndex("SEGUIDO"))));
+			parlamentar.setPartido(cursor.getString(cursor.getColumnIndex("PARTIDO")));
+			parlamentar.setUf(cursor.getString(cursor.getColumnIndex("UF")));
+			
 		}
 		
 		return parlamentar;
@@ -107,7 +112,7 @@ public class ParlamentarUserDao {
 	public List<Parlamentar> getAll() {
 		
 		SQLiteDatabase database = new DB(context).getReadableDatabase();
-		Cursor cursor = database.rawQuery("SELECT ID_PARLAMENTAR,NOME_PARLAMENTAR FROM PARLAMENTAR", null);
+		Cursor cursor = database.rawQuery("SELECT ID_PARLAMENTAR,NOME_PARLAMENTAR,SEGUIDO FROM PARLAMENTAR", null);
 		List<Parlamentar> listParlamentares = new ArrayList<Parlamentar>();
 		
 		while (cursor.moveToNext()) {
@@ -115,7 +120,7 @@ public class ParlamentarUserDao {
 			Parlamentar parlamentar = new Parlamentar();
 			parlamentar.setId(cursor.getInt(0));
 			parlamentar.setNome(cursor.getString(1));
-
+			parlamentar.setSeguido(cursor.getInt(cursor.getColumnIndex("SEGUIDO")));
 			listParlamentares.add(parlamentar);
 		}
 		
@@ -161,6 +166,7 @@ public class ParlamentarUserDao {
 			Parlamentar parlamentar = new Parlamentar();
 			parlamentar.setId(cursor.getInt(0));
 			parlamentar.setNome(cursor.getString(1));
+			parlamentar.setSeguido(1);
 
 			listParlamentar.add(parlamentar);
 		}
