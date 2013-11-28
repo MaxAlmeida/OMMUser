@@ -54,34 +54,16 @@ public class CotaParlamentarUserDao {
 		return (database.insert(nome_tabela, null, content) > 0);
 	}
 
-	// public List<CotaParlamentar> getAllCotas(Parlamentar parlamentar) {
-	//
-	// SQLiteDatabase database = new DB(context).getReadableDatabase();
-	//
-	// Cursor cursor = database.rawQuery(
-	// "SELECT DESCRICAO , VALOR FROM COTA WHERE ID_PARLAMENTAR="
-	// + parlamentar.getId(), null);
-	//
-	// List<CotaParlamentar> listCotas = new ArrayList<CotaParlamentar>();
-	//
-	// while (cursor.moveToNext()) {
-	//
-	// CotaParlamentar cota = new CotaParlamentar();
-	// cota.setDescricao(cursor.getString(0));
-	// cota.setValor(cursor.getDouble(1));
-	//
-	// listCotas.add(cota);
-	// }
-	//
-	// return listCotas;
-	// }
-
 	public boolean deleteParlamentar(Parlamentar parlamentar) {
 
 		SQLiteDatabase database = new DB(context).getWritableDatabase();
-
-		return (database.delete(nome_tabela, "ID_PARLAMENTAR=?",
+		
+		boolean result = (database.delete(nome_tabela, "ID_PARLAMENTAR=?",
 				new String[] { parlamentar.getId() + "" }) > 0);
+		
+		Log.i("LOGS","result " + result);
+
+		return result;
 	}
 
 	public List<CotaParlamentar> getCotasByIdParlamentar(int idParlamentar) {

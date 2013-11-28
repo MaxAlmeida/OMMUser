@@ -143,9 +143,5 @@ public class ParlamentarUserDaoTest extends ActivityInstrumentationTestCase2<Gui
 		ParlamentarUserDao obj2=ParlamentarUserDao.getInstance(gMain);
 		Assert.assertSame(obj1, obj2);
 	}
-	public void tearDown()
-	{
-		parlamentarDao.dropTable();
-	}
 
 }

@@ -33,12 +33,16 @@ public class CeapUserControllerTest extends ActivityInstrumentationTestCase2<Gui
 		cota = new CotaParlamentar();
 		dao  = CotaParlamentarUserDao.getInstance(guiMain);
 		parlamentar.setId(111);
-		parlamentar.setPartido("Sparta");
-		parlamentar.setNome("Ramon");
+		parlamentar.setPartido("PT");
+		parlamentar.setNome("Tiririca");
 		
 		cota.setCod(1110);
 		cota.setIdParlamentar(111);
-		cota.setDescricao("=D");
+		cota.setDescricao("Alimentacao");
+		cota.setMes(6);
+		cota.setAno(2013);
+		cota.setValor(5000.00);
+		cota.setNumeroSubCota(3);
 		List<CotaParlamentar> lista = new ArrayList<CotaParlamentar>();
 		parlamentar.setCotas(lista);
 	}
@@ -55,23 +59,21 @@ public class CeapUserControllerTest extends ActivityInstrumentationTestCase2<Gui
 
 	
 	public void testInsertFollowed() {
-		assertEquals(true, dao.insertFollowed(parlamentar, cota));
+		
+		assertTrue(dao.insertFollowed(parlamentar, cota));
+		
+		assertTrue(dao.deleteParlamentar(parlamentar));
 	}
 
 	
 	public void testGetAllCotas() {
 		
 		List<CotaParlamentar> listaCotas=new ArrayList<CotaParlamentar>();
-		listaCotas=dao.getAllCotas(parlamentar);
+		//listaCotas=dao.getAllCotas(parlamentar);
 		assertNotNull(listaCotas);
 	
 	}
 
-	
-	public void testDeleteParlamentar() {
-		
-		assertTrue(dao.deleteParlamentar(parlamentar));
-		
-	}
+
 
 }
