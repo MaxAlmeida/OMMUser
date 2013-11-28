@@ -1,24 +1,215 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/fundo"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/widget32"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Com essa aplicação seremos salvos...."
-        android:textSize="15sp"
-        android:textStyle="bold|italic" />
-
-    <TextView
-        android:id="@+id/widget33"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="116dp"
-        android:text="Operação SERASA"
-        android:textSize="24sp"
-        android:textStyle="bold|italic" />
-    
-</LinearLayout>
+        android:layout_height="512dp" >
 
+        <Button
+            android:id="@+id/btn_cota_alimentacao"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/gui_sobre_title"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/cota_alimentacao" />
+
+        <Button
+            android:id="@+id/btn_cota_aluguel_aviao"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignLeft="@+id/btn_cota_alimentacao"
+            android:layout_below="@+id/btn_cota_alimentacao"
+            android:background="@drawable/cota_aluguel_aviao" />
+
+        <Button
+            android:id="@+id/btn_cota_bilhetes_aereos"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignLeft="@+id/btn_cota_aluguel_aviao"
+            android:layout_below="@+id/btn_cota_aluguel_aviao"
+            android:background="@drawable/cota_bilhetes_aereos" />
+
+        <Button
+            android:id="@+id/btn_cota_correios"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignLeft="@+id/btn_cota_bilhetes_aereos"
+            android:layout_below="@+id/btn_cota_bilhetes_aereos"
+            android:background="@drawable/cota_correios" />
+
+        <Button
+            android:id="@+id/btn_cota_divulgacao"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignLeft="@+id/btn_cota_correios"
+            android:layout_below="@+id/btn_cota_correios"
+            android:background="@drawable/cota_divulgacao" />
+
+        <Button
+            android:id="@+id/btn_cota_escritorio"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignLeft="@+id/btn_cota_divulgacao"
+            android:layout_below="@+id/btn_cota_divulgacao"
+            android:background="@drawable/cota_escritorio" />
+
+        <Button
+            android:id="@+id/btn_cota_gasolina"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignLeft="@+id/btn_cota_escritorio"
+            android:layout_below="@+id/btn_cota_escritorio"
+            android:background="@drawable/cota_gasolina" />
+
+        <Button
+            android:id="@+id/btn_cota_hospedagem"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignLeft="@+id/btn_cota_gasolina"
+            android:layout_below="@+id/btn_cota_gasolina"
+            android:background="@drawable/cota_hospedagem" />
+
+        <Button
+            android:id="@+id/btn_cota_seguranca"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignLeft="@+id/btn_cota_hospedagem"
+            android:layout_below="@+id/btn_cota_hospedagem"
+            android:background="@drawable/cota_seguranca" />
+
+        <Button
+            android:id="@+id/btn_cota_telefone"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignLeft="@+id/btn_cota_seguranca"
+            android:layout_below="@+id/btn_cota_seguranca"
+            android:background="@drawable/cota_telefone" />
+
+        <Button
+            android:id="@+id/btn_cota_trabalho_tecnico"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignLeft="@+id/btn_cota_telefone"
+            android:layout_below="@+id/btn_cota_telefone"
+            android:background="@drawable/cota_trabalho_tecnico" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/btn_cota_alimentacao"
+            android:layout_marginLeft="17dp"
+            android:layout_toRightOf="@+id/btn_cota_alimentacao"
+            android:text="Alimentação"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btn_cota_bilhetes_aereos"
+            android:layout_alignLeft="@+id/textView1"
+            android:text="Fretamento de Aeronaves"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btn_cota_correios"
+            android:layout_alignLeft="@+id/textView2"
+            android:text="Bilhetes Aéreos"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btn_cota_divulgacao"
+            android:layout_alignLeft="@+id/textView3"
+            android:text="Serviços Postais"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/btn_cota_divulgacao"
+            android:layout_alignLeft="@+id/textView4"
+            android:text="Divulgação da Atividade Parlamentar"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btn_cota_gasolina"
+            android:layout_alignLeft="@+id/textView5"
+            android:text="Manutenção de Escritório de Apoio"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btn_cota_hospedagem"
+            android:layout_alignLeft="@+id/textView6"
+            android:text="Combustíveis e Lubrificantes"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/btn_cota_seguranca"
+            android:layout_alignLeft="@+id/textView8"
+            android:text="Serviço de Segurança"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btn_cota_trabalho_tecnico"
+            android:layout_alignLeft="@+id/textView9"
+            android:text="Telefonia"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/gui_sobre_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/btn_cota_alimentacao"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="22dp"
+            android:text="Cotas Parlamentares:"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btn_cota_seguranca"
+            android:layout_alignLeft="@+id/textView7"
+            android:text="Hospedagem"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/btn_cota_trabalho_tecnico"
+            android:layout_alignBottom="@+id/btn_cota_trabalho_tecnico"
+            android:layout_alignLeft="@+id/textView10"
+            android:text="Consultorias, Pesquisas e Trabalhos Técnicos"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    </RelativeLayout>
+
+</ScrollView>
