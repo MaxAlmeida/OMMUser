@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -32,9 +31,12 @@ public class GuiMain extends Activity implements
 	private static final String SEGUIDOS = "Parlamentares Seguidos";
 	private static final String PESQUISA = "Pesquisar Parlamentar";
 	private static final String RANKINGS = "Rankings entre parlamentares";
+	private static final int ANGULO_SEGUIDOS = 30;
+	private static final int ANGULO_TODOS = 0;
+	private static final int ANGULO_RANKING = -30;
 	private static ParlamentarUserController parlamentarController;
 	private static FragmentManager fragmentManager;
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -70,6 +72,7 @@ public class GuiMain extends Activity implements
 				loadFragment(listFragment);
 				Toast.makeText(getBaseContext(), SEGUIDOS, Toast.LENGTH_SHORT)
 						.show();
+				btn_mostra_outros.setRotation(ANGULO_SEGUIDOS);
 			}
 		});
 
@@ -82,6 +85,7 @@ public class GuiMain extends Activity implements
 						loadFragment(listFragment);
 						Toast.makeText(getBaseContext(), PESQUISA,
 								Toast.LENGTH_SHORT).show();
+						btn_mostra_outros.setRotation(ANGULO_TODOS);
 					}
 				});
 
@@ -93,6 +97,7 @@ public class GuiMain extends Activity implements
 				loadFragment(listFragment);
 				Toast.makeText(getBaseContext(), RANKINGS, Toast.LENGTH_SHORT)
 						.show();
+				btn_mostra_outros.setRotation(ANGULO_RANKING);
 			}
 		});
 
@@ -108,6 +113,7 @@ public class GuiMain extends Activity implements
 					btn_sobre_main.setVisibility(View.VISIBLE);
 					btn_mostra_outros.setScaleX(1.0f);
 					btn_mostra_outros.setScaleY(1.0f);
+					btn_mostra_outros.setAlpha(1.0f);
 				} else {
 					btn_pesquisar_parlamentar.setVisibility(View.GONE);
 					btn_politico_main.setVisibility(View.GONE);
@@ -115,6 +121,7 @@ public class GuiMain extends Activity implements
 					btn_sobre_main.setVisibility(View.GONE);
 					btn_mostra_outros.setScaleX(0.6f);
 					btn_mostra_outros.setScaleY(0.6f);
+					btn_mostra_outros.setAlpha(0.5f);
 				}
 			}
 		});
@@ -192,10 +199,8 @@ public class GuiMain extends Activity implements
 
 			ResponseHandler<String> responseHandler = (ResponseHandler<String>) params[0];
 
-			boolean result = false;
-
 			try {
-				result = parlamentarController.insertAll(responseHandler);
+				parlamentarController.insertAll(responseHandler);
 			} catch (ConnectionFailedException cfe) {
 
 				// TODO: Fazer constantes para retirar números mágicos

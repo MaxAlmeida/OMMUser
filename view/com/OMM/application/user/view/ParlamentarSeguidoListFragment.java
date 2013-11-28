@@ -1,13 +1,11 @@
 package com.OMM.application.user.view;
 
 import java.util.List;
-
 import android.app.Activity;
 import android.app.ListFragment;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
-
 import com.OMM.application.user.R;
 import com.OMM.application.user.adapters.ParlamentarSeguidoAdapter;
 import com.OMM.application.user.controller.ParlamentarUserController;
@@ -16,7 +14,7 @@ import com.OMM.application.user.model.Parlamentar;
 public class ParlamentarSeguidoListFragment extends ListFragment {
 
 	private OnParlamentarSeguidoSelectedListener listener;
-	private static ParlamentarUserController controllerParlamentar;
+	private static ParlamentarUserController parlamentarController;
 	//ParseTask parseTask;
 
 	@Override
@@ -24,9 +22,9 @@ public class ParlamentarSeguidoListFragment extends ListFragment {
 
 		super.onCreate(savedInstanceState);
 
-		controllerParlamentar = ParlamentarUserController
+		parlamentarController = ParlamentarUserController
 				.getInstance(getActivity());
-		List<Parlamentar> list = controllerParlamentar.getAllSelected();
+		List<Parlamentar> list = parlamentarController.getAllSelected();
 
 		ParlamentarSeguidoAdapter adapter = new ParlamentarSeguidoAdapter(
 				getActivity(), R.layout.fragment_parlamentar_seguido, list);
@@ -39,53 +37,11 @@ public class ParlamentarSeguidoListFragment extends ListFragment {
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 
-		controllerParlamentar.setParlamentar((Parlamentar) getListAdapter().getItem(
+		parlamentarController.setParlamentar((Parlamentar) getListAdapter().getItem(
 				position));
+		parlamentarController.getSelected();
 		updateDetail();
 	}
-	
-	//TODO corigir chamada da controller e bug NullPointer Exception
-//	private static class ParseTask extends
-//			AsyncTask<String, Void, List<Parlamentar>> {
-//
-//		private ParlamentarSeguidoListFragment fragment;
-//
-//		public void setFragment(ParlamentarSeguidoListFragment fragment) {
-//			this.fragment = fragment;
-//		}
-//
-//		@Override
-//		protected List<Parlamentar> doInBackground(String... params) {
-//			List<Parlamentar> result = controllerParlamentar.getSelected(params[0]);
-//			return result;
-//		}
-//
-//		@Override
-//		protected void onPostExecute(List<Parlamentar> result) {
-//
-//			fragment.setListContent(result);
-//
-//		}
-//	}
-//
-//	public void updateListContent(String nome) {
-//
-//		if (parseTask == null) {
-//			parseTask = new ParseTask();
-//			parseTask.setFragment(this);
-//			parseTask.execute(nome);
-//		}
-//	}
-//
-//	public void setListContent(List<Parlamentar> result) {
-//
-//		// ArrayAdapter listAdapter = (ArrayAdapter) getListAdapter();
-//		// listAdapter.clear();
-//		// listAdapter.addAll(result);
-//		// parseTask.setFragment(null);
-//
-//	}
-
 	/*
 	 * Responsavel por chamar uma activity, a natureza do fragment nao permite q
 	 * ele chame activities, enta eh preciso criar uma interface para outra
@@ -113,7 +69,8 @@ public class ParlamentarSeguidoListFragment extends ListFragment {
 	}
 
 	private void updateDetail() {
-
+//		RequestTask	request = new RequestTask();
+//		request.execute();
 		listener.OnParlamentarSeguidoSelected();
 	}
 

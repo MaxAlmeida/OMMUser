@@ -53,8 +53,8 @@ public abstract class HttpConnection {
 			DefaultHttpClient client = new DefaultHttpClient();
 			HttpGet http = new HttpGet(url);
 			
-			String jsonParlamentar = client.execute(http, response);
-
+			//String jsonParlamentar = client.execute(http, response);
+			String jsonParlamentar = new String(client.execute(http,response).getBytes("ISO-8859-1"),"UTF-8");
 			return jsonParlamentar;
 
 		} catch (ClientProtocolException e) {
@@ -94,7 +94,7 @@ public abstract class HttpConnection {
 			DefaultHttpClient client = new DefaultHttpClient();
 			HttpGet http = new HttpGet(url);
 
-			String jsonMajorRanking = client.execute(http, response);
+			String jsonMajorRanking = new String(client.execute(http,response).getBytes("ISO-8859-1"),"UTF-8");
 
 			return jsonMajorRanking;
 

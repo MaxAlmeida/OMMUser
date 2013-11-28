@@ -7,6 +7,10 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -22,28 +26,26 @@ import com.OMM.application.user.model.CotaParlamentar;
 public class ParlamentarDetailFragment extends Fragment {
 
 	ParlamentarUserController parlamentarController;
-
+	int selectedMes = 6;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-
+		setHasOptionsMenu(true);
 		parlamentarController = ParlamentarUserController
 				.getInstance(getActivity());
-
 		View view = inflater.inflate(R.layout.gui_detalhe, container, false);
 
 		final Button btn_detalhe_seguir = (Button) view
 				.findViewById(R.id.btn_detalhe_seguir);
 		final Button btn_detalhe_desseguir = (Button) view
 				.findViewById(R.id.btn_detalhe_desseguir);
+
+		if(parlamentarController.getParlamentar().isSeguido() == 1) {
 		btn_detalhe_desseguir.setVisibility(View.INVISIBLE);
 
-		// if(parlamentarController.getParlamentar().isSeguido() == 1) {
-		btn_detalhe_desseguir.setVisibility(View.INVISIBLE);
-
-		// } else {
-		// btn_detalhe_seguir.setVisibility(View.INVISIBLE);
-		// }
+		} else {
+		 btn_detalhe_seguir.setVisibility(View.INVISIBLE);
+		}
 
 		createButtons(view);
 
@@ -57,13 +59,12 @@ public class ParlamentarDetailFragment extends Fragment {
 					parlamentarController.unFollowedParlamentar();
 					Toast.makeText(getActivity(), "Parlamentar DesSeguido",
 							Toast.LENGTH_SHORT).show();
-					// btn_detalhe_desseguir.setVisibility(View.GONE);
-					// btn_detalhe_seguir.setVisibility(View.VISIBLE);
+					btn_detalhe_desseguir.setVisibility(View.GONE);
+					btn_detalhe_seguir.setVisibility(View.VISIBLE);
 
 				} catch (NullParlamentarException nullEx) {
-					Toast.makeText(getActivity(),
-							"Erro na requisição", Toast.LENGTH_SHORT)
-							.show();
+					Toast.makeText(getActivity(), "Erro na requisição",
+							Toast.LENGTH_SHORT).show();
 
 				}
 			}
@@ -83,9 +84,8 @@ public class ParlamentarDetailFragment extends Fragment {
 					btn_detalhe_desseguir.setVisibility(View.VISIBLE);
 
 				} catch (NullParlamentarException nullEx) {
-					Toast.makeText(getActivity(),
-							"Erro na requisição", Toast.LENGTH_SHORT)
-							.show();
+					Toast.makeText(getActivity(), "Erro na requisição",
+							Toast.LENGTH_SHORT).show();
 
 				}
 			}
@@ -93,56 +93,47 @@ public class ParlamentarDetailFragment extends Fragment {
 		return view;
 	}
 
-	@Override
-	public void onStart() {
-		// TODO Auto-generated method stub
-		super.onStart();
-
-	}
-
 	public void setBarras() {
-		
-		parlamentarController.getParlamentar();
 
-		TextView view = (TextView) getView().findViewById(R.id.nome);	
-		view.setText(parlamentarController.getParlamentar().getNome());		
-		Iterator<CotaParlamentar> iterator = parlamentarController.getParlamentar().getCotas().iterator();
+		TextView view = (TextView) getView().findViewById(R.id.nome);
+		view.setText(parlamentarController.getParlamentar().getNome());
+		Iterator<CotaParlamentar> iterator = parlamentarController
+				.getParlamentar().getCotas().iterator();
 
 		while (iterator.hasNext()) {
-
+			
 			CotaParlamentar cota = iterator.next();
-//TODO: Corrigir mês solicitado
-			if (cota.getMes() == 6) {
+			Log.i("BANCO", "Entrou! Valor: " +  cota.getMes());
+			// TODO: Corrigir mês solicitado
+			if (cota.getMes() == selectedMes) {
 				
-
 				double valorCota = cota.getValor();
-							
 				int numeroSubCota = cota.getNumeroSubCota();
-				
-				Log.i("ParlamentarDetailFragment","Valor da cota " + valorCota + " da nCota " + numeroSubCota);
-
-				DecimalFormat valorCotaDecimal = new DecimalFormat("#,###.00"); 
-				
+				DecimalFormat valorCotaDecimal = new DecimalFormat("#,###.00");
 				switch (numeroSubCota) {
 
 				case 1:
 
 					ImageView barEscritorio = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_escritorio);
-					TextView textViewEscritorio = (TextView) getActivity().findViewById(R.id.valor_cota_escritorio);
-					textViewEscritorio.setText("R$ " + valorCotaDecimal.format(valorCota));
-				
+					TextView textViewEscritorio = (TextView) getActivity()
+							.findViewById(R.id.valor_cota_escritorio);
+					textViewEscritorio.setText("R$ "
+							+ valorCotaDecimal.format(valorCota));
+
 					sizeBar(barEscritorio, valorCota);
-					
+
 					break;
 
 				case 3:
 
 					ImageView barCombustivel = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_gasolina);
-					TextView textViewCombustivel = (TextView) getActivity().findViewById(R.id.valor_cota_gasolina);
-					textViewCombustivel.setText("R$ " + valorCotaDecimal.format(valorCota));
-				
+					TextView textViewCombustivel = (TextView) getActivity()
+							.findViewById(R.id.valor_cota_gasolina);
+					textViewCombustivel.setText("R$ "
+							+ valorCotaDecimal.format(valorCota));
+
 					sizeBar(barCombustivel, valorCota);
 
 					break;
@@ -151,9 +142,11 @@ public class ParlamentarDetailFragment extends Fragment {
 
 					ImageView barTrabalhoTecnico = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_trabalho_tecnico);
-					TextView textViewTrabalhoTecnico = (TextView) getActivity().findViewById(R.id.valor_cota_trabalho_tecnico);
-					textViewTrabalhoTecnico.setText("R$ " + valorCotaDecimal.format(valorCota));
-					
+					TextView textViewTrabalhoTecnico = (TextView) getActivity()
+							.findViewById(R.id.valor_cota_trabalho_tecnico);
+					textViewTrabalhoTecnico.setText("R$ "
+							+ valorCotaDecimal.format(valorCota));
+
 					sizeBar(barTrabalhoTecnico, valorCota);
 
 					break;
@@ -162,9 +155,11 @@ public class ParlamentarDetailFragment extends Fragment {
 
 					ImageView barDivulgacao = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_divulgacao);
-					TextView textViewDivulgacao = (TextView) getActivity().findViewById(R.id.valor_cota_divulgacao);
-					textViewDivulgacao.setText("R$ " + valorCotaDecimal.format(valorCota));
-			
+					TextView textViewDivulgacao = (TextView) getActivity()
+							.findViewById(R.id.valor_cota_divulgacao);
+					textViewDivulgacao.setText("R$ "
+							+ valorCotaDecimal.format(valorCota));
+
 					sizeBar(barDivulgacao, valorCota);
 
 					break;
@@ -173,8 +168,10 @@ public class ParlamentarDetailFragment extends Fragment {
 
 					ImageView barSeguranca = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_seguranca);
-					TextView textViewSeguranca = (TextView) getActivity().findViewById(R.id.valor_cota_seguranca);
-					textViewSeguranca.setText("R$ " + valorCotaDecimal.format(valorCota));
+					TextView textViewSeguranca = (TextView) getActivity()
+							.findViewById(R.id.valor_cota_seguranca);
+					textViewSeguranca.setText("R$ "
+							+ valorCotaDecimal.format(valorCota));
 
 					sizeBar(barSeguranca, valorCota);
 
@@ -184,8 +181,10 @@ public class ParlamentarDetailFragment extends Fragment {
 
 					ImageView barAluguelAviao = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_aluguel_aviao);
-					TextView textViewAluguelAviao = (TextView) getActivity().findViewById(R.id.valor_cota_aluguel_aviao);
-					textViewAluguelAviao.setText("R$ " + valorCotaDecimal.format(valorCota));
+					TextView textViewAluguelAviao = (TextView) getActivity()
+							.findViewById(R.id.valor_cota_aluguel_aviao);
+					textViewAluguelAviao.setText("R$ "
+							+ valorCotaDecimal.format(valorCota));
 
 					sizeBar(barAluguelAviao, valorCota);
 
@@ -195,8 +194,10 @@ public class ParlamentarDetailFragment extends Fragment {
 
 					ImageView barTelefonia = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_telefonia);
-					TextView textViewTelefonia = (TextView) getActivity().findViewById(R.id.valor_cota_telefonia);
-					textViewTelefonia.setText("R$ " + valorCotaDecimal.format(valorCota));
+					TextView textViewTelefonia = (TextView) getActivity()
+							.findViewById(R.id.valor_cota_telefonia);
+					textViewTelefonia.setText("R$ "
+							+ valorCotaDecimal.format(valorCota));
 
 					sizeBar(barTelefonia, valorCota);
 
@@ -206,9 +207,10 @@ public class ParlamentarDetailFragment extends Fragment {
 
 					ImageView barCorreios = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_correios);
-					TextView textViewCorreios = (TextView) getActivity().findViewById(R.id.valor_cota_correios);
-					textViewCorreios.setText("R$ " + valorCotaDecimal.format(valorCota));
-
+					TextView textViewCorreios = (TextView) getActivity()
+							.findViewById(R.id.valor_cota_correios);
+					textViewCorreios.setText("R$ "
+							+ valorCotaDecimal.format(valorCota));
 
 					sizeBar(barCorreios, valorCota);
 
@@ -218,8 +220,10 @@ public class ParlamentarDetailFragment extends Fragment {
 
 					ImageView barAlimentacao = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_alimentacao);
-					TextView textViewAlimentacao = (TextView) getActivity().findViewById(R.id.valor_cota_alimentacao);
-					textViewAlimentacao.setText("R$ " + valorCotaDecimal.format(valorCota));
+					TextView textViewAlimentacao = (TextView) getActivity()
+							.findViewById(R.id.valor_cota_alimentacao);
+					textViewAlimentacao.setText("R$ "
+							+ valorCotaDecimal.format(valorCota));
 
 					sizeBar(barAlimentacao, valorCota);
 
@@ -229,9 +233,11 @@ public class ParlamentarDetailFragment extends Fragment {
 
 					ImageView barHospedagem = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_hoespedagem);
-					TextView textViewHospedagam = (TextView) getActivity().findViewById(R.id.valor_cota_hospedagem);
-					textViewHospedagam.setText("R$ " + valorCotaDecimal.format(valorCota));
-					
+					TextView textViewHospedagam = (TextView) getActivity()
+							.findViewById(R.id.valor_cota_hospedagem);
+					textViewHospedagam.setText("R$ "
+							+ valorCotaDecimal.format(valorCota));
+
 					sizeBar(barHospedagem, valorCota);
 
 					break;
@@ -240,17 +246,16 @@ public class ParlamentarDetailFragment extends Fragment {
 
 					ImageView barBilhetesAereos = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_bilhetes_aereos);
-					TextView textViewBilhetesAereos = (TextView) getActivity().findViewById(R.id.valor_cota_bilhetes_aereos);
-					textViewBilhetesAereos.setText("R$ " + valorCotaDecimal.format(valorCota));
+					TextView textViewBilhetesAereos = (TextView) getActivity()
+							.findViewById(R.id.valor_cota_bilhetes_aereos);
+					textViewBilhetesAereos.setText("R$ "
+							+ valorCotaDecimal.format(valorCota));
 
 					sizeBar(barBilhetesAereos, valorCota);
-					
-					
+
 					break;
-					
-				default: 
-						Log.i("Parlamentar detail Fragment",
-								"Cod estranho");
+
+				default:
 
 				}
 
@@ -283,7 +288,6 @@ public class ParlamentarDetailFragment extends Fragment {
 			bar.setImageResource(R.drawable.barra_vermelha);
 
 		} else {
-			Log.i("Parlamentar detail Fragment", "Valor Mensal Negativo");
 		}
 
 	}
@@ -439,4 +443,88 @@ public class ParlamentarDetailFragment extends Fragment {
 
 	}
 
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+		super.onCreateOptionsMenu(menu, inflater);
+		menu.clear();
+		SubMenu sub = menu.addSubMenu("Mês");
+		MenuItem Ano = menu.add(0,Menu.FIRST+12,0,"Ano");
+		sub.add(0,Menu.FIRST,0,"Janeiro");
+		sub.add(0,Menu.FIRST+1,0,"Fevereiro");
+		sub.add(0,Menu.FIRST+2,0,"Março");
+		sub.add(0,Menu.FIRST+3,0,"Abril");
+		sub.add(0,Menu.FIRST+4,0,"Maio");
+		sub.add(0,Menu.FIRST+5,0,"Junho");
+		sub.add(0,Menu.FIRST+6,0,"Julho");
+		sub.add(0,Menu.FIRST+7,0,"Agosto");
+		sub.add(0,Menu.FIRST+8,0,"Setembro");
+		sub.add(0,Menu.FIRST+9,0,"Outubro");
+		sub.add(0,Menu.FIRST+10,0,"Novembro");
+		sub.add(0,Menu.FIRST+11,0,"Dezembro");
+		
+		
+	}
+	
+	public boolean onOptionsItemSelected(MenuItem item){
+		switch (item.getItemId()) {
+		case Menu.FIRST:
+			selectedMes = 1;
+			
+			break;
+		case Menu.FIRST+1: 
+		    selectedMes = 2;
+		
+		    break;
+		case Menu.FIRST+2: 
+		    selectedMes = 3;
+		
+		    break;
+		case Menu.FIRST+3: 
+		    selectedMes = 4;
+		
+		    break;
+		case Menu.FIRST+4: 
+		    selectedMes = 5;
+		
+		    break;
+		case Menu.FIRST+5: 
+		    selectedMes = 6;
+		
+		    break;
+		case Menu.FIRST+6: 
+		    selectedMes = 7;
+		
+		    break;
+		case Menu.FIRST+7: 
+		    selectedMes = 8;
+		
+		    break;
+		case Menu.FIRST+8: 
+		    selectedMes = 9;
+		
+		    break;
+		    
+		case Menu.FIRST+9: 
+		    selectedMes = 10;
+		
+		    break;   
+		    
+		case Menu.FIRST+10: 
+		    selectedMes = 11;
+		
+		    break; 
+		
+		case Menu.FIRST+11: 
+		    selectedMes = 12;
+		
+		    break;      
+		    
+		default:
+			break;
+		}
+	setBarras();
+	return true;
+	}
+	
 }

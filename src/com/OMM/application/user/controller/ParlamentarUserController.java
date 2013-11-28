@@ -7,7 +7,6 @@ import java.util.List;
 import org.apache.http.client.ResponseHandler;
 
 import android.content.Context;
-
 import com.OMM.application.user.dao.ParlamentarUserDao;
 import com.OMM.application.user.exceptions.ConnectionFailedException;
 import com.OMM.application.user.exceptions.NullCotaParlamentarException;
@@ -147,17 +146,14 @@ public class ParlamentarUserController {
 		return parlamentar;
 	}
 
-	public List<Parlamentar> getSelected(String nameParlamentar) {
-
+	public List<Parlamentar> getByName(String nameParlamentar) {
 		parlamentares = parlamentarDao.getSelected(nameParlamentar);
-
 		return parlamentares;
 	}
 
 	public List<Parlamentar> getAll() {
 
 		parlamentares = parlamentarDao.getAll();
-		
 		return parlamentares;
 	}
 
@@ -276,5 +272,12 @@ public class ParlamentarUserController {
 	public Parlamentar getParlamentar() {
 		return parlamentar;
 	}
-
+	
+	public Parlamentar getSelected(){
+		List<CotaParlamentar>cotas = ceapController.getCotasByIdParlamentar(parlamentar.getId());
+		parlamentar.setCotas(cotas);
+		return parlamentar;
+	
+	}
+	
 }
