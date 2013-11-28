@@ -2,6 +2,7 @@ package com.OMM.application.user.view;
 
 import java.text.DecimalFormat;
 import java.util.Iterator;
+import java.util.ResourceBundle.Control;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -24,7 +25,7 @@ import com.OMM.application.user.exceptions.NullParlamentarException;
 import com.OMM.application.user.model.CotaParlamentar;
 
 public class ParlamentarDetailFragment extends Fragment {
-
+	private static final String VAZIO = "R$ 0,00";
 	ParlamentarUserController parlamentarController;
 	int selectedMes = 6;
 	@Override
@@ -63,7 +64,8 @@ public class ParlamentarDetailFragment extends Fragment {
 							Toast.LENGTH_SHORT).show();
 					btn_detalhe_desseguir.setVisibility(View.GONE);
 					btn_detalhe_seguir.setVisibility(View.VISIBLE);
-
+					ImageView imgView = (ImageView)getView().findViewById(R.id.foto);
+					imgView.setImageResource(R.drawable.parlamentar_foto);
 				} catch (NullParlamentarException nullEx) {
 					Toast.makeText(getActivity(), "Erro na requisição",
 							Toast.LENGTH_SHORT).show();
@@ -82,6 +84,8 @@ public class ParlamentarDetailFragment extends Fragment {
 					parlamentarController.followedParlamentar();
 					Toast.makeText(getActivity(), "Parlamentar Seguido",
 							Toast.LENGTH_SHORT).show();
+					ImageView imgView = (ImageView)getView().findViewById(R.id.foto);
+					imgView.setImageResource(R.drawable.parlamentar_seguido_foto);
 					btn_detalhe_seguir.setVisibility(View.GONE);
 					btn_detalhe_desseguir.setVisibility(View.VISIBLE);
 
@@ -99,14 +103,23 @@ public class ParlamentarDetailFragment extends Fragment {
 
 		TextView view = (TextView) getView().findViewById(R.id.nome);
 		view.setText(parlamentarController.getParlamentar().getNome());
+		view = (TextView) getView().findViewById(R.id.partido);
+		view.setText(parlamentarController.getParlamentar().getPartido());
+		view = (TextView) getView().findViewById(R.id.uf);
+		view.setText(parlamentarController.getParlamentar().getUf());
+		if(parlamentarController.getParlamentar().isSeguido()==1){
+			ImageView imgView = (ImageView)getView().findViewById(R.id.foto);
+			imgView.setImageResource(R.drawable.parlamentar_seguido_foto);
+		}
+		else{
+			//nothing here.
+		}
 		Iterator<CotaParlamentar> iterator = parlamentarController
 				.getParlamentar().getCotas().iterator();
-
 		while (iterator.hasNext()) {
 			
 			CotaParlamentar cota = iterator.next();
-			Log.i("BANCO", "Entrou! Valor: " +  cota.getMes());
-			// TODO: Corrigir mês solicitado
+			
 			if (cota.getMes() == selectedMes) {
 				
 				double valorCota = cota.getValor();
@@ -260,6 +273,8 @@ public class ParlamentarDetailFragment extends Fragment {
 				default:
 
 				}
+				
+				
 
 			}
 
@@ -267,6 +282,7 @@ public class ParlamentarDetailFragment extends Fragment {
 
 	}
 
+	
 	public void sizeBar(ImageView bar, double valorCota) {
 
 		if (valorCota <= 500) {
@@ -525,6 +541,7 @@ public class ParlamentarDetailFragment extends Fragment {
 		default:
 			break;
 		}
+	onCreate(null);	
 	setBarras();
 	return true;
 	}

@@ -9,43 +9,33 @@
         android:layout_height="wrap_content" >
 
         <Button
-            android:id="@+id/btn_detalhe_desseguir"
-            android:background="@drawable/esquecer"
+            android:id="@+id/btn_detalhe_seguir"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/valor_cota_trabalho_tecnico"
             android:layout_marginTop="20dp"
-            android:text="Esquecer" />
-
-        <Button
-            android:id="@+id/btn_detalhe_seguir"
             android:background="@drawable/seguir"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/nome"
-            android:layout_alignParentBottom="true"
-            android:layout_below="@+id/valor_cota_trabalho_tecnico"
-            android:layout_marginTop="20dp"
             android:text="Seguir" />
 
-        <TextView
-            android:id="@+id/nome"
+        <Button
+            android:id="@+id/btn_detalhe_desseguir"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="14dp"
-            android:text="Large Text"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/valor_cota_trabalho_tecnico"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/esquecer"
+            android:text="Esquecer" />
 
         <Button
             android:id="@+id/btn_cota_alimentacao"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/nome"
+            android:layout_below="@+id/partido"
             android:layout_marginLeft="22dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/cota_alimentacao" />
@@ -316,6 +306,44 @@
             android:layout_alignBottom="@+id/barra_cota_trabalho_tecnico"
             android:layout_alignParentRight="true"
             android:text="R$ 0,00"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/partido"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/foto"
+            android:layout_toRightOf="@+id/foto"
+            android:layout_marginLeft="30dp"
+            android:text="Mid Text"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/nome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/partido"
+            android:layout_alignTop="@+id/foto"
+            android:layout_marginTop="16dp"
+            android:text="Large Text"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <ImageView
+            android:id="@+id/foto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/parlamentar_foto" />
+
+        <TextView
+            android:id="@+id/uf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btn_cota_alimentacao"
+            android:layout_marginLeft="18dp"
+            android:layout_toRightOf="@+id/nome"
+            android:text="MTx"
             android:textAppearance="?android:attr/textAppearanceMedium" />
     </RelativeLayout>
 

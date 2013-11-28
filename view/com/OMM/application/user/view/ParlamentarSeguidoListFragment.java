@@ -69,8 +69,6 @@ public class ParlamentarSeguidoListFragment extends ListFragment {
 	}
 
 	private void updateDetail() {
-//		RequestTask	request = new RequestTask();
-//		request.execute();
 		listener.OnParlamentarSeguidoSelected();
 	}
 

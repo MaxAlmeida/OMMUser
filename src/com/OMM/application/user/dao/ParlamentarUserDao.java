@@ -13,12 +13,12 @@ import com.OMM.application.user.helper.DB;
 import com.OMM.application.user.model.Parlamentar;
 
 public class ParlamentarUserDao {
-	
-	//TODO:Fazer try catch do banco
+
+	// TODO:Fazer try catch do banco
 
 	private static String nome_tabela = "PARLAMENTAR";
 	private static Context context;
-	private static String[] colunas = { "ID_PARLAMENTAR,NOME_PARLAMENTAR" };
+	private static String[] colunas = { "ID_PARLAMENTAR,NOME_PARLAMENTAR,PARTIDO,UF,SEGUIDO" };
 	private static ParlamentarUserDao instance;
 
 	@SuppressWarnings("static-access")
@@ -53,7 +53,7 @@ public class ParlamentarUserDao {
 	}
 
 	public boolean insertParlamentar(Parlamentar parlamentar) {
-		
+
 		SQLiteDatabase database = new DB(context).getWritableDatabase();
 		ContentValues content = new ContentValues();
 
@@ -67,15 +67,15 @@ public class ParlamentarUserDao {
 	}
 
 	public boolean deleteParlamentar(Parlamentar parlamentar) {
-		
+
 		SQLiteDatabase database = new DB(context).getWritableDatabase();
-		
+
 		return (database.delete(nome_tabela, "ID_PARLAMENTAR=?",
 				new String[] { parlamentar.getId() + "" }) > 0);
 	}
 
 	public boolean updateParlamentar(Parlamentar parlamentar) {
-		
+
 		SQLiteDatabase database = new DB(context).getWritableDatabase();
 		ContentValues content = new ContentValues();
 
@@ -86,66 +86,81 @@ public class ParlamentarUserDao {
 	}
 
 	public Parlamentar getById(Integer ID_PARLAMENTAR) {
-		
+
 		SQLiteDatabase database = new DB(context).getReadableDatabase();
 
-		Cursor cursor = database.query(nome_tabela, colunas, "ID_PARLAMENTAR=?",
-				new String[] { ID_PARLAMENTAR.toString() }, null, null, null);
+		Cursor cursor = database.query(nome_tabela, colunas,
+				"ID_PARLAMENTAR=?", new String[] { ID_PARLAMENTAR.toString() },
+				null, null, null);
 
 		Parlamentar parlamentar = new Parlamentar();
-		
+
 		if (cursor.moveToFirst()) {
-		
+
 			parlamentar.setId(Integer.parseInt(cursor.getString(cursor
 					.getColumnIndex("ID_PARLAMENTAR"))));
-			parlamentar.setNome(cursor.getString(cursor.getColumnIndex("NOME_PARLAMENTAR")));
-			parlamentar.setSeguido(Integer.parseInt(cursor.getString(cursor
-					.getColumnIndex("SEGUIDO"))));
-			parlamentar.setPartido(cursor.getString(cursor.getColumnIndex("PARTIDO")));
+			parlamentar.setNome(cursor.getString(cursor
+					.getColumnIndex("NOME_PARLAMENTAR")));
+			parlamentar.setSeguido(cursor.getInt(cursor
+					.getColumnIndex("SEGUIDO")));
+			parlamentar.setPartido(cursor.getString(cursor
+					.getColumnIndex("PARTIDO")));
 			parlamentar.setUf(cursor.getString(cursor.getColumnIndex("UF")));
-			
+
 		}
-		
+
 		return parlamentar;
 	}
 
 	public List<Parlamentar> getAll() {
-		
+
 		SQLiteDatabase database = new DB(context).getReadableDatabase();
-		Cursor cursor = database.rawQuery("SELECT ID_PARLAMENTAR,NOME_PARLAMENTAR,SEGUIDO FROM PARLAMENTAR", null);
+		Cursor cursor = database.rawQuery("SELECT * FROM PARLAMENTAR", null);
 		List<Parlamentar> listParlamentares = new ArrayList<Parlamentar>();
-		
+
 		while (cursor.moveToNext()) {
-			
+
 			Parlamentar parlamentar = new Parlamentar();
-			parlamentar.setId(cursor.getInt(0));
-			parlamentar.setNome(cursor.getString(1));
-			parlamentar.setSeguido(cursor.getInt(cursor.getColumnIndex("SEGUIDO")));
+			parlamentar.setId(cursor.getInt(cursor
+					.getColumnIndex("ID_PARLAMENTAR")));
+			parlamentar.setNome(cursor.getString(cursor
+					.getColumnIndex("NOME_PARLAMENTAR")));
+			parlamentar.setSeguido(cursor.getInt(cursor
+					.getColumnIndex("SEGUIDO")));
+			parlamentar.setPartido(cursor.getString(cursor
+					.getColumnIndex("PARTIDO")));
+			parlamentar.setUf(cursor.getString(cursor.getColumnIndex("UF")));
 			listParlamentares.add(parlamentar);
 		}
-		
+
 		return listParlamentares;
 	}
 
 	/*
-	 * TODO: Metodo utilizado para realizar o filtro de parlamentares ele deve ser
-	 * 		 trabalhado melhor para condição de nao encontrar um parlamentar
+	 * TODO: Metodo utilizado para realizar o filtro de parlamentares ele deve
+	 * ser trabalhado melhor para condição de nao encontrar um parlamentar
 	 */
 	public List<Parlamentar> getSelected(String nameParlamentar) {
 
 		SQLiteDatabase database = new DB(context).getReadableDatabase();
 		Cursor cursor = database.rawQuery(
-						"SELECT ID_PARLAMENTAR,NOME_PARLAMENTAR FROM PARLAMENTAR WHERE NOME_PARLAMENTAR LIKE '%"
-								+ nameParlamentar + "%'", null);
-		
-		List<Parlamentar> listParlamentar = new ArrayList<Parlamentar>();
-		
-		while (cursor.moveToNext()) {
-			
-			Parlamentar parlamentar = new Parlamentar();
-			parlamentar.setId(cursor.getInt(0));
-			parlamentar.setNome(cursor.getString(1));
+				"SELECT * FROM PARLAMENTAR WHERE NOME_PARLAMENTAR LIKE '%"
+						+ nameParlamentar + "%'", null);
 
+		List<Parlamentar> listParlamentar = new ArrayList<Parlamentar>();
+
+		while (cursor.moveToNext()) {
+
+			Parlamentar parlamentar = new Parlamentar();
+			parlamentar.setId(cursor.getInt(cursor
+					.getColumnIndex("ID_PARLAMENTAR")));
+			parlamentar.setNome(cursor.getString(cursor
+					.getColumnIndex("NOME_PARLAMENTAR")));
+			parlamentar.setSeguido(cursor.getInt(cursor
+					.getColumnIndex("SEGUIDO")));
+			parlamentar.setPartido(cursor.getString(cursor
+					.getColumnIndex("PARTIDO")));
+			parlamentar.setUf(cursor.getString(cursor.getColumnIndex("UF")));
 			listParlamentar.add(parlamentar);
 		}
 
@@ -153,24 +168,27 @@ public class ParlamentarUserDao {
 	}
 
 	public List<Parlamentar> getAllSelected() {
-		
+
 		SQLiteDatabase database = new DB(context).getReadableDatabase();
 		Cursor cursor = database.rawQuery(
-						"SELECT ID_PARLAMENTAR,NOME_PARLAMENTAR FROM PARLAMENTAR WHERE SEGUIDO IN(1)",
-						null);
-		
-		List<Parlamentar> listParlamentar = new ArrayList<Parlamentar>();
-		
-		while (cursor.moveToNext()) {
-			
-			Parlamentar parlamentar = new Parlamentar();
-			parlamentar.setId(cursor.getInt(0));
-			parlamentar.setNome(cursor.getString(1));
-			parlamentar.setSeguido(1);
+				"SELECT * FROM PARLAMENTAR WHERE SEGUIDO IN(1)", null);
 
+		List<Parlamentar> listParlamentar = new ArrayList<Parlamentar>();
+
+		while (cursor.moveToNext()) {
+
+			Parlamentar parlamentar = new Parlamentar();
+			parlamentar.setId(cursor.getInt(cursor
+					.getColumnIndex("ID_PARLAMENTAR")));
+			parlamentar.setNome(cursor.getString(cursor
+					.getColumnIndex("NOME_PARLAMENTAR")));
+			parlamentar.setSeguido(1);
+			parlamentar.setPartido(cursor.getString(cursor
+					.getColumnIndex("PARTIDO")));
+			parlamentar.setUf(cursor.getString(cursor.getColumnIndex("UF")));
 			listParlamentar.add(parlamentar);
 		}
-		
+
 		return listParlamentar;
 	}
 }

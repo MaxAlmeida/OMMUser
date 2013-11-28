@@ -108,7 +108,6 @@ public class ParlamentarUserController {
 		return parlamentar;
 	}
 
-	// TODO: Fazer direcionamento pela controller
 	public List<CotaParlamentar> convertJsonToCotaParlamentar(
 
 	String jsonCotaParlamentar) throws NullCotaParlamentarException {
@@ -277,6 +276,7 @@ public class ParlamentarUserController {
 	}
 	
 	public Parlamentar getSelected(){
+		parlamentar = parlamentarDao.getById(parlamentar.getId());
 		List<CotaParlamentar>cotas = ceapController.getCotasByIdParlamentar(parlamentar.getId());
 		parlamentar.setCotas(cotas);
 		return parlamentar;
