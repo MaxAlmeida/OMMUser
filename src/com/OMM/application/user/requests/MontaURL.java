@@ -2,11 +2,7 @@ package com.OMM.application.user.requests;
 
 public abstract class MontaURL {
 	
-	private static final String IP = "192.168.1.11";
-	
-	public  MontaURL(){
-		// Empty Constructor
-	}
+	public static final String IP = "192.168.1.16";
 	
 	public static String mountURLCota(int idParlamentar){
 		 
