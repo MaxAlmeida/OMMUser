@@ -3,6 +3,8 @@ package com.OMM.test.user.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import junit.framework.Assert;
+
 import android.test.ActivityInstrumentationTestCase2;
 
 import com.OMM.application.user.controller.ParlamentarUserController;
@@ -15,7 +17,7 @@ public class ParlamentarUserControllerTest extends ActivityInstrumentationTestCa
 	
 	private Parlamentar parlamentar;
 	private CotaParlamentar cota;
-	private ParlamentarUserDao parlamentarDao;
+	private ParlamentarUserController parlamentarController;
 	private GuiMain guiMain;
 	
 	public ParlamentarUserControllerTest(String nome){
@@ -30,7 +32,7 @@ public class ParlamentarUserControllerTest extends ActivityInstrumentationTestCa
 		guiMain=getActivity();
 		parlamentar = new Parlamentar();
 		cota = new CotaParlamentar();
-		parlamentarDao  = ParlamentarUserDao.getInstance(guiMain);
+		parlamentarController  = ParlamentarUserController.getInstance(guiMain);
 		parlamentar.setId(1111);
 		parlamentar.setPartido("PT");
 		parlamentar.setNome("Tiririca");
@@ -49,6 +51,18 @@ public class ParlamentarUserControllerTest extends ActivityInstrumentationTestCa
 		ParlamentarUserController controller2 = ParlamentarUserController.getInstance(guiMain);
 		
 		assertSame(controller1, controller2);
+	}
+	
+	public void testSetParlamentar(){
+		
+		Parlamentar parlamentarTest = new Parlamentar();
+		parlamentarTest.setNome("joao");
+		
+		parlamentarController.setParlamentar(parlamentarTest);
+		
+		
+		Assert.assertEquals(parlamentarTest.getNome(),parlamentarController.getParlamentar().getNome());
+		
 	}
 	
 }
