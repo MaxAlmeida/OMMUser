@@ -11,7 +11,7 @@ public class Parlamentar {
 	private String partido;
 
 	private String uf;
-	
+
 	private double valor;
 
 	private int seguido;
@@ -24,17 +24,16 @@ public class Parlamentar {
 	}
 
 	public Parlamentar(int id, String nome, String partido, String uf,
-			int seguido, byte[] foto) {
+			int seguido) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.partido = partido;
 		this.uf = uf;
 		this.seguido = seguido;
-		this.foto = foto;
 	}
 
-	public int isSeguido() {
+	public int getIsSeguido() {
 		return seguido;
 	}
 
@@ -73,15 +72,21 @@ public class Parlamentar {
 	public void setUf(String uf) {
 		this.uf = uf;
 	}
-	
-	public double getValor( )
-	{
+
+	public double getValor() {
 		return valor;
 	}
 
-	public void setValor( double valor )
-	{
+	public void setValor(double valor) {
 		this.valor = valor;
+	}
+
+	public List<CotaParlamentar> getCotas() {
+		return cotas;
+	}
+
+	public void setCotas(List<CotaParlamentar> cotas) {
+		this.cotas = cotas;
 	}
 
 	public byte[] getFoto() {
@@ -92,20 +97,5 @@ public class Parlamentar {
 		this.foto = foto;
 	}
 
-	public List<CotaParlamentar> getCotas() {
-		return cotas;
-	}
-
-	public void setCotas(List<CotaParlamentar> cotas) {
-		this.cotas = cotas;
-	}
-	
-	
-	public boolean equals(Parlamentar parlamentar){
-		//Completar com os outros atributos..
-		if (this.nome.equals(parlamentar.getNome()) && this.id==parlamentar.getId() && this.partido.equals(parlamentar.getPartido()))
-			return true;
-		return false;
-	}
 
 }

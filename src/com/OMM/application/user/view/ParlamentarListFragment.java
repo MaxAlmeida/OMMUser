@@ -118,7 +118,7 @@ public class ParlamentarListFragment extends ListFragment {
 	}
 
 	public void updateDetail() {
-		if(controllerParlamentar.getParlamentar().isSeguido()==1){
+		if(controllerParlamentar.getParlamentar().getIsSeguido()==1){
 			controllerParlamentar.getSelected();
 			listener.OnParlamentarSelected();
 		}
