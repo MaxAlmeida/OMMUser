@@ -41,7 +41,7 @@ public class ParlamentarDetailFragment extends Fragment {
 		final Button btn_detalhe_desseguir = (Button) view
 				.findViewById(R.id.btn_detalhe_desseguir);
 
-		if(parlamentarController.getParlamentar().isSeguido() == 1) {
+		if(parlamentarController.getParlamentar().getIsSeguido() == 1) {
 		btn_detalhe_seguir.setVisibility(View.INVISIBLE);
 		btn_detalhe_desseguir.setVisibility(View.VISIBLE);
 
@@ -112,7 +112,7 @@ public class ParlamentarDetailFragment extends Fragment {
 		view.setText(parlamentarController.getParlamentar().getUf());
 		TextView textMes = (TextView) getView().findViewById(R.id.mes);
 		textMes.setText("Valores do mês "+ selectedMes);
-		if(parlamentarController.getParlamentar().isSeguido()==1){
+		if(parlamentarController.getParlamentar().getIsSeguido()==1){
 			ImageView imgView = (ImageView)getView().findViewById(R.id.foto);
 			imgView.setImageResource(R.drawable.parlamentar_seguido_foto);
 		}
