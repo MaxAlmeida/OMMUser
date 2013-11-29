@@ -22,8 +22,11 @@ public class ParlamentarTest extends AndroidTestCase {
 	}
 		
 	public void testConstructorParlamenta(){
-
 		
+		Parlamentar parlamentarTest1 = new Parlamentar();	
+		Assert.assertNotNull(parlamentarTest1);
+		Parlamentar parlamentarTest2 = new Parlamentar(372 ,"Mauricio","PT","DF",0);
+		Assert.assertNotNull(parlamentarTest2);			
 	}
 	
 
