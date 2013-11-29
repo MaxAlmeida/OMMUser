@@ -32,4 +32,20 @@ public class MontaURLTest extends AndroidTestCase{
 		Assert.assertEquals(urlParlamentar, MontaURL.mountURLParlamentar(373));
 	}
 	
+	public void testMountUrlAll(){
+		
+		String urlAll = "http://"+ IP + ":8080/OlhaMinhaMesada/parlamentares";
+		
+		Assert.assertEquals(urlAll, MontaURL.mountUrlAll());
+		
+	}
+	
+	public void testMountUrlMajorRanking(){
+		
+		String urlMajorRanking = "http://" + IP + ":8080/OlhaMinhaMesada/rankingMaiores";
+		
+		Assert.assertEquals(urlMajorRanking, MontaURL.mountUrlMajorRanking());
+		
+	}
+	
 }
