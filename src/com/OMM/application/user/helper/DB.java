@@ -15,6 +15,9 @@ public class DB extends SQLiteOpenHelper {
 	public DB(Context context) {
 		super(context, dbName, null, version);
 	}
+	public DB(Context context, int version) {
+		super(context, dbName, null, version);
+	}
 
 	@Override
 	public void onCreate(SQLiteDatabase database) {
@@ -31,13 +34,19 @@ public class DB extends SQLiteOpenHelper {
 		 * Eh executado quando o usuario ja tem a aplicacao instalada e deseja
 		 * instalar uma versao superior, com esse metodo vc consegue fazer
 		 * melhor a atualizacao do banco da nova versao sem que o usuario perca
-		 * as informações ja persistidas no celular por exemplo , suponha que o
+		 * as informaï¿½ï¿½es ja persistidas no celular por exemplo , suponha que o
 		 * usuario deseja atualizar a versao 1 para 2 do aplicativo e nessa nova
 		 * versao nao existe mais a tabela log e foi criada a tabela clientes
 		 * ... veja como fica o corpo do metodo if(oldVersion==1) {
 		 * if(newVersion ==2) { db.execSQL("DROP TABLE logs");
 		 * db.execSQL("CREATE TABLE cliente...."); } }
 		 */
+		
+		if(newVersion ==2)
+		{
+			db.execSQL("delete from parlamentar;");
+			 
+		}
 
 	}
 
