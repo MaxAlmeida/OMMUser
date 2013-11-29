@@ -26,7 +26,7 @@ import com.OMM.application.user.exceptions.ConnectionFailedException;
 import com.OMM.application.user.exceptions.NullCotaParlamentarException;
 import com.OMM.application.user.exceptions.NullParlamentarException;
 import com.OMM.application.user.exceptions.RequestFailedException;
-
+import com.OMM.application.user.view.Alerts;
 import com.OMM.application.user.model.Parlamentar;
 import com.OMM.application.user.requests.HttpConnection;
 
