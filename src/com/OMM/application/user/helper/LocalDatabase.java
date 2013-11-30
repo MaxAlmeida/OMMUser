@@ -21,26 +21,13 @@ public class LocalDatabase extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase database) {
-		/**
-		 * Esse eh executado quando instalada aplicacao
-		 */
+
 		database.execSQL(tabela_parlamentar);
 		database.execSQL(tabela_cota);
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		/*
-		 * Eh executado quando o usuario ja tem a aplicacao instalada e deseja
-		 * instalar uma versao superior, com esse metodo vc consegue fazer
-		 * melhor a atualizacao do banco da nova versao sem que o usuario perca
-		 * as informa��es ja persistidas no celular por exemplo , suponha que o
-		 * usuario deseja atualizar a versao 1 para 2 do aplicativo e nessa nova
-		 * versao nao existe mais a tabela log e foi criada a tabela clientes
-		 * ... veja como fica o corpo do metodo if(oldVersion==1) {
-		 * if(newVersion ==2) { db.execSQL("DROP TABLE logs");
-		 * db.execSQL("CREATE TABLE cliente...."); } }
-		 */
 		
 		if(newVersion ==2)
 		{
