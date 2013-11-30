@@ -27,7 +27,7 @@ public class CotaParlamentarUserDao {
 	private CotaParlamentarUserDao(Context context) {
 		
 		CotaParlamentarUserDao.context = context;
-		this.database = new DatabaseLocal(context).getWritableDatabase();
+		database = new DatabaseLocal(context).getWritableDatabase();
 		// Empty Constructor
 	}
 

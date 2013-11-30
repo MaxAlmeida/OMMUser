@@ -20,10 +20,12 @@ public class ParlamentarUserDao {
 	private static Context context;
 	private static String[] colunas = { "ID_PARLAMENTAR,NOME_PARLAMENTAR,PARTIDO,UF,SEGUIDO" };
 	private static ParlamentarUserDao instance;
+	private static SQLiteDatabase database;
 
 	@SuppressWarnings("static-access")
 	private ParlamentarUserDao(Context context) {
 		this.context = context;
+		database = new DatabaseLocal(context).getReadableDatabase();
 	}
 
 	public static ParlamentarUserDao getInstance(Context context) {
@@ -54,7 +56,6 @@ public class ParlamentarUserDao {
 
 	public boolean insertParlamentar(Parlamentar parlamentar) {
 
-		SQLiteDatabase database = new DatabaseLocal(context).getWritableDatabase();
 		ContentValues content = new ContentValues();
 
 		content.put("ID_PARLAMENTAR", parlamentar.getId());
@@ -68,15 +69,12 @@ public class ParlamentarUserDao {
 
 	public boolean deleteParlamentar(Parlamentar parlamentar) {
 
-		SQLiteDatabase database = new DatabaseLocal(context).getWritableDatabase();
-
 		return (database.delete(nome_tabela, "ID_PARLAMENTAR=?",
 				new String[] { parlamentar.getId() + "" }) > 0);
 	}
 
 	public boolean updateParlamentar(Parlamentar parlamentar) {
 
-		SQLiteDatabase database = new DatabaseLocal(context).getWritableDatabase();
 		ContentValues content = new ContentValues();
 
 		content.put("SEGUIDO", parlamentar.getIsSeguido());
@@ -86,8 +84,6 @@ public class ParlamentarUserDao {
 	}
 
 	public Parlamentar getById(Integer ID_PARLAMENTAR) {
-
-		SQLiteDatabase database = new DatabaseLocal(context).getReadableDatabase();
 
 		Cursor cursor = database.query(nome_tabela, colunas,
 				"ID_PARLAMENTAR=?", new String[] { ID_PARLAMENTAR.toString() },
@@ -114,7 +110,6 @@ public class ParlamentarUserDao {
 
 	public List<Parlamentar> getAll() {
 
-		SQLiteDatabase database = new DatabaseLocal(context).getReadableDatabase();
 		Cursor cursor = database.rawQuery("SELECT * FROM PARLAMENTAR", null);
 		List<Parlamentar> listParlamentares = new ArrayList<Parlamentar>();
 
@@ -138,11 +133,10 @@ public class ParlamentarUserDao {
 
 	/*
 	 * TODO: Metodo utilizado para realizar o filtro de parlamentares ele deve
-	 * ser trabalhado melhor para condição de nao encontrar um parlamentar
+	 * ser trabalhado melhor para condiï¿½ï¿½o de nao encontrar um parlamentar
 	 */
 	public List<Parlamentar> getSelected(String nameParlamentar) {
 
-		SQLiteDatabase database = new DatabaseLocal(context).getReadableDatabase();
 		Cursor cursor = database.rawQuery(
 				"SELECT * FROM PARLAMENTAR WHERE NOME_PARLAMENTAR LIKE '%"
 						+ nameParlamentar + "%'", null);
@@ -169,7 +163,6 @@ public class ParlamentarUserDao {
 
 	public List<Parlamentar> getAllSelected() {
 
-		SQLiteDatabase database = new DatabaseLocal(context).getReadableDatabase();
 		Cursor cursor = database.rawQuery(
 				"SELECT * FROM PARLAMENTAR WHERE SEGUIDO IN(1)", null);
 
