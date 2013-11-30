@@ -543,68 +543,72 @@ public class ParlamentarDetailFragment extends Fragment {
 	}
 	
 	public boolean onOptionsItemSelected(MenuItem item){
+		
 		switch (item.getItemId()) {
-		case Menu.FIRST:
-			selectedMes = 1;
 			
+			case Menu.FIRST:
+				selectedMes = 1;						
+				break;
+			
+			case Menu.FIRST+1: 		    
+				selectedMes = 2;			   
+				break;
+		
+			case Menu.FIRST+2: 		    		
+				selectedMes = 3;		
+				break;
+		
+			case Menu.FIRST+3: 		   
+				selectedMes = 4;		
+		    	break;
+
+			case Menu.FIRST+4: 
+				selectedMes = 5;		
+		    	break;
+
+			case Menu.FIRST+5: 
+				selectedMes = 6;		
+		    	break;
+
+			case Menu.FIRST+6: 
+				selectedMes = 7;		
 			break;
-		case Menu.FIRST+1: 
-		    selectedMes = 2;
-		
-		    break;
-		case Menu.FIRST+2: 
-		    selectedMes = 3;
-		
-		    break;
-		case Menu.FIRST+3: 
-		    selectedMes = 4;
-		
-		    break;
-		case Menu.FIRST+4: 
-		    selectedMes = 5;
-		
-		    break;
-		case Menu.FIRST+5: 
-		    selectedMes = 6;
-		
-		    break;
-		case Menu.FIRST+6: 
-		    selectedMes = 7;
-		
-		    break;
-		case Menu.FIRST+7: 
-		    selectedMes = 8;
-		
-		    break;
-		case Menu.FIRST+8: 
-		    selectedMes = 9;
-		
-		    break;
+
+			case Menu.FIRST+7: 
+				selectedMes = 8;		
+		    	break;
+
+			case Menu.FIRST+8: 
+				selectedMes = 9;	
+		    	break;
 		    
-		case Menu.FIRST+9: 
-		    selectedMes = 10;
-		
-		    break;   
+
+			case Menu.FIRST+9: 
+				selectedMes = 10;	
+		    	break;   
 		    
-		case Menu.FIRST+10: 
-		    selectedMes = 11;
-		
-		    break; 
-		
-		case Menu.FIRST+11: 
-		    selectedMes = 12;
-		
-		    break;      
+	
+			case Menu.FIRST+10: 
+				selectedMes = 11;		
+		    	break; 
 		    
-		default:
-			break;
+			case Menu.FIRST+11: 
+				selectedMes = 12;		
+		    	break;      
+		    		
+			default:
+				//Nothing should be done
+				break;
 		}
-	setBarras();
-	return true;
+	
+		setBarras();
+		return true;
 	}
 	
 	public void resetBarras(){
+		
 		double valorCota = 0;
+		
 		ImageView barEscritorio = (ImageView) getActivity()
 				.findViewById(R.id.barra_cota_escritorio);
 		TextView textViewEscritorio = (TextView) getActivity()

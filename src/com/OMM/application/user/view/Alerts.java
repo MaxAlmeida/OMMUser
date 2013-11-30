@@ -48,7 +48,7 @@ public abstract class Alerts
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
 		builder.setTitle("Ops!");
-		builder.setMessage("Falha inesperada.");
+		builder.setMessage("Falha na requisição.");
 		builder.setNeutralButton("OK", null);
 		builder.show();
 		

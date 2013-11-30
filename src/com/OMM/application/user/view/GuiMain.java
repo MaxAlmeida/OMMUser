@@ -28,14 +28,16 @@ public class GuiMain extends Activity implements
 		ParlamentarListFragment.OnParlamentarSelectedListener,
 		ParlamentarRankingListFragment.OnParlamentarRankingSelectedListener {
 
-	private static final String SEGUIDOS = "Parlamentares Seguidos";
-	private static final String PESQUISA = "Pesquisar Parlamentar";
-	private static final String RANKINGS = "Rankings entre parlamentares";
-	private static final int ANGULO_SEGUIDOS = 30;
-	private static final int ANGULO_TODOS = 0;
-	private static final int ANGULO_RANKING = -30;
+	private static final String MESSAGE_TO_PARLAMENTARES_FOLLOWED = "Parlamentares Seguidos";
+	private static final String MESSAGE_TO_SEARCH_PARLAMENTAR = "Pesquisar Parlamentar";
+	private static final String MESSAGE_TO_RANKINGS = "Rankings entre parlamentares";
+	private static final int ANGLE_PARLAMENTARES_FOLLOWED_BUTTON = 30;
+	private static final int ANGLE_LIST_ALL_PARLAMENTARES_BUTTON = 0;
+	private static final int ANGLE_RANKING_BUTTON = -30;
+	
 	private static ParlamentarUserController parlamentarController;
 	private static FragmentManager fragmentManager;
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +51,13 @@ public class GuiMain extends Activity implements
 					.replace(R.id.fragment_container, fragment).commit();
 		}
 
-		final Button btn_sobre_main = (Button) findViewById(R.id.btn_sobre_main);
-		final Button btn_politico_main = (Button) findViewById(R.id.btn_politico_main);
-		final Button btn_pesquisar_parlamentar = (Button) findViewById(R.id.btn_pesquisar_parlamentar);
+		final Button btn_about_application_main = (Button) findViewById(R.id.btn_sobre_main);
+		final Button btn_parlamentar_main = (Button) findViewById(R.id.btn_politico_main);
+		final Button btn_search_parlamentar = (Button) findViewById(R.id.btn_pesquisar_parlamentar);
 		final Button btn_ranking_main = (Button) findViewById(R.id.btn_ranking);
-		final Button btn_mostra_outros = (Button) findViewById(R.id.btn_ic_rolagem);
+		final Button btn_show_all_parlamentares = (Button) findViewById(R.id.btn_ic_rolagem);
 
-		btn_sobre_main.setOnClickListener(new View.OnClickListener() {
+		btn_about_application_main.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -63,29 +65,28 @@ public class GuiMain extends Activity implements
 			}
 		});
 
-		btn_politico_main.setOnClickListener(new View.OnClickListener() {
+		btn_parlamentar_main.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				/* Substitui a lista */
 				ParlamentarSeguidoListFragment listFragment = new ParlamentarSeguidoListFragment();
 				loadFragment(listFragment);
-				Toast.makeText(getBaseContext(), SEGUIDOS, Toast.LENGTH_SHORT)
+				Toast.makeText(getBaseContext(), MESSAGE_TO_PARLAMENTARES_FOLLOWED, Toast.LENGTH_SHORT)
 						.show();
-				btn_mostra_outros.setRotation(ANGULO_SEGUIDOS);
+				btn_show_all_parlamentares.setRotation(ANGLE_PARLAMENTARES_FOLLOWED_BUTTON);
 			}
 		});
 
-		btn_pesquisar_parlamentar
+		btn_search_parlamentar
 				.setOnClickListener(new View.OnClickListener() {
 
 					@Override
 					public void onClick(View v) {
 						ParlamentarListFragment listFragment = new ParlamentarListFragment();
 						loadFragment(listFragment);
-						Toast.makeText(getBaseContext(), PESQUISA,
+						Toast.makeText(getBaseContext(), MESSAGE_TO_SEARCH_PARLAMENTAR,
 								Toast.LENGTH_SHORT).show();
-						btn_mostra_outros.setRotation(ANGULO_TODOS);
+						btn_show_all_parlamentares.setRotation(ANGLE_LIST_ALL_PARLAMENTARES_BUTTON);
 					}
 				});
 
@@ -95,33 +96,34 @@ public class GuiMain extends Activity implements
 			public void onClick(View v) {
 				ParlamentarRankingListFragment listFragment = new ParlamentarRankingListFragment();
 				loadFragment(listFragment);
-				Toast.makeText(getBaseContext(), RANKINGS, Toast.LENGTH_SHORT)
+				Toast.makeText(getBaseContext(), MESSAGE_TO_RANKINGS, Toast.LENGTH_SHORT)
 						.show();
-				btn_mostra_outros.setRotation(ANGULO_RANKING);
+				btn_show_all_parlamentares.setRotation(ANGLE_RANKING_BUTTON);
 			}
 		});
 
-		btn_mostra_outros.setOnClickListener(new View.OnClickListener() {
+		btn_show_all_parlamentares.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				/* Modificando a visibilidade dos botoes */
-				if (btn_pesquisar_parlamentar.getVisibility() == View.GONE) {
-					btn_pesquisar_parlamentar.setVisibility(View.VISIBLE);
-					btn_politico_main.setVisibility(View.VISIBLE);
+				
+				// changing the buttons's visibility  
+				if (btn_search_parlamentar.getVisibility() == View.GONE) {
+					btn_search_parlamentar.setVisibility(View.VISIBLE);
+					btn_parlamentar_main.setVisibility(View.VISIBLE);
 					btn_ranking_main.setVisibility(View.VISIBLE);
-					btn_sobre_main.setVisibility(View.VISIBLE);
-					btn_mostra_outros.setScaleX(1.0f);
-					btn_mostra_outros.setScaleY(1.0f);
-					btn_mostra_outros.setAlpha(1.0f);
+					btn_about_application_main.setVisibility(View.VISIBLE);
+					btn_show_all_parlamentares.setScaleX(1.0f);
+					btn_show_all_parlamentares.setScaleY(1.0f);
+					btn_show_all_parlamentares.setAlpha(1.0f);
 				} else {
-					btn_pesquisar_parlamentar.setVisibility(View.GONE);
-					btn_politico_main.setVisibility(View.GONE);
+					btn_search_parlamentar.setVisibility(View.GONE);
+					btn_parlamentar_main.setVisibility(View.GONE);
 					btn_ranking_main.setVisibility(View.GONE);
-					btn_sobre_main.setVisibility(View.GONE);
-					btn_mostra_outros.setScaleX(0.6f);
-					btn_mostra_outros.setScaleY(0.6f);
-					btn_mostra_outros.setAlpha(0.5f);
+					btn_about_application_main.setVisibility(View.GONE);
+					btn_show_all_parlamentares.setScaleX(0.6f);
+					btn_show_all_parlamentares.setScaleY(0.6f);
+					btn_show_all_parlamentares.setAlpha(0.5f);
 				}
 			}
 		});
@@ -129,7 +131,7 @@ public class GuiMain extends Activity implements
 		parlamentarController = ParlamentarUserController
 				.getInstance(getBaseContext());
 
-		if (parlamentarController.checkEmptyDB() == true) {
+		if (parlamentarController.checkEmptyDB() == true) {		
 			startPopulateDB();
 		} else {
 			// nothing should be done
@@ -148,7 +150,8 @@ public class GuiMain extends Activity implements
 
 	@Override
 	public void OnParlamentarSeguidoSelected() {
-		/* Substitui o detalhe */
+	
+		// Replaces the details according to the orientation of cell phone
 		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
 			updateFragment(R.id.fragment_container);
 
@@ -160,7 +163,7 @@ public class GuiMain extends Activity implements
 	@Override
 	public void OnParlamentarSelected() {
 
-		/* Substitui o detalhe */
+		// Replaces the details according to the orientation of cell phone
 		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
 			updateFragment(R.id.fragment_container);
 
