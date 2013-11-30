@@ -216,7 +216,7 @@ public class ParlamentarUserController {
 				urlParlamentares);
 		List<Parlamentar> parlamentares = convertJsonToListParlamentar(jsonParlamentares);
 		boolean initialized;
-		if (parlamentarDao.checkEmptyDB()) {
+		if (parlamentarDao.checkEmptyLocalDatabase()) {
 			Iterator<Parlamentar> iterator = parlamentares.iterator();
 			
 			while (iterator.hasNext()) {
@@ -241,7 +241,7 @@ public class ParlamentarUserController {
 	}
 
 	public boolean checkEmptyDB() {
-		return parlamentarDao.checkEmptyDB();
+		return parlamentarDao.checkEmptyLocalDatabase();
 	}
 
 	public boolean unFollowedParlamentar() throws NullParlamentarException {

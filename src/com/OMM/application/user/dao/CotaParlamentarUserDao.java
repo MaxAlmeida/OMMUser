@@ -9,7 +9,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.OMM.application.user.helper.DatabaseLocal;
+import com.OMM.application.user.helper.LocalDatabase;
 import com.OMM.application.user.model.CotaParlamentar;
 import com.OMM.application.user.model.Parlamentar;
 
@@ -27,7 +27,7 @@ public class CotaParlamentarUserDao {
 	private CotaParlamentarUserDao(Context context) {
 		
 		CotaParlamentarUserDao.context = context;
-		database = new DatabaseLocal(context).getWritableDatabase();
+		database = new LocalDatabase(context).getWritableDatabase();
 		// Empty Constructor
 	}
 
