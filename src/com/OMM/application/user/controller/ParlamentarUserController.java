@@ -19,7 +19,7 @@ import com.OMM.application.user.helper.JSONHelper;
 import com.OMM.application.user.model.CotaParlamentar;
 import com.OMM.application.user.model.Parlamentar;
 import com.OMM.application.user.requests.HttpConnection;
-import com.OMM.application.user.requests.MontaURL;
+import com.OMM.application.user.requests.MountURL;
 import com.google.gson.JsonSyntaxException;
 
 public class ParlamentarUserController {
@@ -29,10 +29,10 @@ public class ParlamentarUserController {
 	private static List<Parlamentar> parlamentares;
 	private ParlamentarUserDao parlamentarDao;
 	private Context context;
-	private CeapUserController ceapController;
+	private CotaParlamentarUserController ceapController;
 
 	private ParlamentarUserController(Context context) {
-		ceapController = CeapUserController.getInstance(context);
+		ceapController = CotaParlamentarUserController.getInstance(context);
 		parlamentarDao = ParlamentarUserDao.getInstance(context);
 		this.context = context;
 		parlamentares = new ArrayList<Parlamentar>();
@@ -90,13 +90,13 @@ public class ParlamentarUserController {
 			throw new TransmissionException();
 		}
 		int idParlamentar = parlamentar.getId();
-		String urlParlamentar = MontaURL.mountURLParlamentar(idParlamentar);
+		String urlParlamentar = MountURL.mountURLParlamentar(idParlamentar);
 		String jsonParlamentar = HttpConnection.requestParlamentar(
 				responseHandler, urlParlamentar);
 
 		parlamentar = convertJsonToParlamentar(jsonParlamentar);
 
-		String urlCotas = MontaURL.mountURLCota(idParlamentar);
+		String urlCotas = MountURL.mountURLCota(idParlamentar);
 		String jsonCotasParlamentar = HttpConnection.requestCota(
 				responseHandler, urlCotas);
 
@@ -129,13 +129,13 @@ public class ParlamentarUserController {
 			NullCotaParlamentarException, ConnectionFailedException,
 			RequestFailedException, TransmissionException {
 
-		String urlParlamentar = MontaURL.mountURLParlamentar(idParlamentar);
+		String urlParlamentar = MountURL.mountURLParlamentar(idParlamentar);
 		String jsonParlamentar = HttpConnection.requestParlamentar(
 				responseHandler, urlParlamentar);
 
 		parlamentar = convertJsonToParlamentar(jsonParlamentar);
 
-		String urlCotas = MontaURL.mountURLCota(idParlamentar);
+		String urlCotas = MountURL.mountURLCota(idParlamentar);
 		String jsonCotasParlamentar = HttpConnection.requestCota(
 				responseHandler, urlCotas);
 
@@ -163,7 +163,7 @@ public class ParlamentarUserController {
 
 		boolean result = true;
 
-		CeapUserController controllerCeap = CeapUserController
+		CotaParlamentarUserController controllerCeap = CotaParlamentarUserController
 				.getInstance(context);
 		ParlamentarUserDao parlamentarDAO = ParlamentarUserDao
 				.getInstance(context);
@@ -211,7 +211,7 @@ public class ParlamentarUserController {
 			throws NullParlamentarException, ConnectionFailedException,
 			RequestFailedException {
 
-		String urlParlamentares = MontaURL.mountUrlAll();
+		String urlParlamentares = MountURL.mountUrlAll();
 		String jsonParlamentares = HttpConnection.requestParlamentar(response,
 				urlParlamentares);
 		List<Parlamentar> parlamentares = convertJsonToListParlamentar(jsonParlamentares);
@@ -248,7 +248,7 @@ public class ParlamentarUserController {
 
 		boolean result = true;
 
-		CeapUserController controllerCeap = CeapUserController
+		CotaParlamentarUserController controllerCeap = CotaParlamentarUserController
 				.getInstance(context);
 		ParlamentarUserDao parlamentarDAO = ParlamentarUserDao
 				.getInstance(context);
@@ -263,7 +263,7 @@ public class ParlamentarUserController {
 			ResponseHandler<String> responseHandler)
 			throws NullParlamentarException, ConnectionFailedException, RequestFailedException {
 
-		String urlParlamentarRankingMaiores = MontaURL.mountUrlMajorRanking();
+		String urlParlamentarRankingMaiores = MountURL.mountUrlMajorRanking();
 		String jsonParlamentarRankingMaiores = HttpConnection
 				.requestMajorRanking(responseHandler,
 						urlParlamentarRankingMaiores);

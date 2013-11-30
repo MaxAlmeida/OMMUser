@@ -8,7 +8,7 @@ import junit.framework.Assert;
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
 
-import com.OMM.application.user.controller.CeapUserController;
+import com.OMM.application.user.controller.CotaParlamentarUserController;
 import com.OMM.application.user.dao.CotaParlamentarUserDao;
 import com.OMM.application.user.exceptions.NullCotaParlamentarException;
 import com.OMM.application.user.exceptions.NullParlamentarException;
@@ -19,15 +19,15 @@ import com.OMM.application.user.model.Parlamentar;
 import com.OMM.application.user.view.GuiMain;
 
 
-public class CeapUserControllerTest extends ActivityInstrumentationTestCase2<GuiMain> {
+public class CotaParlamentarUserControllerTest extends ActivityInstrumentationTestCase2<GuiMain> {
 
 	private Parlamentar parlamentar;
 	private CotaParlamentar cota;
-	private CeapUserController controller;
+	private CotaParlamentarUserController controller;
 	private GuiMain guiMain;
 	
 
-	public CeapUserControllerTest(String nome)
+	public CotaParlamentarUserControllerTest(String nome)
 	{
 		super(GuiMain.class);
 		setName(nome);
@@ -39,7 +39,7 @@ public class CeapUserControllerTest extends ActivityInstrumentationTestCase2<Gui
 		guiMain=getActivity();
 		parlamentar = new Parlamentar();
 		cota = new CotaParlamentar();
-		controller  = CeapUserController.getInstance(guiMain);
+		controller  = CotaParlamentarUserController.getInstance(guiMain);
 		parlamentar.setId(112);
 		parlamentar.setPartido("PT");
 		parlamentar.setNome("Tiririca");
@@ -59,8 +59,8 @@ public class CeapUserControllerTest extends ActivityInstrumentationTestCase2<Gui
 	public void testGetInstanceCota() 
 	{
 
-		CeapUserController controller1 = CeapUserController.getInstance(guiMain);
-		CeapUserController controller2 = CeapUserController.getInstance(guiMain);
+		CotaParlamentarUserController controller1 = CotaParlamentarUserController.getInstance(guiMain);
+		CotaParlamentarUserController controller2 = CotaParlamentarUserController.getInstance(guiMain);
 		
 		assertSame(controller1, controller2);
 	}

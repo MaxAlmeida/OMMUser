@@ -9,7 +9,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.OMM.application.user.helper.DB;
+import com.OMM.application.user.helper.DatabaseLocal;
 import com.OMM.application.user.model.CotaParlamentar;
 import com.OMM.application.user.model.Parlamentar;
 
@@ -39,7 +39,7 @@ public class CotaParlamentarUserDao {
 
 	public boolean insertFollowed(Parlamentar po, CotaParlamentar cota) {
 
-		SQLiteDatabase database = new DB(context).getWritableDatabase();
+		SQLiteDatabase database = new DatabaseLocal(context).getWritableDatabase();
 		ContentValues content = new ContentValues();
 
 		content.put("ID_COTA", cota.getCod());
@@ -56,7 +56,7 @@ public class CotaParlamentarUserDao {
 
 	public boolean deleteParlamentar(Parlamentar parlamentar) {
 
-		SQLiteDatabase database = new DB(context).getWritableDatabase();
+		SQLiteDatabase database = new DatabaseLocal(context).getWritableDatabase();
 		
 		boolean result = (database.delete(nome_tabela, "ID_PARLAMENTAR=?",
 				new String[] { parlamentar.getId() + "" }) > 0);
@@ -67,7 +67,7 @@ public class CotaParlamentarUserDao {
 	}
 
 	public List<CotaParlamentar> getCotasByIdParlamentar(int idParlamentar) {
-		SQLiteDatabase database = new DB(context).getWritableDatabase();
+		SQLiteDatabase database = new DatabaseLocal(context).getWritableDatabase();
 
 		Cursor cursor = database.rawQuery(
 				"SELECT * FROM COTA WHERE ID_PARLAMENTAR=" + idParlamentar,

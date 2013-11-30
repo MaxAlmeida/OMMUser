@@ -7,7 +7,6 @@ import junit.framework.Assert;
 import android.test.ActivityInstrumentationTestCase2;
 
 import com.OMM.application.user.dao.ParlamentarUserDao;
-import com.OMM.application.user.model.CotaParlamentar;
 import com.OMM.application.user.model.Parlamentar;
 import com.OMM.application.user.view.GuiMain;
 
@@ -18,7 +17,6 @@ public class ParlamentarUserDaoTest extends
 	private GuiMain gMain;
 	private Parlamentar parlamentarA,parlamentarB, parlamentarC;
 	
-	private CotaParlamentar cota;
 	
 	public ParlamentarUserDaoTest()
 	{

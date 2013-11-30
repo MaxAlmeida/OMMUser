@@ -2,17 +2,17 @@ package com.OMM.test.user.requests;
 
 import junit.framework.Assert;
 
-import com.OMM.application.user.requests.MontaURL;
+import com.OMM.application.user.requests.MountURL;
 
 import android.test.AndroidTestCase;
 
-public class MontaURLTest extends AndroidTestCase{
+public class MountURLTest extends AndroidTestCase{
 	
 	private String IP;
 	
 	public void setUp(){
 		
-		this.IP = MontaURL.IP;
+		this.IP = MountURL.IP;
 		
 	}
 	
@@ -21,7 +21,7 @@ public class MontaURLTest extends AndroidTestCase{
 		
 		String urlParlamentar = "http://"+ IP + ":8080/OlhaMinhaMesada/cota?id=373";
 		
-		Assert.assertEquals(urlParlamentar, MontaURL.mountURLCota(373));
+		Assert.assertEquals(urlParlamentar, MountURL.mountURLCota(373));
 	}
 	
 	public void testMountURLParlamentar(){
@@ -29,14 +29,14 @@ public class MontaURLTest extends AndroidTestCase{
 		
 		String urlParlamentar = "http://"+ IP + ":8080/OlhaMinhaMesada/parlamentar?id=373";
 		
-		Assert.assertEquals(urlParlamentar, MontaURL.mountURLParlamentar(373));
+		Assert.assertEquals(urlParlamentar, MountURL.mountURLParlamentar(373));
 	}
 	
 	public void testMountUrlAll(){
 		
 		String urlAll = "http://"+ IP + ":8080/OlhaMinhaMesada/parlamentares";
 		
-		Assert.assertEquals(urlAll, MontaURL.mountUrlAll());
+		Assert.assertEquals(urlAll, MountURL.mountUrlAll());
 		
 	}
 	
@@ -44,7 +44,7 @@ public class MontaURLTest extends AndroidTestCase{
 		
 		String urlMajorRanking = "http://" + IP + ":8080/OlhaMinhaMesada/rankingMaiores";
 		
-		Assert.assertEquals(urlMajorRanking, MontaURL.mountUrlMajorRanking());
+		Assert.assertEquals(urlMajorRanking, MountURL.mountUrlMajorRanking());
 		
 	}
 	

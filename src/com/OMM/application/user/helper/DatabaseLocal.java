@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class DB extends SQLiteOpenHelper {
+public class DatabaseLocal extends SQLiteOpenHelper {
 
 	private static String dbName = "OMM.db";
 	private static String tabela_parlamentar = "CREATE TABLE [PARLAMENTAR] ([ID_PARLAMENTAR] VARCHAR(10),[NOME_PARLAMENTAR] VARCHAR(40),[PARTIDO] VARCHAR(25), [UF] VARCHAR(2),[SEGUIDO] BOOLEAN,[FOTO] VARBINARY);";
@@ -12,10 +12,10 @@ public class DB extends SQLiteOpenHelper {
 	
 	private static int version = 1;
 
-	public DB(Context context) {
+	public DatabaseLocal(Context context) {
 		super(context, dbName, null, version);
 	}
-	public DB(Context context, int version,String dbName) {
+	public DatabaseLocal(Context context, int version,String dbName) {
 		super(context, dbName, null, version);
 	}
 

@@ -9,7 +9,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.OMM.application.user.helper.DB;
+import com.OMM.application.user.helper.DatabaseLocal;
 import com.OMM.application.user.model.Parlamentar;
 
 public class ParlamentarUserDao {
@@ -54,7 +54,7 @@ public class ParlamentarUserDao {
 
 	public boolean insertParlamentar(Parlamentar parlamentar) {
 
-		SQLiteDatabase database = new DB(context).getWritableDatabase();
+		SQLiteDatabase database = new DatabaseLocal(context).getWritableDatabase();
 		ContentValues content = new ContentValues();
 
 		content.put("ID_PARLAMENTAR", parlamentar.getId());
@@ -68,7 +68,7 @@ public class ParlamentarUserDao {
 
 	public boolean deleteParlamentar(Parlamentar parlamentar) {
 
-		SQLiteDatabase database = new DB(context).getWritableDatabase();
+		SQLiteDatabase database = new DatabaseLocal(context).getWritableDatabase();
 
 		return (database.delete(nome_tabela, "ID_PARLAMENTAR=?",
 				new String[] { parlamentar.getId() + "" }) > 0);
@@ -76,7 +76,7 @@ public class ParlamentarUserDao {
 
 	public boolean updateParlamentar(Parlamentar parlamentar) {
 
-		SQLiteDatabase database = new DB(context).getWritableDatabase();
+		SQLiteDatabase database = new DatabaseLocal(context).getWritableDatabase();
 		ContentValues content = new ContentValues();
 
 		content.put("SEGUIDO", parlamentar.getIsSeguido());
@@ -87,7 +87,7 @@ public class ParlamentarUserDao {
 
 	public Parlamentar getById(Integer ID_PARLAMENTAR) {
 
-		SQLiteDatabase database = new DB(context).getReadableDatabase();
+		SQLiteDatabase database = new DatabaseLocal(context).getReadableDatabase();
 
 		Cursor cursor = database.query(nome_tabela, colunas,
 				"ID_PARLAMENTAR=?", new String[] { ID_PARLAMENTAR.toString() },
@@ -114,7 +114,7 @@ public class ParlamentarUserDao {
 
 	public List<Parlamentar> getAll() {
 
-		SQLiteDatabase database = new DB(context).getReadableDatabase();
+		SQLiteDatabase database = new DatabaseLocal(context).getReadableDatabase();
 		Cursor cursor = database.rawQuery("SELECT * FROM PARLAMENTAR", null);
 		List<Parlamentar> listParlamentares = new ArrayList<Parlamentar>();
 
@@ -142,7 +142,7 @@ public class ParlamentarUserDao {
 	 */
 	public List<Parlamentar> getSelected(String nameParlamentar) {
 
-		SQLiteDatabase database = new DB(context).getReadableDatabase();
+		SQLiteDatabase database = new DatabaseLocal(context).getReadableDatabase();
 		Cursor cursor = database.rawQuery(
 				"SELECT * FROM PARLAMENTAR WHERE NOME_PARLAMENTAR LIKE '%"
 						+ nameParlamentar + "%'", null);
@@ -169,7 +169,7 @@ public class ParlamentarUserDao {
 
 	public List<Parlamentar> getAllSelected() {
 
-		SQLiteDatabase database = new DB(context).getReadableDatabase();
+		SQLiteDatabase database = new DatabaseLocal(context).getReadableDatabase();
 		Cursor cursor = database.rawQuery(
 				"SELECT * FROM PARLAMENTAR WHERE SEGUIDO IN(1)", null);
 

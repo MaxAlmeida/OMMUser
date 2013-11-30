@@ -14,24 +14,24 @@ import com.OMM.application.user.model.CotaParlamentar;
 import com.OMM.application.user.model.Parlamentar;
 import com.google.gson.JsonSyntaxException;
 
-public class CeapUserController {
+public class CotaParlamentarUserController {
 
-	private static CeapUserController instance;
+	private static CotaParlamentarUserController instance;
 
 	private CotaParlamentarUserDao cotaParlamentarDao;
 	private Context context;
 
-	private CeapUserController(Context context) {
+	private CotaParlamentarUserController(Context context) {
 		this.context = context;
 		this.cotaParlamentarDao = CotaParlamentarUserDao.getInstance(context);
 
 	}
 
-	public static CeapUserController getInstance(Context context) {
+	public static CotaParlamentarUserController getInstance(Context context) {
 
 		if (instance == null) {
 
-			instance = new CeapUserController(context);
+			instance = new CotaParlamentarUserController(context);
 		}
 
 		return instance;
@@ -77,7 +77,6 @@ public class CeapUserController {
 	}
 
 	public boolean deleteCota(Parlamentar parlamentar) {
-
 		return cotaParlamentarDao.deleteParlamentar(parlamentar);
 	}
 

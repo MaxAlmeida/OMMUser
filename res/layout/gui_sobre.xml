@@ -7,7 +7,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="837dp" >
+        android:layout_height="1268dp" >
 
         <Button
             android:id="@+id/btn_cota_alimentacao"
@@ -347,7 +347,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/textView20"
             android:layout_below="@+id/textView21"
-            android:text="Maxwell Almeida Santos"
+            android:text="Maxwell Almeida"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
@@ -365,7 +365,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/textView23"
             android:layout_below="@+id/textView23"
-            android:text="Rudmar Rodrigues Campos Júnior"
+            android:text="Rudmar Rodrigues"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
@@ -374,7 +374,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/textView24"
             android:layout_below="@+id/textView24"
-            android:text="Thaiane Ferreira Braga"
+            android:text="Thaiane Braga"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
@@ -383,7 +383,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/textView25"
             android:layout_below="@+id/textView25"
-            android:text="Tomáz Felipe Rodrigues Martins"
+            android:text="Tomáz Martins"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
@@ -392,7 +392,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/textView26"
             android:layout_below="@+id/textView26"
-            android:text="Vinícius Borges de Almeida"
+            android:text="Vinícius Borges"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
@@ -411,7 +411,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/textView20"
             android:layout_below="@+id/textView20"
-            android:text="Arthur Jahn Sturzbecher"
+            android:text="Arthur Sturzbecher"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
