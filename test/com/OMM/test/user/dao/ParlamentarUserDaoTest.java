@@ -65,7 +65,7 @@ public class ParlamentarUserDaoTest extends
 
 	public void testCheckEmptyDB() 
 	{
-		Assert.assertFalse(parlamentarDao.checkEmptyDB());
+		Assert.assertFalse(parlamentarDao.checkEmptyLocalDatabase());
 	}
 
 	public void testInsertParlamentar()
