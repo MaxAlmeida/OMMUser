@@ -4,37 +4,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 import junit.framework.Assert;
-import android.test.ActivityInstrumentationTestCase2;
+import android.content.Context;
+import android.test.AndroidTestCase;
 
 import com.OMM.application.user.dao.ParlamentarUserDao;
 import com.OMM.application.user.model.Parlamentar;
-import com.OMM.application.user.view.GuiMain;
 
-public class ParlamentarUserDaoTest extends
-		ActivityInstrumentationTestCase2<GuiMain> {
+public class ParlamentarUserDaoTest extends AndroidTestCase {
 
+	private Context context;
 	private ParlamentarUserDao parlamentarDao;
-	private GuiMain gMain;
-	private Parlamentar parlamentarA,parlamentarB, parlamentarC;
+	private Parlamentar parlamentarA,parlamentarB,parlamentarC;
 	
 	
-	public ParlamentarUserDaoTest()
+	protected void setUp() 
 	{
-		this("ParlamentarUserDaoTest");
-	}
-	public ParlamentarUserDaoTest(String name) {
-		super(GuiMain.class);
-		setName(name);
-	}
-
-	protected void setUp() throws Exception 
-	{
-		super.setUp();
-		gMain = getActivity();
-		parlamentarDao=ParlamentarUserDao.getInstance(gMain);
+		this.context = getContext();
+		parlamentarDao=ParlamentarUserDao.getInstance(context);
 		parlamentarA =new Parlamentar();
 		parlamentarB=new Parlamentar();
-		parlamentarC=new Parlamentar();
+		parlamentarC = new Parlamentar();
+		
 		//Parlamentar A
 		
 		parlamentarA.setId(777);
@@ -47,9 +37,9 @@ public class ParlamentarUserDaoTest extends
 		parlamentarB.setSeguido(0);
 		
 		//Parlamentar C
-				parlamentarB.setId(888);
-				parlamentarB.setNome("Parlamentar Teste Dao Cota");
-				parlamentarB.setSeguido(1);
+		parlamentarB.setId(888);
+		parlamentarB.setNome("Parlamentar Teste Dao Cota");
+		parlamentarB.setSeguido(1);
 		
 		parlamentarDao.insertParlamentar(parlamentarB);
 		parlamentarDao.insertParlamentar(parlamentarC);
@@ -58,12 +48,12 @@ public class ParlamentarUserDaoTest extends
 
 	public void testGetInstance() 
 	{
-		ParlamentarUserDao obj1=ParlamentarUserDao.getInstance(gMain);
-		ParlamentarUserDao obj2=ParlamentarUserDao.getInstance(gMain);
-		Assert.assertSame(obj1, obj2);
+		ParlamentarUserDao parlamentarDao1=ParlamentarUserDao.getInstance(context);
+		ParlamentarUserDao parlamentarDao2=ParlamentarUserDao.getInstance(context);
+		Assert.assertSame(parlamentarDao1, parlamentarDao2);
 	}
 
-	public void testCheckEmptyDB() 
+	public void testCheckEmptyLocalDatabase() 
 	{
 		Assert.assertFalse(parlamentarDao.checkEmptyLocalDatabase());
 	}
