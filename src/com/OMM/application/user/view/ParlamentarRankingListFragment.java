@@ -23,6 +23,9 @@ import android.widget.SearchView.OnQueryTextListener;
 import com.OMM.application.user.R;
 import com.OMM.application.user.adapters.ParlamentarRankingAdapter;
 import com.OMM.application.user.controller.ParlamentarUserController;
+import com.OMM.application.user.exceptions.ConnectionFailedException;
+import com.OMM.application.user.exceptions.NullParlamentarException;
+import com.OMM.application.user.exceptions.RequestFailedException;
 import com.OMM.application.user.model.Parlamentar;
 import com.OMM.application.user.requests.HttpConnection;
 
@@ -128,7 +131,7 @@ public class ParlamentarRankingListFragment extends ListFragment {
 		startRequest();
 	}
 
-	private class RequestTask extends AsyncTask<Object, Void, Void> {
+	private class RequestTask extends AsyncTask<Object, Void, Integer> {
 		ProgressDialog progressDialog;
 
 		@Override
@@ -138,26 +141,61 @@ public class ParlamentarRankingListFragment extends ListFragment {
 		}
 
 		@Override
-		protected Void doInBackground(Object... params) {
+		protected Integer doInBackground(Object... params) {
+			
+			Integer exception = Alerts.NO_EXCEPTIONS;
+			@SuppressWarnings( "unchecked" )
 			ResponseHandler<String> rh = (ResponseHandler<String>) params[0];
 			try {
 				controllerParlamentar.doRequestMajorRanking(rh);
+			}catch (ConnectionFailedException cfe) {
+				exception = Alerts.CONNECTION_FAILED_EXCEPTION;
+
+			} catch (NullParlamentarException cpe) {
+				exception = Alerts.NULL_PARLAMENTAR_EXCEPTION;	
+	
+			} catch (RequestFailedException rfe) {
+				exception = Alerts.REQUEST_FAILED_EXCEPTION;
+
+			} catch (Exception e) {
+				exception = Alerts.UNEXPECTED_FAILED_EXCEPTION;
+
 			}
-			// TODO corrigir tratamento de excessão, deve ser lançado pela
-			// controller.
-			catch (Exception e) {
-				progressDialog.dismiss();
-			}
-			return null;
+			return exception;
 		}
 
 		@Override
-		protected void onPostExecute(Void result) {
+		protected void onPostExecute(Integer result) {
 
 			progressDialog.dismiss();
-			ArrayAdapter listAdapter = (ArrayAdapter) getListAdapter();
-			listAdapter.clear();
-			listAdapter.addAll(controllerParlamentar.getParlamentares());
+			switch (result) {
+
+				case Alerts.CONNECTION_FAILED_EXCEPTION:
+
+					Alerts.conectionFailedAlert(getActivity());
+					break;
+
+				case Alerts.NULL_PARLAMENTAR_EXCEPTION:
+
+					Alerts.parlamentarFailedAlert(getActivity());
+					break;
+
+				case Alerts.REQUEST_FAILED_EXCEPTION:
+
+					Alerts.requestFailedAlert(getActivity());
+					break;
+
+				case Alerts.UNEXPECTED_FAILED_EXCEPTION:
+
+					Alerts.unexpectedFailedAlert(getActivity());
+					break;
+
+				default:
+					ArrayAdapter listAdapter = (ArrayAdapter) getListAdapter();
+					listAdapter.clear();
+					listAdapter.addAll(controllerParlamentar.getParlamentares());
+				}
+			
 		}
 	}
 
