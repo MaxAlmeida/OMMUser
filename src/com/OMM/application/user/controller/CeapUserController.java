@@ -22,11 +22,11 @@ public class CeapUserController {
 	private Context context;
 
 	private CeapUserController(Context context) {
-		this.cotaParlamentarDao = CotaParlamentarUserDao.getInstance(context);
 		this.context = context;
+		this.cotaParlamentarDao = CotaParlamentarUserDao.getInstance(context);
+
 	}
 
-	//TODO: Verificar a necessidade do Context no construtor
 	public static CeapUserController getInstance(Context context) {
 
 		if (instance == null) {

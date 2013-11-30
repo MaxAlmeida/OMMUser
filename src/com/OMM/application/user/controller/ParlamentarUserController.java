@@ -261,7 +261,7 @@ public class ParlamentarUserController {
 
 	public List<Parlamentar> doRequestMajorRanking(
 			ResponseHandler<String> responseHandler)
-			throws NullParlamentarException {
+			throws NullParlamentarException, ConnectionFailedException, RequestFailedException {
 
 		String urlParlamentarRankingMaiores = MontaURL.mountUrlMajorRanking();
 		String jsonParlamentarRankingMaiores = HttpConnection

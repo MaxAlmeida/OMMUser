@@ -1,6 +1,5 @@
 package com.OMM.application.user.view;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.client.ResponseHandler;
@@ -37,6 +36,7 @@ public class ParlamentarRankingListFragment extends ListFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		controllerParlamentar = ParlamentarUserController
 				.getInstance(getActivity());
+		@SuppressWarnings( "unused" )
 		ResponseHandler<String> responseHandler = HttpConnection
 				.getResponseHandler();
 

@@ -87,7 +87,7 @@ public abstract class HttpConnection {
 		return jsonCotaParlamentar;
 	}
 	
-	public static String requestMajorRanking(ResponseHandler<String> response, String url) {
+	public static String requestMajorRanking(ResponseHandler<String> response, String url) throws ConnectionFailedException, RequestFailedException{
 		
 		try {
 			
@@ -99,12 +99,10 @@ public abstract class HttpConnection {
 			return jsonMajorRanking;
 
 		} catch (ClientProtocolException e) {
-			// TODO: Exception Handling
+			throw new RequestFailedException();
 
-		} catch (IOException e) {
-			// TODO: Exception Handling
+		} catch (IOException ioe) {
+			throw new ConnectionFailedException();
 		}
-		
-		return null;
 	}
 }
