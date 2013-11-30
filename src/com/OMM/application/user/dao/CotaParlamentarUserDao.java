@@ -19,6 +19,7 @@ public class CotaParlamentarUserDao {
 	private static CotaParlamentarUserDao instance;
 	private LocalDatabase database;
 	private SQLiteDatabase sqliteDatabase;
+	
 	private CotaParlamentarUserDao(Context context) {
 		
 		CotaParlamentarUserDao.context = context;
