@@ -205,19 +205,16 @@ public class GuiMain extends Activity implements
 			try {
 				parlamentarController.insertAll(responseHandler);
 			} catch (ConnectionFailedException cfe) {
-
-				// TODO: Fazer constantes para retirar números mágicos
-				exception = 1;
+				exception = Alerts.CONNECTION_FAILED_EXCEPTION;
 
 			} catch (NullParlamentarException cpe) {
-
-				exception = 2;
+				exception = Alerts.NULL_PARLAMENTAR_EXCEPTION;	
+	
 			} catch (RequestFailedException rfe) {
-
-				exception = 3;
+				exception = Alerts.REQUEST_FAILED_EXCEPTION;
 
 			} catch (Exception e) {
-				exception = 4;
+				exception = Alerts.UNEXPECTED_FAILED_EXCEPTION;
 
 			}
 
@@ -230,34 +227,37 @@ public class GuiMain extends Activity implements
 
 			switch (result) {
 
-			case 1:
+			case Alerts.CONNECTION_FAILED_EXCEPTION:
 
 				Alerts.conectionFailedAlert(GuiMain.this);
 				break;
 
-			case 2:
+			case Alerts.NULL_PARLAMENTAR_EXCEPTION:
 
 				Alerts.parlamentarFailedAlert(GuiMain.this);
 				break;
 
-			case 3:
+			case Alerts.REQUEST_FAILED_EXCEPTION:
 
 				Alerts.requestFailedAlert(GuiMain.this);
 				break;
 
-			case 4:
+			case Alerts.UNEXPECTED_FAILED_EXCEPTION:
 
 				Alerts.unexpectedFailedAlert(GuiMain.this);
 				break;
 
 			default:
+				//Nothing should be done
 			}
 		}
 	}
 
 	private void startPopulateDB() {
+		
 		ResponseHandler<String> responseHandler = HttpConnection
 				.getResponseHandler();
+		
 		initializeDBTask task = new initializeDBTask();
 		task.execute(responseHandler);
 	}

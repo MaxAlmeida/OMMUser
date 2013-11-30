@@ -7,6 +7,12 @@ import android.util.Log;
 public abstract class Alerts
 {
 	
+	public static final int CONNECTION_FAILED_EXCEPTION = 1;
+	public static final int NULL_PARLAMENTAR_EXCEPTION = 2;
+	public static final int REQUEST_FAILED_EXCEPTION = 3;
+	public static final int UNEXPECTED_FAILED_EXCEPTION = 4;
+	public static final int NULL_COTA_PARLAMENTAR_EXCEPTION = 5;
+	
 	public static void conectionFailedAlert( Context context ) {
 		
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -27,8 +33,7 @@ public abstract class Alerts
 		builder.setMessage("Falha na requisição com banco de dados.");
 		builder.setNeutralButton("OK", null);
 		builder.show();
-		
-		
+			
 		Log.i("Alerts", "Exception NullParlamentarException.");
 	}
 	
@@ -64,7 +69,7 @@ public abstract class Alerts
 		builder.setNeutralButton("OK", null);
 		builder.show();
 		
-		Log.i("Alerts", "Exception.");
+		Log.i("Alerts", "Exception NullCotaParlamentar");
 	}
 	
 	
