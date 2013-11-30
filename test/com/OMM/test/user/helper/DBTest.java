@@ -2,6 +2,8 @@ package com.OMM.test.user.helper;
 
 
 
+import java.io.File;
+
 import junit.framework.Assert;
 import android.annotation.SuppressLint;
 import android.database.sqlite.SQLiteDatabase;
@@ -34,6 +36,11 @@ public class DBTest extends ActivityInstrumentationTestCase2<GuiMain>{
 		super.setUp();
 		context=getActivity();
 		
+		//Apagar o banco para testar o metodo onCreate
+		SQLiteDatabase database=new DB(context).getWritableDatabase();
+		File file= new File("/data/data/com.OMM.application.user/databases/OMM.db");
+		database.deleteDatabase(file);
+		
 		
 	}
 	
@@ -57,9 +64,11 @@ public class DBTest extends ActivityInstrumentationTestCase2<GuiMain>{
 	  
 	}
 
-	public void testOnUpgradeSQLiteDatabaseIntInt() {
-		db=new DB(context,2);
-		Assert.assertEquals(db.getClass(),DB.class);
+	public void testOnUpgradeSQLiteDatabaseIntInt() 
+	{
+		
+		SQLiteDatabase database=new DB(context,2,"OMM2.db").getWritableDatabase();
+		Assert.assertEquals(database.getPath(), "/data/data/com.OMM.application.user/databases/OMM2.db");
 		 
 		
 		

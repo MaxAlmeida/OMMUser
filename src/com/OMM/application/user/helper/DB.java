@@ -15,7 +15,7 @@ public class DB extends SQLiteOpenHelper {
 	public DB(Context context) {
 		super(context, dbName, null, version);
 	}
-	public DB(Context context, int version) {
+	public DB(Context context, int version,String dbName) {
 		super(context, dbName, null, version);
 	}
 
@@ -44,7 +44,7 @@ public class DB extends SQLiteOpenHelper {
 		
 		if(newVersion ==2)
 		{
-			db.execSQL("delete from parlamentar;");
+			db.execSQL("CREATE TABLE [PARLAMENTAR] ([ID_PARLAMENTAR] VARCHAR(10),[NOME_PARLAMENTAR] VARCHAR(40),[PARTIDO] VARCHAR(25), [UF] VARCHAR(2),[SEGUIDO] BOOLEAN,[FOTO] VARBINARY);");
 			 
 		}
 
