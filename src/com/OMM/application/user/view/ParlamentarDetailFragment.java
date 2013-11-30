@@ -2,11 +2,9 @@ package com.OMM.application.user.view;
 
 import java.text.DecimalFormat;
 import java.util.Iterator;
-import java.util.ResourceBundle.Control;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,7 +23,16 @@ import com.OMM.application.user.exceptions.NullParlamentarException;
 import com.OMM.application.user.model.CotaParlamentar;
 
 public class ParlamentarDetailFragment extends Fragment {
-	private static final String VAZIO = "R$ 0,00";
+	
+	private static final String EMPTY = "R$ 0,00";
+	
+	// Limits used to modify the bars of expenses
+	public static final int UPPER_LIMIT_WHITE_BAR = 500; 
+	public static final int  UPPER_LIMIT_GREEN_BAR = 1500;
+	public static final int  UPPER_LIMIT_YELLOW_BAR = 3000;
+	public static final int  UPPER_LIMIT_ORANGE_BAR = 5000;
+	public static final int  LOWER_LIMIT_RED_BAR = 5000;
+	
 	ParlamentarUserController parlamentarController;
 	int selectedMes = 6;
 	@Override
@@ -318,27 +325,29 @@ public class ParlamentarDetailFragment extends Fragment {
 	
 	public void sizeBar(ImageView bar, double valorCota) {
 
-		if (valorCota <= 500) {
+		if (valorCota <= UPPER_LIMIT_WHITE_BAR) {
 
 			bar.setImageResource(R.drawable.barra_branca);
 
-		} else if (valorCota <= 1500) {
+		} else if (valorCota <= UPPER_LIMIT_GREEN_BAR) {
 
 			bar.setImageResource(R.drawable.barra_verde);
 
-		} else if (valorCota <= 3000) {
+		} else if (valorCota <= UPPER_LIMIT_YELLOW_BAR) {
 
 			bar.setImageResource(R.drawable.barra_amarela);
 
-		} else if (valorCota <= 5000) {
+		} else if (valorCota <= UPPER_LIMIT_ORANGE_BAR) {
 
 			bar.setImageResource(R.drawable.barra_laranja);
 
-		} else if (valorCota > 5000) {
+		} else if (valorCota > LOWER_LIMIT_RED_BAR) {
 
 			bar.setImageResource(R.drawable.barra_vermelha);
 
 		} else {
+			
+			//Nothing should be done
 		}
 
 	}
@@ -490,6 +499,7 @@ public class ParlamentarDetailFragment extends Fragment {
 		super.onCreateOptionsMenu(menu, inflater);
 		menu.clear();
 		SubMenu sub = menu.addSubMenu("Mês");
+		@SuppressWarnings( "unused" )
 		MenuItem Ano = menu.add(0,Menu.FIRST+12,0,"Ano");
 		sub.add(0,Menu.FIRST,0,"Janeiro");
 		sub.add(0,Menu.FIRST+1,0,"Fevereiro");
@@ -572,77 +582,77 @@ public class ParlamentarDetailFragment extends Fragment {
 				.findViewById(R.id.barra_cota_escritorio);
 		TextView textViewEscritorio = (TextView) getActivity()
 				.findViewById(R.id.valor_cota_escritorio);
-		textViewEscritorio.setText(VAZIO);
+		textViewEscritorio.setText(EMPTY);
 		sizeBar(barEscritorio, valorCota);
 
 		ImageView barCombustivel = (ImageView) getActivity()
 				.findViewById(R.id.barra_cota_gasolina);
 		TextView textViewCombustivel = (TextView) getActivity()
 				.findViewById(R.id.valor_cota_gasolina);
-		textViewCombustivel.setText(VAZIO);
+		textViewCombustivel.setText(EMPTY);
 		sizeBar(barCombustivel, valorCota);
 
 		ImageView barTrabalhoTecnico = (ImageView) getActivity()
 				.findViewById(R.id.barra_cota_trabalho_tecnico);
 		TextView textViewTrabalhoTecnico = (TextView) getActivity()
 				.findViewById(R.id.valor_cota_trabalho_tecnico);
-		textViewTrabalhoTecnico.setText(VAZIO);
+		textViewTrabalhoTecnico.setText(EMPTY);
 		sizeBar(barTrabalhoTecnico, valorCota);
 
 		ImageView barDivulgacao = (ImageView) getActivity()
 				.findViewById(R.id.barra_cota_divulgacao);
 		TextView textViewDivulgacao = (TextView) getActivity()
 				.findViewById(R.id.valor_cota_divulgacao);
-		textViewDivulgacao.setText(VAZIO);
+		textViewDivulgacao.setText(EMPTY);
 		sizeBar(barDivulgacao, valorCota);
 
 		ImageView barSeguranca = (ImageView) getActivity()
 				.findViewById(R.id.barra_cota_seguranca);
 		TextView textViewSeguranca = (TextView) getActivity()
 				.findViewById(R.id.valor_cota_seguranca);
-		textViewSeguranca.setText(VAZIO);
+		textViewSeguranca.setText(EMPTY);
 		sizeBar(barSeguranca, valorCota);
 
 		ImageView barAluguelAviao = (ImageView) getActivity()
 				.findViewById(R.id.barra_cota_aluguel_aviao);
 		TextView textViewAluguelAviao = (TextView) getActivity()
 				.findViewById(R.id.valor_cota_aluguel_aviao);
-		textViewAluguelAviao.setText(VAZIO);
+		textViewAluguelAviao.setText(EMPTY);
 		sizeBar(barAluguelAviao, valorCota);
 
 		ImageView barTelefonia = (ImageView) getActivity()
 				.findViewById(R.id.barra_cota_telefonia);
 		TextView textViewTelefonia = (TextView) getActivity()
 				.findViewById(R.id.valor_cota_telefonia);
-		textViewTelefonia.setText(VAZIO);
+		textViewTelefonia.setText(EMPTY);
 		sizeBar(barTelefonia, valorCota);
 
 		ImageView barCorreios = (ImageView) getActivity()
 				.findViewById(R.id.barra_cota_correios);
 		TextView textViewCorreios = (TextView) getActivity()
 				.findViewById(R.id.valor_cota_correios);
-		textViewCorreios.setText(VAZIO);
+		textViewCorreios.setText(EMPTY);
 		sizeBar(barCorreios, valorCota);
 
 		ImageView barAlimentacao = (ImageView) getActivity()
 				.findViewById(R.id.barra_cota_alimentacao);
 		TextView textViewAlimentacao = (TextView) getActivity()
 				.findViewById(R.id.valor_cota_alimentacao);
-		textViewAlimentacao.setText(VAZIO);
+		textViewAlimentacao.setText(EMPTY);
 		sizeBar(barAlimentacao, valorCota);
 
 		ImageView barHospedagem = (ImageView) getActivity()
 				.findViewById(R.id.barra_cota_hoespedagem);
 		TextView textViewHospedagam = (TextView) getActivity()
 				.findViewById(R.id.valor_cota_hospedagem);
-		textViewHospedagam.setText(VAZIO);
+		textViewHospedagam.setText(EMPTY);
 		sizeBar(barHospedagem, valorCota);
 
 		ImageView barBilhetesAereos = (ImageView) getActivity()
 				.findViewById(R.id.barra_cota_bilhetes_aereos);
 		TextView textViewBilhetesAereos = (TextView) getActivity()
 				.findViewById(R.id.valor_cota_bilhetes_aereos);
-		textViewBilhetesAereos.setText(VAZIO);
+		textViewBilhetesAereos.setText(EMPTY);
 		sizeBar(barBilhetesAereos, valorCota);
 	}
 }
