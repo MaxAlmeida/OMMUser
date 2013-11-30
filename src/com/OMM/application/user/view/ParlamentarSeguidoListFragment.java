@@ -15,7 +15,6 @@ public class ParlamentarSeguidoListFragment extends ListFragment {
 
 	private OnParlamentarSeguidoSelectedListener listener;
 	private static ParlamentarUserController parlamentarController;
-	//ParseTask parseTask;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -42,19 +41,10 @@ public class ParlamentarSeguidoListFragment extends ListFragment {
 		parlamentarController.getSelected();
 		updateDetail();
 	}
-	/*
-	 * Responsavel por chamar uma activity, a natureza do fragment nao permite q
-	 * ele chame activities, enta eh preciso criar uma interface para outra
-	 * activity fazer a chamada, logo... a Main faz.
-	 */
+	
 	public interface OnParlamentarSeguidoSelectedListener {
 		public void OnParlamentarSeguidoSelected();
 	}
-
-	/*
-	 * Faz a chamada para concatenar activities esse metodo so vai funcionar se
-	 * a interface anterior for implementada
-	 */
 
 	@Override
 	public void onAttach(Activity activity) {

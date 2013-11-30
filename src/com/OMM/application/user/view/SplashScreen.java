@@ -25,8 +25,8 @@ public class SplashScreen extends Activity {
 			@Override
 			public void run() {
 
-				Intent minhaAcao = new Intent(SplashScreen.this, GuiMain.class);
-				SplashScreen.this.startActivity(minhaAcao);
+				Intent myAction = new Intent(SplashScreen.this, GuiMain.class);
+				SplashScreen.this.startActivity(myAction);
 				SplashScreen.this.finish();
 			}
 		}, DURACAO_DA_TELA);

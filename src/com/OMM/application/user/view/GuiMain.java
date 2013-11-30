@@ -217,7 +217,6 @@ public class GuiMain extends Activity implements
 				exception = Alerts.UNEXPECTED_FAILED_EXCEPTION;
 
 			}
-
 			return exception;
 		}
 
