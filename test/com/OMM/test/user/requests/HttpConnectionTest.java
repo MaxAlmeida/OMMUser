@@ -1,18 +1,8 @@
 package com.OMM.test.user.requests;
 
-import junit.framework.TestCase;
+import android.test.AndroidTestCase;
 
-public class HttpConnectionTest extends TestCase
-{
+public class HttpConnectionTest extends AndroidTestCase{
 
-	protected void setUp( ) throws Exception
-	{
-		super.setUp();
-	}
-
-	protected void tearDown( ) throws Exception
-	{
-		super.tearDown();
-	}
 
 }
