@@ -18,13 +18,16 @@ public class CotaParlamentarUserDao {
 	private static String nome_tabela = "COTA";
 	private static Context context;
 	private static CotaParlamentarUserDao instance;
+	private SQLiteDatabase database;
 
 	// private static String[] colunas = {
 	// "ID_COTA,ID_PARLAMENTAR, NUM_SUBCOTA ,DESCRICAO,MES,ANO,VALOR" };
 	// private static Parlamentar parlamentar;
 
 	private CotaParlamentarUserDao(Context context) {
+		
 		CotaParlamentarUserDao.context = context;
+		this.database = new DatabaseLocal(context).getWritableDatabase();
 		// Empty Constructor
 	}
 
@@ -38,8 +41,7 @@ public class CotaParlamentarUserDao {
 	}
 
 	public boolean insertFollowed(Parlamentar po, CotaParlamentar cota) {
-
-		SQLiteDatabase database = new DatabaseLocal(context).getWritableDatabase();
+		
 		ContentValues content = new ContentValues();
 
 		content.put("ID_COTA", cota.getCod());
@@ -54,9 +56,7 @@ public class CotaParlamentarUserDao {
 		return (database.insert(nome_tabela, null, content) > 0);
 	}
 
-	public boolean deleteParlamentar(Parlamentar parlamentar) {
-
-		SQLiteDatabase database = new DatabaseLocal(context).getWritableDatabase();
+	public boolean deleteParlamentar(Parlamentar parlamentar) {		
 		
 		boolean result = (database.delete(nome_tabela, "ID_PARLAMENTAR=?",
 				new String[] { parlamentar.getId() + "" }) > 0);
@@ -67,8 +67,7 @@ public class CotaParlamentarUserDao {
 	}
 
 	public List<CotaParlamentar> getCotasByIdParlamentar(int idParlamentar) {
-		SQLiteDatabase database = new DatabaseLocal(context).getWritableDatabase();
-
+		
 		Cursor cursor = database.rawQuery(
 				"SELECT * FROM COTA WHERE ID_PARLAMENTAR=" + idParlamentar,
 				null);
