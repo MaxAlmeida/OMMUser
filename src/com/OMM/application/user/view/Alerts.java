@@ -6,7 +6,7 @@ import android.util.Log;
 
 public abstract class Alerts
 {
-	
+	public static final int NO_EXCEPTIONS = 0;
 	public static final int CONNECTION_FAILED_EXCEPTION = 1;
 	public static final int NULL_PARLAMENTAR_EXCEPTION = 2;
 	public static final int REQUEST_FAILED_EXCEPTION = 3;

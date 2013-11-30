@@ -184,7 +184,7 @@ public class GuiMain extends Activity implements
 	private class initializeDBTask extends AsyncTask<Object, Void, Integer> {
 		ProgressDialog progressDialog;
 
-		Integer exception = 0;
+		Integer exception = Alerts.NO_EXCEPTIONS;
 
 		@Override
 		protected void onPreExecute() {
