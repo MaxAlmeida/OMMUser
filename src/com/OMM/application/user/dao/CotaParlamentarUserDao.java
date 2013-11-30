@@ -7,7 +7,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.OMM.application.user.helper.LocalDatabase;
 import com.OMM.application.user.model.CotaParlamentar;
@@ -18,17 +17,12 @@ public class CotaParlamentarUserDao {
 	private static String nome_tabela = "COTA";
 	private static Context context;
 	private static CotaParlamentarUserDao instance;
-	private SQLiteDatabase database;
-
-	// private static String[] colunas = {
-	// "ID_COTA,ID_PARLAMENTAR, NUM_SUBCOTA ,DESCRICAO,MES,ANO,VALOR" };
-	// private static Parlamentar parlamentar;
-
+	private LocalDatabase database;
+	private SQLiteDatabase sqliteDatabase;
 	private CotaParlamentarUserDao(Context context) {
 		
 		CotaParlamentarUserDao.context = context;
-		database = new LocalDatabase(context).getWritableDatabase();
-		// Empty Constructor
+		database = new LocalDatabase(context);
 	}
 
 	public static CotaParlamentarUserDao getInstance(Context context) {
@@ -36,39 +30,35 @@ public class CotaParlamentarUserDao {
 		if (instance == null) {
 			instance = new CotaParlamentarUserDao(context);
 		}
-
 		return instance;
 	}
 
-	public boolean insertFollowed(Parlamentar po, CotaParlamentar cota) {
-		
+	public boolean insertFollowed(CotaParlamentar cota) {
+		sqliteDatabase = database.getWritableDatabase();
 		ContentValues content = new ContentValues();
-
 		content.put("ID_COTA", cota.getCod());
 		content.put("ID_PARLAMENTAR", cota.getIdParlamentar());
 		content.put("DESCRICAO", cota.getDescricao());
-
 		content.put("MES", cota.getMes());
 		content.put("ANO", cota.getAno());
 		content.put("VALOR", cota.getValor());
 		content.put("NUM_SUBCOTA", cota.getNumeroSubCota());
-
-		return (database.insert(nome_tabela, null, content) > 0);
+		boolean result = (sqliteDatabase.insert(nome_tabela, null, content) > 0);
+		sqliteDatabase.close();
+		return result;
 	}
 
-	public boolean deleteParlamentar(Parlamentar parlamentar) {		
-		
-		boolean result = (database.delete(nome_tabela, "ID_PARLAMENTAR=?",
-				new String[] { parlamentar.getId() + "" }) > 0);
-		
-		Log.i("LOGS","result " + result);
-
+	public boolean deleteCotasFromParlamentar(int idParlamentar) {		
+		sqliteDatabase = database.getWritableDatabase();
+		boolean result = (sqliteDatabase.delete(nome_tabela, "ID_PARLAMENTAR=?",
+				new String[] { idParlamentar + "" }) > 0);
+		sqliteDatabase.close();
 		return result;
 	}
 
 	public List<CotaParlamentar> getCotasByIdParlamentar(int idParlamentar) {
-		
-		Cursor cursor = database.rawQuery(
+		sqliteDatabase = database.getReadableDatabase();
+		Cursor cursor = sqliteDatabase.rawQuery(
 				"SELECT * FROM COTA WHERE ID_PARLAMENTAR=" + idParlamentar,
 				null);
 		List<CotaParlamentar> listCotas = new ArrayList<CotaParlamentar>();
@@ -83,6 +73,8 @@ public class CotaParlamentarUserDao {
 			cota.setValor(cursor.getDouble(6));
 			listCotas.add(cota);
 		}
+		sqliteDatabase.close();
 		return listCotas;
 	}
+
 }

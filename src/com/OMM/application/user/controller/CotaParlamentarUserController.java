@@ -67,8 +67,7 @@ public class CotaParlamentarUserController {
 
 		while (iterator.hasNext()) {
 
-			boolean temporary = cotaParlamentarDao.insertFollowed(parlamentar,
-					iterator.next());
+			boolean temporary = cotaParlamentarDao.insertFollowed(iterator.next());
 
 			result = result & temporary;
 		}
@@ -77,7 +76,7 @@ public class CotaParlamentarUserController {
 	}
 
 	public boolean deleteCota(Parlamentar parlamentar) {
-		return cotaParlamentarDao.deleteParlamentar(parlamentar);
+		return cotaParlamentarDao.deleteCotasFromParlamentar(parlamentar.getId());
 	}
 
 	public List<CotaParlamentar> getCotasByIdParlamentar(int idParlmanetar){

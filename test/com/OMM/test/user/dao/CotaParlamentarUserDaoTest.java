@@ -1,102 +1,58 @@
 package com.OMM.test.user.dao;
 
+import java.util.List;
+
 import junit.framework.Assert;
-import android.test.ActivityInstrumentationTestCase2;
-
+import android.content.Context;
+import android.test.AndroidTestCase;
 import com.OMM.application.user.dao.CotaParlamentarUserDao;
-import com.OMM.application.user.dao.ParlamentarUserDao;
 import com.OMM.application.user.model.CotaParlamentar;
-import com.OMM.application.user.model.Parlamentar;
-import com.OMM.application.user.view.GuiMain;
 
-public class CotaParlamentarUserDaoTest extends
-		ActivityInstrumentationTestCase2<GuiMain> {
+public class CotaParlamentarUserDaoTest extends AndroidTestCase
+{
 
-	private GuiMain gMain;
-	private Parlamentar parlamentarA,parlamentarB;
-	private CotaParlamentar cotaA,cotaB;
-	private ParlamentarUserDao daoParlamentar;
+	Context context;
 	private CotaParlamentarUserDao cotaDao;
-	
-	public CotaParlamentarUserDaoTest()
+	private CotaParlamentar cotaParlamentar = new CotaParlamentar();
+
+	public void setUp()
 	{
-		this("CotaParlamentarUserDaoTest");
-	}
-	public CotaParlamentarUserDaoTest(String name) {
-		super(GuiMain.class);
-		setName(name);
-	}
-
-	public void setUp() throws Exception {
-		super.setUp();
-		gMain=getActivity();
-		parlamentarA =new Parlamentar();
-		parlamentarB=new Parlamentar();
-		
-		cotaA=new CotaParlamentar();
-		cotaB=new CotaParlamentar();
-		
-		cotaDao=CotaParlamentarUserDao.getInstance(gMain);
-		daoParlamentar= ParlamentarUserDao.getInstance(gMain);
-				
-		//parlamentar A
-				parlamentarA.setId(777);
-				parlamentarA.setNome("Parlamentar Teste Insert");
-				parlamentarA.setSeguido(0);
-				
-				cotaA.setIdParlamentar(777);
-				cotaA.setCod(770);
-				cotaA.setAno(2013);
-				
-				//Parlamentar B
-				parlamentarB.setId(7770);
-				parlamentarB.setNome("Parlamentar Teste Dao Cota");
-				parlamentarB.setSeguido(0);
-				
-				cotaB.setIdParlamentar(7770);
-				cotaB.setCod(7700);
-				cotaB.setAno(2013);
-				
-				
-				daoParlamentar.insertParlamentar(parlamentarA);	
-				daoParlamentar.insertParlamentar(parlamentarB);
-				
-				cotaDao.insertFollowed(parlamentarB, cotaB);
-		
-		
-		
+		context = getContext();
+		this.cotaDao = CotaParlamentarUserDao.getInstance(context);
+		cotaParlamentar.setIdParlamentar(0);
+		cotaParlamentar.setValor(330);
 	}
 
-	
-
-public void testGetInstance() {
-		
-		CotaParlamentarUserDao parlamentarDao1 = CotaParlamentarUserDao.getInstance(gMain);
-		CotaParlamentarUserDao parlamentarDao2 = CotaParlamentarUserDao.getInstance(gMain);
-		
-		assertSame(parlamentarDao1,parlamentarDao2);
-	}
-
-
-
-	public void testInsertFollowed() 
+	public void testGetInstance()
 	{
-		
-		
-		Assert.assertEquals(true,cotaDao.insertFollowed(parlamentarA, cotaA));
-		
+
+		CotaParlamentarUserDao parlamentarDao1 = CotaParlamentarUserDao
+				.getInstance(context);
+		CotaParlamentarUserDao parlamentarDao2 = CotaParlamentarUserDao
+				.getInstance(context);
+		assertSame(parlamentarDao1, parlamentarDao2);
 	}
 
-	public void testDeleteParlamentar() 
+	public void testInsertFollowed()
 	{
-		
-		
-		Assert.assertEquals(true,cotaDao.deleteParlamentar(parlamentarB));
+		Assert.assertEquals(true, cotaDao.insertFollowed(cotaParlamentar));
+		cotaDao.deleteCotasFromParlamentar(cotaParlamentar.getIdParlamentar());
 	}
 
-	public void testGetCotasByIdParlamentar() 
+	public void testDeleteParlamentar()
 	{
-		cotaDao.getCotasByIdParlamentar(7770);
+
+		cotaDao.insertFollowed(cotaParlamentar);
+		Assert.assertEquals(true, cotaDao
+				.deleteCotasFromParlamentar(cotaParlamentar.getIdParlamentar()));
+	}
+
+	public void testGetCotasByIdParlamentar()
+	{
+		cotaDao.insertFollowed(cotaParlamentar);
+		List<CotaParlamentar> list = cotaDao.getCotasByIdParlamentar(0);
+		assertEquals(330.0, list.get(0).getValor(), .0f);
+		cotaDao.deleteCotasFromParlamentar(cotaParlamentar.getIdParlamentar());
 	}
 
 }
