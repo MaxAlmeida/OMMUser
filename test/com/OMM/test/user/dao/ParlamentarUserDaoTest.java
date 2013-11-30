@@ -11,137 +11,102 @@ import com.OMM.application.user.model.CotaParlamentar;
 import com.OMM.application.user.model.Parlamentar;
 import com.OMM.application.user.view.GuiMain;
 
-public class ParlamentarUserDaoTest extends ActivityInstrumentationTestCase2<GuiMain> {
-	
-	
+public class ParlamentarUserDaoTest extends
+		ActivityInstrumentationTestCase2<GuiMain> {
+
 	private ParlamentarUserDao parlamentarDao;
 	private GuiMain gMain;
+	private Parlamentar parlamentarA,parlamentarB, parlamentarC;
 	
 	private CotaParlamentar cota;
 	
-	public ParlamentarUserDaoTest(String nome )
-	{
-		super(GuiMain.class);
-		setName(nome);
-	}
-	public ParlamentarUserDaoTest ()
+	public ParlamentarUserDaoTest()
 	{
 		this("ParlamentarUserDaoTest");
 	}
-	public void setUp() throws Exception
+	public ParlamentarUserDaoTest(String name) {
+		super(GuiMain.class);
+		setName(name);
+	}
+
+	protected void setUp() throws Exception 
 	{
 		super.setUp();
 		gMain = getActivity();
 		parlamentarDao=ParlamentarUserDao.getInstance(gMain);
-		Parlamentar parlamentar=new Parlamentar();
-		 
+		parlamentarA =new Parlamentar();
+		parlamentarB=new Parlamentar();
+		parlamentarC=new Parlamentar();
+		//Parlamentar A
+		
+		parlamentarA.setId(777);
+		parlamentarA.setNome("Parlamentar Teste Insert");
+		parlamentarA.setSeguido(0);
+		
+		//Parlamentar B
+		parlamentarB.setId(7770);
+		parlamentarB.setNome("Parlamentar Teste Dao Cota");
+		parlamentarB.setSeguido(0);
+		
+		//Parlamentar C
+				parlamentarB.setId(888);
+				parlamentarB.setNome("Parlamentar Teste Dao Cota");
+				parlamentarB.setSeguido(1);
+		
+		parlamentarDao.insertParlamentar(parlamentarB);
+		parlamentarDao.insertParlamentar(parlamentarC);
 		
 	}
-	public void testInsertDao()
-	{
-		Parlamentar parlamentar=new Parlamentar();
-		parlamentar.setId(111);
-		parlamentar.setNome("Pangare");
-		parlamentar.setPartido("PU");
-		parlamentar.setSeguido(0);
-		parlamentar.setUf("DF");
-		Assert.assertTrue(parlamentarDao.insertParlamentar(parlamentar));
-		
-		
-	}
-	public void testGetbyIdDAO()
-	{
-		Parlamentar parlamentar=new Parlamentar();
-		parlamentar.setId(112);
-		parlamentar.setNome("Fernando da fila do banco");
-		parlamentar.setPartido("PU");
-		parlamentar.setSeguido(0);
-		parlamentar.setUf("DF");
-		
-		Assert.assertTrue(parlamentarDao.insertParlamentar(parlamentar));
-		
-		Assert.assertNotNull(parlamentarDao.getById(112));
-		
-		
-	}
-	public void testDeleteParlamentaDAO()
-	{
-		Parlamentar parlamentar=new Parlamentar();
-		parlamentar.setId(113);
-		parlamentar.setNome("Justin Biber");
-		parlamentar.setPartido("PU");
-		parlamentar.setSeguido(0);
-		parlamentar.setUf("DF");
-		Assert.assertTrue(parlamentarDao.insertParlamentar(parlamentar));
-		
-		Assert.assertTrue(parlamentarDao.deleteParlamentar(parlamentar));
-		
-	}
-	public void testUpdateParlamentarDAO()
-	{
-		Parlamentar parlamentar=new Parlamentar();
-		parlamentar.setId(114);
-		parlamentar.setNome("Genu");
-		parlamentar.setPartido("PU");
-		parlamentar.setSeguido(0);
-		parlamentar.setUf("DF");
-		Assert.assertTrue(parlamentarDao.insertParlamentar(parlamentar));
-		
-		Assert.assertTrue(parlamentarDao.updateParlamentar(parlamentar));
-		
-	}
-	public void testGetListAll()
-	{
-		Parlamentar parlamentar=new Parlamentar();
-		parlamentar.setId(115);
-		parlamentar.setNome("Xeroso");
-		parlamentar.setPartido("PU");
-		parlamentar.setSeguido(0);
-		List<Parlamentar>lista =new ArrayList<Parlamentar>();
-		lista=parlamentarDao.getAll();
-		Assert.assertNotNull(lista);
-		
-	}
-	public void testGetAllSelected()
-	{
-		Parlamentar parlamentar=new Parlamentar();
-		parlamentar.setId(116);
-		parlamentar.setNome("Genu");
-		parlamentar.setPartido("PU");
-		parlamentar.setSeguido(1);
-		List<Parlamentar>lista =new ArrayList<Parlamentar>();
-		lista=parlamentarDao.getAllSelected();
-		Assert.assertNotNull(lista);
-	}
-	public void testCheckEmptyDB() 
-	{
-		Parlamentar parlamentar=new Parlamentar();
-		parlamentar.setId(117);
-		parlamentar.setNome("Panrangole");
-		parlamentar.setPartido("PU");
-		parlamentar.setSeguido(0);
-		parlamentar.setUf("DF");
-		Assert.assertTrue(parlamentarDao.insertParlamentar(parlamentar));
-		Assert.assertFalse(parlamentarDao.checkEmptyDB());
-	}
-	public void testGetSelected()
-	{
-		Parlamentar parlamentar=new Parlamentar();
-		parlamentar.setId(118);
-		parlamentar.setNome("Ratinho");
-		parlamentar.setPartido("PU");
-		parlamentar.setSeguido(1);
-		List<Parlamentar>lista =new ArrayList<Parlamentar>();
-		lista=parlamentarDao.getSelected(parlamentar.getNome());
-		Assert.assertNotNull(lista);
-		
-		
-	}
-	public void testGetInstance()
+
+	public void testGetInstance() 
 	{
 		ParlamentarUserDao obj1=ParlamentarUserDao.getInstance(gMain);
 		ParlamentarUserDao obj2=ParlamentarUserDao.getInstance(gMain);
 		Assert.assertSame(obj1, obj2);
+	}
+
+	public void testCheckEmptyDB() 
+	{
+		Assert.assertFalse(parlamentarDao.checkEmptyDB());
+	}
+
+	public void testInsertParlamentar()
+	{
+		Assert.assertTrue(parlamentarDao.insertParlamentar(parlamentarA));
+	}
+
+	public void testDeleteParlamentar() {
+		Assert.assertTrue(parlamentarDao.deleteParlamentar(parlamentarB));
+	}
+
+	public void testUpdateParlamentar() 
+	{
+		parlamentarA.setSeguido(1);
+		Assert.assertTrue(parlamentarDao.updateParlamentar(parlamentarA));
+	}
+
+	public void testGetById() 
+	{
+		Assert.assertSame(parlamentarDao.getById(777).getClass(), Parlamentar.class);
+	}
+
+	public void testGetAll() {
+		List<Parlamentar> lista=new ArrayList<Parlamentar>();
+		lista = parlamentarDao.getAll();
+		Assert.assertNotNull(lista);
+	}
+
+	public void testGetSelected() {
+		List<Parlamentar> lista=new ArrayList<Parlamentar>();
+		lista = parlamentarDao.getSelected("Parlamentar");
+		Assert.assertNotNull(lista);
+	}
+
+	public void testGetAllSelected() {
+		
+		List<Parlamentar> lista=new ArrayList<Parlamentar>();
+		lista = parlamentarDao.getAllSelected();
+		Assert.assertNotNull(lista);
 	}
 
 }
