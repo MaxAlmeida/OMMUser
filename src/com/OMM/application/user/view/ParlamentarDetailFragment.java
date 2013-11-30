@@ -27,14 +27,32 @@ public class ParlamentarDetailFragment extends Fragment {
 	private static final String EMPTY = "R$ 0,00";
 	
 	// Limits used to modify the bars of expenses
-	public static final int UPPER_LIMIT_WHITE_BAR = 500; 
-	public static final int  UPPER_LIMIT_GREEN_BAR = 1500;
-	public static final int  UPPER_LIMIT_YELLOW_BAR = 3000;
-	public static final int  UPPER_LIMIT_ORANGE_BAR = 5000;
-	public static final int  LOWER_LIMIT_RED_BAR = 5000;
+	private static final int UPPER_LIMIT_WHITE_BAR = 500; 
+	private static final int  UPPER_LIMIT_GREEN_BAR = 1500;
+	private static final int  UPPER_LIMIT_YELLOW_BAR = 3000;
+	private static final int  UPPER_LIMIT_ORANGE_BAR = 5000;
+	private static final int  LOWER_LIMIT_RED_BAR = 5000;
+	
+	//NumeroSubCota's values â€‹â€‹coming from database
+	private static final int ESCRITORIO = 1;
+	private static final int COMBUSTIVEL = 3;
+	private static final int TRABALHO_TECNICO_E_CONSULTORIA = 4;
+	private static final int DIVULGACAO_ATIVIDADE_PARLAMENTAR = 5;
+	private static final int SEGURANCA = 8;
+	private static final int FRETE_AVIAO = 9;
+	private static final int TELEFONIA = 10;
+	private static final int SERVICOS_POSTAIS = 11;
+	private static final int ASSINATURA_DE_PUBLICACOES = 12;
+	private static final int ALIMENTACAO = 13;
+	private static final int HOSPEDAGEM = 14;
+	private static final int LOCACAO_DE_VEICULOS = 15;
+	private static final int EMISSAO_BILHETES_AEREOS = 999;
+	
+	
 	
 	ParlamentarUserController parlamentarController;
-	int selectedMes = 6;
+	private int selectedMes = 1;
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -71,10 +89,12 @@ public class ParlamentarDetailFragment extends Fragment {
 							Toast.LENGTH_SHORT).show();
 					btn_detalhe_desseguir.setVisibility(View.GONE);
 					btn_detalhe_seguir.setVisibility(View.VISIBLE);
+					
 					ImageView imgView = (ImageView)getView().findViewById(R.id.foto);
 					imgView.setImageResource(R.drawable.parlamentar_foto);
+					
 				} catch (NullParlamentarException nullEx) {
-					Toast.makeText(getActivity(), "Erro na requisição",
+					Toast.makeText(getActivity(), "Erro na requisiÃ§Ã£o",
 							Toast.LENGTH_SHORT).show();
 
 				}
@@ -91,13 +111,14 @@ public class ParlamentarDetailFragment extends Fragment {
 					parlamentarController.followedParlamentar();
 					Toast.makeText(getActivity(), "Parlamentar Seguido",
 							Toast.LENGTH_SHORT).show();
+					
 					ImageView imgView = (ImageView)getView().findViewById(R.id.foto);
 					imgView.setImageResource(R.drawable.parlamentar_seguido_foto);
 					btn_detalhe_seguir.setVisibility(View.GONE);
 					btn_detalhe_desseguir.setVisibility(View.VISIBLE);
 
 				} catch (NullParlamentarException nullEx) {
-					Toast.makeText(getActivity(), "Erro na requisição",
+					Toast.makeText(getActivity(), "Erro na requisiÃ§Ã£o",
 							Toast.LENGTH_SHORT).show();
 
 				}
@@ -107,10 +128,11 @@ public class ParlamentarDetailFragment extends Fragment {
 	}
 
 	public void setBarras() {
-		//TODO retirar Logs
-		DecimalFormat valorCotaDecimal = new DecimalFormat("#,###.00");
-		double totalValue=0;
+
+		DecimalFormat valorCotaDecimalFormat = new DecimalFormat("#,###.00");
+		double totalValue = 0.0;
 		resetBarras();
+		
 		TextView view = (TextView) getView().findViewById(R.id.nome);
 		view.setText(parlamentarController.getParlamentar().getNome());
 		view = (TextView) getView().findViewById(R.id.partido);
@@ -118,18 +140,21 @@ public class ParlamentarDetailFragment extends Fragment {
 		view = (TextView) getView().findViewById(R.id.uf);
 		view.setText(parlamentarController.getParlamentar().getUf());
 		TextView textMes = (TextView) getView().findViewById(R.id.mes);
-		textMes.setText("Valores do mês "+ selectedMes);
+		textMes.setText("Valores do mÃªs "+ selectedMes);
+		
 		if(parlamentarController.getParlamentar().getIsSeguido()==1){
 			ImageView imgView = (ImageView)getView().findViewById(R.id.foto);
 			imgView.setImageResource(R.drawable.parlamentar_seguido_foto);
 		}
 		else{
-			//nothing here.
+			//Nothing here.
 		}
+		
 		double valorSubcotaRevista = 0;
 		double valorSubcotaFrete = 0;
 		Iterator<CotaParlamentar> iterator = parlamentarController
 				.getParlamentar().getCotas().iterator();
+		
 		while (iterator.hasNext()) {
 			
 			CotaParlamentar cota = iterator.next();
@@ -137,172 +162,174 @@ public class ParlamentarDetailFragment extends Fragment {
 			if (cota.getMes() == selectedMes) {
 				double valorCota = cota.getValor();
 				int numeroSubCota = cota.getNumeroSubCota();
+				
 				switch (numeroSubCota) {
 
-				case 1:
-					valorCota+=valorSubcotaRevista;
+				case ESCRITORIO:
+					valorCota += valorSubcotaRevista;
 					ImageView barEscritorio = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_escritorio);
 					TextView textViewEscritorio = (TextView) getActivity()
 							.findViewById(R.id.valor_cota_escritorio);
 					textViewEscritorio.setText("R$ "
-							+ valorCotaDecimal.format(valorCota));
+							+ valorCotaDecimalFormat.format(valorCota));
 					valorSubcotaRevista = valorCota;
+					
 					sizeBar(barEscritorio, valorCota);
 
 					break;
 
-				case 3:
+				case COMBUSTIVEL:
 
 					ImageView barCombustivel = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_gasolina);
 					TextView textViewCombustivel = (TextView) getActivity()
 							.findViewById(R.id.valor_cota_gasolina);
 					textViewCombustivel.setText("R$ "
-							+ valorCotaDecimal.format(valorCota));
+							+ valorCotaDecimalFormat.format(valorCota));
 
 					sizeBar(barCombustivel, valorCota);
 
 					break;
 
-				case 4:
+				case TRABALHO_TECNICO_E_CONSULTORIA:
 
 					ImageView barTrabalhoTecnico = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_trabalho_tecnico);
 					TextView textViewTrabalhoTecnico = (TextView) getActivity()
 							.findViewById(R.id.valor_cota_trabalho_tecnico);
 					textViewTrabalhoTecnico.setText("R$ "
-							+ valorCotaDecimal.format(valorCota));
+							+ valorCotaDecimalFormat.format(valorCota));
 
 					sizeBar(barTrabalhoTecnico, valorCota);
 
 					break;
 
-				case 5:
+				case DIVULGACAO_ATIVIDADE_PARLAMENTAR:
 
 					ImageView barDivulgacao = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_divulgacao);
 					TextView textViewDivulgacao = (TextView) getActivity()
 							.findViewById(R.id.valor_cota_divulgacao);
 					textViewDivulgacao.setText("R$ "
-							+ valorCotaDecimal.format(valorCota));
+							+ valorCotaDecimalFormat.format(valorCota));
 
 					sizeBar(barDivulgacao, valorCota);
 
 					break;
 
-				case 8:
+				case SEGURANCA:
 
 					ImageView barSeguranca = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_seguranca);
 					TextView textViewSeguranca = (TextView) getActivity()
 							.findViewById(R.id.valor_cota_seguranca);
 					textViewSeguranca.setText("R$ "
-							+ valorCotaDecimal.format(valorCota));
+							+ valorCotaDecimalFormat.format(valorCota));
 
 					sizeBar(barSeguranca, valorCota);
 
 					break;
 
-				case 9:
+				case FRETE_AVIAO:
 					valorCota += valorSubcotaFrete; 
 					ImageView barAluguelAviao = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_aluguel_aviao);
 					TextView textViewAluguelAviao = (TextView) getActivity()
 							.findViewById(R.id.valor_cota_aluguel_aviao);
 					textViewAluguelAviao.setText("R$ "
-							+ valorCotaDecimal.format(valorCota));
+							+ valorCotaDecimalFormat.format(valorCota));
 					valorSubcotaFrete = valorCota;
 					sizeBar(barAluguelAviao, valorCota);
 
 					break;
 					
-				case 10:
+				case TELEFONIA:
 
 					ImageView barTelefonia = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_telefonia);
 					TextView textViewTelefonia = (TextView) getActivity()
 							.findViewById(R.id.valor_cota_telefonia);
 					textViewTelefonia.setText("R$ "
-							+ valorCotaDecimal.format(valorCota));
+							+ valorCotaDecimalFormat.format(valorCota));
 
 					sizeBar(barTelefonia, valorCota);
 
 					break;
 
-				case 11:
+				case SERVICOS_POSTAIS:
 
 					ImageView barCorreios = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_correios);
 					TextView textViewCorreios = (TextView) getActivity()
 							.findViewById(R.id.valor_cota_correios);
 					textViewCorreios.setText("R$ "
-							+ valorCotaDecimal.format(valorCota));
+							+ valorCotaDecimalFormat.format(valorCota));
 
 					sizeBar(barCorreios, valorCota);
 
 					break;
 				
-				case 12:
+				case ASSINATURA_DE_PUBLICACOES:
 					valorCota+=valorSubcotaRevista;
 					ImageView barEscritorio2 = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_escritorio);
 					TextView textViewEscritorio2 = (TextView) getActivity()
 							.findViewById(R.id.valor_cota_escritorio);
 					textViewEscritorio2.setText("R$ "
-							+ valorCotaDecimal.format(valorCota));
+							+ valorCotaDecimalFormat.format(valorCota));
 					valorSubcotaRevista = valorCota;
 					sizeBar(barEscritorio2, valorCota);
 
 					break;	
 					
-				case 13:
+				case ALIMENTACAO:
 
 					ImageView barAlimentacao = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_alimentacao);
 					TextView textViewAlimentacao = (TextView) getActivity()
 							.findViewById(R.id.valor_cota_alimentacao);
 					textViewAlimentacao.setText("R$ "
-							+ valorCotaDecimal.format(valorCota));
+							+ valorCotaDecimalFormat.format(valorCota));
 
 					sizeBar(barAlimentacao, valorCota);
 
 					break;
 
-				case 14:
+				case HOSPEDAGEM:
 
 					ImageView barHospedagem = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_hoespedagem);
 					TextView textViewHospedagam = (TextView) getActivity()
 							.findViewById(R.id.valor_cota_hospedagem);
 					textViewHospedagam.setText("R$ "
-							+ valorCotaDecimal.format(valorCota));
+							+ valorCotaDecimalFormat.format(valorCota));
 
 					sizeBar(barHospedagem, valorCota);
 
 					break;
 
-				case 15:
+				case LOCACAO_DE_VEICULOS:
 					valorCota += valorSubcotaFrete; 
 					ImageView barAluguelAviao2 = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_aluguel_aviao);
 					TextView textViewAluguelAviao2 = (TextView) getActivity()
 							.findViewById(R.id.valor_cota_aluguel_aviao);
 					textViewAluguelAviao2.setText("R$ "
-							+ valorCotaDecimal.format(valorCota));
+							+ valorCotaDecimalFormat.format(valorCota));
 					valorSubcotaFrete = valorCota;
 					sizeBar(barAluguelAviao2, valorCota);
 
 					break;
 
-				case 999:
+				case EMISSAO_BILHETES_AEREOS:
 
 					ImageView barBilhetesAereos = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_bilhetes_aereos);
 					TextView textViewBilhetesAereos = (TextView) getActivity()
 							.findViewById(R.id.valor_cota_bilhetes_aereos);
 					textViewBilhetesAereos.setText("R$ "
-							+ valorCotaDecimal.format(valorCota));
+							+ valorCotaDecimalFormat.format(valorCota));
 
 					sizeBar(barBilhetesAereos, valorCota);
 
@@ -312,13 +339,13 @@ public class ParlamentarDetailFragment extends Fragment {
 
 				}
 				
-				totalValue+=valorCota;
+				totalValue += valorCota;
 				
 			}
 
 		}
 		TextView total = (TextView) getActivity().findViewById(R.id.total);
-		total.setText("Total: R$ "+valorCotaDecimal.format(totalValue));
+		total.setText("Total: R$ "+valorCotaDecimalFormat.format(totalValue));
 
 	}
 
@@ -381,7 +408,7 @@ public class ParlamentarDetailFragment extends Fragment {
 
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(getActivity(), "Alimentação", Toast.LENGTH_SHORT)
+				Toast.makeText(getActivity(), "AlimentaÃ§Ã£o", Toast.LENGTH_SHORT)
 						.show();
 
 			}
@@ -401,7 +428,7 @@ public class ParlamentarDetailFragment extends Fragment {
 
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(getActivity(), "Bilhetes Aéreos",
+				Toast.makeText(getActivity(), "Bilhetes AÃ©reos",
 						Toast.LENGTH_SHORT).show();
 
 			}
@@ -411,7 +438,7 @@ public class ParlamentarDetailFragment extends Fragment {
 
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(getActivity(), "Serviços Postais",
+				Toast.makeText(getActivity(), "ServiÃ§os Postais",
 						Toast.LENGTH_SHORT).show();
 
 			}
@@ -422,7 +449,7 @@ public class ParlamentarDetailFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				Toast.makeText(getActivity(),
-						"Divulgação da Atividade Parlamentar",
+						"DivulgaÃ§Ã£o da Atividade Parlamentar",
 						Toast.LENGTH_SHORT).show();
 
 			}
@@ -433,7 +460,7 @@ public class ParlamentarDetailFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				Toast.makeText(getActivity(),
-						"Manutenção de Escritório de Apoio", Toast.LENGTH_SHORT)
+						"ManutenÃ§Ã£o de EscritÃ³rio de Apoio", Toast.LENGTH_SHORT)
 						.show();
 
 			}
@@ -443,7 +470,7 @@ public class ParlamentarDetailFragment extends Fragment {
 
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(getActivity(), "Combustíveis e Lubrificantes",
+				Toast.makeText(getActivity(), "CombustÃ­veis e Lubrificantes",
 						Toast.LENGTH_SHORT).show();
 
 			}
@@ -463,7 +490,7 @@ public class ParlamentarDetailFragment extends Fragment {
 
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(getActivity(), "Serviço de Segurança",
+				Toast.makeText(getActivity(), "ServiÃ§o de SeguranÃ§a",
 						Toast.LENGTH_SHORT).show();
 
 			}
@@ -485,7 +512,7 @@ public class ParlamentarDetailFragment extends Fragment {
 					@Override
 					public void onClick(View v) {
 						Toast.makeText(getActivity(),
-								"Consultorias, Pesquisas e Trabalhos Técnicos",
+								"Consultorias, Pesquisas e Trabalhos TÃ©cnicos",
 								Toast.LENGTH_SHORT).show();
 
 					}
@@ -498,12 +525,12 @@ public class ParlamentarDetailFragment extends Fragment {
 
 		super.onCreateOptionsMenu(menu, inflater);
 		menu.clear();
-		SubMenu sub = menu.addSubMenu("Mês");
+		SubMenu sub = menu.addSubMenu("MÃªs");
 		@SuppressWarnings( "unused" )
 		MenuItem Ano = menu.add(0,Menu.FIRST+12,0,"Ano");
 		sub.add(0,Menu.FIRST,0,"Janeiro");
 		sub.add(0,Menu.FIRST+1,0,"Fevereiro");
-		sub.add(0,Menu.FIRST+2,0,"Março");
+		sub.add(0,Menu.FIRST+2,0,"MarÃ§o");
 		sub.add(0,Menu.FIRST+3,0,"Abril");
 		sub.add(0,Menu.FIRST+4,0,"Maio");
 		sub.add(0,Menu.FIRST+5,0,"Junho");
