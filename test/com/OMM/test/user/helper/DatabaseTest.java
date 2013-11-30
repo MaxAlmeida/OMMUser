@@ -9,13 +9,13 @@ import android.annotation.SuppressLint;
 import android.database.sqlite.SQLiteDatabase;
 import android.test.ActivityInstrumentationTestCase2;
 
-import com.OMM.application.user.helper.DatabaseLocal;
+import com.OMM.application.user.helper.LocalDatabase;
 import com.OMM.application.user.view.GuiMain;
 
 @SuppressLint("NewApi")
 public class DatabaseTest extends ActivityInstrumentationTestCase2<GuiMain>{
 
-	private DatabaseLocal db;
+	private LocalDatabase db;
 	private GuiMain context;
 	 
 	
@@ -37,7 +37,7 @@ public class DatabaseTest extends ActivityInstrumentationTestCase2<GuiMain>{
 		context=getActivity();
 		
 		//Apagar o banco para testar o metodo onCreate
-		SQLiteDatabase database=new DatabaseLocal(context).getWritableDatabase();
+		SQLiteDatabase database=new LocalDatabase(context).getWritableDatabase();
 		File file= new File("/data/data/com.OMM.application.user/databases/OMM.db");
 		database.deleteDatabase(file);
 		
@@ -55,10 +55,10 @@ public class DatabaseTest extends ActivityInstrumentationTestCase2<GuiMain>{
 		 
 		
 		
-		db=new DatabaseLocal(context);
-		database= new DatabaseLocal(context).getWritableDatabase();
+		db=new LocalDatabase(context);
+		database= new LocalDatabase(context).getWritableDatabase();
 		
-		Assert.assertEquals(db.getClass(),DatabaseLocal.class);
+		Assert.assertEquals(db.getClass(),LocalDatabase.class);
 		Assert.assertEquals(database.getClass(),SQLiteDatabase.class);
 		Assert.assertEquals(database.getPath(), "/data/data/com.OMM.application.user/databases/OMM.db");
 	  
@@ -67,7 +67,7 @@ public class DatabaseTest extends ActivityInstrumentationTestCase2<GuiMain>{
 	public void testOnUpgradeSQLiteDatabaseIntInt() 
 	{
 		
-		SQLiteDatabase database=new DatabaseLocal(context,2,"OMM2.db").getWritableDatabase();
+		SQLiteDatabase database=new LocalDatabase(context,2,"OMM2.db").getWritableDatabase();
 		Assert.assertEquals(database.getPath(), "/data/data/com.OMM.application.user/databases/OMM2.db");
 		 
 		
