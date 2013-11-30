@@ -4,11 +4,17 @@ public class CotaParlamentar
 {
 
 	private int cod;
+	
 	private int idParlamentar;
+	
 	private int mes;
+	
 	private int ano;
+	
 	private int numeroSubCota;
+	
 	private String descricao;
+	
 	private double valor;
 
 	public CotaParlamentar()
@@ -85,14 +91,4 @@ public class CotaParlamentar
 		this.valor = valor;
 	}
 	
-	public boolean equals(CotaParlamentar cota){
-		//Completar com os outros atributos..
-		if (this.cod==cota.getCod() && (this.idParlamentar==cota.getIdParlamentar()))
-			return true;
-		return false;
-		
-	}
-
-
-
 }
