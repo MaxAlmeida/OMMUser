@@ -88,7 +88,7 @@ public class ParlamentarListFragment extends ListFragment {
 			parseTask.execute(inputText);
 		}
 		// TODO tratar com a devida excessão lançada.
-		catch (IllegalStateException e) {
+		catch (IllegalStateException ise) {
 			// IllegalStateException
 		}
 	}
@@ -155,8 +155,8 @@ public class ParlamentarListFragment extends ListFragment {
 	}
 
 	private class RequestTask extends AsyncTask<Object, Void, Integer> {
+		
 		ProgressDialog progressDialog;
-		Integer exception = 0;
 
 		@Override
 		protected void onPreExecute() {
@@ -164,38 +164,32 @@ public class ParlamentarListFragment extends ListFragment {
 					"Buscando Dados");
 		}
 
+		@SuppressWarnings( "unchecked" )
 		@Override
 		protected Integer doInBackground(Object... params) {
 
 			Integer result = null;
 			ParlamentarUserController parlamentarController = ParlamentarUserController
 					.getInstance(getActivity());
+			
 			ResponseHandler<String> rh = (ResponseHandler<String>) params[0];
 			try {
 				parlamentarController.doRequest(rh);
-				result = 0;
+				result = Alerts.NO_EXCEPTIONS;
 			} catch (ConnectionFailedException cfe) {
+				result = Alerts.CONNECTION_FAILED_EXCEPTION;
 
-				// TODO: Fazer constantes para retirar números mágicos
-				exception = 1;
-				result = exception;
+			} catch (RequestFailedException rfe) {			
+				result = Alerts.REQUEST_FAILED_EXCEPTION;
 
 			} catch (NullParlamentarException npe) {
-
-				exception = 2;
-				result = exception;
+				result = Alerts.NULL_PARLAMENTAR_EXCEPTION;
+				
 			} catch (NullCotaParlamentarException ncpe) {
-
-				exception = 3;
-				result = exception;
-			} catch (RequestFailedException rfe) {
-
-				exception = 4;
-				result = exception;
-
-			} catch (Exception e) {
-				exception = 5;
-				result = exception;
+				result = Alerts.NULL_COTA_PARLAMENTAR_EXCEPTION;
+				
+			}  catch (Exception e) {
+				result = Alerts.UNEXPECTED_FAILED_EXCEPTION;
 
 			}
 			return result;
@@ -211,33 +205,32 @@ public class ParlamentarListFragment extends ListFragment {
 				listener.OnParlamentarSelected();
 				break;
 
-			case 1:
+			case Alerts.CONNECTION_FAILED_EXCEPTION:
 
 				Alerts.conectionFailedAlert(getActivity());
 				break;
 
-			case 2:
+			case Alerts.NULL_PARLAMENTAR_EXCEPTION:
 
 				Alerts.parlamentarFailedAlert(getActivity());
 				break;
 
-			case 3:
+			case Alerts.NULL_COTA_PARLAMENTAR_EXCEPTION:
 
 				Alerts.cotaParlamentarFailedAlert(getActivity());
 				break;
 
-			case 4:
+			case Alerts.REQUEST_FAILED_EXCEPTION:
 
 				Alerts.requestFailedAlert(getActivity());
 				break;
 
-			case 5:
+			case Alerts.UNEXPECTED_FAILED_EXCEPTION:
 
 				Alerts.unexpectedFailedAlert(getActivity());
 				break;
 
 			default:
-
 				// Nothing should be done
 			}
 		}
@@ -247,6 +240,7 @@ public class ParlamentarListFragment extends ListFragment {
 
 		ResponseHandler<String> responseHandler = HttpConnection
 				.getResponseHandler();
+		
 		RequestTask task = new RequestTask();
 		task.execute(responseHandler);
 
