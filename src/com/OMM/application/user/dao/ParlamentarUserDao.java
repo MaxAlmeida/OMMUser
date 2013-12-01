@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.OMM.application.user.exceptions.NullParlamentarException;
 import com.OMM.application.user.helper.LocalDatabase;
 import com.OMM.application.user.model.Parlamentar;
 
@@ -74,14 +75,19 @@ public class ParlamentarUserDao {
 				new String[] { parlamentar.getId() + "" }) > 0);
 	}
 
-	public boolean updateParlamentar(Parlamentar parlamentar) {
+	public boolean updateParlamentar(Parlamentar parlamentar) throws NullParlamentarException {
 
+		if(parlamentar != null){
 		ContentValues content = new ContentValues();
 
 		content.put("SEGUIDO", parlamentar.getIsSeguido());
 
 		return (database.update(nome_tabela, content, "ID_PARLAMENTAR=?",
 				new String[] { parlamentar.getId() + "" }) > 0);
+		}
+		else {
+			throw new NullParlamentarException();
+		}
 	}
 
 	public Parlamentar getById(Integer ID_PARLAMENTAR) {

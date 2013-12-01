@@ -116,7 +116,11 @@ public class ParlamentarDetailFragment extends Fragment {
 					btn_detalhe_seguir.setVisibility(View.GONE);
 					btn_detalhe_desseguir.setVisibility(View.VISIBLE);
 
-				} catch (NullCotaParlamentarException nullEx) {
+				} catch (NullParlamentarException nullEx) {
+					Toast.makeText(getActivity(), "Erro na requisição",
+							Toast.LENGTH_SHORT).show();
+				} catch (NullCotaParlamentarException e)
+				{
 					Toast.makeText(getActivity(), "Erro na requisição",
 							Toast.LENGTH_SHORT).show();
 				}

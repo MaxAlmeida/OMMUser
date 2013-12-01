@@ -2,13 +2,11 @@ package com.OMM.test.user.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.content.Context;
 import android.test.AndroidTestCase;
 import com.OMM.application.user.controller.CotaParlamentarUserController;
 import com.OMM.application.user.exceptions.NullCotaParlamentarException;
-import com.OMM.application.user.exceptions.NullParlamentarException;
-import com.OMM.application.user.exceptions.TransmissionException;
-import com.OMM.application.user.helper.JSONHelper;
 import com.OMM.application.user.model.CotaParlamentar;
 import com.OMM.application.user.model.Parlamentar;
 
@@ -84,9 +82,9 @@ public class CotaParlamentarUserControllerTest extends AndroidTestCase {
 	}
 	
 		public void testGetCotasByIdParlamentarExceptions() 
-				throws NullParlamentarException{
+				throws NullCotaParlamentarException{
 
-			Parlamentar parlamentarDeleteCota = null;
+			Parlamentar parlamentarDeleteCota = new Parlamentar();
 			
 			try {
 				controller.persistCotasOnLocalDatabase(parlamentarDeleteCota.getCotas());

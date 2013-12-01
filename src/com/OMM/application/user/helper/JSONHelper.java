@@ -56,14 +56,27 @@ public class JSONHelper
 	}
 
 	public static List<Parlamentar> listParlamentarRankingMaioresFromJSON(
-			String jsonParlamentarRankingMaiores) {
-		
+			String jsonParlamentarRankingMaiores) throws NullParlamentarException, TransmissionException {
+		List<Parlamentar> listParlamentarRankingMaiores;
+		try{
 		Gson gson = new Gson();
-		List<Parlamentar> listParlamentarRankingMaiores = gson.fromJson(
+		listParlamentarRankingMaiores = gson.fromJson(
 				jsonParlamentarRankingMaiores, new TypeToken<List<Parlamentar>>() {
 				}.getType());
 		
+		} catch (NullPointerException npe) {
+			
+			throw new NullParlamentarException();
+		} catch (JsonSyntaxException jse) {
+			
+			throw new TransmissionException();
+		}
+		
+		if(listParlamentarRankingMaiores == null) {
+			throw new NullParlamentarException();
+			
+		}
 		return listParlamentarRankingMaiores;
-
+		
 	}
 }

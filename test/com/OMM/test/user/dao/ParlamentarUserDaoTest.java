@@ -8,6 +8,7 @@ import android.content.Context;
 import android.test.AndroidTestCase;
 
 import com.OMM.application.user.dao.ParlamentarUserDao;
+import com.OMM.application.user.exceptions.NullParlamentarException;
 import com.OMM.application.user.model.Parlamentar;
 
 public class ParlamentarUserDaoTest extends AndroidTestCase {
@@ -67,7 +68,7 @@ public class ParlamentarUserDaoTest extends AndroidTestCase {
 		Assert.assertTrue(parlamentarDao.deleteParlamentar(parlamentarB));
 	}
 
-	public void testUpdateParlamentar() 
+	public void testUpdateParlamentar() throws NullParlamentarException 
 	{
 		parlamentarA.setSeguido(1);
 		Assert.assertTrue(parlamentarDao.updateParlamentar(parlamentarA));
