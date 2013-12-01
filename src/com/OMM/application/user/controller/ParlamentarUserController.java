@@ -68,13 +68,13 @@ public class ParlamentarUserController {
 		
 		int idParlamentar = parlamentar.getId();
 		String urlParlamentar = MountURL.mountURLParlamentar(idParlamentar);
-		String jsonParlamentar = HttpConnection.requestParlamentar(
+		String jsonParlamentar = HttpConnection.request(
 				responseHandler, urlParlamentar);
 
 		parlamentar = JSONHelper.listParlamentarFromJSON(jsonParlamentar).get(0);
 
 		String urlCotas = MountURL.mountURLCota(idParlamentar);
-		String jsonCotasParlamentar = HttpConnection.requestCota(
+		String jsonCotasParlamentar = HttpConnection.request(
 				responseHandler, urlCotas);
 
 		List<CotaParlamentar> cotas = JSONHelper
@@ -121,7 +121,7 @@ public class ParlamentarUserController {
 			RequestFailedException, TransmissionException {
 
 		String urlParlamentares = MountURL.mountUrlAll();
-		String jsonParlamentares = HttpConnection.requestParlamentar(response,
+		String jsonParlamentares = HttpConnection.request(response,
 				urlParlamentares);
 		List<Parlamentar> parlamentares = JSONHelper.listParlamentarFromJSON(jsonParlamentares);
 		boolean initialized;
@@ -170,7 +170,7 @@ public class ParlamentarUserController {
 
 		String urlParlamentarRankingMaiores = MountURL.mountUrlMajorRanking();
 		String jsonParlamentarRankingMaiores = HttpConnection
-				.requestMajorRanking(responseHandler,
+				.request(responseHandler,
 						urlParlamentarRankingMaiores);
 
 		parlamentares =JSONHelper.listParlamentarRankingMaioresFromJSON(jsonParlamentarRankingMaiores);
