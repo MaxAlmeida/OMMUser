@@ -40,7 +40,7 @@ public class ParlamentarUserDaoTest extends AndroidTestCase {
 		//Parlamentar B
 		parlamentarB.setId(7770);
 		parlamentarB.setNome("Parlamentar Teste Dao Cota");
-		parlamentarB.setSeguido(0);
+		parlamentarB.setSeguido(1);
 		parlamentarB.setPartido("PU");
 		parlamentarB.setUf("DF");
 		
@@ -103,19 +103,26 @@ public class ParlamentarUserDaoTest extends AndroidTestCase {
 		List<Parlamentar> lista=new ArrayList<Parlamentar>();
 		lista = parlamentarDao.getAll();
 		assertNotNull(lista);
+		assertSame(lista.get(0).getClass(),Parlamentar.class);
+		
 	}
-
-	public void testGetSelected() {
-		List<Parlamentar> lista=new ArrayList<Parlamentar>();
-		lista = parlamentarDao.getSelectedByName("Parlamentar");
-		assertNotNull(lista);
-	}
-
 	public void testGetAllSelected() {
 		
+	
 		List<Parlamentar> lista=new ArrayList<Parlamentar>();
 		lista = parlamentarDao.getAllSelected();
 		assertNotNull(lista);
+		assertNotNull(lista.get(0));
+		assertSame(lista.get(0).getClass(), Parlamentar.class);
+		
+	}
+	public void getSelectedByName()
+	{
+		List<Parlamentar> lista=new ArrayList<Parlamentar>();
+		lista = parlamentarDao.getSelectedByName("Parlamentar");
+		assertNotNull(lista);
+		assertNotNull(lista.get(0));
+		assertSame(lista.get(0).getClass(),Parlamentar.class);
 	}
 
 }

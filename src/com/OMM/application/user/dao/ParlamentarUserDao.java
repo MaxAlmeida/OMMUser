@@ -100,6 +100,7 @@ public class ParlamentarUserDao {
 		Cursor cursor = sqliteDatabase.query(nome_tabela, colunas,
 				"ID_PARLAMENTAR=?", new String[] { ID_PARLAMENTAR.toString() },
 				null, null, null);
+		
 
 		Parlamentar parlamentar = new Parlamentar();
 
