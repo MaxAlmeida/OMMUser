@@ -64,9 +64,9 @@ public void testConvertJsonToCotaParlamentar() throws NullCotaParlamentarExcepti
 		
 	}
 
-	public void testPersistCotaDB() throws NullParlamentarException{
+	public void testPersistCotaLocalDatabase() throws NullParlamentarException{
 		
-		assertTrue(controller.persistCotaDB(parlamentar));
+		assertTrue(controller.persistCotaLocalDatabase(parlamentar));
 		
 		
 	}
@@ -81,7 +81,7 @@ public void testConvertJsonToCotaParlamentar() throws NullCotaParlamentarExcepti
 		list.add(cota);
 		parlamentarDeleteCota.setCotas(list);
 		
-		controller.persistCotaDB(parlamentarDeleteCota);	
+		controller.persistCotaLocalDatabase(parlamentarDeleteCota);	
 		assertTrue(controller.deleteCota(parlamentarDeleteCota));	
 	}
 	
@@ -95,7 +95,7 @@ public void testConvertJsonToCotaParlamentar() throws NullCotaParlamentarExcepti
 		list.add(cota);
 		parlamentarDeleteCota.setCotas(list);
 		
-		controller.persistCotaDB(parlamentarDeleteCota);
+		controller.persistCotaLocalDatabase(parlamentarDeleteCota);
 		List<CotaParlamentar> listResult = controller.getCotasByIdParlamentar(114);
 		
 		assertSame(listResult.get(0).getIdParlamentar(), list.get(0).getIdParlamentar());
@@ -107,7 +107,7 @@ public void testConvertJsonToCotaParlamentar() throws NullCotaParlamentarExcepti
 			Parlamentar parlamentarDeleteCota = null;
 			
 			try {
-				controller.persistCotaDB(parlamentarDeleteCota);
+				controller.persistCotaLocalDatabase(parlamentarDeleteCota);
 				
 				fail("Exception not launched");
 			} catch(NullParlamentarException e) {

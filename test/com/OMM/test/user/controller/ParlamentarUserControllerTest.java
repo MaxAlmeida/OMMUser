@@ -1,8 +1,13 @@
 package com.OMM.test.user.controller;
 
-import junit.framework.Assert;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.client.ResponseHandler;
+import org.mockito.Mockito;
+
+import android.content.Context;
 import android.test.AndroidTestCase;
-import android.test.mock.MockContext;
 
 import com.OMM.application.user.controller.ParlamentarUserController;
 import com.OMM.application.user.model.CotaParlamentar;
@@ -10,14 +15,43 @@ import com.OMM.application.user.model.Parlamentar;
 
 public class ParlamentarUserControllerTest extends AndroidTestCase{
 	
-	private MockContext context = new MockContext();
+	private Context context;
 	private Parlamentar parlamentar;
 	private CotaParlamentar cota;
-	private ParlamentarUserController controller = ParlamentarUserController.getInstance(context);
+	private ParlamentarUserController controller;
+	
+	public void setUp() throws Exception{
+		super.setUp();		
+		context = getContext();
+		controller = ParlamentarUserController.getInstance(context);
+	}
 	
 	public void testGetInstance() {
 		
 		ParlamentarUserController controller2 = ParlamentarUserController.getInstance(context);
 		assertSame(controller, controller2);
-	}	
+	}
+	
+	public void testGetParlametares(){
+		List<Parlamentar> list = new ArrayList<Parlamentar>();
+		Parlamentar parlamentar2 = new Parlamentar();
+		parlamentar2.setId(0);
+		list.add(parlamentar2);
+		controller.setParlamentares(list);	
+		assertEquals(list.get(0).getId(), controller.getParlamentares().get(0).getId());
+	}
+	
+	public void testGetParlamentar(){
+		parlamentar = new Parlamentar();
+		parlamentar.setId(1);
+		controller.setParlamentar(parlamentar);
+		assertEquals(parlamentar.getId(),controller.getParlamentar().getId());
+	}
+	
+	public void testDoRequest(){
+		//ResponseHandler<String> response = Mockito.mock(ResponseHandler.class);
+		//TODO later.
+		
+	}
+	
 }

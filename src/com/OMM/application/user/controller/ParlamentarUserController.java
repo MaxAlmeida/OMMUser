@@ -89,6 +89,7 @@ public class ParlamentarUserController {
 		if (responseHandler == null) {
 			throw new TransmissionException();
 		}
+		
 		int idParlamentar = parlamentar.getId();
 		String urlParlamentar = MountURL.mountURLParlamentar(idParlamentar);
 		String jsonParlamentar = HttpConnection.requestParlamentar(
@@ -168,7 +169,7 @@ public class ParlamentarUserController {
 		ParlamentarUserDao parlamentarDAO = ParlamentarUserDao
 				.getInstance(context);
 
-		result = controllerCeap.persistCotaDB(parlamentar)
+		result = controllerCeap.persistCotaLocalDatabase(parlamentar)
 				& parlamentarDAO.updateParlamentar(parlamentar);
 		return result;
 	}

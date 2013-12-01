@@ -57,7 +57,7 @@ public class CotaParlamentarUserController {
 		return cotas;
 	}
 
-	public boolean persistCotaDB(Parlamentar parlamentar)
+	public boolean persistCotaLocalDatabase(Parlamentar parlamentar)
 			throws NullParlamentarException {
 		if(parlamentar != null) {
 			
