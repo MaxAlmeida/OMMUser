@@ -9,6 +9,7 @@ import android.test.AndroidTestCase;
 
 import com.OMM.application.user.dao.ParlamentarUserDao;
 import com.OMM.application.user.exceptions.NullParlamentarException;
+import com.OMM.application.user.model.CotaParlamentar;
 import com.OMM.application.user.model.Parlamentar;
 
 public class ParlamentarUserDaoTest extends AndroidTestCase {
@@ -31,21 +32,29 @@ public class ParlamentarUserDaoTest extends AndroidTestCase {
 		parlamentarA.setId(777);
 		parlamentarA.setNome("Parlamentar Teste Insert");
 		parlamentarA.setSeguido(0);
+		parlamentarA.setPartido("PU");
+		parlamentarA.setUf("DF");
+		
+		
 		
 		//Parlamentar B
 		parlamentarB.setId(7770);
 		parlamentarB.setNome("Parlamentar Teste Dao Cota");
 		parlamentarB.setSeguido(0);
+		parlamentarB.setPartido("PU");
+		parlamentarB.setUf("DF");
 		
 		//Parlamentar C
-		parlamentarB.setId(888);
-		parlamentarB.setNome("Parlamentar Teste Dao Cota");
-		parlamentarB.setSeguido(1);
+		parlamentarC.setId(888);
+		parlamentarC.setNome("Parlamentar Teste Dao Cota");
+		parlamentarC.setSeguido(1);
+		parlamentarC.setPartido("PU");
+		parlamentarC.setUf("DF");
 		
-		if(parlamentarDao.checkEmptyLocalDatabase()){
+	//	if(parlamentarDao.checkEmptyLocalDatabase()){
 		parlamentarDao.insertParlamentar(parlamentarB);
 		parlamentarDao.insertParlamentar(parlamentarC);
-		}
+	//	}
 	}
 
 	public void testGetInstance() 
@@ -84,7 +93,10 @@ public class ParlamentarUserDaoTest extends AndroidTestCase {
 
 	public void testGetById() 
 	{
-		assertSame(parlamentarDao.getById(777).getClass(), Parlamentar.class);
+		Parlamentar parlamentar;
+		parlamentar=parlamentarDao.getById(777);
+		assertNotNull(parlamentar);
+		assertSame(parlamentar.getClass(), Parlamentar.class);
 	}
 
 	public void testGetAll() {
