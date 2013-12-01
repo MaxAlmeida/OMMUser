@@ -10,6 +10,9 @@ import android.content.Context;
 import android.test.AndroidTestCase;
 
 import com.OMM.application.user.controller.ParlamentarUserController;
+import com.OMM.application.user.exceptions.NullCotaParlamentarException;
+import com.OMM.application.user.exceptions.NullParlamentarException;
+import com.OMM.application.user.exceptions.TransmissionException;
 import com.OMM.application.user.model.CotaParlamentar;
 import com.OMM.application.user.model.Parlamentar;
 
@@ -46,6 +49,27 @@ public class ParlamentarUserControllerTest extends AndroidTestCase{
 		parlamentar.setId(1);
 		controller.setParlamentar(parlamentar);
 		assertEquals(parlamentar.getId(),controller.getParlamentar().getId());
+	}
+	
+	public void testConvertJsonToParlamentar() throws NullParlamentarException, TransmissionException{
+		
+		String json = "[{\"id\":373,\"nome\":\"PAULO MALUF\",\"partido\":\"PP\",\"uf\":\"SP\"}]";	
+		Parlamentar parlamentarJson = controller.convertJsonToParlamentar(json);
+		
+		assertEquals(373,parlamentarJson.getId());
+		
+	}
+	
+	public void testConvertJsonToCotaParlamentar() throws NullCotaParlamentarException{
+	
+		String jsonCotas = "[{\"cod\":144068,\"idParlamentar\":373,\"mes\":7,\"ano\":2013,\"numeroSubCota\":3,\"descricao\":\"COMBUST\",\"valor\":150.0}]";
+		
+		List<CotaParlamentar> cotas = controller.convertJsonToCotaParlamentar(jsonCotas);
+		
+		assertEquals(144068,cotas.get(0).getCod());
+		
+		
+		
 	}
 	
 	public void testDoRequest(){
