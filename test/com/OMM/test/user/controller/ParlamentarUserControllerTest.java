@@ -166,4 +166,16 @@ public class ParlamentarUserControllerTest extends AndroidTestCase{
 		assertNotNull(controller.getAll());
 		
 	}
+	
+	public void testDoRequestMajorRanking() throws NullParlamentarException, ConnectionFailedException, RequestFailedException, TransmissionException{
+		Parlamentar p = new Parlamentar();
+		p.setId(373);
+		controller.setParlamentar(p);
+		List<Parlamentar> pJson = controller.doRequestMajorRanking(response);
+		String result = "[{\"id\":49,\"valor\":369922.75,\"nome\":\"MOREIRA MENDES\",\"partido\":\"PSD\",\"uf\":\"RO\"}]";
+		Parlamentar pResult = JSONHelper.listParlamentarFromJSON(result).get(0);
+		
+		assertEquals(pResult.getId(),pJson.get(0).getId());
+		assertEquals(pResult.getNome(),pJson.get(0).getNome());
+	}
 }
