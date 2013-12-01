@@ -42,9 +42,10 @@ public class ParlamentarUserDaoTest extends AndroidTestCase {
 		parlamentarB.setNome("Parlamentar Teste Dao Cota");
 		parlamentarB.setSeguido(1);
 		
+		if(parlamentarDao.checkEmptyLocalDatabase()){
 		parlamentarDao.insertParlamentar(parlamentarB);
 		parlamentarDao.insertParlamentar(parlamentarC);
-		
+		}
 	}
 
 	public void testGetInstance() 
@@ -56,46 +57,53 @@ public class ParlamentarUserDaoTest extends AndroidTestCase {
 
 	public void testCheckEmptyLocalDatabase() 
 	{
-		Assert.assertFalse(parlamentarDao.checkEmptyLocalDatabase());
+		assertFalse(parlamentarDao.checkEmptyLocalDatabase());
 	}
-
+	public void testCheckEmptyLocalDatabaseTrue(){
+		parlamentarDao.deleteParlamentar(parlamentarA);
+		parlamentarDao.deleteParlamentar(parlamentarB);
+		parlamentarDao.deleteParlamentar(parlamentarC);
+		
+		assertTrue(parlamentarDao.checkEmptyLocalDatabase());
+	}
+	
 	public void testInsertParlamentar()
 	{
-		Assert.assertTrue(parlamentarDao.insertParlamentar(parlamentarA));
+		assertTrue(parlamentarDao.insertParlamentar(parlamentarA));
 	}
 
 	public void testDeleteParlamentar() {
-		Assert.assertTrue(parlamentarDao.deleteParlamentar(parlamentarB));
+		assertTrue(parlamentarDao.deleteParlamentar(parlamentarB));
 	}
 
 	public void testUpdateParlamentar() throws NullParlamentarException 
 	{
 		parlamentarA.setSeguido(1);
-		Assert.assertTrue(parlamentarDao.updateParlamentar(parlamentarA));
+		assertTrue(parlamentarDao.updateParlamentar(parlamentarA));
 	}
 
 	public void testGetById() 
 	{
-		Assert.assertSame(parlamentarDao.getById(777).getClass(), Parlamentar.class);
+		assertSame(parlamentarDao.getById(777).getClass(), Parlamentar.class);
 	}
 
 	public void testGetAll() {
 		List<Parlamentar> lista=new ArrayList<Parlamentar>();
 		lista = parlamentarDao.getAll();
-		Assert.assertNotNull(lista);
+		assertNotNull(lista);
 	}
 
 	public void testGetSelected() {
 		List<Parlamentar> lista=new ArrayList<Parlamentar>();
 		lista = parlamentarDao.getSelectedByName("Parlamentar");
-		Assert.assertNotNull(lista);
+		assertNotNull(lista);
 	}
 
 	public void testGetAllSelected() {
 		
 		List<Parlamentar> lista=new ArrayList<Parlamentar>();
 		lista = parlamentarDao.getAllSelected();
-		Assert.assertNotNull(lista);
+		assertNotNull(lista);
 	}
 
 }
