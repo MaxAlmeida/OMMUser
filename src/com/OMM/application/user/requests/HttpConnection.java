@@ -11,6 +11,8 @@ import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import android.util.Log;
+
 import com.OMM.application.user.exceptions.ConnectionFailedException;
 import com.OMM.application.user.exceptions.RequestFailedException;
 
@@ -36,6 +38,7 @@ public abstract class HttpConnection {
 
 			buffer.close();
 			result = builder.toString();
+			Log.d("TESTESTESTES", result);
 
 			return result;
 		}
