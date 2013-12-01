@@ -61,5 +61,12 @@ public class JSONHelperTest extends AndroidTestCase{
 		Assert.assertEquals(parlamentarFirst.getNome(), parlamentarFirstJson.getNome());
 		Assert.assertEquals(parlamentarSecond.getNome(), parlamentarSecondJson.getNome());
 	}
+	
+	public void testInstance(){
+		JSONHelper helper = new JSONHelper();
+		
+		assertEquals(JSONHelper.class, helper.getClass());
+		
+	}
 
 }
