@@ -18,12 +18,14 @@ public class LocalDatabaseTest extends AndroidTestCase
 	private Context context;
 	private SQLiteDatabase database;
 
+	@SuppressLint("SdCardPath")
 	protected void setUp( )
 	{
 
 		this.context = getContext();
 
 		// Apagar o banco para testar o metodo onCreate
+		@SuppressWarnings("unused")
 		SQLiteDatabase database = new LocalDatabase(context)
 				.getWritableDatabase();
 		File file = new File(
@@ -31,6 +33,7 @@ public class LocalDatabaseTest extends AndroidTestCase
 		SQLiteDatabase.deleteDatabase(file);
 	}
 
+	@SuppressLint("SdCardPath")
 	public void testOnCreateSQLiteDatabase( )
 	{
 		db = new LocalDatabase(context);
@@ -42,6 +45,7 @@ public class LocalDatabaseTest extends AndroidTestCase
 				"/data/data/com.OMM.application.user/databases/OMM.db");
 	}
 
+	@SuppressLint("SdCardPath")
 	public void testOnUpgradeSQLiteDatabaseIntInt( )
 	{
 
