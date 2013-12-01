@@ -16,6 +16,13 @@ public class MountURLTest extends AndroidTestCase{
 		
 	}
 	
+	public void testMountUTL(){
+		
+		MountURL mountURL = new MountURL();
+		assertNotNull(mountURL);
+		
+	}
+	
 	public void testMountURLCota(){
 		
 		

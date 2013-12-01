@@ -14,7 +14,7 @@ public class NullCotaParlamentarExceptionTest extends AndroidTestCase {
 			cotaParlamentar.toString();
 			fail("Should have thrown an exception");
 		} catch (NullPointerException e) {
-			assertTrue(true);
+			assertEquals(true, true);
 		}
 
 	}
