@@ -112,17 +112,48 @@ public class ParlamentarUserControllerTest extends AndroidTestCase{
 		assertTrue(controller.unFollowedParlamentar());
 	}
 	
-	public void testFollowedParlamentarException() 
+	public void testFollowedParlamentarNullParlamentrarException() 
 			throws NullCotaParlamentarException, NullParlamentarException {
 		
-		try {
-			
+		try {	
 			controller.setParlamentar(null);
 			controller.followedParlamentar();
 
 			fail("Exceptions not launched");
 			
 		} catch (NullParlamentarException npe) {
+			
+		}
+	}
+	
+	public void testFollowedParlamentarNullCotaParlamentrarException() 
+			throws NullCotaParlamentarException, NullParlamentarException {
+		
+		try {	
+			Parlamentar parlamentar = controller.getByName("TIRIRICA").get(0);
+			List<CotaParlamentar> list = null;
+			parlamentar.setSeguido(1);
+			parlamentar.setCotas(list);
+			controller.setParlamentar(parlamentar);
+			
+			controller.followedParlamentar();
+			fail("Exceptions not launched");
+			
+		} catch (NullCotaParlamentarException npe) {
+			
+		}
+	}
+	
+	public void testUnFollowedParlamentarException() 
+			throws NullParlamentarException, NullCotaParlamentarException {
+		try {
+			controller.setParlamentar(null);
+			controller.unFollowedParlamentar();
+			
+			fail("Exceptions no launched");
+			
+		} catch(NullParlamentarException npe) {
+			
 		}
 	}
 	

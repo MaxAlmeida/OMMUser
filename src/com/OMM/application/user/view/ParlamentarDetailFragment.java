@@ -97,6 +97,10 @@ public class ParlamentarDetailFragment extends Fragment {
 					Toast.makeText(getActivity(), "Erro na requisição",
 							Toast.LENGTH_SHORT).show();
 
+				} catch (NullCotaParlamentarException e) {
+					
+					// TODO FAZER O TRATAMENTO DA EXCECAO
+					e.printStackTrace();
 				}
 			}
 		});

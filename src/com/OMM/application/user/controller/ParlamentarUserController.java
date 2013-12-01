@@ -151,17 +151,25 @@ public class ParlamentarUserController {
 		return parlamentarDao.checkEmptyLocalDatabase();
 	}
 
-	public boolean unFollowedParlamentar() throws NullParlamentarException {
-
+	public boolean unFollowedParlamentar() throws NullParlamentarException, NullCotaParlamentarException {
 		boolean result = true;
-		parlamentar.setSeguido(0);
-		CotaParlamentarUserController controllerCeap = CotaParlamentarUserController
-				.getInstance(context);
 
-		result = controllerCeap.deleteCota(parlamentar.getId())
-				&& parlamentarDao.updateParlamentar(parlamentar);
-
-		return result;
+		if(parlamentar != null && parlamentar.getCotas() != null) {
+			parlamentar.setSeguido(0);
+			CotaParlamentarUserController controllerCeap = CotaParlamentarUserController
+					.getInstance(context);
+	
+			result = controllerCeap.deleteCota(parlamentar.getId())
+					&& parlamentarDao.updateParlamentar(parlamentar);
+	
+			return result;
+			
+		} else if ( parlamentar == null) {
+			throw new NullParlamentarException();
+		}else {
+			
+			throw new NullCotaParlamentarException();
+		}
 	}
 
 	public List<Parlamentar> doRequestMajorRanking(
