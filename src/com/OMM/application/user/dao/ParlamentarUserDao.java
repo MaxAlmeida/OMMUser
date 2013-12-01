@@ -136,7 +136,7 @@ public class ParlamentarUserDao {
 	 * TODO: Metodo utilizado para realizar o filtro de parlamentares ele deve
 	 * ser trabalhado melhor para condi��o de nao encontrar um parlamentar
 	 */
-	public List<Parlamentar> getSelected(String nameParlamentar) {
+	public List<Parlamentar> getSelectedByName(String nameParlamentar) {
 
 		Cursor cursor = database.rawQuery(
 				"SELECT * FROM PARLAMENTAR WHERE NOME_PARLAMENTAR LIKE '%"

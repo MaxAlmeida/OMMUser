@@ -149,7 +149,7 @@ public class ParlamentarUserController {
 	}
 
 	public List<Parlamentar> getByName(String nameParlamentar) {
-		parlamentares = parlamentarDao.getSelected(nameParlamentar);
+		parlamentares = parlamentarDao.getSelectedByName(nameParlamentar);
 		return parlamentares;
 	}
 
@@ -166,11 +166,9 @@ public class ParlamentarUserController {
 
 		CotaParlamentarUserController controllerCeap = CotaParlamentarUserController
 				.getInstance(context);
-		ParlamentarUserDao parlamentarDAO = ParlamentarUserDao
-				.getInstance(context);
 
 		result = controllerCeap.persistCotaLocalDatabase(parlamentar)
-				& parlamentarDAO.updateParlamentar(parlamentar);
+				& parlamentarDao.updateParlamentar(parlamentar);
 		return result;
 	}
 

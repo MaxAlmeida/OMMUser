@@ -81,9 +81,27 @@ public class ParlamentarUserControllerTest extends AndroidTestCase{
 				
 	}
 	
-	public void testGetAll(){		
+	public void testGetAll(){
+
+		List<Parlamentar> listParlamentar = controller.getAll();
+		
+		assertNotNull(listParlamentar);
 		
 		}
+	
+	public void testFollowedParlamentar() throws NullParlamentarException{
+		
+		Parlamentar parlamentar = controller.getByName("TIRIRICA").get(0);
+		List<CotaParlamentar> list = new ArrayList<CotaParlamentar>();
+		CotaParlamentar cota = new CotaParlamentar();
+		cota.setIdParlamentar(parlamentar.getId());
+		parlamentar.setSeguido(1);
+		parlamentar.setCotas(list);
+		controller.setParlamentar(parlamentar);
+		
+		assertTrue(controller.followedParlamentar());
+	}
+	
 	public void testDoRequest(){
 		//ResponseHandler<String> response = Mockito.mock(ResponseHandler.class);
 		//TODO later.
