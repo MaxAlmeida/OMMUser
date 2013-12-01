@@ -158,9 +158,10 @@ public class ParlamentarUserControllerTest extends AndroidTestCase{
 	}
 
 	public void testGetAllSelected(){
-		
-		assertNotNull(controller.getAll());
-		
+		List<Parlamentar> lista=new ArrayList<Parlamentar>();
+		lista = controller.getAll();
+		assertNotNull(lista);
+	
 	}
 	
 	public void testDoRequestMajorRanking() throws NullParlamentarException, ConnectionFailedException, RequestFailedException, TransmissionException{
