@@ -73,13 +73,82 @@ public class JSONHelperTest extends AndroidTestCase{
 		}
 		catch(NullParlamentarException e)
 		{
-			assertNotNull(e.getMessage());
+			 
 		}
 		catch(TransmissionException e)
 		{
-			assertNotNull(e.getMessage());
+			 
 		}
 	}
+	public void testListParlamentarRankingMaioresFromJSONNullParlamentarException()
+	throws NullCotaParlamentarException, TransmissionException
+	{
+		try
+		{
+			Parlamentar parlamentarFirst = new Parlamentar();
+			parlamentarFirst.setNome("MOREIRA MENDES");
+			parlamentarFirst.setValor(369922.75);
+			
+			Parlamentar parlamentarSecond = new Parlamentar();
+			parlamentarSecond.setNome("URZENI ROCHA");
+			parlamentarSecond.setValor(368762.90);
+			
+			List<Parlamentar> ranking = JSONHelper.listParlamentarRankingMaioresFromJSON(null);
+			
+			Parlamentar parlamentarFirstJson = ranking.get(0);
+			Parlamentar parlamentarSecondJson = ranking.get(1);
+			
+			Assert.assertEquals(parlamentarFirst.getNome(), parlamentarFirstJson.getNome());
+			Assert.assertEquals(parlamentarSecond.getNome(), parlamentarSecondJson.getNome());
+			fail("Exception ");
+		}
+		catch(NullParlamentarException e)
+		{
+		 
+		}
+		catch(TransmissionException e)
+		{
+			 
+		}
+		
+		
+	}
+	
+	
+	public void testListParlamentarRankingMaioresFromJSONTransmissionException()
+			throws NullCotaParlamentarException, TransmissionException
+			{
+				try
+				{
+					Parlamentar parlamentarFirst = new Parlamentar();
+					parlamentarFirst.setNome("MOREIRA MENDES");
+					parlamentarFirst.setValor(369922.75);
+					
+					Parlamentar parlamentarSecond = new Parlamentar();
+					parlamentarSecond.setNome("URZENI ROCHA");
+					parlamentarSecond.setValor(368762.90);
+					
+					List<Parlamentar> ranking = JSONHelper.listParlamentarRankingMaioresFromJSON("[{\"id\";49,\"valor\";369922.75,\"nome\";\"MOREIRA MENDES\",\"partido\":\"PSD\",\"uf\":\"RO\"},{\"id\":616,\"valor\":368762.90,\"nome\":\"URZENI ROCHA\",\"partido\":\"PSD\",\"uf\":\"RR\"}]");
+					
+					Parlamentar parlamentarFirstJson = ranking.get(0);
+					Parlamentar parlamentarSecondJson = ranking.get(1);
+					
+					Assert.assertEquals(parlamentarFirst.getNome(), parlamentarFirstJson.getNome());
+					Assert.assertEquals(parlamentarSecond.getNome(), parlamentarSecondJson.getNome());
+					fail("Exception ");
+				}
+				catch(NullParlamentarException e)
+				{
+					 
+				}
+				catch(TransmissionException e)
+				{
+					 
+				}
+				
+				
+			}
+	
 	
 	public void testInstance(){
 		JSONHelper helper = new JSONHelper();
