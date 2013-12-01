@@ -86,7 +86,7 @@ public class ParlamentarUserDaoTest extends AndroidTestCase {
 
 	public void testGetSelected() {
 		List<Parlamentar> lista=new ArrayList<Parlamentar>();
-		lista = parlamentarDao.getSelected("Parlamentar");
+		lista = parlamentarDao.getSelectedByName("Parlamentar");
 		Assert.assertNotNull(lista);
 	}
 

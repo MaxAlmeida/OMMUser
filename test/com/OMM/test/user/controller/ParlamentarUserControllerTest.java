@@ -8,8 +8,10 @@ import org.mockito.Mockito;
 
 import android.content.Context;
 import android.test.AndroidTestCase;
+import android.util.Log;
 
 import com.OMM.application.user.controller.ParlamentarUserController;
+import com.OMM.application.user.dao.ParlamentarUserDao;
 import com.OMM.application.user.exceptions.NullCotaParlamentarException;
 import com.OMM.application.user.exceptions.NullParlamentarException;
 import com.OMM.application.user.exceptions.TransmissionException;
@@ -20,15 +22,23 @@ public class ParlamentarUserControllerTest extends AndroidTestCase{
 	
 	private Context context;
 	private Parlamentar parlamentar;
-	private CotaParlamentar cota;
 	private ParlamentarUserController controller;
-	
+	private ParlamentarUserDao dao;
 	public void setUp() throws Exception{
 		super.setUp();		
 		context = getContext();
 		controller = ParlamentarUserController.getInstance(context);
+		dao = ParlamentarUserDao.getInstance(context);
+		parlamentar = new Parlamentar();
+		parlamentar.setNome("TIRIRICA");
+		parlamentar.setId(0);
+		parlamentar.setSeguido(0);
+		dao.insertParlamentar(parlamentar);
 	}
-	
+	public void tearDown() throws Exception{
+		super.tearDown();
+		dao.deleteParlamentar(parlamentar);
+	}
 	public void testGetInstance() {
 		
 		ParlamentarUserController controller2 = ParlamentarUserController.getInstance(context);
@@ -101,6 +111,23 @@ public class ParlamentarUserControllerTest extends AndroidTestCase{
 		
 		assertTrue(controller.followedParlamentar());
 	}
+	
+	public void testUnFollowedParlamentar() throws NullParlamentarException {
+		
+		Parlamentar parlamentar = controller.getByName("TIRIRICA").get(0);
+		List<CotaParlamentar> list = new ArrayList<CotaParlamentar>();
+		CotaParlamentar cota = new CotaParlamentar();
+		cota.setIdParlamentar(parlamentar.getId());
+		parlamentar.setCotas(list);
+		parlamentar.setSeguido(1);
+		controller.setParlamentar(parlamentar);
+		controller.followedParlamentar();
+		parlamentar.setSeguido(0);
+		controller.setParlamentar(parlamentar);
+		assertTrue(controller.unFollowedParlamentar());
+	}
+	
+	
 	
 	public void testDoRequest(){
 		//ResponseHandler<String> response = Mockito.mock(ResponseHandler.class);

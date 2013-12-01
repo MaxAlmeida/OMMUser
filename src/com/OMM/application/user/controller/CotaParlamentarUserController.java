@@ -60,19 +60,9 @@ public class CotaParlamentarUserController {
 	public boolean persistCotaLocalDatabase(Parlamentar parlamentar)
 			throws NullParlamentarException {
 		if(parlamentar != null) {
-			
-			boolean result = true;
-	
-			List<CotaParlamentar> cotas = parlamentar.getCotas();
-			Iterator<CotaParlamentar> iterator = cotas.iterator();
-	
-			while (iterator.hasNext()) {
-	
-				boolean temporary = cotaParlamentarDao.insertFollowed(iterator.next());
-	
-				result = result & temporary;
-			}
-	
+
+			List<CotaParlamentar> cotas = parlamentar.getCotas();	
+			boolean result = cotaParlamentarDao.insertCotasOnFollowedParlamentar(cotas);	
 			return result;
 		} else {
 			throw new NullParlamentarException();

@@ -2,10 +2,8 @@ package com.OMM.test.user.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import android.content.Context;
 import android.test.AndroidTestCase;
-
 import com.OMM.application.user.controller.CotaParlamentarUserController;
 import com.OMM.application.user.exceptions.NullCotaParlamentarException;
 import com.OMM.application.user.exceptions.NullParlamentarException;
@@ -13,7 +11,6 @@ import com.OMM.application.user.exceptions.TransmissionException;
 import com.OMM.application.user.helper.JSONHelper;
 import com.OMM.application.user.model.CotaParlamentar;
 import com.OMM.application.user.model.Parlamentar;
-
 
 public class CotaParlamentarUserControllerTest extends AndroidTestCase {
 
@@ -32,7 +29,6 @@ public class CotaParlamentarUserControllerTest extends AndroidTestCase {
 		parlamentar.setId(112);
 		parlamentar.setPartido("PT");
 		parlamentar.setNome("Tiririca");
-		
 		cota.setCod(1110);
 		cota.setIdParlamentar(114);
 		cota.setDescricao("Alimentacao");
@@ -43,14 +39,12 @@ public class CotaParlamentarUserControllerTest extends AndroidTestCase {
 		List<CotaParlamentar> lista = new ArrayList<CotaParlamentar>();
 		parlamentar.setCotas(lista);
 	}
-	
-	
+
 	public void testGetInstanceCota() 
 	{
 
 		CotaParlamentarUserController controller1 = CotaParlamentarUserController.getInstance(context);
-		CotaParlamentarUserController controller2 = CotaParlamentarUserController.getInstance(context);
-		
+		CotaParlamentarUserController controller2 = CotaParlamentarUserController.getInstance(context);		
 		assertSame(controller1, controller2);
 	}
 

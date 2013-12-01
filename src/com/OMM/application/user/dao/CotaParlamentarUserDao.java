@@ -1,6 +1,7 @@
 package com.OMM.application.user.dao;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import android.content.ContentValues;
@@ -34,17 +35,24 @@ public class CotaParlamentarUserDao {
 		return instance;
 	}
 
-	public boolean insertFollowed(CotaParlamentar cota) {
+	public boolean insertCotasOnFollowedParlamentar(List<CotaParlamentar> cotas) {
 		sqliteDatabase = database.getWritableDatabase();
-		ContentValues content = new ContentValues();
-		content.put("ID_COTA", cota.getCod());
-		content.put("ID_PARLAMENTAR", cota.getIdParlamentar());
-		content.put("DESCRICAO", cota.getDescricao());
-		content.put("MES", cota.getMes());
-		content.put("ANO", cota.getAno());
-		content.put("VALOR", cota.getValor());
-		content.put("NUM_SUBCOTA", cota.getNumeroSubCota());
-		boolean result = (sqliteDatabase.insert(nome_tabela, null, content) > 0);
+		ContentValues content;
+		CotaParlamentar cota;
+		boolean result = true;
+		Iterator<CotaParlamentar> iterator = cotas.iterator();
+		while(iterator.hasNext() && result){
+			content = new ContentValues();
+			cota = iterator.next();
+			content.put("ID_COTA", cota.getCod());
+			content.put("ID_PARLAMENTAR", cota.getIdParlamentar());
+			content.put("DESCRICAO", cota.getDescricao());
+			content.put("MES", cota.getMes());
+			content.put("ANO", cota.getAno());
+			content.put("VALOR", cota.getValor());
+			content.put("NUM_SUBCOTA", cota.getNumeroSubCota());
+			result = (sqliteDatabase.insert(nome_tabela, null, content) > 0);
+		}
 		sqliteDatabase.close();
 		return result;
 	}

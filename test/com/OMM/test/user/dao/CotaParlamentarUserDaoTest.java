@@ -1,5 +1,6 @@
 package com.OMM.test.user.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -35,23 +36,30 @@ public class CotaParlamentarUserDaoTest extends AndroidTestCase
 
 	public void testInsertFollowed()
 	{
-		Assert.assertEquals(true, cotaDao.insertFollowed(cotaParlamentar));
+		List<CotaParlamentar> list = new ArrayList<CotaParlamentar>();
+		list.add(cotaParlamentar);
+		assertEquals(true, cotaDao.insertCotasOnFollowedParlamentar(list));
 		cotaDao.deleteCotasFromParlamentar(cotaParlamentar.getIdParlamentar());
 	}
 
 	public void testDeleteParlamentar()
 	{
 
-		cotaDao.insertFollowed(cotaParlamentar);
+		List<CotaParlamentar> list = new ArrayList<CotaParlamentar>();
+		list.add(cotaParlamentar);
+		cotaDao.insertCotasOnFollowedParlamentar(list);
 		Assert.assertEquals(true, cotaDao
 				.deleteCotasFromParlamentar(cotaParlamentar.getIdParlamentar()));
 	}
 
 	public void testGetCotasByIdParlamentar()
 	{
-		cotaDao.insertFollowed(cotaParlamentar);
-		List<CotaParlamentar> list = cotaDao.getCotasByIdParlamentar(0);
-		assertEquals(330.0, list.get(0).getValor(), .0f);
+
+		List<CotaParlamentar> list = new ArrayList<CotaParlamentar>();
+		list.add(cotaParlamentar);
+		cotaDao.insertCotasOnFollowedParlamentar(list);
+		List<CotaParlamentar> listDao = cotaDao.getCotasByIdParlamentar(0);
+		assertEquals(330.0, listDao.get(0).getValor(), .0f);
 		cotaDao.deleteCotasFromParlamentar(cotaParlamentar.getIdParlamentar());
 	}
 
