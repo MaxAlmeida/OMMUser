@@ -16,6 +16,13 @@ import com.OMM.application.user.model.Parlamentar;
 public class JSONHelperTest extends AndroidTestCase{
 	
 	
+	public void testJSONHelper( ){
+		
+		JSONHelper jsonHelper = new JSONHelper();
+		assertNotNull(jsonHelper);
+		
+	}
+	
 	public void testListParlamentarFromJSON() throws TransmissionException, NullParlamentarException {
 	
 		Parlamentar parlamentar = new Parlamentar();
