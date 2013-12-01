@@ -166,8 +166,8 @@ public class ParlamentarUserController {
 
 		CotaParlamentarUserController controllerCeap = CotaParlamentarUserController
 				.getInstance(context);
-
-		result = controllerCeap.persistCotaLocalDatabase(parlamentar)
+		parlamentar.setSeguido(1);
+		result = controllerCeap.persistCotasOnLocalDatabase(parlamentar)
 				& parlamentarDao.updateParlamentar(parlamentar);
 		return result;
 	}
@@ -246,7 +246,7 @@ public class ParlamentarUserController {
 	public boolean unFollowedParlamentar() throws NullParlamentarException {
 
 		boolean result = true;
-
+		parlamentar.setSeguido(0);
 		CotaParlamentarUserController controllerCeap = CotaParlamentarUserController
 				.getInstance(context);
 

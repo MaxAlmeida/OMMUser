@@ -50,7 +50,7 @@ public class CotaParlamentarUserControllerTest extends AndroidTestCase {
 
 	public void testPersistCotaLocalDatabase() throws NullParlamentarException{
 		
-		assertTrue(controller.persistCotaLocalDatabase(parlamentar));
+		assertTrue(controller.persistCotasOnLocalDatabase(parlamentar));
 		
 		
 	}
@@ -65,7 +65,7 @@ public class CotaParlamentarUserControllerTest extends AndroidTestCase {
 		list.add(cota);
 		parlamentarDeleteCota.setCotas(list);
 		
-		controller.persistCotaLocalDatabase(parlamentarDeleteCota);	
+		controller.persistCotasOnLocalDatabase(parlamentarDeleteCota);	
 		assertTrue(controller.deleteCota(parlamentarDeleteCota));	
 	}
 	
@@ -79,7 +79,7 @@ public class CotaParlamentarUserControllerTest extends AndroidTestCase {
 		list.add(cota);
 		parlamentarDeleteCota.setCotas(list);
 		
-		controller.persistCotaLocalDatabase(parlamentarDeleteCota);
+		controller.persistCotasOnLocalDatabase(parlamentarDeleteCota);
 		List<CotaParlamentar> listResult = controller.getCotasByIdParlamentar(114);
 		
 		assertSame(listResult.get(0).getIdParlamentar(), list.get(0).getIdParlamentar());
@@ -91,7 +91,7 @@ public class CotaParlamentarUserControllerTest extends AndroidTestCase {
 			Parlamentar parlamentarDeleteCota = null;
 			
 			try {
-				controller.persistCotaLocalDatabase(parlamentarDeleteCota);
+				controller.persistCotasOnLocalDatabase(parlamentarDeleteCota);
 				
 				fail("Exception not launched");
 			} catch(NullParlamentarException e) {

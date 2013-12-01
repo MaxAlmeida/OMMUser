@@ -83,7 +83,6 @@ public class ParlamentarDetailFragment extends Fragment {
 			public void onClick(View v) {
 
 				try {
-					parlamentarController.getParlamentar().setSeguido(0);
 					parlamentarController.unFollowedParlamentar();
 					Toast.makeText(getActivity(), "Parlamentar DesSeguido",
 							Toast.LENGTH_SHORT).show();
@@ -107,7 +106,6 @@ public class ParlamentarDetailFragment extends Fragment {
 			public void onClick(View v) {
 
 				try {
-					parlamentarController.getParlamentar().setSeguido(1);
 					parlamentarController.followedParlamentar();
 					Toast.makeText(getActivity(), "Parlamentar Seguido",
 							Toast.LENGTH_SHORT).show();
