@@ -100,5 +100,18 @@ public void testConvertJsonToCotaParlamentar() throws NullCotaParlamentarExcepti
 		
 		assertSame(listResult.get(0).getIdParlamentar(), list.get(0).getIdParlamentar());
 	}
+	
+		public void testGetCotasByIdParlamentarExceptions() 
+				throws NullParlamentarException{
 
+			Parlamentar parlamentarDeleteCota = null;
+			
+			try {
+				controller.persistCotaDB(parlamentarDeleteCota);
+				
+				fail("Exception not launched");
+			} catch(NullParlamentarException e) {
+				
+			}
+		}
 }
