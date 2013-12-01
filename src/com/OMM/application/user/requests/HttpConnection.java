@@ -45,7 +45,7 @@ public abstract class HttpConnection {
 		return responseHandler;
 	}
 
-	public static String requestParlamentar(ResponseHandler<String> response,
+	public static String request(ResponseHandler<String> response,
 			String url) throws ConnectionFailedException, RequestFailedException {
 
 		try {
@@ -53,9 +53,8 @@ public abstract class HttpConnection {
 			DefaultHttpClient client = new DefaultHttpClient();
 			HttpGet http = new HttpGet(url);
 			
-			//String jsonParlamentar = client.execute(http, response);
-			String jsonParlamentar = new String(client.execute(http,response).getBytes("ISO-8859-1"),"UTF-8");
-			return jsonParlamentar;
+			String json = new String(client.execute(http,response).getBytes("ISO-8859-1"),"UTF-8");
+			return json;
 
 		} catch (ClientProtocolException e) {
 			throw new RequestFailedException();
@@ -65,44 +64,4 @@ public abstract class HttpConnection {
 		}
 	}
 
-	public static String requestCota(ResponseHandler<String> response,
-			String url) throws ConnectionFailedException, RequestFailedException{
-		
-		DefaultHttpClient client = new DefaultHttpClient();
-		HttpGet http = new HttpGet(url);
-		
-		String jsonCotaParlamentar = null;
-
-		try {
-			
-			jsonCotaParlamentar = client.execute(http, response);
-
-		} catch (ClientProtocolException e) {
-			throw new RequestFailedException();
-
-		} catch (IOException ioe) {;
-			throw new ConnectionFailedException();
-		}
-
-		return jsonCotaParlamentar;
-	}
-	
-	public static String requestMajorRanking(ResponseHandler<String> response, String url) throws ConnectionFailedException, RequestFailedException{
-		
-		try {
-			
-			DefaultHttpClient client = new DefaultHttpClient();
-			HttpGet http = new HttpGet(url);
-
-			String jsonMajorRanking = new String(client.execute(http,response).getBytes("ISO-8859-1"),"UTF-8");
-
-			return jsonMajorRanking;
-
-		} catch (ClientProtocolException e) {
-			throw new RequestFailedException();
-
-		} catch (IOException ioe) {
-			throw new ConnectionFailedException();
-		}
-	}
 }
