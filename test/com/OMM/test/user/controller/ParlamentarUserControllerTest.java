@@ -2,25 +2,34 @@ package com.OMM.test.user.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.http.client.ResponseHandler;
+
 import android.content.Context;
 import android.test.AndroidTestCase;
+
 import com.OMM.application.user.controller.ParlamentarUserController;
 import com.OMM.application.user.dao.ParlamentarUserDao;
+import com.OMM.application.user.exceptions.ConnectionFailedException;
 import com.OMM.application.user.exceptions.NullCotaParlamentarException;
 import com.OMM.application.user.exceptions.NullParlamentarException;
+import com.OMM.application.user.exceptions.RequestFailedException;
 import com.OMM.application.user.exceptions.TransmissionException;
 import com.OMM.application.user.helper.JSONHelper;
 import com.OMM.application.user.model.CotaParlamentar;
 import com.OMM.application.user.model.Parlamentar;
+import com.OMM.application.user.requests.HttpConnection;
 
 public class ParlamentarUserControllerTest extends AndroidTestCase{
 	
 	private Context context;
+	private ResponseHandler<String> response;
 	private Parlamentar parlamentar;
 	private ParlamentarUserController controller;
 	private ParlamentarUserDao dao;
 	public void setUp() throws Exception{
 		super.setUp();		
+		response = HttpConnection.getResponseHandler();
 		context = getContext();
 		controller = ParlamentarUserController.getInstance(context);
 		dao = ParlamentarUserDao.getInstance(context);
@@ -115,10 +124,16 @@ public class ParlamentarUserControllerTest extends AndroidTestCase{
 		}
 	}
 	
-	public void testDoRequest(){
-		//ResponseHandler<String> response = Mockito.mock(ResponseHandler.class);
-		//TODO later.
+	public void testDoRequest() throws ConnectionFailedException, RequestFailedException, TransmissionException, NullParlamentarException, NullCotaParlamentarException{
+		Parlamentar p = new Parlamentar();
+		p.setId(373);
+		controller.setParlamentar(p);
+		Parlamentar pJson = controller.doRequest(response);
+		String result = "[{\"id\":373,\"nome\":\"PAULO MALUF\",\"partido\":\"PP\",\"uf\":\"SP\"}]";
+		Parlamentar pResult = JSONHelper.listParlamentarFromJSON(result).get(0);
 		
+		assertEquals(pResult.getId(),pJson.getId());
+		assertEquals(pResult.getNome(),pJson.getNome());
 	}
 	
 }
