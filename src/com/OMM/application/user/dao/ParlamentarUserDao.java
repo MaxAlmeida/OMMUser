@@ -20,12 +20,12 @@ public class ParlamentarUserDao {
 	private static String nome_tabela = "PARLAMENTAR";
 	private static String[] colunas = { "ID_PARLAMENTAR,NOME_PARLAMENTAR,PARTIDO,UF,SEGUIDO" };
 	private static ParlamentarUserDao instance;
-	private static SQLiteDatabase database;
-
+	private static LocalDatabase database;
+	private static SQLiteDatabase sqliteDatabase;
 
 	@SuppressWarnings("static-access")
 	private ParlamentarUserDao(Context context) {
-		this.database = new LocalDatabase(context).getWritableDatabase();
+		this.database = new LocalDatabase(context);
 	}
 
 	public static ParlamentarUserDao getInstance(Context context) {
@@ -39,6 +39,7 @@ public class ParlamentarUserDao {
 
 	public boolean checkEmptyLocalDatabase() {
 
+		sqliteDatabase = database.getWritableDatabase();
 		boolean result = false;
 
 		List<Parlamentar> parlamentares = new ArrayList<Parlamentar>();
@@ -48,14 +49,13 @@ public class ParlamentarUserDao {
 		if (parlamentares.isEmpty()) {
 			result = true;
 		}
-
-		Log.i("ParlamentarUserDao", "Result : " + result);
-
+		sqliteDatabase.close();
 		return result;
 	}
 
 	public boolean insertParlamentar(Parlamentar parlamentar) {
 
+		sqliteDatabase = database.getWritableDatabase();
 		ContentValues content = new ContentValues();
 
 		content.put("ID_PARLAMENTAR", parlamentar.getId());
@@ -63,34 +63,41 @@ public class ParlamentarUserDao {
 		content.put("SEGUIDO", parlamentar.getIsSeguido());
 		content.put("PARTIDO", parlamentar.getPartido());
 		content.put("UF", parlamentar.getUf());
-
-		return (database.insert(nome_tabela, null, content) > 0);
+		boolean result = (sqliteDatabase.insert(nome_tabela, null, content) > 0);
+		sqliteDatabase.close();
+		return result;
 	}
 
 	public boolean deleteParlamentar(Parlamentar parlamentar) {
 
-		return (database.delete(nome_tabela, "ID_PARLAMENTAR=?",
-				new String[] { parlamentar.getId() + "" }) > 0);
+		sqliteDatabase = database.getWritableDatabase();
+		boolean result = (sqliteDatabase.delete(nome_tabela,
+				"ID_PARLAMENTAR=?", new String[] { parlamentar.getId() + "" }) > 0);
+		sqliteDatabase.close();
+		return result;
 	}
 
-	public boolean updateParlamentar(Parlamentar parlamentar) throws NullParlamentarException {
+	public boolean updateParlamentar(Parlamentar parlamentar)
+			throws NullParlamentarException {
 
-		if(parlamentar != null){
-		ContentValues content = new ContentValues();
-
-		content.put("SEGUIDO", parlamentar.getIsSeguido());
-
-		return (database.update(nome_tabela, content, "ID_PARLAMENTAR=?",
-				new String[] { parlamentar.getId() + "" }) > 0);
-		}
-		else {
+		if (parlamentar != null) {
+			sqliteDatabase = database.getWritableDatabase();
+			ContentValues content = new ContentValues();
+			content.put("SEGUIDO", parlamentar.getIsSeguido());
+			boolean result = (sqliteDatabase.update(nome_tabela, content,
+					"ID_PARLAMENTAR=?",
+					new String[] { parlamentar.getId() + "" }) > 0);
+			sqliteDatabase.close();
+			return result;
+		} else {
 			throw new NullParlamentarException();
 		}
 	}
 
 	public Parlamentar getById(Integer ID_PARLAMENTAR) {
 
-		Cursor cursor = database.query(nome_tabela, colunas,
+		sqliteDatabase = database.getReadableDatabase();
+		Cursor cursor = sqliteDatabase.query(nome_tabela, colunas,
 				"ID_PARLAMENTAR=?", new String[] { ID_PARLAMENTAR.toString() },
 				null, null, null);
 
@@ -109,13 +116,15 @@ public class ParlamentarUserDao {
 			parlamentar.setUf(cursor.getString(cursor.getColumnIndex("UF")));
 
 		}
-
+		sqliteDatabase.close();
 		return parlamentar;
 	}
 
 	public List<Parlamentar> getAll() {
-
-		Cursor cursor = database.rawQuery("SELECT * FROM PARLAMENTAR", null);
+		
+		sqliteDatabase = database.getReadableDatabase();
+		Cursor cursor = sqliteDatabase.rawQuery("SELECT * FROM PARLAMENTAR",
+				null);
 		List<Parlamentar> listParlamentares = new ArrayList<Parlamentar>();
 
 		while (cursor.moveToNext()) {
@@ -132,13 +141,14 @@ public class ParlamentarUserDao {
 			parlamentar.setUf(cursor.getString(cursor.getColumnIndex("UF")));
 			listParlamentares.add(parlamentar);
 		}
-
+		sqliteDatabase.close();
 		return listParlamentares;
 	}
 
 	public List<Parlamentar> getSelectedByName(String nameParlamentar) {
 
-		Cursor cursor = database.rawQuery(
+		sqliteDatabase = database.getReadableDatabase();
+		Cursor cursor = sqliteDatabase.rawQuery(
 				"SELECT * FROM PARLAMENTAR WHERE NOME_PARLAMENTAR LIKE '%"
 						+ nameParlamentar + "%'", null);
 
@@ -158,13 +168,13 @@ public class ParlamentarUserDao {
 			parlamentar.setUf(cursor.getString(cursor.getColumnIndex("UF")));
 			listParlamentar.add(parlamentar);
 		}
-
+		sqliteDatabase.close();
 		return listParlamentar;
 	}
 
 	public List<Parlamentar> getAllSelected() {
-
-		Cursor cursor = database.rawQuery(
+		sqliteDatabase = database.getReadableDatabase();
+		Cursor cursor = sqliteDatabase.rawQuery(
 				"SELECT * FROM PARLAMENTAR WHERE SEGUIDO IN(1)", null);
 
 		List<Parlamentar> listParlamentar = new ArrayList<Parlamentar>();
@@ -182,7 +192,7 @@ public class ParlamentarUserDao {
 			parlamentar.setUf(cursor.getString(cursor.getColumnIndex("UF")));
 			listParlamentar.add(parlamentar);
 		}
-
+		sqliteDatabase.close();
 		return listParlamentar;
 	}
 }
