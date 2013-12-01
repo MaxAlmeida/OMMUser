@@ -1,6 +1,7 @@
 package com.OMM.test.user.controller;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.http.client.ResponseHandler;
@@ -187,7 +188,15 @@ public class ParlamentarUserControllerTest extends AndroidTestCase{
 	
 	public void testCheckEmptyDBTrue(){
 		
-		dao.deleteParlamentar(parlamentar);
+		controller.getAll();
+		Iterator<Parlamentar> iterator = controller.getAll().iterator();
+		
+		while( iterator.hasNext()){
+			Parlamentar p = iterator.next();
+			dao.deleteParlamentar(p);	
+			
+			
+		}
 		
 		assertTrue(controller.checkEmptyDB());
 
