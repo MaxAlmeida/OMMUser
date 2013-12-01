@@ -56,14 +56,6 @@ public class ParlamentarUserControllerTest extends AndroidTestCase{
 		assertEquals(parlamentar.getId(),controller.getParlamentar().getId());
 	}
 	
-	public void testConvertJsonToParlamentar() throws NullParlamentarException, TransmissionException{
-		
-		String json = "[{\"id\":373,\"nome\":\"PAULO MALUF\",\"partido\":\"PP\",\"uf\":\"SP\"}]";	
-		Parlamentar parlamentarJson =JSONHelper.listParlamentarFromJSON(json).get(0);
-
-		assertEquals(373,parlamentarJson.getId());		
-	}
-	
 	public void testGetByName(){
 		
 		String nameParlamentar = "TIRIRICA";
