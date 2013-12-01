@@ -100,12 +100,20 @@ public class ParlamentarUserController {
 
 		boolean result = true;
 
-		CotaParlamentarUserController controllerCeap = CotaParlamentarUserController
-				.getInstance(context);
-		parlamentar.setSeguido(1);
-		result = controllerCeap.persistCotasOnLocalDatabase(parlamentar.getCotas())
-				&& parlamentarDao.updateParlamentar(parlamentar);
-		return result;
+		if(parlamentar != null && parlamentar.getCotas() != null){
+			CotaParlamentarUserController controllerCeap = CotaParlamentarUserController
+					.getInstance(context);
+			parlamentar.setSeguido(1);
+			result = controllerCeap.persistCotasOnLocalDatabase(parlamentar.getCotas())
+					&& parlamentarDao.updateParlamentar(parlamentar);
+			return result;
+		}
+		else if ( parlamentar == null) {
+			throw new NullParlamentarException();
+		}else {
+			
+			throw new NullCotaParlamentarException();
+		}
 	}
 
 	public boolean insertAll(ResponseHandler<String> response)
