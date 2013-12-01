@@ -71,7 +71,19 @@ public class ParlamentarUserControllerTest extends AndroidTestCase{
 		
 		
 	}
+
+	public void testGetByName(){
+		
+		String nameParlamentar = "TIRIRICA";
+	List<Parlamentar> listParlamentar = controller.getByName(nameParlamentar);
 	
+	assertEquals(nameParlamentar, listParlamentar.get(0).getNome());
+				
+	}
+	
+	public void testGetAll(){		
+		
+		}
 	public void testDoRequest(){
 		//ResponseHandler<String> response = Mockito.mock(ResponseHandler.class);
 		//TODO later.
