@@ -60,28 +60,6 @@ public class ParlamentarUserController {
 		ParlamentarUserController.parlamentares = parlamentares;
 	}
 
-	public Parlamentar convertJsonToParlamentar(String jsonParlamentar)
-			throws NullParlamentarException, TransmissionException {
-
-		Parlamentar parlamentar = null;
-
-		try {
-			parlamentar = JSONHelper.listParlamentarFromJSON(jsonParlamentar)
-					.get(0);
-
-		} catch (JsonSyntaxException jse) {
-			throw new TransmissionException();
-		} catch (NullPointerException e) {
-
-			throw new NullParlamentarException();
-		}
-		if (parlamentar == null) {
-			throw new NullParlamentarException();
-		}
-
-		return parlamentar;
-	}
-
 	public Parlamentar doRequest(ResponseHandler<String> responseHandler)
 			throws NullParlamentarException, NullCotaParlamentarException,
 			TransmissionException, ConnectionFailedException, RequestFailedException {
@@ -95,7 +73,7 @@ public class ParlamentarUserController {
 		String jsonParlamentar = HttpConnection.requestParlamentar(
 				responseHandler, urlParlamentar);
 
-		parlamentar = convertJsonToParlamentar(jsonParlamentar);
+		parlamentar = JSONHelper.listParlamentarFromJSON(jsonParlamentar).get(0);
 
 		String urlCotas = MountURL.mountURLCota(idParlamentar);
 		String jsonCotasParlamentar = HttpConnection.requestCota(
@@ -134,7 +112,7 @@ public class ParlamentarUserController {
 		String jsonParlamentar = HttpConnection.requestParlamentar(
 				responseHandler, urlParlamentar);
 
-		parlamentar = convertJsonToParlamentar(jsonParlamentar);
+		parlamentar = JSONHelper.listParlamentarFromJSON(jsonParlamentar).get(0);
 
 		String urlCotas = MountURL.mountURLCota(idParlamentar);
 		String jsonCotasParlamentar = HttpConnection.requestCota(
@@ -173,20 +151,12 @@ public class ParlamentarUserController {
 	}
 
 	public List<Parlamentar> convertJsonToListParlamentar(
-			String jsonParlamentares) throws NullParlamentarException {
-
-		try
-		{
+			String jsonParlamentares) throws NullParlamentarException, TransmissionException {
 
 			List<Parlamentar> parlamentares = JSONHelper
 					.listParlamentarFromJSON(jsonParlamentares);
 
 			return parlamentares;
-
-		} catch (NullPointerException npe) {
-
-			throw new NullParlamentarException();
-		}
 	}
 
 	public List<Parlamentar> convertJsonToListParlamentarRankingMaiores(
@@ -208,7 +178,7 @@ public class ParlamentarUserController {
 
 	public boolean insertAll(ResponseHandler<String> response)
 			throws NullParlamentarException, ConnectionFailedException,
-			RequestFailedException {
+			RequestFailedException, TransmissionException {
 
 		String urlParlamentares = MountURL.mountUrlAll();
 		String jsonParlamentares = HttpConnection.requestParlamentar(response,

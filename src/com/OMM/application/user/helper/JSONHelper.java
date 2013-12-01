@@ -3,6 +3,7 @@ package com.OMM.application.user.helper;
 import java.util.List;
 
 import com.OMM.application.user.exceptions.NullCotaParlamentarException;
+import com.OMM.application.user.exceptions.NullParlamentarException;
 import com.OMM.application.user.exceptions.TransmissionException;
 import com.OMM.application.user.model.CotaParlamentar;
 import com.OMM.application.user.model.Parlamentar;
@@ -13,13 +14,20 @@ import com.google.gson.reflect.TypeToken;
 public class JSONHelper
 {
 	public static List<Parlamentar> listParlamentarFromJSON(
-			String jsonParlamentar) {
+			String jsonParlamentar) throws TransmissionException, NullParlamentarException {
+		List<Parlamentar> listParlamentar;	
+		try{
+			Gson gson = new Gson();
+			listParlamentar = gson.fromJson(jsonParlamentar,
+					new TypeToken<List<Parlamentar>>() {
+					}.getType());
 
-		Gson gson = new Gson();
-		List<Parlamentar> listParlamentar = gson.fromJson(jsonParlamentar,
-				new TypeToken<List<Parlamentar>>() {
-				}.getType());
+		} catch (JsonSyntaxException jse) {
+			throw new TransmissionException();
+		} catch (NullPointerException e) {
 
+			throw new NullParlamentarException();
+		}
 		return listParlamentar;
 	}
 

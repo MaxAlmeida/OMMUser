@@ -7,6 +7,7 @@ import junit.framework.Assert;
 import android.test.AndroidTestCase;
 
 import com.OMM.application.user.exceptions.NullCotaParlamentarException;
+import com.OMM.application.user.exceptions.NullParlamentarException;
 import com.OMM.application.user.exceptions.TransmissionException;
 import com.OMM.application.user.helper.JSONHelper;
 import com.OMM.application.user.model.CotaParlamentar;
@@ -15,7 +16,7 @@ import com.OMM.application.user.model.Parlamentar;
 public class JSONHelperTest extends AndroidTestCase{
 	
 	
-	public void testListParlamentarFromJSON() {
+	public void testListParlamentarFromJSON() throws TransmissionException, NullParlamentarException {
 	
 		Parlamentar parlamentar = new Parlamentar();
 		parlamentar.setNome("PAULO MALUF");

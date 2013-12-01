@@ -15,6 +15,7 @@ import com.OMM.application.user.dao.ParlamentarUserDao;
 import com.OMM.application.user.exceptions.NullCotaParlamentarException;
 import com.OMM.application.user.exceptions.NullParlamentarException;
 import com.OMM.application.user.exceptions.TransmissionException;
+import com.OMM.application.user.helper.JSONHelper;
 import com.OMM.application.user.model.CotaParlamentar;
 import com.OMM.application.user.model.Parlamentar;
 
@@ -64,7 +65,7 @@ public class ParlamentarUserControllerTest extends AndroidTestCase{
 	public void testConvertJsonToParlamentar() throws NullParlamentarException, TransmissionException{
 		
 		String json = "[{\"id\":373,\"nome\":\"PAULO MALUF\",\"partido\":\"PP\",\"uf\":\"SP\"}]";	
-		Parlamentar parlamentarJson = controller.convertJsonToParlamentar(json);
+		Parlamentar parlamentarJson =JSONHelper.listParlamentarFromJSON(json).get(0);
 
 		assertEquals(373,parlamentarJson.getId());		
 	}
