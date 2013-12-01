@@ -178,4 +178,18 @@ public class ParlamentarUserControllerTest extends AndroidTestCase{
 		assertEquals(pResult.getId(),pJson.get(0).getId());
 		assertEquals(pResult.getNome(),pJson.get(0).getNome());
 	}
+	
+	public void testCheckEmptyDBFalse(){
+		
+		assertFalse(controller.checkEmptyDB());	
+		
+	}
+	
+	public void testCheckEmptyDBTrue(){
+		
+		dao.deleteParlamentar(parlamentar);
+		
+		assertTrue(controller.checkEmptyDB());
+
+	}
 }
