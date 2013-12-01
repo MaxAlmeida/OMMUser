@@ -152,15 +152,25 @@ public class ParlamentarUserControllerTest extends AndroidTestCase{
 	
 	public void testInsertAllTrue() throws NullParlamentarException, ConnectionFailedException, RequestFailedException, TransmissionException{
 		
+		controller.getAll();
+		Iterator<Parlamentar> iterator = controller.getAll().iterator();
+		
+		while( iterator.hasNext()){
+			Parlamentar p = iterator.next();
+			dao.deleteParlamentar(p);	
+						
+		}
+		
 		ResponseHandler<String> response = HttpConnection.getResponseHandler();
-		assertFalse(controller.insertAll(response));
+		assertTrue(controller.insertAll(response));
 		
 	}
 
 	public void testGetAllSelected(){
-		
-		assertNotNull(controller.getAll());
-		
+		List<Parlamentar> lista=new ArrayList<Parlamentar>();
+		lista = controller.getAllSelected();
+		assertNotNull(lista);
+	
 	}
 	
 	public void testDoRequestMajorRanking() throws NullParlamentarException, ConnectionFailedException, RequestFailedException, TransmissionException{
