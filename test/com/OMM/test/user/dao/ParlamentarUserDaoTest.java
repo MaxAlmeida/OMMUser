@@ -1,6 +1,7 @@
 package com.OMM.test.user.dao;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -69,9 +70,17 @@ public class ParlamentarUserDaoTest extends AndroidTestCase {
 		assertFalse(parlamentarDao.checkEmptyLocalDatabase());
 	}
 	public void testCheckEmptyLocalDatabaseTrue(){
-		parlamentarDao.deleteParlamentar(parlamentarA);
-		parlamentarDao.deleteParlamentar(parlamentarB);
-		parlamentarDao.deleteParlamentar(parlamentarC);
+		
+		
+		Iterator<Parlamentar> iterator = parlamentarDao.getAll().iterator();
+		
+		while( iterator.hasNext()){
+			Parlamentar p = iterator.next();
+			parlamentarDao.deleteParlamentar(p);	
+			
+			
+		}
+		
 		
 		assertTrue(parlamentarDao.checkEmptyLocalDatabase());
 	}
