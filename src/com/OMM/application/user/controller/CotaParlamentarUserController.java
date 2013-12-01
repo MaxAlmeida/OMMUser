@@ -43,8 +43,8 @@ public class CotaParlamentarUserController {
 		}
 	}
 
-	public boolean deleteCota(Parlamentar parlamentar) {
-		return cotaParlamentarDao.deleteCotasFromParlamentar(parlamentar.getId());
+	public boolean deleteCota(int idParlamentar) {
+		return cotaParlamentarDao.deleteCotasFromParlamentar(idParlamentar);
 	}
 
 	public List<CotaParlamentar> getCotasByIdParlamentar(int idParlamentar){

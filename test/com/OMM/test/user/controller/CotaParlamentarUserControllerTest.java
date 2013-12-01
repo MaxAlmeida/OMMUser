@@ -66,7 +66,7 @@ public class CotaParlamentarUserControllerTest extends AndroidTestCase {
 		parlamentarDeleteCota.setCotas(list);
 		
 		controller.persistCotasOnLocalDatabase(parlamentarDeleteCota);	
-		assertTrue(controller.deleteCota(parlamentarDeleteCota));	
+		assertTrue(controller.deleteCota(parlamentarDeleteCota.getId()));	
 	}
 	
 	public void testGetCotasByIdParlamentar() throws NullParlamentarException {

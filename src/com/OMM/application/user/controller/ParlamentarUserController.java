@@ -250,7 +250,7 @@ public class ParlamentarUserController {
 		CotaParlamentarUserController controllerCeap = CotaParlamentarUserController
 				.getInstance(context);
 
-		result = controllerCeap.deleteCota(parlamentar)
+		result = controllerCeap.deleteCota(parlamentar.getId())
 				& parlamentarDao.updateParlamentar(parlamentar);
 
 		return result;
