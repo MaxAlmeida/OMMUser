@@ -140,4 +140,23 @@ public class ParlamentarUserControllerTest extends AndroidTestCase{
 		
 		assertNotNull(controller.getSelected());
 	}
+	
+	//TODO
+	//CHECKEMPTYBD
+	//INSERTALL
+	//UNFOLLOWEDD
+	
+	public void testInsertAllFalse() throws NullParlamentarException, ConnectionFailedException, RequestFailedException, TransmissionException{
+		
+		ResponseHandler<String> response = HttpConnection.getResponseHandler();
+		assertFalse(controller.insertAll(response));
+		
+	}
+	
+public void testInsertAllTrue() throws NullParlamentarException, ConnectionFailedException, RequestFailedException, TransmissionException{
+		
+		ResponseHandler<String> response = HttpConnection.getResponseHandler();
+		assertFalse(controller.insertAll(response));
+		
+	}
 }
