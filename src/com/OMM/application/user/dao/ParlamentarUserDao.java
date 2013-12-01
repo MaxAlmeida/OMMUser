@@ -18,7 +18,6 @@ public class ParlamentarUserDao {
 	// TODO:Fazer try catch do banco
 
 	private static String nome_tabela = "PARLAMENTAR";
-	private static Context context;
 	private static String[] colunas = { "ID_PARLAMENTAR,NOME_PARLAMENTAR,PARTIDO,UF,SEGUIDO" };
 	private static ParlamentarUserDao instance;
 	private static SQLiteDatabase database;
@@ -26,7 +25,6 @@ public class ParlamentarUserDao {
 
 	@SuppressWarnings("static-access")
 	private ParlamentarUserDao(Context context) {
-		this.context = context;
 		this.database = new LocalDatabase(context).getWritableDatabase();
 	}
 
@@ -138,10 +136,6 @@ public class ParlamentarUserDao {
 		return listParlamentares;
 	}
 
-	/*
-	 * TODO: Metodo utilizado para realizar o filtro de parlamentares ele deve
-	 * ser trabalhado melhor para condi��o de nao encontrar um parlamentar
-	 */
 	public List<Parlamentar> getSelectedByName(String nameParlamentar) {
 
 		Cursor cursor = database.rawQuery(

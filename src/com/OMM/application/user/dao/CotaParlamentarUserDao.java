@@ -11,19 +11,15 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.OMM.application.user.helper.LocalDatabase;
 import com.OMM.application.user.model.CotaParlamentar;
-import com.OMM.application.user.model.Parlamentar;
 
 public class CotaParlamentarUserDao {
 
 	private static String nome_tabela = "COTA";
-	private static Context context;
 	private static CotaParlamentarUserDao instance;
 	private LocalDatabase database;
 	private SQLiteDatabase sqliteDatabase;
 	
 	private CotaParlamentarUserDao(Context context) {
-		
-		CotaParlamentarUserDao.context = context;
 		database = new LocalDatabase(context);
 	}
 
@@ -57,7 +53,7 @@ public class CotaParlamentarUserDao {
 		return result;
 	}
 
-	public boolean deleteCotasFromParlamentar(int idParlamentar) {		
+	public boolean deleteCotasFromParlamentar(int idParlamentar) {
 		sqliteDatabase = database.getWritableDatabase();
 		boolean result = (sqliteDatabase.delete(nome_tabela, "ID_PARLAMENTAR=?",
 				new String[] { idParlamentar + "" }) > 0);
