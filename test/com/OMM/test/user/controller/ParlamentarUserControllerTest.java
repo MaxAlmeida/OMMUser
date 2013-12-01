@@ -136,4 +136,8 @@ public class ParlamentarUserControllerTest extends AndroidTestCase{
 		assertEquals(pResult.getNome(),pJson.getNome());
 	}
 	
+	public void testGetSelected(){
+		
+		assertNotNull(controller.getSelected());
+	}
 }
