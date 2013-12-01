@@ -33,6 +33,7 @@ public class JSONHelperTest extends AndroidTestCase{
 		
 		assertEquals(parlamentar.getId(), parlamentar2.getId());
 		assertTrue(parlamentar.getNome().equals(parlamentar2.getNome()));
+		assertNotNull(JSONHelper.listParlamentarFromJSON("[{\"id\":373,\"nome\":\"PAULO MALUF\",\"partido\":\"PP\",\"uf\":\"SP\"}]"));
 }
 
 	
