@@ -1,6 +1,6 @@
 package com.OMM.application.user.requests;
 
-public abstract class MountURL {
+public class MountURL {
 	
 	public static final String IP = "192.168.1.3";
 	
