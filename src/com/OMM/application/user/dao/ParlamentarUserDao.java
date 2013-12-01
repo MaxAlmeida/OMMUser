@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.OMM.application.user.exceptions.NullParlamentarException;
 import com.OMM.application.user.helper.LocalDatabase;
 import com.OMM.application.user.model.Parlamentar;
 
@@ -17,7 +18,6 @@ public class ParlamentarUserDao {
 	// TODO:Fazer try catch do banco
 
 	private static String nome_tabela = "PARLAMENTAR";
-	private static Context context;
 	private static String[] colunas = { "ID_PARLAMENTAR,NOME_PARLAMENTAR,PARTIDO,UF,SEGUIDO" };
 	private static ParlamentarUserDao instance;
 	private static SQLiteDatabase database;
@@ -25,7 +25,6 @@ public class ParlamentarUserDao {
 
 	@SuppressWarnings("static-access")
 	private ParlamentarUserDao(Context context) {
-		this.context = context;
 		this.database = new LocalDatabase(context).getWritableDatabase();
 	}
 
@@ -74,14 +73,19 @@ public class ParlamentarUserDao {
 				new String[] { parlamentar.getId() + "" }) > 0);
 	}
 
-	public boolean updateParlamentar(Parlamentar parlamentar) {
+	public boolean updateParlamentar(Parlamentar parlamentar) throws NullParlamentarException {
 
+		if(parlamentar != null){
 		ContentValues content = new ContentValues();
 
 		content.put("SEGUIDO", parlamentar.getIsSeguido());
 
 		return (database.update(nome_tabela, content, "ID_PARLAMENTAR=?",
 				new String[] { parlamentar.getId() + "" }) > 0);
+		}
+		else {
+			throw new NullParlamentarException();
+		}
 	}
 
 	public Parlamentar getById(Integer ID_PARLAMENTAR) {
@@ -132,10 +136,6 @@ public class ParlamentarUserDao {
 		return listParlamentares;
 	}
 
-	/*
-	 * TODO: Metodo utilizado para realizar o filtro de parlamentares ele deve
-	 * ser trabalhado melhor para condi��o de nao encontrar um parlamentar
-	 */
 	public List<Parlamentar> getSelectedByName(String nameParlamentar) {
 
 		Cursor cursor = database.rawQuery(

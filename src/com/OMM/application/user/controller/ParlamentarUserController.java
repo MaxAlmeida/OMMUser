@@ -7,7 +7,6 @@ import java.util.List;
 import org.apache.http.client.ResponseHandler;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.OMM.application.user.dao.ParlamentarUserDao;
 import com.OMM.application.user.exceptions.ConnectionFailedException;
@@ -20,7 +19,6 @@ import com.OMM.application.user.model.CotaParlamentar;
 import com.OMM.application.user.model.Parlamentar;
 import com.OMM.application.user.requests.HttpConnection;
 import com.OMM.application.user.requests.MountURL;
-import com.google.gson.JsonSyntaxException;
 
 public class ParlamentarUserController {
 
@@ -70,13 +68,13 @@ public class ParlamentarUserController {
 		
 		int idParlamentar = parlamentar.getId();
 		String urlParlamentar = MountURL.mountURLParlamentar(idParlamentar);
-		String jsonParlamentar = HttpConnection.requestParlamentar(
+		String jsonParlamentar = HttpConnection.request(
 				responseHandler, urlParlamentar);
 
 		parlamentar = JSONHelper.listParlamentarFromJSON(jsonParlamentar).get(0);
 
 		String urlCotas = MountURL.mountURLCota(idParlamentar);
-		String jsonCotasParlamentar = HttpConnection.requestCota(
+		String jsonCotasParlamentar = HttpConnection.request(
 				responseHandler, urlCotas);
 
 		List<CotaParlamentar> cotas = JSONHelper
@@ -86,47 +84,7 @@ public class ParlamentarUserController {
 
 		return parlamentar;
 	}
-
-	public List<CotaParlamentar> convertJsonToCotaParlamentar(
-
-	String jsonCotaParlamentar) throws NullCotaParlamentarException, TransmissionException {
-
-		try {
-			List<CotaParlamentar> listCotas = JSONHelper
-					.listCotaParlamentarFromJSON(jsonCotaParlamentar);
-			return listCotas;
-
-		} catch (NullPointerException e) {
-
-			throw new NullCotaParlamentarException();
-		}
-
-	}
-
-	public Parlamentar doRequest(ResponseHandler<String> responseHandler,
-			int idParlamentar) throws NullParlamentarException,
-			NullCotaParlamentarException, ConnectionFailedException,
-			RequestFailedException, TransmissionException {
-
-		String urlParlamentar = MountURL.mountURLParlamentar(idParlamentar);
-		String jsonParlamentar = HttpConnection.requestParlamentar(
-				responseHandler, urlParlamentar);
-
-		parlamentar = JSONHelper.listParlamentarFromJSON(jsonParlamentar).get(0);
-
-		String urlCotas = MountURL.mountURLCota(idParlamentar);
-		String jsonCotasParlamentar = HttpConnection.requestCota(
-				responseHandler, urlCotas);
-
-		List<CotaParlamentar> cotas = JSONHelper
-				.listCotaParlamentarFromJSON(jsonCotasParlamentar);
-
-		parlamentar.setCotas(cotas);
-
-		return parlamentar;
-	}
-
-	public List<Parlamentar> getByName(String nameParlamentar) {
+		public List<Parlamentar> getByName(String nameParlamentar) {
 		parlamentares = parlamentarDao.getSelectedByName(nameParlamentar);
 		return parlamentares;
 	}
@@ -138,7 +96,7 @@ public class ParlamentarUserController {
 	}
 
 	public boolean followedParlamentar()
-			throws NullCotaParlamentarException {
+			throws NullCotaParlamentarException, NullParlamentarException{
 
 		boolean result = true;
 
@@ -146,34 +104,8 @@ public class ParlamentarUserController {
 				.getInstance(context);
 		parlamentar.setSeguido(1);
 		result = controllerCeap.persistCotasOnLocalDatabase(parlamentar.getCotas())
-				& parlamentarDao.updateParlamentar(parlamentar);
+				&& parlamentarDao.updateParlamentar(parlamentar);
 		return result;
-	}
-
-	public List<Parlamentar> convertJsonToListParlamentar(
-			String jsonParlamentares) throws NullParlamentarException, TransmissionException {
-
-			List<Parlamentar> parlamentares = JSONHelper
-					.listParlamentarFromJSON(jsonParlamentares);
-
-			return parlamentares;
-	}
-
-	public List<Parlamentar> convertJsonToListParlamentarRankingMaiores(
-			String jsonParlamentarRankingMaiores)
-			throws NullParlamentarException {
-
-		try {
-
-			List<Parlamentar> majorRanking = JSONHelper
-					.listParlamentarRankingMaioresFromJSON(jsonParlamentarRankingMaiores);
-
-			return majorRanking;
-
-		} catch (NullPointerException npe) {
-
-			throw new NullParlamentarException();
-		}
 	}
 
 	public boolean insertAll(ResponseHandler<String> response)
@@ -181,17 +113,15 @@ public class ParlamentarUserController {
 			RequestFailedException, TransmissionException {
 
 		String urlParlamentares = MountURL.mountUrlAll();
-		String jsonParlamentares = HttpConnection.requestParlamentar(response,
+		String jsonParlamentares = HttpConnection.request(response,
 				urlParlamentares);
-		List<Parlamentar> parlamentares = convertJsonToListParlamentar(jsonParlamentares);
+		List<Parlamentar> parlamentares = JSONHelper.listParlamentarFromJSON(jsonParlamentares);
 		boolean initialized;
 		if (parlamentarDao.checkEmptyLocalDatabase()) {
 			Iterator<Parlamentar> iterator = parlamentares.iterator();
 			
 			while (iterator.hasNext()) {
 				Parlamentar p = iterator.next();
-				Log.i("Banco", "partido:"+p.getPartido());
-				Log.i("Banco", "uf:"+p.getUf());
 				p.setSeguido(0);
 				parlamentarDao.insertParlamentar(p);
 			}
@@ -221,21 +151,21 @@ public class ParlamentarUserController {
 				.getInstance(context);
 
 		result = controllerCeap.deleteCota(parlamentar.getId())
-				& parlamentarDao.updateParlamentar(parlamentar);
+				&& parlamentarDao.updateParlamentar(parlamentar);
 
 		return result;
 	}
 
 	public List<Parlamentar> doRequestMajorRanking(
 			ResponseHandler<String> responseHandler)
-			throws NullParlamentarException, ConnectionFailedException, RequestFailedException {
+			throws NullParlamentarException, ConnectionFailedException, RequestFailedException, TransmissionException {
 
 		String urlParlamentarRankingMaiores = MountURL.mountUrlMajorRanking();
 		String jsonParlamentarRankingMaiores = HttpConnection
-				.requestMajorRanking(responseHandler,
+				.request(responseHandler,
 						urlParlamentarRankingMaiores);
 
-		parlamentares = convertJsonToListParlamentarRankingMaiores(jsonParlamentarRankingMaiores);
+		parlamentares =JSONHelper.listParlamentarRankingMaioresFromJSON(jsonParlamentarRankingMaiores);
 
 		return parlamentares;
 	}
@@ -249,7 +179,6 @@ public class ParlamentarUserController {
 		List<CotaParlamentar>cotas = ceapController.getCotasByIdParlamentar(parlamentar.getId());
 		parlamentar.setCotas(cotas);
 		return parlamentar;
-	
 	}
 	
 }

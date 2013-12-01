@@ -93,6 +93,7 @@ public class ParlamentarListFragment extends ListFragment {
 		}
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void setListContent(List result) {
 		ArrayAdapter listAdapter = (ArrayAdapter) getListAdapter();
 		listAdapter.clear();

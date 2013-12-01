@@ -31,6 +31,7 @@ import com.OMM.application.user.requests.HttpConnection;
 
 public class ParlamentarRankingListFragment extends ListFragment {
 
+	@SuppressWarnings("unused")
 	private OnParlamentarRankingSelectedListener listener;
 	private static ParlamentarUserController controllerParlamentar;
 	private ParseTask parseTask;
@@ -101,6 +102,7 @@ public class ParlamentarRankingListFragment extends ListFragment {
 		}
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void setListContent(List result) {
 
 		ArrayAdapter listAdapter = (ArrayAdapter) getListAdapter();
@@ -164,6 +166,7 @@ public class ParlamentarRankingListFragment extends ListFragment {
 			return exception;
 		}
 
+		@SuppressWarnings({ "rawtypes", "unchecked" })
 		@Override
 		protected void onPostExecute(Integer result) {
 

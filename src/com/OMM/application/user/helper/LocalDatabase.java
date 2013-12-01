@@ -29,11 +29,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		
-		if(newVersion ==2)
-		{
-			db.execSQL("CREATE TABLE [PARLAMENTAR] ([ID_PARLAMENTAR] VARCHAR(10),[NOME_PARLAMENTAR] VARCHAR(40),[PARTIDO] VARCHAR(25), [UF] VARCHAR(2),[SEGUIDO] BOOLEAN,[FOTO] VARBINARY);");
-			 
-		}
+		//implementar para novas versões do banco do app.
 
 	}
 

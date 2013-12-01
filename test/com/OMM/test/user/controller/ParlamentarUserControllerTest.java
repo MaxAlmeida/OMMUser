@@ -2,14 +2,8 @@ package com.OMM.test.user.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.http.client.ResponseHandler;
-import org.mockito.Mockito;
-
 import android.content.Context;
 import android.test.AndroidTestCase;
-import android.util.Log;
-
 import com.OMM.application.user.controller.ParlamentarUserController;
 import com.OMM.application.user.dao.ParlamentarUserDao;
 import com.OMM.application.user.exceptions.NullCotaParlamentarException;
@@ -62,14 +56,6 @@ public class ParlamentarUserControllerTest extends AndroidTestCase{
 		assertEquals(parlamentar.getId(),controller.getParlamentar().getId());
 	}
 	
-	public void testConvertJsonToParlamentar() throws NullParlamentarException, TransmissionException{
-		
-		String json = "[{\"id\":373,\"nome\":\"PAULO MALUF\",\"partido\":\"PP\",\"uf\":\"SP\"}]";	
-		Parlamentar parlamentarJson =JSONHelper.listParlamentarFromJSON(json).get(0);
-
-		assertEquals(373,parlamentarJson.getId());		
-	}
-	
 	public void testGetByName(){
 		
 		String nameParlamentar = "TIRIRICA";
@@ -87,7 +73,7 @@ public class ParlamentarUserControllerTest extends AndroidTestCase{
 		
 		}
 	
-	public void testFollowedParlamentar() throws NullCotaParlamentarException{
+	public void testFollowedParlamentar() throws NullCotaParlamentarException, NullParlamentarException{
 		
 		Parlamentar parlamentar = controller.getByName("TIRIRICA").get(0);
 		List<CotaParlamentar> list = new ArrayList<CotaParlamentar>();

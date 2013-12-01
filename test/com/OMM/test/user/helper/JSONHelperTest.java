@@ -43,7 +43,7 @@ public class JSONHelperTest extends AndroidTestCase{
 
 	}
 	
-	public void testListParlamentarRankingMaioresFromJSON() {
+	public void testListParlamentarRankingMaioresFromJSON() throws NullParlamentarException, TransmissionException {
 		
 		Parlamentar parlamentarFirst = new Parlamentar();
 		parlamentarFirst.setNome("MOREIRA MENDES");

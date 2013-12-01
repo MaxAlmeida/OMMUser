@@ -1,18 +1,12 @@
 package com.OMM.application.user.controller;
 
-import java.util.Iterator;
 import java.util.List;
 
 import android.content.Context;
 
 import com.OMM.application.user.dao.CotaParlamentarUserDao;
 import com.OMM.application.user.exceptions.NullCotaParlamentarException;
-import com.OMM.application.user.exceptions.NullParlamentarException;
-import com.OMM.application.user.exceptions.TransmissionException;
-import com.OMM.application.user.helper.JSONHelper;
 import com.OMM.application.user.model.CotaParlamentar;
-import com.OMM.application.user.model.Parlamentar;
-import com.google.gson.JsonSyntaxException;
 
 public class CotaParlamentarUserController {
 
