@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.OMM.application.user.R;
 import com.OMM.application.user.controller.ParlamentarUserController;
+import com.OMM.application.user.exceptions.NullCotaParlamentarException;
 import com.OMM.application.user.exceptions.NullParlamentarException;
 import com.OMM.application.user.model.CotaParlamentar;
 
@@ -115,10 +116,9 @@ public class ParlamentarDetailFragment extends Fragment {
 					btn_detalhe_seguir.setVisibility(View.GONE);
 					btn_detalhe_desseguir.setVisibility(View.VISIBLE);
 
-				} catch (NullParlamentarException nullEx) {
+				} catch (NullCotaParlamentarException nullEx) {
 					Toast.makeText(getActivity(), "Erro na requisição",
 							Toast.LENGTH_SHORT).show();
-
 				}
 			}
 		});

@@ -48,14 +48,12 @@ public class CotaParlamentarUserControllerTest extends AndroidTestCase {
 		assertSame(controller1, controller2);
 	}
 
-	public void testPersistCotaLocalDatabase() throws NullParlamentarException{
+	public void testPersistCotasOnLocalDatabase() throws NullCotaParlamentarException{
 		
-		assertTrue(controller.persistCotasOnLocalDatabase(parlamentar));
-		
-		
+		assertTrue(controller.persistCotasOnLocalDatabase(parlamentar.getCotas()));
 	}
 
-	public void testDeleteCota() throws NullParlamentarException{
+	public void testDeleteCota() throws NullCotaParlamentarException{
 	   
 		Parlamentar parlamentarDeleteCota = new Parlamentar();
 		parlamentarDeleteCota.setId(114);
@@ -65,11 +63,11 @@ public class CotaParlamentarUserControllerTest extends AndroidTestCase {
 		list.add(cota);
 		parlamentarDeleteCota.setCotas(list);
 		
-		controller.persistCotasOnLocalDatabase(parlamentarDeleteCota);	
+		controller.persistCotasOnLocalDatabase(parlamentarDeleteCota.getCotas());	
 		assertTrue(controller.deleteCota(parlamentarDeleteCota.getId()));	
 	}
 	
-	public void testGetCotasByIdParlamentar() throws NullParlamentarException {
+	public void testGetCotasByIdParlamentar() throws NullCotaParlamentarException {
 		
 		Parlamentar parlamentarDeleteCota = new Parlamentar();
 		parlamentarDeleteCota.setId(114);
@@ -79,7 +77,7 @@ public class CotaParlamentarUserControllerTest extends AndroidTestCase {
 		list.add(cota);
 		parlamentarDeleteCota.setCotas(list);
 		
-		controller.persistCotasOnLocalDatabase(parlamentarDeleteCota);
+		controller.persistCotasOnLocalDatabase(parlamentarDeleteCota.getCotas());
 		List<CotaParlamentar> listResult = controller.getCotasByIdParlamentar(114);
 		
 		assertSame(listResult.get(0).getIdParlamentar(), list.get(0).getIdParlamentar());
@@ -91,10 +89,10 @@ public class CotaParlamentarUserControllerTest extends AndroidTestCase {
 			Parlamentar parlamentarDeleteCota = null;
 			
 			try {
-				controller.persistCotasOnLocalDatabase(parlamentarDeleteCota);
+				controller.persistCotasOnLocalDatabase(parlamentarDeleteCota.getCotas());
 				
 				fail("Exception not launched");
-			} catch(NullParlamentarException e) {
+			} catch(NullCotaParlamentarException e) {
 				
 			}
 		}

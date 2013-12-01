@@ -160,14 +160,14 @@ public class ParlamentarUserController {
 	}
 
 	public boolean followedParlamentar()
-			throws NullParlamentarException {
+			throws NullCotaParlamentarException {
 
 		boolean result = true;
 
 		CotaParlamentarUserController controllerCeap = CotaParlamentarUserController
 				.getInstance(context);
 		parlamentar.setSeguido(1);
-		result = controllerCeap.persistCotasOnLocalDatabase(parlamentar)
+		result = controllerCeap.persistCotasOnLocalDatabase(parlamentar.getCotas())
 				& parlamentarDao.updateParlamentar(parlamentar);
 		return result;
 	}

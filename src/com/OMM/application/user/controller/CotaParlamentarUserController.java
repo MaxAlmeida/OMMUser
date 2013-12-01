@@ -31,15 +31,14 @@ public class CotaParlamentarUserController {
 		return instance;
 	}
 
-	public boolean persistCotasOnLocalDatabase(Parlamentar parlamentar)
-			throws NullParlamentarException {
-		if(parlamentar != null) {
-
-			List<CotaParlamentar> cotas = parlamentar.getCotas();	
+	public boolean persistCotasOnLocalDatabase(List<CotaParlamentar> cotas)
+			throws NullCotaParlamentarException {
+		if(cotas != null) {
+			
 			boolean result = cotaParlamentarDao.insertCotasOnFollowedParlamentar(cotas);
 			return result;
 		} else {
-			throw new NullParlamentarException();
+			throw new NullCotaParlamentarException();
 		}
 	}
 

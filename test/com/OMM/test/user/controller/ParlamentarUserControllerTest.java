@@ -86,7 +86,7 @@ public class ParlamentarUserControllerTest extends AndroidTestCase{
 		
 		}
 	
-	public void testFollowedParlamentar() throws NullParlamentarException{
+	public void testFollowedParlamentar() throws NullCotaParlamentarException{
 		
 		Parlamentar parlamentar = controller.getByName("TIRIRICA").get(0);
 		List<CotaParlamentar> list = new ArrayList<CotaParlamentar>();
@@ -99,7 +99,7 @@ public class ParlamentarUserControllerTest extends AndroidTestCase{
 		assertTrue(controller.followedParlamentar());
 	}
 	
-	public void testUnFollowedParlamentar() throws NullParlamentarException {
+	public void testUnFollowedParlamentar() throws NullCotaParlamentarException, NullParlamentarException {
 		
 		Parlamentar parlamentar = controller.getByName("TIRIRICA").get(0);
 		List<CotaParlamentar> list = new ArrayList<CotaParlamentar>();
