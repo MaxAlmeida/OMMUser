@@ -101,8 +101,8 @@ public class ParlamentarUserController {
 		String jsonCotasParlamentar = HttpConnection.requestCota(
 				responseHandler, urlCotas);
 
-		List<CotaParlamentar> cotas = ceapController
-				.convertJsonToCotaParlamentar(jsonCotasParlamentar);
+		List<CotaParlamentar> cotas = JSONHelper
+				.listCotaParlamentarFromJSON(jsonCotasParlamentar);
 
 		parlamentar.setCotas(cotas);
 
@@ -111,7 +111,7 @@ public class ParlamentarUserController {
 
 	public List<CotaParlamentar> convertJsonToCotaParlamentar(
 
-	String jsonCotaParlamentar) throws NullCotaParlamentarException {
+	String jsonCotaParlamentar) throws NullCotaParlamentarException, TransmissionException {
 
 		try {
 			List<CotaParlamentar> listCotas = JSONHelper
@@ -140,8 +140,8 @@ public class ParlamentarUserController {
 		String jsonCotasParlamentar = HttpConnection.requestCota(
 				responseHandler, urlCotas);
 
-		List<CotaParlamentar> cotas = ceapController
-				.convertJsonToCotaParlamentar(jsonCotasParlamentar);
+		List<CotaParlamentar> cotas = JSONHelper
+				.listCotaParlamentarFromJSON(jsonCotasParlamentar);
 
 		parlamentar.setCotas(cotas);
 

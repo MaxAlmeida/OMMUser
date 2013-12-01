@@ -19,42 +19,16 @@ public class CotaParlamentarUserController {
 	private static CotaParlamentarUserController instance;
 
 	private CotaParlamentarUserDao cotaParlamentarDao;
-	private Context context;
 
 	private CotaParlamentarUserController(Context context) {
-		this.context = context;
 		this.cotaParlamentarDao = CotaParlamentarUserDao.getInstance(context);
-
 	}
 
 	public static CotaParlamentarUserController getInstance(Context context) {
-
 		if (instance == null) {
-
 			instance = new CotaParlamentarUserController(context);
 		}
-
 		return instance;
-	}
-
-	public List<CotaParlamentar> convertJsonToCotaParlamentar(String jsonCota)
-			throws TransmissionException, NullCotaParlamentarException {
-		List<CotaParlamentar> cotas = null;
-		try {
-
-			cotas = JSONHelper.listCotaParlamentarFromJSON(jsonCota);
-
-		} catch (NullPointerException npe) {
-
-			throw new NullCotaParlamentarException();
-		} catch (JsonSyntaxException jse) {
-
-			throw new TransmissionException();
-		}
-		if (cotas == null) {
-			throw new NullCotaParlamentarException();
-		}
-		return cotas;
 	}
 
 	public boolean persistCotaLocalDatabase(Parlamentar parlamentar)

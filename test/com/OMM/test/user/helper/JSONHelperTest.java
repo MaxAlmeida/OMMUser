@@ -6,6 +6,8 @@ import junit.framework.Assert;
 
 import android.test.AndroidTestCase;
 
+import com.OMM.application.user.exceptions.NullCotaParlamentarException;
+import com.OMM.application.user.exceptions.TransmissionException;
 import com.OMM.application.user.helper.JSONHelper;
 import com.OMM.application.user.model.CotaParlamentar;
 import com.OMM.application.user.model.Parlamentar;
@@ -26,7 +28,7 @@ public class JSONHelperTest extends AndroidTestCase{
 }
 
 	
-	public void testListCotaParlamentarFromJSON() {
+	public void testListCotaParlamentarFromJSON() throws NullCotaParlamentarException, TransmissionException {
 
 		CotaParlamentar cota = new CotaParlamentar();
 		cota.setCod(144068);
@@ -36,7 +38,6 @@ public class JSONHelperTest extends AndroidTestCase{
 				.listCotaParlamentarFromJSON(
 						"[{\"cod\":144068,\"idParlamentar\":373,\"mes\":7,\"ano\":2013,\"numeroSubCota\":3,\"descricao\":\"COMBUST\",\"valor\":150.0}]")
 				.get(0);
-
 		assertEquals(cota.getCod(), cota2.getCod());
 
 	}

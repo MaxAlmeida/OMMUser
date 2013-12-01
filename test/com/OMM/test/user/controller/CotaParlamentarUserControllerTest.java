@@ -48,16 +48,6 @@ public class CotaParlamentarUserControllerTest extends AndroidTestCase {
 		assertSame(controller1, controller2);
 	}
 
-public void testConvertJsonToCotaParlamentar() throws NullCotaParlamentarException,TransmissionException {
-		
-		String json = "[{\"cod\":144068,\"idParlamentar\":373,\"mes\":7,\"ano\":2013,\"numeroSubCota\":3,\"descricao\":\"COMBUST\",\"valor\":150.0}]";
-		List<CotaParlamentar> list1 = JSONHelper.listCotaParlamentarFromJSON(json);
-		List<CotaParlamentar> list2 = controller.convertJsonToCotaParlamentar(json);
-		
-		assertEquals(list1.get(0).getIdParlamentar(), list2.get(0).getIdParlamentar());
-		
-	}
-
 	public void testPersistCotaLocalDatabase() throws NullParlamentarException{
 		
 		assertTrue(controller.persistCotaLocalDatabase(parlamentar));

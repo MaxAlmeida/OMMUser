@@ -65,23 +65,10 @@ public class ParlamentarUserControllerTest extends AndroidTestCase{
 		
 		String json = "[{\"id\":373,\"nome\":\"PAULO MALUF\",\"partido\":\"PP\",\"uf\":\"SP\"}]";	
 		Parlamentar parlamentarJson = controller.convertJsonToParlamentar(json);
-		
-		assertEquals(373,parlamentarJson.getId());
-		
-	}
-	
-	public void testConvertJsonToCotaParlamentar() throws NullCotaParlamentarException{
-	
-		String jsonCotas = "[{\"cod\":144068,\"idParlamentar\":373,\"mes\":7,\"ano\":2013,\"numeroSubCota\":3,\"descricao\":\"COMBUST\",\"valor\":150.0}]";
-		
-		List<CotaParlamentar> cotas = controller.convertJsonToCotaParlamentar(jsonCotas);
-		
-		assertEquals(144068,cotas.get(0).getCod());
-		
-		
-		
-	}
 
+		assertEquals(373,parlamentarJson.getId());		
+	}
+	
 	public void testGetByName(){
 		
 		String nameParlamentar = "TIRIRICA";
