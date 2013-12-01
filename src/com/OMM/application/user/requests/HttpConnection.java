@@ -16,7 +16,7 @@ import android.util.Log;
 import com.OMM.application.user.exceptions.ConnectionFailedException;
 import com.OMM.application.user.exceptions.RequestFailedException;
 
-public abstract class HttpConnection {
+public class HttpConnection {
 
 	public final static ResponseHandler<String> responseHandler = new ResponseHandler<String>() {
 

@@ -31,4 +31,9 @@ public class HttpConnectionTest extends AndroidTestCase{
 		assertEquals(pResult.getId(),pJson.getId());
 		assertEquals(pResult.getNome(),pJson.getNome());
 	}
+	
+	public void testHttpConnectionInstance(){
+		HttpConnection connection = new HttpConnection();
+		assertEquals(HttpConnection.class, connection.getClass());
+	}
 }
