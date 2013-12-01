@@ -101,7 +101,19 @@ public class ParlamentarUserControllerTest extends AndroidTestCase{
 		assertTrue(controller.unFollowedParlamentar());
 	}
 	
-	
+	public void testFollowedParlamentarException() 
+			throws NullCotaParlamentarException, NullParlamentarException {
+		
+		try {
+			
+			controller.setParlamentar(null);
+			controller.followedParlamentar();
+
+			fail("Exceptions not launched");
+			
+		} catch (NullParlamentarException npe) {
+		}
+	}
 	
 	public void testDoRequest(){
 		//ResponseHandler<String> response = Mockito.mock(ResponseHandler.class);
