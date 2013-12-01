@@ -79,7 +79,7 @@ public class CotaParlamentarUserController {
 		return cotaParlamentarDao.deleteCotasFromParlamentar(parlamentar.getId());
 	}
 
-	public List<CotaParlamentar> getCotasByIdParlamentar(int idParlmanetar){
-		 return cotaParlamentarDao.getCotasByIdParlamentar(idParlmanetar);
+	public List<CotaParlamentar> getCotasByIdParlamentar(int idParlamentar){
+		 return cotaParlamentarDao.getCotasByIdParlamentar(idParlamentar);
 	}
 }

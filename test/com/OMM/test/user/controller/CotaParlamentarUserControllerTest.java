@@ -3,43 +3,32 @@ package com.OMM.test.user.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import junit.framework.Assert;
-
-import android.test.ActivityInstrumentationTestCase2;
-import android.util.Log;
+import android.content.Context;
+import android.test.AndroidTestCase;
 
 import com.OMM.application.user.controller.CotaParlamentarUserController;
-import com.OMM.application.user.dao.CotaParlamentarUserDao;
 import com.OMM.application.user.exceptions.NullCotaParlamentarException;
 import com.OMM.application.user.exceptions.NullParlamentarException;
 import com.OMM.application.user.exceptions.TransmissionException;
 import com.OMM.application.user.helper.JSONHelper;
 import com.OMM.application.user.model.CotaParlamentar;
 import com.OMM.application.user.model.Parlamentar;
-import com.OMM.application.user.view.GuiMain;
 
 
-public class CotaParlamentarUserControllerTest extends ActivityInstrumentationTestCase2<GuiMain> {
+public class CotaParlamentarUserControllerTest extends AndroidTestCase {
 
 	private Parlamentar parlamentar;
 	private CotaParlamentar cota;
 	private CotaParlamentarUserController controller;
-	private GuiMain guiMain;
-	
-
-	public CotaParlamentarUserControllerTest(String nome)
-	{
-		super(GuiMain.class);
-		setName(nome);
-	}
+	private Context context;
 	
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		guiMain=getActivity();
+		this.context = getContext();
 		parlamentar = new Parlamentar();
 		cota = new CotaParlamentar();
-		controller  = CotaParlamentarUserController.getInstance(guiMain);
+		controller  = CotaParlamentarUserController.getInstance(context);
 		parlamentar.setId(112);
 		parlamentar.setPartido("PT");
 		parlamentar.setNome("Tiririca");
@@ -59,12 +48,11 @@ public class CotaParlamentarUserControllerTest extends ActivityInstrumentationTe
 	public void testGetInstanceCota() 
 	{
 
-		CotaParlamentarUserController controller1 = CotaParlamentarUserController.getInstance(guiMain);
-		CotaParlamentarUserController controller2 = CotaParlamentarUserController.getInstance(guiMain);
+		CotaParlamentarUserController controller1 = CotaParlamentarUserController.getInstance(context);
+		CotaParlamentarUserController controller2 = CotaParlamentarUserController.getInstance(context);
 		
 		assertSame(controller1, controller2);
 	}
-//TODO Verificar teste no junit 3 com exceção
 
 public void testConvertJsonToCotaParlamentar() throws NullCotaParlamentarException,TransmissionException {
 		
@@ -72,21 +60,45 @@ public void testConvertJsonToCotaParlamentar() throws NullCotaParlamentarExcepti
 		List<CotaParlamentar> list1 = JSONHelper.listCotaParlamentarFromJSON(json);
 		List<CotaParlamentar> list2 = controller.convertJsonToCotaParlamentar(json);
 		
-		Assert.assertEquals(list1.get(0).getIdParlamentar(), list2.get(0).getIdParlamentar());
+		assertEquals(list1.get(0).getIdParlamentar(), list2.get(0).getIdParlamentar());
 		
 	}
 
-public void testPersistCotaDB() throws NullParlamentarException{
-	
-	Assert.assertTrue(controller.persistCotaDB(parlamentar));
-	
-	
-}
+	public void testPersistCotaDB() throws NullParlamentarException{
+		
+		assertTrue(controller.persistCotaDB(parlamentar));
+		
+		
+	}
 
-public void deleteCota(){
-
-	Assert.assertFalse(controller.deleteCota(parlamentar));
+	public void testDeleteCota() throws NullParlamentarException{
+	   
+		Parlamentar parlamentarDeleteCota = new Parlamentar();
+		parlamentarDeleteCota.setId(114);
+		List<CotaParlamentar> list = new ArrayList<CotaParlamentar>();
+		CotaParlamentar cota = new CotaParlamentar();
+		cota.setIdParlamentar(114);
+		list.add(cota);
+		parlamentarDeleteCota.setCotas(list);
+		
+		controller.persistCotaDB(parlamentarDeleteCota);	
+		assertTrue(controller.deleteCota(parlamentarDeleteCota));	
+	}
 	
-}
+	public void testGetCotasByIdParlamentar() throws NullParlamentarException {
+		
+		Parlamentar parlamentarDeleteCota = new Parlamentar();
+		parlamentarDeleteCota.setId(114);
+		List<CotaParlamentar> list = new ArrayList<CotaParlamentar>();
+		CotaParlamentar cota = new CotaParlamentar();
+		cota.setIdParlamentar(114);
+		list.add(cota);
+		parlamentarDeleteCota.setCotas(list);
+		
+		controller.persistCotaDB(parlamentarDeleteCota);
+		List<CotaParlamentar> listResult = controller.getCotasByIdParlamentar(114);
+		
+		assertSame(listResult.get(0).getIdParlamentar(), list.get(0).getIdParlamentar());
+	}
 
 }
