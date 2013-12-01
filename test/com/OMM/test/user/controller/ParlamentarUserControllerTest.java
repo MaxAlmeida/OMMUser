@@ -102,6 +102,7 @@ public class ParlamentarUserControllerTest extends AndroidTestCase{
 		List<CotaParlamentar> list = new ArrayList<CotaParlamentar>();
 		CotaParlamentar cota = new CotaParlamentar();
 		cota.setIdParlamentar(parlamentar.getId());
+		list.add(cota);
 		parlamentar.setCotas(list);
 		parlamentar.setSeguido(1);
 		controller.setParlamentar(parlamentar);
@@ -141,12 +142,6 @@ public class ParlamentarUserControllerTest extends AndroidTestCase{
 		
 		assertNotNull(controller.getSelected());
 	}
-	
-	//TODO
-	//CHECKEMPTYBD
-	//INSERTALL
-	//UNFOLLOWEDD
-	//GetAll
 	
 	public void testInsertAllFalse() throws NullParlamentarException, ConnectionFailedException, RequestFailedException, TransmissionException{
 		

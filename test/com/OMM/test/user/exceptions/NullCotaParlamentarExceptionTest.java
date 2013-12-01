@@ -1,14 +1,12 @@
 package com.OMM.test.user.exceptions;
 
-import org.junit.Test;
-
 import android.test.AndroidTestCase;
 
 import com.OMM.application.user.model.CotaParlamentar;
 
 public class NullCotaParlamentarExceptionTest extends AndroidTestCase {
 
-	@Test
+
 	@SuppressWarnings("null")
 	public void testNullCotaParlamentarException() {
 		try {
