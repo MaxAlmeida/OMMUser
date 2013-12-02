@@ -28,6 +28,7 @@ public class ParlamentarUserControllerTest extends AndroidTestCase{
 	private Parlamentar parlamentar;
 	private ParlamentarUserController controller;
 	private ParlamentarUserDao dao;
+	
 	public void setUp() throws Exception{
 		super.setUp();		
 		response = HttpConnection.getResponseHandler();
@@ -40,10 +41,12 @@ public class ParlamentarUserControllerTest extends AndroidTestCase{
 		parlamentar.setSeguido(0);
 		dao.insertParlamentar(parlamentar);
 	}
+	
 	public void tearDown() throws Exception{
 		super.tearDown();
 		dao.deleteParlamentar(parlamentar);
 	}
+	
 	public void testGetInstance() {
 		
 		ParlamentarUserController controller2 = ParlamentarUserController.getInstance(context);
@@ -176,7 +179,7 @@ public class ParlamentarUserControllerTest extends AndroidTestCase{
 	
 	public void testDoRequest() 
 			throws ConnectionFailedException, RequestFailedException, TransmissionException, 
-			NullParlamentarException, NullCotaParlamentarException{
+			NullParlamentarException, NullCotaParlamentarException {
 		Parlamentar p = new Parlamentar();
 		p.setId(373);
 		controller.setParlamentar(p);
@@ -188,11 +191,25 @@ public class ParlamentarUserControllerTest extends AndroidTestCase{
 		assertEquals(pResult.getNome(),pJson.getNome());
 	}
 	
-	public void testDoRequestTransmissionException() throws NullParlamentarException,
+	public void testDoRequestNullParlamentarException() throws NullParlamentarException,
 	NullCotaParlamentarException, TransmissionException, ConnectionFailedException, 
 	RequestFailedException {
 		
-		try {			
+		try {
+			Parlamentar parlamentar = null;
+			controller.setParlamentar(parlamentar);
+			controller.doRequest(response);
+		} catch(NullParlamentarException npe) {
+			
+		}
+	}
+	
+	public void testDoRequestTransmissionException() throws NullParlamentarException,
+		NullCotaParlamentarException, TransmissionException, ConnectionFailedException, 
+		RequestFailedException {
+		
+		try {
+			controller.setParlamentar(parlamentar);
 			Parlamentar pJson = controller.doRequest(null);
 			
 			fail("Exception not launched");

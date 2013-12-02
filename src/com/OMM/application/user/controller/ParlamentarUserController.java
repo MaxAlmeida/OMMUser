@@ -62,28 +62,34 @@ public class ParlamentarUserController {
 			throws NullParlamentarException, NullCotaParlamentarException,
 			TransmissionException, ConnectionFailedException, RequestFailedException {
 
-		if (responseHandler == null) {
+		if (responseHandler != null && parlamentar != null) {
+		
+			int idParlamentar = parlamentar.getId();
+			String urlParlamentar = MountURL.mountURLParlamentar(idParlamentar);
+			String jsonParlamentar = HttpConnection.request(
+					responseHandler, urlParlamentar);
+	
+			parlamentar = JSONHelper.listParlamentarFromJSON(jsonParlamentar).get(0);
+	
+			String urlCotas = MountURL.mountURLCota(idParlamentar);
+			String jsonCotasParlamentar = HttpConnection.request(
+					responseHandler, urlCotas);
+	
+			List<CotaParlamentar> cotas = JSONHelper
+					.listCotaParlamentarFromJSON(jsonCotasParlamentar);
+	
+			parlamentar.setCotas(cotas);
+			
+		} else if(parlamentar == null) {
+			throw new NullParlamentarException();
+		
+		} else {
 			throw new TransmissionException();
 		}
-		
-		int idParlamentar = parlamentar.getId();
-		String urlParlamentar = MountURL.mountURLParlamentar(idParlamentar);
-		String jsonParlamentar = HttpConnection.request(
-				responseHandler, urlParlamentar);
-
-		parlamentar = JSONHelper.listParlamentarFromJSON(jsonParlamentar).get(0);
-
-		String urlCotas = MountURL.mountURLCota(idParlamentar);
-		String jsonCotasParlamentar = HttpConnection.request(
-				responseHandler, urlCotas);
-
-		List<CotaParlamentar> cotas = JSONHelper
-				.listCotaParlamentarFromJSON(jsonCotasParlamentar);
-
-		parlamentar.setCotas(cotas);
 
 		return parlamentar;
 	}
+	
 		public List<Parlamentar> getByName(String nameParlamentar) {
 		parlamentares = parlamentarDao.getSelectedByName(nameParlamentar);
 		return parlamentares;
@@ -107,11 +113,11 @@ public class ParlamentarUserController {
 			result = controllerCeap.persistCotasOnLocalDatabase(parlamentar.getCotas())
 					&& parlamentarDao.updateParlamentar(parlamentar);
 			return result;
-		}
-		else if ( parlamentar == null) {
-			throw new NullParlamentarException();
-		}else {
 			
+		} else if ( parlamentar == null) {
+			throw new NullParlamentarException();
+			
+		}else {
 			throw new NullCotaParlamentarException();
 		}
 	}
