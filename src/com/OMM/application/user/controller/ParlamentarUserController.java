@@ -119,26 +119,33 @@ public class ParlamentarUserController {
 	public boolean insertAll(ResponseHandler<String> response)
 			throws NullParlamentarException, ConnectionFailedException,
 			RequestFailedException, TransmissionException {
-
-		String urlParlamentares = MountURL.mountUrlAll();
-		String jsonParlamentares = HttpConnection.request(response,
-				urlParlamentares);
-		List<Parlamentar> parlamentares = JSONHelper.listParlamentarFromJSON(jsonParlamentares);
-		boolean initialized;
-		if (parlamentarDao.checkEmptyLocalDatabase()) {
-			Iterator<Parlamentar> iterator = parlamentares.iterator();
+		
+		boolean initialized = false;
+		
+		if(response != null) {
+			String urlParlamentares = MountURL.mountUrlAll();
+			String jsonParlamentares = HttpConnection.request(response, urlParlamentares);
+			List<Parlamentar> parlamentares = JSONHelper.listParlamentarFromJSON(jsonParlamentares);
 			
-			while (iterator.hasNext()) {
-				Parlamentar p = iterator.next();
-				p.setSeguido(0);
-				parlamentarDao.insertParlamentar(p);
+			if (parlamentarDao.checkEmptyLocalDatabase()) {
+				Iterator<Parlamentar> iterator = parlamentares.iterator();
+				
+				while (iterator.hasNext()) {
+					Parlamentar p = iterator.next();
+					p.setSeguido(0);
+					parlamentarDao.insertParlamentar(p);
+				}
+
+				initialized = true;
+				
+			} else {
+				initialized = false;
 			}
-
-			initialized = true;
+			
 		} else {
-			initialized = false;
+			throw new TransmissionException();
 		}
-
+		
 		return initialized;
 	}
 

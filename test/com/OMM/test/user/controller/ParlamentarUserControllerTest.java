@@ -174,7 +174,9 @@ public class ParlamentarUserControllerTest extends AndroidTestCase{
 		}
 	}
 	
-	public void testDoRequest() throws ConnectionFailedException, RequestFailedException, TransmissionException, NullParlamentarException, NullCotaParlamentarException{
+	public void testDoRequest() 
+			throws ConnectionFailedException, RequestFailedException, TransmissionException, 
+			NullParlamentarException, NullCotaParlamentarException{
 		Parlamentar p = new Parlamentar();
 		p.setId(373);
 		controller.setParlamentar(p);
@@ -186,19 +188,34 @@ public class ParlamentarUserControllerTest extends AndroidTestCase{
 		assertEquals(pResult.getNome(),pJson.getNome());
 	}
 	
-	public void testGetSelected(){
+	public void testDoRequestTransmissionException() throws NullParlamentarException,
+	NullCotaParlamentarException, TransmissionException, ConnectionFailedException, 
+	RequestFailedException {
+		
+		try {			
+			Parlamentar pJson = controller.doRequest(null);
+			
+			fail("Exception not launched");
+		} catch (TransmissionException npe) {
+			
+		}
+	}
+	
+	public void testGetSelected() {
 		
 		assertNotNull(controller.getSelected());
 	}
 	
-	public void testInsertAllFalse() throws NullParlamentarException, ConnectionFailedException, RequestFailedException, TransmissionException{
+	public void testInsertAllFalse() throws NullParlamentarException, ConnectionFailedException, 
+	RequestFailedException, TransmissionException{
 		
 		ResponseHandler<String> response = HttpConnection.getResponseHandler();
 		assertFalse(controller.insertAll(response));
-		
+	
 	}
 	
-	public void testInsertAllTrue() throws NullParlamentarException, ConnectionFailedException, RequestFailedException, TransmissionException{
+	public void testInsertAllTrue() throws NullParlamentarException, ConnectionFailedException, 
+	RequestFailedException, TransmissionException {
 		
 		controller.getAll();
 		Iterator<Parlamentar> iterator = controller.getAll().iterator();
