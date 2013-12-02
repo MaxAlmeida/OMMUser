@@ -10,6 +10,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -87,7 +90,7 @@ public class ParlamentarListFragment extends ListFragment {
 		try {
 			parseTask.execute(inputText);
 		}
-		// TODO tratar com a devida excessão lançada.
+		// TODO tratar com a devida excessï¿½o lanï¿½ada.
 		catch (IllegalStateException ise) {
 			// IllegalStateException
 		}
@@ -142,19 +145,44 @@ public class ParlamentarListFragment extends ListFragment {
 
 			@Override
 			public boolean onQueryTextSubmit(String query) {
+				query = filter(query,0, query.length());
 				updateListContent(query);
 				hideKeyboard();
 				return true;
 			}
 
 			@Override
-			public boolean onQueryTextChange(String newText) {
-				updateListContent(newText);
+			public boolean onQueryTextChange(String query) {
+				query = filter(query,0, query.length());
+				updateListContent(query);
+				
 				return false;
 			}
 		});
 	}
+	
+	public String filter(String source, int start, int end) {
+	    boolean keepOriginal = true;
+	    StringBuilder sb = new StringBuilder(end - start);
+	    for (int i = start; i < end; i++) {
+	        char c = source.charAt(i);
+	        if (isCharAllowed(c)) // put your condition here
+	            sb.append(c);
+	        else
+	            keepOriginal = false;
+	    }
+	    if (keepOriginal)
+	        return null;
+	    else {
+	            String sp = new String(sb);
+	            return sp;           
+	    	 }
+	}
 
+	private boolean isCharAllowed(char c) {
+	    return Character.isLetterOrDigit(c) || Character.isSpaceChar(c);
+	}
+	
 	private class RequestTask extends AsyncTask<Object, Void, Integer> {
 		
 		ProgressDialog progressDialog;
