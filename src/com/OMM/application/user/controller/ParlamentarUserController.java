@@ -179,16 +179,20 @@ public class ParlamentarUserController {
 		}
 	}
 
-	public List<Parlamentar> doRequestMajorRanking(
-			ResponseHandler<String> responseHandler)
-			throws NullParlamentarException, ConnectionFailedException, RequestFailedException, TransmissionException {
+	public List<Parlamentar> doRequestMajorRanking(ResponseHandler<String> responseHandler)
+			throws NullParlamentarException, ConnectionFailedException, 
+			RequestFailedException, TransmissionException {
 
-		String urlParlamentarRankingMaiores = MountURL.mountUrlMajorRanking();
-		String jsonParlamentarRankingMaiores = HttpConnection
-				.request(responseHandler,
-						urlParlamentarRankingMaiores);
+		if(responseHandler != null) {
+			String urlParlamentarRankingMaiores = MountURL.mountUrlMajorRanking();
+			String jsonParlamentarRankingMaiores = HttpConnection
+					.request(responseHandler,
+							urlParlamentarRankingMaiores);
 
-		parlamentares =JSONHelper.listParlamentarRankingMaioresFromJSON(jsonParlamentarRankingMaiores);
+			parlamentares = JSONHelper.listParlamentarRankingMaioresFromJSON(jsonParlamentarRankingMaiores);
+		} else {
+			throw new TransmissionException();
+		}
 
 		return parlamentares;
 	}
@@ -202,6 +206,5 @@ public class ParlamentarUserController {
 		List<CotaParlamentar>cotas = ceapController.getCotasByIdParlamentar(parlamentar.getId());
 		parlamentar.setCotas(cotas);
 		return parlamentar;
-	}
-	
+	}	
 }

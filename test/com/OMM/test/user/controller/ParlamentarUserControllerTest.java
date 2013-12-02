@@ -262,7 +262,8 @@ public class ParlamentarUserControllerTest extends AndroidTestCase{
 	
 	}
 	
-	public void testDoRequestMajorRanking() throws NullParlamentarException, ConnectionFailedException, RequestFailedException, TransmissionException{
+	public void testDoRequestMajorRanking() throws NullParlamentarException, ConnectionFailedException,
+	RequestFailedException, TransmissionException{
 		Parlamentar p = new Parlamentar();
 		p.setId(373);
 		controller.setParlamentar(p);
@@ -272,6 +273,17 @@ public class ParlamentarUserControllerTest extends AndroidTestCase{
 		
 		assertEquals(pResult.getId(),pJson.get(0).getId());
 		assertEquals(pResult.getNome(),pJson.get(0).getNome());
+	}
+	
+	public void testDorequestMajorRankingTransmissionException() throws NullParlamentarException,
+	ConnectionFailedException, RequestFailedException, TransmissionException {
+		try {
+			controller.doRequestMajorRanking(null);
+			
+			fail("Exception not launched");
+		} catch (TransmissionException npe) {
+			
+		}
 	}
 	
 	public void testCheckEmptyDBFalse(){
@@ -288,11 +300,8 @@ public class ParlamentarUserControllerTest extends AndroidTestCase{
 		while( iterator.hasNext()){
 			Parlamentar p = iterator.next();
 			dao.deleteParlamentar(p);	
-			
-			
 		}
 		
 		assertTrue(controller.checkEmptyDB());
-
 	}
 }
