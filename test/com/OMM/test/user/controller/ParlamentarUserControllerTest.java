@@ -214,6 +214,18 @@ public class ParlamentarUserControllerTest extends AndroidTestCase{
 	
 	}
 	
+	public void testInsertAllFalseTransmissionException() throws NullParlamentarException,
+	TransmissionException, ConnectionFailedException, RequestFailedException {
+		
+		try {
+			controller.insertAll(null);
+			
+			fail("Exception not launched");
+		} catch (TransmissionException npe) {
+			
+		}
+	}
+	
 	public void testInsertAllTrue() throws NullParlamentarException, ConnectionFailedException, 
 	RequestFailedException, TransmissionException {
 		
