@@ -162,21 +162,18 @@ public class ParlamentarListFragment extends ListFragment {
 	}
 	
 	public String filter(String source, int start, int end) {
-	    boolean keepOriginal = true;
+		
 	    StringBuilder sb = new StringBuilder(end - start);
 	    for (int i = start; i < end; i++) {
 	        char c = source.charAt(i);
 	        if (isCharAllowed(c)) // put your condition here
 	            sb.append(c);
-	        else
-	            keepOriginal = false;
+	        else{
+	        	//do nothing here.
+	        }
 	    }
-	    if (keepOriginal)
-	        return null;
-	    else {
 	            String sp = new String(sb);
 	            return sp;           
-	    	 }
 	}
 
 	private boolean isCharAllowed(char c) {
