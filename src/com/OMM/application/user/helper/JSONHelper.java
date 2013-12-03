@@ -39,7 +39,7 @@ public class JSONHelper
 			listCotaParlamentar = gson.fromJson(
 					jsonCotaParlamentar, new TypeToken<List<CotaParlamentar>>() {
 					}.getType());
-
+			
 		} catch (NullPointerException npe) {
 			
 			throw new NullCotaParlamentarException();

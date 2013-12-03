@@ -62,7 +62,7 @@ public class ParlamentarUserController {
 			throws NullParlamentarException, NullCotaParlamentarException,
 			TransmissionException, ConnectionFailedException, RequestFailedException {
 
-		if (responseHandler != null && parlamentar != null) {
+		if (responseHandler != null) {
 		
 			int idParlamentar = parlamentar.getId();
 			String urlParlamentar = MountURL.mountURLParlamentar(idParlamentar);
@@ -128,7 +128,7 @@ public class ParlamentarUserController {
 		
 		boolean initialized = false;
 		
-		if(response != null && parlamentar != null) {
+		if(response != null) {
 			String urlParlamentares = MountURL.mountUrlAll();
 			String jsonParlamentares = HttpConnection.request(response, urlParlamentares);
 			List<Parlamentar> parlamentares = JSONHelper.listParlamentarFromJSON(jsonParlamentares);

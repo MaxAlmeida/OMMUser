@@ -191,19 +191,6 @@ public class ParlamentarUserControllerTest extends AndroidTestCase{
 		assertEquals(pResult.getNome(),pJson.getNome());
 	}
 	
-	public void testDoRequestNullParlamentarException() throws NullParlamentarException,
-	NullCotaParlamentarException, TransmissionException, ConnectionFailedException, 
-	RequestFailedException {
-		
-		try {
-			Parlamentar parlamentar = null;
-			controller.setParlamentar(parlamentar);
-			controller.doRequest(response);
-		} catch(NullParlamentarException npe) {
-			
-		}
-	}
-	
 	public void testDoRequestTransmissionException() throws NullParlamentarException,
 		NullCotaParlamentarException, TransmissionException, ConnectionFailedException, 
 		RequestFailedException {

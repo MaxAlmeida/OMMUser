@@ -19,8 +19,13 @@ public class JSONHelperTest extends AndroidTestCase{
 	public void testJSONHelper( ){
 		
 		JSONHelper jsonHelper = new JSONHelper();
-		assertNotNull(jsonHelper);
+		assertNotNull(jsonHelper);	
+	}
+	
+	public void testInstance() {
+		JSONHelper helper = new JSONHelper();
 		
+		assertEquals(JSONHelper.class, helper.getClass());	
 	}
 	
 	public void testListParlamentarFromJSON() throws TransmissionException, NullParlamentarException {
@@ -34,8 +39,17 @@ public class JSONHelperTest extends AndroidTestCase{
 		assertEquals(parlamentar.getId(), parlamentar2.getId());
 		assertTrue(parlamentar.getNome().equals(parlamentar2.getNome()));
 		assertNotNull(JSONHelper.listParlamentarFromJSON("[{\"id\":373,\"nome\":\"PAULO MALUF\",\"partido\":\"PP\",\"uf\":\"SP\"}]"));
-}
-
+	}
+	
+	public void testListParlamentarFromJSONTransmissionException() 
+			throws NullParlamentarException, TransmissionException {
+		
+		try {
+			JSONHelper.listParlamentarFromJSON("Teste");
+		} catch (TransmissionException te) {
+			
+		}		
+	}
 	
 	public void testListCotaParlamentarFromJSON() throws NullCotaParlamentarException, TransmissionException {
 
@@ -51,10 +65,30 @@ public class JSONHelperTest extends AndroidTestCase{
 
 	}
 	
+	public void testListCotaParlamentarFromJSONNullCotaParlamentarException() throws NullCotaParlamentarException, 
+		TransmissionException {
+		
+		try {
+			JSONHelper.listCotaParlamentarFromJSON("[{}]").get(0);
+		} catch(NullCotaParlamentarException ncpe) {
+			
+		}
+	}
+	
+	public void testListCotaParlamentarFromJSONTransmissionException() 
+			throws NullCotaParlamentarException, TransmissionException {
+		
+		try {
+			JSONHelper.listCotaParlamentarFromJSON("Teste");
+		} catch (TransmissionException te) {
+			
+		}		
+	}
+	
 	public void testListParlamentarRankingMaioresFromJSON() 
 			throws NullParlamentarException, TransmissionException {
-		try
-		{
+		
+		try {
 			Parlamentar parlamentarFirst = new Parlamentar();
 			parlamentarFirst.setNome("MOREIRA MENDES");
 			parlamentarFirst.setValor(369922.75);
@@ -70,21 +104,18 @@ public class JSONHelperTest extends AndroidTestCase{
 			
 			Assert.assertEquals(parlamentarFirst.getNome(), parlamentarFirstJson.getNome());
 			Assert.assertEquals(parlamentarSecond.getNome(), parlamentarSecondJson.getNome());
-		}
-		catch(NullParlamentarException e)
-		{
-			 
-		}
-		catch(TransmissionException e)
-		{
+			
+		} catch(NullParlamentarException e) {
+					 
+		} catch(TransmissionException e) {
 			 
 		}
 	}
+	
 	public void testListParlamentarRankingMaioresFromJSONNullParlamentarException()
-	throws NullCotaParlamentarException, TransmissionException
-	{
-		try
-		{
+	throws NullCotaParlamentarException, TransmissionException {
+		
+		try {
 			Parlamentar parlamentarFirst = new Parlamentar();
 			parlamentarFirst.setNome("MOREIRA MENDES");
 			parlamentarFirst.setValor(369922.75);
@@ -101,22 +132,17 @@ public class JSONHelperTest extends AndroidTestCase{
 			Assert.assertEquals(parlamentarFirst.getNome(), parlamentarFirstJson.getNome());
 			Assert.assertEquals(parlamentarSecond.getNome(), parlamentarSecondJson.getNome());
 			fail("Exception ");
-		}
-		catch(NullParlamentarException e)
-		{
+			
+		} catch(NullParlamentarException e) {
 		 
-		}
-		catch(TransmissionException e)
-		{
+		} catch(TransmissionException e) {
 			 
-		}
-		
-		
+		}	
 	}
-	
 	
 	public void testListParlamentarRankingMaioresFromJSONTransmissionException()
 			throws NullCotaParlamentarException, TransmissionException {
+		
 				try {
 					Parlamentar parlamentarFirst = new Parlamentar();
 					parlamentarFirst.setNome("MOREIRA MENDES");
@@ -134,29 +160,11 @@ public class JSONHelperTest extends AndroidTestCase{
 					Assert.assertEquals(parlamentarFirst.getNome(), parlamentarFirstJson.getNome());
 					Assert.assertEquals(parlamentarSecond.getNome(), parlamentarSecondJson.getNome());
 					fail("Exception ");
-				}
-				catch(NullParlamentarException e) {
+					
+				} catch(NullParlamentarException e) {
 					 
-				}
-				catch(TransmissionException e) {
+				} catch(TransmissionException e) {
 					 
 				}
 			}
-	
-	public void testInstance() {
-		JSONHelper helper = new JSONHelper();
-		
-		assertEquals(JSONHelper.class, helper.getClass());
-		
-	}
-	
-	public void testListCotaParlamentarFromJSONTransmissionException() 
-			throws NullCotaParlamentarException, TransmissionException {
-		
-		try {
-			JSONHelper.listCotaParlamentarFromJSON("Teste");
-		} catch (TransmissionException te) {
-			
-		}		
-	}
 }
