@@ -18,7 +18,7 @@ public class CotaParlamentarUserDao {
 	private static CotaParlamentarUserDao instance;
 	private LocalDatabase database;
 	private SQLiteDatabase sqliteDatabase;
-	
+
 	private CotaParlamentarUserDao(Context context) {
 		database = new LocalDatabase(context);
 	}
@@ -37,7 +37,7 @@ public class CotaParlamentarUserDao {
 		CotaParlamentar cota;
 		boolean result = true;
 		Iterator<CotaParlamentar> iterator = cotas.iterator();
-		while(iterator.hasNext() && result){
+		while (iterator.hasNext() && result) {
 			content = new ContentValues();
 			cota = iterator.next();
 			content.put("ID_COTA", cota.getCod());
@@ -55,8 +55,8 @@ public class CotaParlamentarUserDao {
 
 	public boolean deleteCotasFromParlamentar(int idParlamentar) {
 		sqliteDatabase = database.getWritableDatabase();
-		boolean result = (sqliteDatabase.delete(nome_tabela, "ID_PARLAMENTAR=?",
-				new String[] { idParlamentar + "" }) > 0);
+		boolean result = (sqliteDatabase.delete(nome_tabela,
+				"ID_PARLAMENTAR=?", new String[] { idParlamentar + "" }) > 0);
 		sqliteDatabase.close();
 		return result;
 	}
