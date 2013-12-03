@@ -1,6 +1,6 @@
 package com.OMM.application.user.exceptions;
 
-public class RequestFailedException extends Exception{
+public class RequestFailedException extends Exception {
 
 	private static final long serialVersionUID = 1L;
 
@@ -10,7 +10,5 @@ public class RequestFailedException extends Exception{
 				+ ", hashCode()=" + hashCode() + ", toString()="
 				+ super.toString() + "]";
 	}
-	
-	
 
 }

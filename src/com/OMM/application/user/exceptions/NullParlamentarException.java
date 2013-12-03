@@ -15,8 +15,7 @@ public class NullParlamentarException extends Exception {
 				+ ", getLocalizedMessage()=" + getLocalizedMessage()
 				+ ", getStackTrace()=" + Arrays.toString(getStackTrace())
 				+ ", toString()=" + super.toString() + ", getCause()="
-				+ getCause() + ", getSuppressed()="
-				+ ", getClass()="
+				+ getCause() + ", getSuppressed()=" + ", getClass()="
 				+ getClass() + ", hashCode()=" + hashCode() + "]";
 	}
 
