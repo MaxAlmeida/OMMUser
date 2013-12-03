@@ -97,5 +97,4 @@ public class Parlamentar {
 		this.foto = foto;
 	}
 
-
 }
