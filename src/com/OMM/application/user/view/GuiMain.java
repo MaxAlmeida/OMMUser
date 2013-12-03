@@ -154,9 +154,30 @@ public class GuiMain extends Activity implements
 	}
 
 	@Override
+	public void OnParlamentarSeguidoSelected() {
+
+		// Replaces the details according to the orientation of cell phone
+		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+			updateFragment(R.id.fragment_container);
+
+		} else {
+			updateFragment(R.id.detail_fragment_container);
+		}
+	}
+
+	@Override
 	public void OnParlamentarSelected() {
 
 		// Replaces the details according to the orientation of cell phone
+		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+			updateFragment(R.id.fragment_container);
+
+		} else {
+			updateFragment(R.id.detail_fragment_container);
+		}
+	}
+
+	public void OnParlamentarRankingSelected() {
 		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
 			updateFragment(R.id.fragment_container);
 
