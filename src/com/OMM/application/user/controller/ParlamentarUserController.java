@@ -128,7 +128,7 @@ public class ParlamentarUserController {
 		
 		boolean initialized = false;
 		
-		if(response != null) {
+		if(response != null && parlamentar != null) {
 			String urlParlamentares = MountURL.mountUrlAll();
 			String jsonParlamentares = HttpConnection.request(response, urlParlamentares);
 			List<Parlamentar> parlamentares = JSONHelper.listParlamentarFromJSON(jsonParlamentares);
@@ -148,6 +148,8 @@ public class ParlamentarUserController {
 				initialized = false;
 			}
 			
+		} else if(parlamentar == null) {
+			throw new NullParlamentarException();
 		} else {
 			throw new TransmissionException();
 		}

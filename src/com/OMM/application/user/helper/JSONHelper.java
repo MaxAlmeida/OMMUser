@@ -58,7 +58,8 @@ public class JSONHelper
 	public static List<Parlamentar> listParlamentarRankingMaioresFromJSON(
 			String jsonParlamentarRankingMaiores) throws NullParlamentarException, TransmissionException {
 		List<Parlamentar> listParlamentarRankingMaiores;
-		try{
+		
+		try {
 		Gson gson = new Gson();
 		listParlamentarRankingMaiores = gson.fromJson(
 				jsonParlamentarRankingMaiores, new TypeToken<List<Parlamentar>>() {

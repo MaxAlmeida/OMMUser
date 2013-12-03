@@ -116,10 +116,8 @@ public class JSONHelperTest extends AndroidTestCase{
 	
 	
 	public void testListParlamentarRankingMaioresFromJSONTransmissionException()
-			throws NullCotaParlamentarException, TransmissionException
-			{
-				try
-				{
+			throws NullCotaParlamentarException, TransmissionException {
+				try {
 					Parlamentar parlamentarFirst = new Parlamentar();
 					parlamentarFirst.setNome("MOREIRA MENDES");
 					parlamentarFirst.setValor(369922.75);
@@ -137,24 +135,28 @@ public class JSONHelperTest extends AndroidTestCase{
 					Assert.assertEquals(parlamentarSecond.getNome(), parlamentarSecondJson.getNome());
 					fail("Exception ");
 				}
-				catch(NullParlamentarException e)
-				{
+				catch(NullParlamentarException e) {
 					 
 				}
-				catch(TransmissionException e)
-				{
+				catch(TransmissionException e) {
 					 
 				}
-				
-				
 			}
 	
-	
-	public void testInstance(){
+	public void testInstance() {
 		JSONHelper helper = new JSONHelper();
 		
 		assertEquals(JSONHelper.class, helper.getClass());
 		
 	}
-
+	
+	public void testListCotaParlamentarFromJSONTransmissionException() 
+			throws NullCotaParlamentarException, TransmissionException {
+		
+		try {
+			JSONHelper.listCotaParlamentarFromJSON("Teste");
+		} catch (TransmissionException te) {
+			
+		}		
+	}
 }
