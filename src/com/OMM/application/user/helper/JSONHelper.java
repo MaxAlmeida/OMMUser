@@ -11,12 +11,12 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
-public class JSONHelper
-{
+public class JSONHelper {
 	public static List<Parlamentar> listParlamentarFromJSON(
-			String jsonParlamentar) throws TransmissionException, NullParlamentarException {
-		List<Parlamentar> listParlamentar;	
-		try{
+			String jsonParlamentar) throws TransmissionException,
+			NullParlamentarException {
+		List<Parlamentar> listParlamentar;
+		try {
 			Gson gson = new Gson();
 			listParlamentar = gson.fromJson(jsonParlamentar,
 					new TypeToken<List<Parlamentar>>() {
@@ -32,52 +32,55 @@ public class JSONHelper
 	}
 
 	public static List<CotaParlamentar> listCotaParlamentarFromJSON(
-			String jsonCotaParlamentar) throws NullCotaParlamentarException, TransmissionException {
+			String jsonCotaParlamentar) throws NullCotaParlamentarException,
+			TransmissionException {
 		List<CotaParlamentar> listCotaParlamentar;
-		try{
+		try {
 			Gson gson = new Gson();
-			listCotaParlamentar = gson.fromJson(
-					jsonCotaParlamentar, new TypeToken<List<CotaParlamentar>>() {
+			listCotaParlamentar = gson.fromJson(jsonCotaParlamentar,
+					new TypeToken<List<CotaParlamentar>>() {
 					}.getType());
-			
+
 		} catch (NullPointerException npe) {
-			
+
 			throw new NullCotaParlamentarException();
 		} catch (JsonSyntaxException jse) {
-			
+
 			throw new TransmissionException();
 		}
-		
-		if(listCotaParlamentar == null) {
+
+		if (listCotaParlamentar == null) {
 			throw new NullCotaParlamentarException();
-			
+
 		}
 		return listCotaParlamentar;
 	}
 
 	public static List<Parlamentar> listParlamentarRankingMaioresFromJSON(
-			String jsonParlamentarRankingMaiores) throws NullParlamentarException, TransmissionException {
+			String jsonParlamentarRankingMaiores)
+			throws NullParlamentarException, TransmissionException {
 		List<Parlamentar> listParlamentarRankingMaiores;
-		
+
 		try {
-		Gson gson = new Gson();
-		listParlamentarRankingMaiores = gson.fromJson(
-				jsonParlamentarRankingMaiores, new TypeToken<List<Parlamentar>>() {
-				}.getType());
-		
+			Gson gson = new Gson();
+			listParlamentarRankingMaiores = gson.fromJson(
+					jsonParlamentarRankingMaiores,
+					new TypeToken<List<Parlamentar>>() {
+					}.getType());
+
 		} catch (NullPointerException npe) {
-			
+
 			throw new NullParlamentarException();
 		} catch (JsonSyntaxException jse) {
-			
+
 			throw new TransmissionException();
 		}
-		
-		if(listParlamentarRankingMaiores == null) {
+
+		if (listParlamentarRankingMaiores == null) {
 			throw new NullParlamentarException();
-			
+
 		}
 		return listParlamentarRankingMaiores;
-		
+
 	}
 }
