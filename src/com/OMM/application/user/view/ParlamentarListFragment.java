@@ -10,9 +10,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -126,7 +123,8 @@ public class ParlamentarListFragment extends ListFragment {
 			controllerParlamentar.getSelected();
 			listener.OnParlamentarSelected();
 		} else {
-			startRequest();
+			ParlamentarRequest parlamentarRequest = new ParlamentarRequest(getActivity());
+			parlamentarRequest.startRequest();
 		}
 	}
 
@@ -178,99 +176,7 @@ public class ParlamentarListFragment extends ListFragment {
 	private boolean isCharAllowed(char c) {
 		return Character.isLetterOrDigit(c) || Character.isSpaceChar(c);
 	}
-
-	private class RequestTask extends AsyncTask<Object, Void, Integer> {
-
-		ProgressDialog progressDialog;
-
-		@Override
-		protected void onPreExecute() {
-			progressDialog = ProgressDialog.show(getActivity(), "Aguarde...",
-					"Buscando Dados");
-		}
-
-		@SuppressWarnings("unchecked")
-		@Override
-		protected Integer doInBackground(Object... params) {
-
-			Integer result = null;
-			ParlamentarUserController parlamentarController = ParlamentarUserController
-					.getInstance(getActivity());
-
-			ResponseHandler<String> rh = (ResponseHandler<String>) params[0];
-			try {
-				parlamentarController.doRequest(rh);
-				result = Alerts.NO_EXCEPTIONS;
-			} catch (ConnectionFailedException cfe) {
-				result = Alerts.CONNECTION_FAILED_EXCEPTION;
-
-			} catch (RequestFailedException rfe) {
-				result = Alerts.REQUEST_FAILED_EXCEPTION;
-
-			} catch (NullParlamentarException npe) {
-				result = Alerts.NULL_PARLAMENTAR_EXCEPTION;
-
-			} catch (NullCotaParlamentarException ncpe) {
-				result = Alerts.NULL_COTA_PARLAMENTAR_EXCEPTION;
-
-			} catch (Exception e) {
-				result = Alerts.UNEXPECTED_FAILED_EXCEPTION;
-
-			}
-			return result;
-		}
-
-		@Override
-		protected void onPostExecute(Integer result) {
-			progressDialog.dismiss();
-
-			switch ((Integer) result) {
-			case 0:
-
-				listener.OnParlamentarSelected();
-				break;
-
-			case Alerts.CONNECTION_FAILED_EXCEPTION:
-
-				Alerts.conectionFailedAlert(getActivity());
-				break;
-
-			case Alerts.NULL_PARLAMENTAR_EXCEPTION:
-
-				Alerts.parlamentarFailedAlert(getActivity());
-				break;
-
-			case Alerts.NULL_COTA_PARLAMENTAR_EXCEPTION:
-
-				Alerts.cotaParlamentarFailedAlert(getActivity());
-				break;
-
-			case Alerts.REQUEST_FAILED_EXCEPTION:
-
-				Alerts.requestFailedAlert(getActivity());
-				break;
-
-			case Alerts.UNEXPECTED_FAILED_EXCEPTION:
-
-				Alerts.unexpectedFailedAlert(getActivity());
-				break;
-
-			default:
-				// Nothing should be done
-			}
-		}
-	}
-
-	private void startRequest() {
-
-		ResponseHandler<String> responseHandler = HttpConnection
-				.getResponseHandler();
-
-		RequestTask task = new RequestTask();
-		task.execute(responseHandler);
-
-	}
-
+	
 	private void hideKeyboard() {
 		InputMethodManager inputManager = (InputMethodManager) getActivity()
 				.getSystemService(Context.INPUT_METHOD_SERVICE);

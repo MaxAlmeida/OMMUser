@@ -53,7 +53,7 @@ public class ParlamentarRankingListFragment extends ListFragment {
 	}
 
 	public interface OnParlamentarRankingSelectedListener {
-		public void OnParlamentarRankingSelected();
+		public void OnParlamentarSelected();
 	}
 
 	@Override
@@ -69,7 +69,8 @@ public class ParlamentarRankingListFragment extends ListFragment {
 	}
 
 	private void updateDetail() {
-		startRequest();
+		ParlamentarRequest parlamentarRequest = new ParlamentarRequest(getActivity());
+		parlamentarRequest.startRequest();
 	}
 
 	private class RankingRequestTask extends AsyncTask<Object, Void, Integer> {
@@ -146,97 +147,6 @@ public class ParlamentarRankingListFragment extends ListFragment {
 		ResponseHandler<String> responseHandler = HttpConnection
 				.getResponseHandler();
 		RankingRequestTask task = new RankingRequestTask();
-		task.execute(responseHandler);
-	}
-
-	private class RequestTask extends AsyncTask<Object, Void, Integer> {
-
-		ProgressDialog progressDialog;
-
-		@Override
-		protected void onPreExecute() {
-			progressDialog = ProgressDialog.show(getActivity(), "Aguarde...",
-					"Buscando Dados");
-		}
-
-		@SuppressWarnings("unchecked")
-		@Override
-		protected Integer doInBackground(Object... params) {
-
-			Integer result = null;
-			ParlamentarUserController parlamentarController = ParlamentarUserController
-					.getInstance(getActivity());
-
-			ResponseHandler<String> rh = (ResponseHandler<String>) params[0];
-			try {
-				parlamentarController.doRequest(rh);
-				result = Alerts.NO_EXCEPTIONS;
-			} catch (ConnectionFailedException cfe) {
-				result = Alerts.CONNECTION_FAILED_EXCEPTION;
-
-			} catch (RequestFailedException rfe) {
-				result = Alerts.REQUEST_FAILED_EXCEPTION;
-
-			} catch (NullParlamentarException npe) {
-				result = Alerts.NULL_PARLAMENTAR_EXCEPTION;
-
-			} catch (NullCotaParlamentarException ncpe) {
-				result = Alerts.NULL_COTA_PARLAMENTAR_EXCEPTION;
-
-			} catch (Exception e) {
-				result = Alerts.UNEXPECTED_FAILED_EXCEPTION;
-
-			}
-			return result;
-		}
-
-		@Override
-		protected void onPostExecute(Integer result) {
-			progressDialog.dismiss();
-
-			switch ((Integer) result) {
-			case 0:
-
-				listener.OnParlamentarRankingSelected();
-				break;
-
-			case Alerts.CONNECTION_FAILED_EXCEPTION:
-
-				Alerts.conectionFailedAlert(getActivity());
-				break;
-
-			case Alerts.NULL_PARLAMENTAR_EXCEPTION:
-
-				Alerts.parlamentarFailedAlert(getActivity());
-				break;
-
-			case Alerts.NULL_COTA_PARLAMENTAR_EXCEPTION:
-
-				Alerts.cotaParlamentarFailedAlert(getActivity());
-				break;
-
-			case Alerts.REQUEST_FAILED_EXCEPTION:
-
-				Alerts.requestFailedAlert(getActivity());
-				break;
-
-			case Alerts.UNEXPECTED_FAILED_EXCEPTION:
-
-				Alerts.unexpectedFailedAlert(getActivity());
-				break;
-
-			default:
-				// Nothing should be done
-			}
-		}
-	}
-
-	private void startRequest() {
-
-		ResponseHandler<String> responseHandler = HttpConnection
-				.getResponseHandler();
-
-		RequestTask task = new RequestTask();
 		task.execute(responseHandler);
 	}
 }

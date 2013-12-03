@@ -43,7 +43,7 @@ public class ParlamentarSeguidoListFragment extends ListFragment {
 	}
 
 	public interface OnParlamentarSeguidoSelectedListener {
-		public void OnParlamentarSeguidoSelected();
+		public void OnParlamentarSelected();
 	}
 
 	@Override
@@ -59,7 +59,7 @@ public class ParlamentarSeguidoListFragment extends ListFragment {
 	}
 
 	private void updateDetail() {
-		listener.OnParlamentarSeguidoSelected();
+		listener.OnParlamentarSelected();
 	}
 
 }
