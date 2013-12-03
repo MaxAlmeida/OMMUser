@@ -36,12 +36,12 @@ public class ParlamentarSeguidoListFragment extends ListFragment {
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 
-		parlamentarController.setParlamentar((Parlamentar) getListAdapter().getItem(
-				position));
+		parlamentarController.setParlamentar((Parlamentar) getListAdapter()
+				.getItem(position));
 		parlamentarController.getSelected();
 		updateDetail();
 	}
-	
+
 	public interface OnParlamentarSeguidoSelectedListener {
 		public void OnParlamentarSeguidoSelected();
 	}

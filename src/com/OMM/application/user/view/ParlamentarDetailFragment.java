@@ -24,17 +24,17 @@ import com.OMM.application.user.exceptions.NullParlamentarException;
 import com.OMM.application.user.model.CotaParlamentar;
 
 public class ParlamentarDetailFragment extends Fragment {
-	
+
 	private static final String EMPTY = "R$ 0,00";
-	
+
 	// Limits used to modify the bars of expenses
-	private static final int UPPER_LIMIT_WHITE_BAR = 500; 
-	private static final int  UPPER_LIMIT_GREEN_BAR = 1500;
-	private static final int  UPPER_LIMIT_YELLOW_BAR = 3000;
-	private static final int  UPPER_LIMIT_ORANGE_BAR = 5000;
-	private static final int  LOWER_LIMIT_RED_BAR = 5000;
-	
-	//NumeroSubCota's values ​​coming from database
+	private static final int UPPER_LIMIT_WHITE_BAR = 500;
+	private static final int UPPER_LIMIT_GREEN_BAR = 1500;
+	private static final int UPPER_LIMIT_YELLOW_BAR = 3000;
+	private static final int UPPER_LIMIT_ORANGE_BAR = 5000;
+	private static final int LOWER_LIMIT_RED_BAR = 5000;
+
+	// NumeroSubCota's values ​​coming from database
 	private static final int ESCRITORIO = 1;
 	private static final int COMBUSTIVEL = 3;
 	private static final int TRABALHO_TECNICO_E_CONSULTORIA = 4;
@@ -48,12 +48,10 @@ public class ParlamentarDetailFragment extends Fragment {
 	private static final int HOSPEDAGEM = 14;
 	private static final int LOCACAO_DE_VEICULOS = 15;
 	private static final int EMISSAO_BILHETES_AEREOS = 999;
-	
-	
-	
+
 	ParlamentarUserController parlamentarController;
 	private int selectedMes = 1;
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -67,13 +65,13 @@ public class ParlamentarDetailFragment extends Fragment {
 		final Button btn_detalhe_desseguir = (Button) view
 				.findViewById(R.id.btn_detalhe_desseguir);
 
-		if(parlamentarController.getParlamentar().getIsSeguido() == 1) {
-		btn_detalhe_seguir.setVisibility(View.INVISIBLE);
-		btn_detalhe_desseguir.setVisibility(View.VISIBLE);
+		if (parlamentarController.getParlamentar().getIsSeguido() == 1) {
+			btn_detalhe_seguir.setVisibility(View.INVISIBLE);
+			btn_detalhe_desseguir.setVisibility(View.VISIBLE);
 
 		} else {
-		 btn_detalhe_desseguir.setVisibility(View.INVISIBLE);
-		 btn_detalhe_seguir.setVisibility(View.VISIBLE);
+			btn_detalhe_desseguir.setVisibility(View.INVISIBLE);
+			btn_detalhe_seguir.setVisibility(View.VISIBLE);
 		}
 
 		createButtons(view);
@@ -89,22 +87,23 @@ public class ParlamentarDetailFragment extends Fragment {
 							Toast.LENGTH_SHORT).show();
 					btn_detalhe_desseguir.setVisibility(View.GONE);
 					btn_detalhe_seguir.setVisibility(View.VISIBLE);
-					
-					ImageView imgView = (ImageView)getView().findViewById(R.id.foto);
+
+					ImageView imgView = (ImageView) getView().findViewById(
+							R.id.foto);
 					imgView.setImageResource(R.drawable.parlamentar_foto);
-					
+
 				} catch (NullParlamentarException nullEx) {
 					Toast.makeText(getActivity(), "Erro na requisição",
 							Toast.LENGTH_SHORT).show();
 
 				} catch (NullCotaParlamentarException e) {
-					
+
 					// TODO FAZER O TRATAMENTO DA EXCECAO
 					e.printStackTrace();
 				}
 			}
 		});
-		
+
 		btn_detalhe_seguir.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -114,8 +113,9 @@ public class ParlamentarDetailFragment extends Fragment {
 					parlamentarController.followedParlamentar();
 					Toast.makeText(getActivity(), "Parlamentar Seguido",
 							Toast.LENGTH_SHORT).show();
-					
-					ImageView imgView = (ImageView)getView().findViewById(R.id.foto);
+
+					ImageView imgView = (ImageView) getView().findViewById(
+							R.id.foto);
 					imgView.setImageResource(R.drawable.parlamentar_seguido_foto);
 					btn_detalhe_seguir.setVisibility(View.GONE);
 					btn_detalhe_desseguir.setVisibility(View.VISIBLE);
@@ -123,8 +123,7 @@ public class ParlamentarDetailFragment extends Fragment {
 				} catch (NullParlamentarException nullEx) {
 					Toast.makeText(getActivity(), "Erro na requisição",
 							Toast.LENGTH_SHORT).show();
-				} catch (NullCotaParlamentarException e)
-				{
+				} catch (NullCotaParlamentarException e) {
 					Toast.makeText(getActivity(), "Erro na requisição",
 							Toast.LENGTH_SHORT).show();
 				}
@@ -138,7 +137,7 @@ public class ParlamentarDetailFragment extends Fragment {
 		DecimalFormat valorCotaDecimalFormat = new DecimalFormat("#,###.00");
 		double totalValue = 0.0;
 		resetBarras();
-		
+
 		TextView view = (TextView) getView().findViewById(R.id.nome);
 		view.setText(parlamentarController.getParlamentar().getNome());
 		view = (TextView) getView().findViewById(R.id.partido);
@@ -146,29 +145,28 @@ public class ParlamentarDetailFragment extends Fragment {
 		view = (TextView) getView().findViewById(R.id.uf);
 		view.setText(parlamentarController.getParlamentar().getUf());
 		TextView textMes = (TextView) getView().findViewById(R.id.mes);
-		textMes.setText("Valores do mês "+ selectedMes);
-		
-		if(parlamentarController.getParlamentar().getIsSeguido()==1){
-			ImageView imgView = (ImageView)getView().findViewById(R.id.foto);
+		textMes.setText("Valores do mês " + selectedMes);
+
+		if (parlamentarController.getParlamentar().getIsSeguido() == 1) {
+			ImageView imgView = (ImageView) getView().findViewById(R.id.foto);
 			imgView.setImageResource(R.drawable.parlamentar_seguido_foto);
+		} else {
+			// Nothing here.
 		}
-		else{
-			//Nothing here.
-		}
-		
+
 		double valorSubcotaRevista = 0;
 		double valorSubcotaFrete = 0;
 		Iterator<CotaParlamentar> iterator = parlamentarController
 				.getParlamentar().getCotas().iterator();
-		
+
 		while (iterator.hasNext()) {
-			
+
 			CotaParlamentar cota = iterator.next();
-			
+
 			if (cota.getMes() == selectedMes) {
 				double valorCota = cota.getValor();
 				int numeroSubCota = cota.getNumeroSubCota();
-				
+
 				switch (numeroSubCota) {
 
 				case ESCRITORIO:
@@ -180,7 +178,7 @@ public class ParlamentarDetailFragment extends Fragment {
 					textViewEscritorio.setText("R$ "
 							+ valorCotaDecimalFormat.format(valorCota));
 					valorSubcotaRevista = valorCota;
-					
+
 					sizeBar(barEscritorio, valorCota);
 
 					break;
@@ -238,7 +236,7 @@ public class ParlamentarDetailFragment extends Fragment {
 					break;
 
 				case FRETE_AVIAO:
-					valorCota += valorSubcotaFrete; 
+					valorCota += valorSubcotaFrete;
 					ImageView barAluguelAviao = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_aluguel_aviao);
 					TextView textViewAluguelAviao = (TextView) getActivity()
@@ -249,7 +247,7 @@ public class ParlamentarDetailFragment extends Fragment {
 					sizeBar(barAluguelAviao, valorCota);
 
 					break;
-					
+
 				case TELEFONIA:
 
 					ImageView barTelefonia = (ImageView) getActivity()
@@ -275,9 +273,9 @@ public class ParlamentarDetailFragment extends Fragment {
 					sizeBar(barCorreios, valorCota);
 
 					break;
-				
+
 				case ASSINATURA_DE_PUBLICACOES:
-					valorCota+=valorSubcotaRevista;
+					valorCota += valorSubcotaRevista;
 					ImageView barEscritorio2 = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_escritorio);
 					TextView textViewEscritorio2 = (TextView) getActivity()
@@ -287,8 +285,8 @@ public class ParlamentarDetailFragment extends Fragment {
 					valorSubcotaRevista = valorCota;
 					sizeBar(barEscritorio2, valorCota);
 
-					break;	
-					
+					break;
+
 				case ALIMENTACAO:
 
 					ImageView barAlimentacao = (ImageView) getActivity()
@@ -316,7 +314,7 @@ public class ParlamentarDetailFragment extends Fragment {
 					break;
 
 				case LOCACAO_DE_VEICULOS:
-					valorCota += valorSubcotaFrete; 
+					valorCota += valorSubcotaFrete;
 					ImageView barAluguelAviao2 = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_aluguel_aviao);
 					TextView textViewAluguelAviao2 = (TextView) getActivity()
@@ -344,18 +342,17 @@ public class ParlamentarDetailFragment extends Fragment {
 				default:
 
 				}
-				
+
 				totalValue += valorCota;
-				
+
 			}
 
 		}
 		TextView total = (TextView) getActivity().findViewById(R.id.total);
-		total.setText("Total: R$ "+valorCotaDecimalFormat.format(totalValue));
+		total.setText("Total: R$ " + valorCotaDecimalFormat.format(totalValue));
 
 	}
 
-	
 	public void sizeBar(ImageView bar, double valorCota) {
 
 		if (valorCota <= UPPER_LIMIT_WHITE_BAR) {
@@ -379,8 +376,8 @@ public class ParlamentarDetailFragment extends Fragment {
 			bar.setImageResource(R.drawable.barra_vermelha);
 
 		} else {
-			
-			//Nothing should be done
+
+			// Nothing should be done
 		}
 
 	}
@@ -532,161 +529,159 @@ public class ParlamentarDetailFragment extends Fragment {
 		super.onCreateOptionsMenu(menu, inflater);
 		menu.clear();
 		SubMenu sub = menu.addSubMenu("Mês");
-		@SuppressWarnings( "unused" )
-		MenuItem Ano = menu.add(0,Menu.FIRST+12,0,"Ano");
-		sub.add(0,Menu.FIRST,0,"Janeiro");
-		sub.add(0,Menu.FIRST+1,0,"Fevereiro");
-		sub.add(0,Menu.FIRST+2,0,"Março");
-		sub.add(0,Menu.FIRST+3,0,"Abril");
-		sub.add(0,Menu.FIRST+4,0,"Maio");
-		sub.add(0,Menu.FIRST+5,0,"Junho");
-		sub.add(0,Menu.FIRST+6,0,"Julho");
-		sub.add(0,Menu.FIRST+7,0,"Agosto");
-		sub.add(0,Menu.FIRST+8,0,"Setembro");
-		sub.add(0,Menu.FIRST+9,0,"Outubro");
-		sub.add(0,Menu.FIRST+10,0,"Novembro");
-		sub.add(0,Menu.FIRST+11,0,"Dezembro");
+		@SuppressWarnings("unused")
+		MenuItem Ano = menu.add(0, Menu.FIRST + 12, 0, "Ano");
+		sub.add(0, Menu.FIRST, 0, "Janeiro");
+		sub.add(0, Menu.FIRST + 1, 0, "Fevereiro");
+		sub.add(0, Menu.FIRST + 2, 0, "Março");
+		sub.add(0, Menu.FIRST + 3, 0, "Abril");
+		sub.add(0, Menu.FIRST + 4, 0, "Maio");
+		sub.add(0, Menu.FIRST + 5, 0, "Junho");
+		sub.add(0, Menu.FIRST + 6, 0, "Julho");
+		sub.add(0, Menu.FIRST + 7, 0, "Agosto");
+		sub.add(0, Menu.FIRST + 8, 0, "Setembro");
+		sub.add(0, Menu.FIRST + 9, 0, "Outubro");
+		sub.add(0, Menu.FIRST + 10, 0, "Novembro");
+		sub.add(0, Menu.FIRST + 11, 0, "Dezembro");
 	}
-	
-	public boolean onOptionsItemSelected(MenuItem item){
-		
+
+	public boolean onOptionsItemSelected(MenuItem item) {
+
 		switch (item.getItemId()) {
-			
-			case Menu.FIRST:
-				selectedMes = 1;						
-				break;
-			
-			case Menu.FIRST+1: 		    
-				selectedMes = 2;			   
-				break;
-		
-			case Menu.FIRST+2: 		    		
-				selectedMes = 3;		
-				break;
-		
-			case Menu.FIRST+3: 		   
-				selectedMes = 4;		
-		    	break;
 
-			case Menu.FIRST+4: 
-				selectedMes = 5;		
-		    	break;
-
-			case Menu.FIRST+5: 
-				selectedMes = 6;		
-		    	break;
-
-			case Menu.FIRST+6: 
-				selectedMes = 7;		
+		case Menu.FIRST:
+			selectedMes = 1;
 			break;
 
-			case Menu.FIRST+7: 
-				selectedMes = 8;		
-		    	break;
+		case Menu.FIRST + 1:
+			selectedMes = 2;
+			break;
 
-			case Menu.FIRST+8: 
-				selectedMes = 9;	
-		    	break;
-		    
+		case Menu.FIRST + 2:
+			selectedMes = 3;
+			break;
 
-			case Menu.FIRST+9: 
-				selectedMes = 10;	
-		    	break;   
-		    
-	
-			case Menu.FIRST+10: 
-				selectedMes = 11;		
-		    	break; 
-		    
-			case Menu.FIRST+11: 
-				selectedMes = 12;		
-		    	break;      
-		    		
-			default:
-				//Nothing should be done
-				break;
+		case Menu.FIRST + 3:
+			selectedMes = 4;
+			break;
+
+		case Menu.FIRST + 4:
+			selectedMes = 5;
+			break;
+
+		case Menu.FIRST + 5:
+			selectedMes = 6;
+			break;
+
+		case Menu.FIRST + 6:
+			selectedMes = 7;
+			break;
+
+		case Menu.FIRST + 7:
+			selectedMes = 8;
+			break;
+
+		case Menu.FIRST + 8:
+			selectedMes = 9;
+			break;
+
+		case Menu.FIRST + 9:
+			selectedMes = 10;
+			break;
+
+		case Menu.FIRST + 10:
+			selectedMes = 11;
+			break;
+
+		case Menu.FIRST + 11:
+			selectedMes = 12;
+			break;
+
+		default:
+			// Nothing should be done
+			break;
 		}
-	
+
 		setBarras();
 		return true;
 	}
-	
-	public void resetBarras(){
-		
+
+	public void resetBarras() {
+
 		double valorCota = 0;
-		
-		ImageView barEscritorio = (ImageView) getActivity()
-				.findViewById(R.id.barra_cota_escritorio);
-		TextView textViewEscritorio = (TextView) getActivity()
-				.findViewById(R.id.valor_cota_escritorio);
+
+		ImageView barEscritorio = (ImageView) getActivity().findViewById(
+				R.id.barra_cota_escritorio);
+		TextView textViewEscritorio = (TextView) getActivity().findViewById(
+				R.id.valor_cota_escritorio);
 		textViewEscritorio.setText(EMPTY);
 		sizeBar(barEscritorio, valorCota);
 
-		ImageView barCombustivel = (ImageView) getActivity()
-				.findViewById(R.id.barra_cota_gasolina);
-		TextView textViewCombustivel = (TextView) getActivity()
-				.findViewById(R.id.valor_cota_gasolina);
+		ImageView barCombustivel = (ImageView) getActivity().findViewById(
+				R.id.barra_cota_gasolina);
+		TextView textViewCombustivel = (TextView) getActivity().findViewById(
+				R.id.valor_cota_gasolina);
 		textViewCombustivel.setText(EMPTY);
 		sizeBar(barCombustivel, valorCota);
 
-		ImageView barTrabalhoTecnico = (ImageView) getActivity()
-				.findViewById(R.id.barra_cota_trabalho_tecnico);
+		ImageView barTrabalhoTecnico = (ImageView) getActivity().findViewById(
+				R.id.barra_cota_trabalho_tecnico);
 		TextView textViewTrabalhoTecnico = (TextView) getActivity()
 				.findViewById(R.id.valor_cota_trabalho_tecnico);
 		textViewTrabalhoTecnico.setText(EMPTY);
 		sizeBar(barTrabalhoTecnico, valorCota);
 
-		ImageView barDivulgacao = (ImageView) getActivity()
-				.findViewById(R.id.barra_cota_divulgacao);
-		TextView textViewDivulgacao = (TextView) getActivity()
-				.findViewById(R.id.valor_cota_divulgacao);
+		ImageView barDivulgacao = (ImageView) getActivity().findViewById(
+				R.id.barra_cota_divulgacao);
+		TextView textViewDivulgacao = (TextView) getActivity().findViewById(
+				R.id.valor_cota_divulgacao);
 		textViewDivulgacao.setText(EMPTY);
 		sizeBar(barDivulgacao, valorCota);
 
-		ImageView barSeguranca = (ImageView) getActivity()
-				.findViewById(R.id.barra_cota_seguranca);
-		TextView textViewSeguranca = (TextView) getActivity()
-				.findViewById(R.id.valor_cota_seguranca);
+		ImageView barSeguranca = (ImageView) getActivity().findViewById(
+				R.id.barra_cota_seguranca);
+		TextView textViewSeguranca = (TextView) getActivity().findViewById(
+				R.id.valor_cota_seguranca);
 		textViewSeguranca.setText(EMPTY);
 		sizeBar(barSeguranca, valorCota);
 
-		ImageView barAluguelAviao = (ImageView) getActivity()
-				.findViewById(R.id.barra_cota_aluguel_aviao);
-		TextView textViewAluguelAviao = (TextView) getActivity()
-				.findViewById(R.id.valor_cota_aluguel_aviao);
+		ImageView barAluguelAviao = (ImageView) getActivity().findViewById(
+				R.id.barra_cota_aluguel_aviao);
+		TextView textViewAluguelAviao = (TextView) getActivity().findViewById(
+				R.id.valor_cota_aluguel_aviao);
 		textViewAluguelAviao.setText(EMPTY);
 		sizeBar(barAluguelAviao, valorCota);
 
-		ImageView barTelefonia = (ImageView) getActivity()
-				.findViewById(R.id.barra_cota_telefonia);
-		TextView textViewTelefonia = (TextView) getActivity()
-				.findViewById(R.id.valor_cota_telefonia);
+		ImageView barTelefonia = (ImageView) getActivity().findViewById(
+				R.id.barra_cota_telefonia);
+		TextView textViewTelefonia = (TextView) getActivity().findViewById(
+				R.id.valor_cota_telefonia);
 		textViewTelefonia.setText(EMPTY);
 		sizeBar(barTelefonia, valorCota);
 
-		ImageView barCorreios = (ImageView) getActivity()
-				.findViewById(R.id.barra_cota_correios);
-		TextView textViewCorreios = (TextView) getActivity()
-				.findViewById(R.id.valor_cota_correios);
+		ImageView barCorreios = (ImageView) getActivity().findViewById(
+				R.id.barra_cota_correios);
+		TextView textViewCorreios = (TextView) getActivity().findViewById(
+				R.id.valor_cota_correios);
 		textViewCorreios.setText(EMPTY);
 		sizeBar(barCorreios, valorCota);
 
-		ImageView barAlimentacao = (ImageView) getActivity()
-				.findViewById(R.id.barra_cota_alimentacao);
-		TextView textViewAlimentacao = (TextView) getActivity()
-				.findViewById(R.id.valor_cota_alimentacao);
+		ImageView barAlimentacao = (ImageView) getActivity().findViewById(
+				R.id.barra_cota_alimentacao);
+		TextView textViewAlimentacao = (TextView) getActivity().findViewById(
+				R.id.valor_cota_alimentacao);
 		textViewAlimentacao.setText(EMPTY);
 		sizeBar(barAlimentacao, valorCota);
 
-		ImageView barHospedagem = (ImageView) getActivity()
-				.findViewById(R.id.barra_cota_hoespedagem);
-		TextView textViewHospedagam = (TextView) getActivity()
-				.findViewById(R.id.valor_cota_hospedagem);
+		ImageView barHospedagem = (ImageView) getActivity().findViewById(
+				R.id.barra_cota_hoespedagem);
+		TextView textViewHospedagam = (TextView) getActivity().findViewById(
+				R.id.valor_cota_hospedagem);
 		textViewHospedagam.setText(EMPTY);
 		sizeBar(barHospedagem, valorCota);
 
-		ImageView barBilhetesAereos = (ImageView) getActivity()
-				.findViewById(R.id.barra_cota_bilhetes_aereos);
+		ImageView barBilhetesAereos = (ImageView) getActivity().findViewById(
+				R.id.barra_cota_bilhetes_aereos);
 		TextView textViewBilhetesAereos = (TextView) getActivity()
 				.findViewById(R.id.valor_cota_bilhetes_aereos);
 		textViewBilhetesAereos.setText(EMPTY);

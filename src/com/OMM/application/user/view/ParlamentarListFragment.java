@@ -122,11 +122,10 @@ public class ParlamentarListFragment extends ListFragment {
 	}
 
 	private void updateDetail() {
-		if(controllerParlamentar.getParlamentar().getIsSeguido()==1){
+		if (controllerParlamentar.getParlamentar().getIsSeguido() == 1) {
 			controllerParlamentar.getSelected();
 			listener.OnParlamentarSelected();
-		}
-		else{
+		} else {
 			startRequest();
 		}
 	}
@@ -145,7 +144,7 @@ public class ParlamentarListFragment extends ListFragment {
 
 			@Override
 			public boolean onQueryTextSubmit(String query) {
-				query = filter(query,0, query.length());
+				query = filter(query, 0, query.length());
 				updateListContent(query);
 				hideKeyboard();
 				return true;
@@ -153,35 +152,35 @@ public class ParlamentarListFragment extends ListFragment {
 
 			@Override
 			public boolean onQueryTextChange(String query) {
-				query = filter(query,0, query.length());
+				query = filter(query, 0, query.length());
 				updateListContent(query);
-				
+
 				return false;
 			}
 		});
 	}
-	
+
 	private String filter(String source, int start, int end) {
-		
-	    StringBuilder sb = new StringBuilder(end - start);
-	    for (int i = start; i < end; i++) {
-	        char c = source.charAt(i);
-	        if (isCharAllowed(c)) // put your condition here
-	            sb.append(c);
-	        else{
-	        	//do nothing here.
-	        }
-	    }
-	            String sp = new String(sb);
-	            return sp;           
+
+		StringBuilder sb = new StringBuilder(end - start);
+		for (int i = start; i < end; i++) {
+			char c = source.charAt(i);
+			if (isCharAllowed(c)) // put your condition here
+				sb.append(c);
+			else {
+				// do nothing here.
+			}
+		}
+		String sp = new String(sb);
+		return sp;
 	}
 
 	private boolean isCharAllowed(char c) {
-	    return Character.isLetterOrDigit(c) || Character.isSpaceChar(c);
+		return Character.isLetterOrDigit(c) || Character.isSpaceChar(c);
 	}
-	
+
 	private class RequestTask extends AsyncTask<Object, Void, Integer> {
-		
+
 		ProgressDialog progressDialog;
 
 		@Override
@@ -190,14 +189,14 @@ public class ParlamentarListFragment extends ListFragment {
 					"Buscando Dados");
 		}
 
-		@SuppressWarnings( "unchecked" )
+		@SuppressWarnings("unchecked")
 		@Override
 		protected Integer doInBackground(Object... params) {
 
 			Integer result = null;
 			ParlamentarUserController parlamentarController = ParlamentarUserController
 					.getInstance(getActivity());
-			
+
 			ResponseHandler<String> rh = (ResponseHandler<String>) params[0];
 			try {
 				parlamentarController.doRequest(rh);
@@ -205,16 +204,16 @@ public class ParlamentarListFragment extends ListFragment {
 			} catch (ConnectionFailedException cfe) {
 				result = Alerts.CONNECTION_FAILED_EXCEPTION;
 
-			} catch (RequestFailedException rfe) {			
+			} catch (RequestFailedException rfe) {
 				result = Alerts.REQUEST_FAILED_EXCEPTION;
 
 			} catch (NullParlamentarException npe) {
 				result = Alerts.NULL_PARLAMENTAR_EXCEPTION;
-				
+
 			} catch (NullCotaParlamentarException ncpe) {
 				result = Alerts.NULL_COTA_PARLAMENTAR_EXCEPTION;
-				
-			}  catch (Exception e) {
+
+			} catch (Exception e) {
 				result = Alerts.UNEXPECTED_FAILED_EXCEPTION;
 
 			}
@@ -266,7 +265,7 @@ public class ParlamentarListFragment extends ListFragment {
 
 		ResponseHandler<String> responseHandler = HttpConnection
 				.getResponseHandler();
-		
+
 		RequestTask task = new RequestTask();
 		task.execute(responseHandler);
 
