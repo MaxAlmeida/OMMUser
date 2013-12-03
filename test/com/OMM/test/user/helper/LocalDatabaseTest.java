@@ -10,17 +10,15 @@ import android.test.AndroidTestCase;
 
 import com.OMM.application.user.helper.LocalDatabase;
 
-@SuppressLint( "NewApi" )
-public class LocalDatabaseTest extends AndroidTestCase
-{
+@SuppressLint("NewApi")
+public class LocalDatabaseTest extends AndroidTestCase {
 
 	private LocalDatabase db;
 	private Context context;
 	private SQLiteDatabase database;
 
 	@SuppressLint("SdCardPath")
-	protected void setUp( )
-	{
+	protected void setUp() {
 
 		this.context = getContext();
 
@@ -34,8 +32,7 @@ public class LocalDatabaseTest extends AndroidTestCase
 	}
 
 	@SuppressLint("SdCardPath")
-	public void testOnCreateSQLiteDatabase( )
-	{
+	public void testOnCreateSQLiteDatabase() {
 		db = new LocalDatabase(context);
 		database = new LocalDatabase(context).getWritableDatabase();
 
@@ -46,8 +43,7 @@ public class LocalDatabaseTest extends AndroidTestCase
 	}
 
 	@SuppressLint("SdCardPath")
-	public void testOnUpgradeSQLiteDatabaseIntInt( )
-	{
+	public void testOnUpgradeSQLiteDatabaseIntInt() {
 
 		SQLiteDatabase database = new LocalDatabase(context, 2, "OMM2.db")
 				.getWritableDatabase();
