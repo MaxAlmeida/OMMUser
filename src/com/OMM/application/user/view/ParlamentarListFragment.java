@@ -65,7 +65,7 @@ public class ParlamentarListFragment extends ListFragment {
 
 		private ParlamentarListFragment fragment;
 
-		public void setFragment(ParlamentarListFragment fragment) {
+		private void setFragment(ParlamentarListFragment fragment) {
 			this.fragment = fragment;
 		}
 
@@ -81,7 +81,7 @@ public class ParlamentarListFragment extends ListFragment {
 		}
 	}
 
-	public void updateListContent(String inputText) {
+	private void updateListContent(String inputText) {
 
 		if (parseTask == null) {
 			parseTask = new ParseTask();
@@ -97,7 +97,7 @@ public class ParlamentarListFragment extends ListFragment {
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public void setListContent(List result) {
+	private void setListContent(List result) {
 		ArrayAdapter listAdapter = (ArrayAdapter) getListAdapter();
 		listAdapter.clear();
 		listAdapter.addAll(result);
@@ -121,7 +121,7 @@ public class ParlamentarListFragment extends ListFragment {
 		}
 	}
 
-	public void updateDetail() {
+	private void updateDetail() {
 		if(controllerParlamentar.getParlamentar().getIsSeguido()==1){
 			controllerParlamentar.getSelected();
 			listener.OnParlamentarSelected();
@@ -161,7 +161,7 @@ public class ParlamentarListFragment extends ListFragment {
 		});
 	}
 	
-	public String filter(String source, int start, int end) {
+	private String filter(String source, int start, int end) {
 		
 	    StringBuilder sb = new StringBuilder(end - start);
 	    for (int i = start; i < end; i++) {
