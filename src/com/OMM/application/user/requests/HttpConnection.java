@@ -27,12 +27,12 @@ public class HttpConnection {
 
 			BufferedReader buffer = new BufferedReader(new InputStreamReader(
 					entity.getContent()));
-			
+
 			StringBuilder builder = new StringBuilder();
 			String line = null;
 
 			while ((line = buffer.readLine()) != null) {
-				
+
 				builder.append(line + "\n");
 			}
 
@@ -48,21 +48,23 @@ public class HttpConnection {
 		return responseHandler;
 	}
 
-	public static String request(ResponseHandler<String> response,
-			String url) throws ConnectionFailedException, RequestFailedException {
+	public static String request(ResponseHandler<String> response, String url)
+			throws ConnectionFailedException, RequestFailedException {
 
 		try {
 
 			DefaultHttpClient client = new DefaultHttpClient();
 			HttpGet http = new HttpGet(url);
-			
-			String json = new String(client.execute(http,response).getBytes("ISO-8859-1"),"UTF-8");
+
+			String json = new String(client.execute(http, response).getBytes(
+					"ISO-8859-1"), "UTF-8");
 			return json;
 
 		} catch (ClientProtocolException e) {
 			throw new RequestFailedException();
 
-		} catch (IOException ioe) {;
+		} catch (IOException ioe) {
+			;
 			throw new ConnectionFailedException();
 		}
 	}
