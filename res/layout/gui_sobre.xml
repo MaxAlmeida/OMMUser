@@ -7,7 +7,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="1268dp" >
+        android:layout_height="1780dp" >
 
         <Button
             android:id="@+id/btn_cota_alimentacao"
@@ -297,7 +297,8 @@
             android:layout_alignLeft="@+id/textView17"
             android:layout_below="@+id/textView17"
             android:layout_marginTop="29dp"
-            android:text="O Olha Minha Mesada (OMM) é um aplicativo que visa facilitar a busca por informações dos gastos públicos relacionados a Cota para Exercício da Atividade Parlamentar (CEAP). "
+            android:textAlignment="center"
+            android:text="O Olha Minha Mesada (OMM) é um aplicativo em Android que visa facilitar a busca por informações dos gastos públicos relacionados a Cota para Exercício da Atividade Parlamentar (CEAP). Os dados utilizados estão disponíveis no portal de dados abertos da câmera federal e são apresentados de forma clara e objetiva possibilitando que o usuário verifique os gastos mensais de cada deputado, consulte o ranking dos mais gastadores do ano corrente e siga os deputados que preferir. O aplicativo OMM necessita que o usuário esteja online para requisição dos dados específicos solicitados em tempo de execução, entretanto, ao seguir um deputado, esses dados persistem no aplicativo eliminando essa dependência."
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
@@ -309,37 +310,6 @@
             android:layout_marginBottom="325dp"
             android:text=""
             android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <TextView
-            android:id="@+id/textView20"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView18"
-            android:layout_below="@+id/textView18"
-            android:layout_marginTop="18dp"
-            android:text="Alysson Raniere"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-        
-
-        <TextView
-            android:id="@+id/barras"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/btn_cota_trabalho_tecnico"
-            android:layout_below="@+id/textView11"
-            android:layout_marginTop="34dp"
-            android:text="Valor das Barras:"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <TextView
-            android:id="@+id/textView18"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/imageView5"
-            android:layout_below="@+id/imageView5"
-            android:layout_marginTop="35dp"
-            android:text="Desenvolvedores: "
-            android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
             android:id="@+id/textView22"
@@ -431,6 +401,104 @@
             android:layout_marginTop="10dp"
             android:layout_centerHorizontal="true"
             android:src="@drawable/unb_logo" />
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/descricao"
+            android:layout_marginTop="23dp"
+            android:src="@drawable/barra_separadora" />
+
+        <TextView
+            android:id="@+id/barras"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/btn_cota_trabalho_tecnico"
+            android:layout_below="@+id/textView11"
+            android:layout_marginTop="84dp"
+            android:text="Valor das Barras:"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/textView11"
+            android:layout_marginTop="43dp"
+            android:src="@drawable/barra_separadora" />
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/imageView5"
+            android:layout_marginTop="46dp"
+            android:src="@drawable/barra_separadora" />
+
+        <TextView
+            android:id="@+id/textView28"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/imageView5"
+            android:layout_below="@+id/textView18"
+            android:layout_marginTop="27dp"
+            android:text="O chute inicial para o desenvolvimento deste projeto foi a ideia do Professor/Orientador Hilmer Rodrigues Neri, MSc. de mostrar dados disponibilizados pelo governo de forma fácil e acessível, através de aplicações. Sendo esses dados disponibilizados pelo governo em arquivos dificeis de serem entendidos ou abertos por cidadões. A ideia seria juntar duas disciplinas, MDS(Métodos de Desenvolvimento de Software) e GPP(Gestão de Projeto e Portifolio de Software). Onde a primeira ficaria com a parte de programação e processos, e a outra ficaria encarregada da gestão do projeto e programação. E como resultado temos essa aplicação &apos;Olha Minha Mesada&apos;."
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView28"
+            android:layout_below="@+id/imageView8"
+            android:layout_marginTop="20dp"
+            android:text="Desenvolvimento: "
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/textView29"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView20"
+            android:layout_below="@+id/textView28"
+            android:layout_marginTop="43dp"
+            android:text="Equipe: "
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/textView20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView28"
+            android:layout_below="@+id/textView29"
+            android:layout_marginTop="29dp"
+            android:text="Alysson Raniere"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <ImageView
+            android:id="@+id/imageView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/textView4"
+            android:src="@drawable/barra_separadora" />
+
+        <ImageView
+            android:id="@+id/imageView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/textView27"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/barra_separadora" />
 
     </RelativeLayout>
 
