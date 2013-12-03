@@ -4,11 +4,12 @@ import android.test.AndroidTestCase;
 
 public class NullParlamentarRankingMaioresExceptionTest extends AndroidTestCase {
 
-public void testInstance(){
-		
+	public void testInstance() {
+
 		NullParlamentarRankingMaioresExceptionTest exception = new NullParlamentarRankingMaioresExceptionTest();
-		assertEquals(NullParlamentarRankingMaioresExceptionTest.class, exception.getClass());
-		
+		assertEquals(NullParlamentarRankingMaioresExceptionTest.class,
+				exception.getClass());
+
 	}
-		
+
 }

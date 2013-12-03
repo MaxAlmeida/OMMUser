@@ -6,7 +6,6 @@ import com.OMM.application.user.model.CotaParlamentar;
 
 public class NullCotaParlamentarExceptionTest extends AndroidTestCase {
 
-
 	@SuppressWarnings("null")
 	public void testNullCotaParlamentarException() {
 		try {
