@@ -13,26 +13,28 @@ import com.OMM.application.user.model.Parlamentar;
 import com.OMM.application.user.requests.HttpConnection;
 import com.OMM.application.user.requests.MountURL;
 
-public class HttpConnectionTest extends AndroidTestCase{
-	
+public class HttpConnectionTest extends AndroidTestCase {
+
 	private ResponseHandler<String> response;
-	
-	public void setUp(){
+
+	public void setUp() {
 		response = HttpConnection.getResponseHandler();
 	}
 
-	public void testRequest() throws ConnectionFailedException, RequestFailedException, TransmissionException, NullParlamentarException{
+	public void testRequest() throws ConnectionFailedException,
+			RequestFailedException, TransmissionException,
+			NullParlamentarException {
 		String url = MountURL.mountURLParlamentar(373);
 		String json = HttpConnection.request(response, url);
 		String result = "[{\"id\":373,\"nome\":\"PAULO MALUF\",\"partido\":\"PP\",\"uf\":\"SP\"}]";
 		Parlamentar pResult = JSONHelper.listParlamentarFromJSON(result).get(0);
 		Parlamentar pJson = JSONHelper.listParlamentarFromJSON(json).get(0);
-		
-		assertEquals(pResult.getId(),pJson.getId());
-		assertEquals(pResult.getNome(),pJson.getNome());
+
+		assertEquals(pResult.getId(), pJson.getId());
+		assertEquals(pResult.getNome(), pJson.getNome());
 	}
-	
-	public void testHttpConnectionInstance(){
+
+	public void testHttpConnectionInstance() {
 		HttpConnection connection = new HttpConnection();
 		assertEquals(HttpConnection.class, connection.getClass());
 	}
