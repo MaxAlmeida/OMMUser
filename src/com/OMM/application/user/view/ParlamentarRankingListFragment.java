@@ -68,7 +68,7 @@ public class ParlamentarRankingListFragment extends ListFragment {
 		}
 	}
 
-	public void updateDetail() {
+	private void updateDetail() {
 		startRequest();
 	}
 
