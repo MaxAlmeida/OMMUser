@@ -9,23 +9,20 @@ import android.test.AndroidTestCase;
 import com.OMM.application.user.dao.CotaParlamentarUserDao;
 import com.OMM.application.user.model.CotaParlamentar;
 
-public class CotaParlamentarUserDaoTest extends AndroidTestCase
-{
+public class CotaParlamentarUserDaoTest extends AndroidTestCase {
 
 	Context context;
 	private CotaParlamentarUserDao cotaDao;
 	private CotaParlamentar cotaParlamentar = new CotaParlamentar();
 
-	public void setUp()
-	{
+	public void setUp() {
 		context = getContext();
 		this.cotaDao = CotaParlamentarUserDao.getInstance(context);
 		cotaParlamentar.setIdParlamentar(0);
 		cotaParlamentar.setValor(330);
 	}
 
-	public void testGetInstance()
-	{
+	public void testGetInstance() {
 
 		CotaParlamentarUserDao parlamentarDao1 = CotaParlamentarUserDao
 				.getInstance(context);
@@ -34,16 +31,14 @@ public class CotaParlamentarUserDaoTest extends AndroidTestCase
 		assertSame(parlamentarDao1, parlamentarDao2);
 	}
 
-	public void testInsertFollowed()
-	{
+	public void testInsertFollowed() {
 		List<CotaParlamentar> list = new ArrayList<CotaParlamentar>();
 		list.add(cotaParlamentar);
 		assertEquals(true, cotaDao.insertCotasOnFollowedParlamentar(list));
 		cotaDao.deleteCotasFromParlamentar(cotaParlamentar.getIdParlamentar());
 	}
 
-	public void testDeleteParlamentar()
-	{
+	public void testDeleteParlamentar() {
 
 		List<CotaParlamentar> list = new ArrayList<CotaParlamentar>();
 		list.add(cotaParlamentar);
@@ -52,8 +47,7 @@ public class CotaParlamentarUserDaoTest extends AndroidTestCase
 				.deleteCotasFromParlamentar(cotaParlamentar.getIdParlamentar()));
 	}
 
-	public void testGetCotasByIdParlamentar()
-	{
+	public void testGetCotasByIdParlamentar() {
 
 		List<CotaParlamentar> list = new ArrayList<CotaParlamentar>();
 		list.add(cotaParlamentar);
