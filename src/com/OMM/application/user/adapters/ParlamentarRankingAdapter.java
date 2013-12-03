@@ -15,10 +15,9 @@ import com.OMM.application.user.model.Parlamentar;
 
 public class ParlamentarRankingAdapter extends ArrayAdapter<Parlamentar> {
 
-	
 	private Context context;
 	private List<Parlamentar> parlamentares;
-	
+
 	public ParlamentarRankingAdapter(Context context, int textViewResourceId,
 			List<Parlamentar> parlamentares) {
 		super(context, textViewResourceId, parlamentares);
@@ -26,27 +25,32 @@ public class ParlamentarRankingAdapter extends ArrayAdapter<Parlamentar> {
 		this.context = context;
 		this.parlamentares = parlamentares;
 	}
-	
+
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		
+
 		LayoutInflater inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		
+
 		View view = inflater.inflate(R.layout.fragment_ranking, null);
-		TextView textViewNome = (TextView) view.findViewById(R.id.parlamentarlistfragment_txt_nome);
+		TextView textViewNome = (TextView) view
+				.findViewById(R.id.parlamentarlistfragment_txt_nome);
 		textViewNome.setText(parlamentares.get(position).getNome());
-		TextView textViewPartido = (TextView) view.findViewById(R.id.parlamentarRankinglistfragment_txt_partido);
+		TextView textViewPartido = (TextView) view
+				.findViewById(R.id.parlamentarRankinglistfragment_txt_partido);
 		textViewPartido.setText(parlamentares.get(position).getPartido());
-		TextView textViewUF = (TextView) view.findViewById(R.id.parlamentarRankinglistfragment_txt_uf);
+		TextView textViewUF = (TextView) view
+				.findViewById(R.id.parlamentarRankinglistfragment_txt_uf);
 		textViewUF.setText(parlamentares.get(position).getUf());
-		TextView textViewValor = (TextView) view.findViewById(R.id.parlamentarRankinglistfragment_txt_valor);
-		DecimalFormat valor = new DecimalFormat("#,###.00");  		
-		textViewValor.setText("" + valor.format(parlamentares.get(position).getValor()));
-		TextView textViewPosicao = (TextView) view.findViewById(R.id.parlamentarlistfragment_txt_posicao);
-		textViewPosicao.setText("" + (position+1));
-		
+		TextView textViewValor = (TextView) view
+				.findViewById(R.id.parlamentarRankinglistfragment_txt_valor);
+		DecimalFormat valor = new DecimalFormat("#,###.00");
+		textViewValor.setText(""
+				+ valor.format(parlamentares.get(position).getValor()));
+		TextView textViewPosicao = (TextView) view
+				.findViewById(R.id.parlamentarlistfragment_txt_posicao);
+		textViewPosicao.setText("" + (position + 1));
+
 		return view;
 	}
 }
-

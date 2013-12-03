@@ -26,12 +26,13 @@ public class ParlamentarAdapter extends ArrayAdapter<Parlamentar> {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		
+
 		LayoutInflater inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		
+
 		View view = inflater.inflate(R.layout.fragment_parlamentar, null);
-		TextView textView = (TextView) view.findViewById(R.id.parlamentarlistfragment_txt_nome);
+		TextView textView = (TextView) view
+				.findViewById(R.id.parlamentarlistfragment_txt_nome);
 		textView.setText(parlamentares.get(position).getNome());
 		return view;
 	}
