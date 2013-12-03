@@ -41,6 +41,17 @@ public class JSONHelperTest extends AndroidTestCase{
 		assertNotNull(JSONHelper.listParlamentarFromJSON("[{\"id\":373,\"nome\":\"PAULO MALUF\",\"partido\":\"PP\",\"uf\":\"SP\"}]"));
 	}
 	
+	public void testListParlamentarFromJSONNullCotaParlamentarException() throws NullParlamentarException, 
+	TransmissionException {
+	
+		try {
+			JSONHelper.listParlamentarFromJSON("[{}]").get(0);
+			
+		} catch(NullParlamentarException ncpe) {
+			
+		}
+	}
+	
 	public void testListParlamentarFromJSONTransmissionException() 
 			throws NullParlamentarException, TransmissionException {
 		
