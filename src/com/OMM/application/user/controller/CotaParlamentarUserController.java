@@ -27,9 +27,10 @@ public class CotaParlamentarUserController {
 
 	public boolean persistCotasOnLocalDatabase(List<CotaParlamentar> cotas)
 			throws NullCotaParlamentarException {
-		if(cotas != null) {
-			
-			boolean result = cotaParlamentarDao.insertCotasOnFollowedParlamentar(cotas);
+		if (cotas != null) {
+
+			boolean result = cotaParlamentarDao
+					.insertCotasOnFollowedParlamentar(cotas);
 			return result;
 		} else {
 			throw new NullCotaParlamentarException();
@@ -40,7 +41,7 @@ public class CotaParlamentarUserController {
 		return cotaParlamentarDao.deleteCotasFromParlamentar(idParlamentar);
 	}
 
-	public List<CotaParlamentar> getCotasByIdParlamentar(int idParlamentar){
-		 return cotaParlamentarDao.getCotasByIdParlamentar(idParlamentar);
+	public List<CotaParlamentar> getCotasByIdParlamentar(int idParlamentar) {
+		return cotaParlamentarDao.getCotasByIdParlamentar(idParlamentar);
 	}
 }

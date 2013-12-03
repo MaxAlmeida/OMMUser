@@ -60,37 +60,39 @@ public class ParlamentarUserController {
 
 	public Parlamentar doRequest(ResponseHandler<String> responseHandler)
 			throws NullParlamentarException, NullCotaParlamentarException,
-			TransmissionException, ConnectionFailedException, RequestFailedException {
+			TransmissionException, ConnectionFailedException,
+			RequestFailedException {
 
 		if (responseHandler != null) {
-		
+
 			int idParlamentar = parlamentar.getId();
 			String urlParlamentar = MountURL.mountURLParlamentar(idParlamentar);
-			String jsonParlamentar = HttpConnection.request(
-					responseHandler, urlParlamentar);
-	
-			parlamentar = JSONHelper.listParlamentarFromJSON(jsonParlamentar).get(0);
-	
+			String jsonParlamentar = HttpConnection.request(responseHandler,
+					urlParlamentar);
+
+			parlamentar = JSONHelper.listParlamentarFromJSON(jsonParlamentar)
+					.get(0);
+
 			String urlCotas = MountURL.mountURLCota(idParlamentar);
 			String jsonCotasParlamentar = HttpConnection.request(
 					responseHandler, urlCotas);
-	
+
 			List<CotaParlamentar> cotas = JSONHelper
 					.listCotaParlamentarFromJSON(jsonCotasParlamentar);
-	
+
 			parlamentar.setCotas(cotas);
-			
-		} else if(parlamentar == null) {
+
+		} else if (parlamentar == null) {
 			throw new NullParlamentarException();
-		
+
 		} else {
 			throw new TransmissionException();
 		}
 
 		return parlamentar;
 	}
-	
-		public List<Parlamentar> getByName(String nameParlamentar) {
+
+	public List<Parlamentar> getByName(String nameParlamentar) {
 		parlamentares = parlamentarDao.getSelectedByName(nameParlamentar);
 		return parlamentares;
 	}
@@ -101,23 +103,24 @@ public class ParlamentarUserController {
 		return parlamentares;
 	}
 
-	public boolean followedParlamentar()
-			throws NullCotaParlamentarException, NullParlamentarException{
+	public boolean followedParlamentar() throws NullCotaParlamentarException,
+			NullParlamentarException {
 
 		boolean result = true;
 
-		if(parlamentar != null && parlamentar.getCotas() != null){
+		if (parlamentar != null && parlamentar.getCotas() != null) {
 			CotaParlamentarUserController controllerCeap = CotaParlamentarUserController
 					.getInstance(context);
 			parlamentar.setSeguido(1);
-			result = controllerCeap.persistCotasOnLocalDatabase(parlamentar.getCotas())
+			result = controllerCeap.persistCotasOnLocalDatabase(parlamentar
+					.getCotas())
 					&& parlamentarDao.updateParlamentar(parlamentar);
 			return result;
-			
-		} else if ( parlamentar == null) {
+
+		} else if (parlamentar == null) {
 			throw new NullParlamentarException();
-			
-		}else {
+
+		} else {
 			throw new NullCotaParlamentarException();
 		}
 	}
@@ -125,17 +128,19 @@ public class ParlamentarUserController {
 	public boolean insertAll(ResponseHandler<String> response)
 			throws NullParlamentarException, ConnectionFailedException,
 			RequestFailedException, TransmissionException {
-		
+
 		boolean initialized = false;
-		
-		if(response != null) {
+
+		if (response != null) {
 			String urlParlamentares = MountURL.mountUrlAll();
-			String jsonParlamentares = HttpConnection.request(response, urlParlamentares);
-			List<Parlamentar> parlamentares = JSONHelper.listParlamentarFromJSON(jsonParlamentares);
-			
+			String jsonParlamentares = HttpConnection.request(response,
+					urlParlamentares);
+			List<Parlamentar> parlamentares = JSONHelper
+					.listParlamentarFromJSON(jsonParlamentares);
+
 			if (parlamentarDao.checkEmptyLocalDatabase()) {
 				Iterator<Parlamentar> iterator = parlamentares.iterator();
-				
+
 				while (iterator.hasNext()) {
 					Parlamentar p = iterator.next();
 					p.setSeguido(0);
@@ -143,17 +148,17 @@ public class ParlamentarUserController {
 				}
 
 				initialized = true;
-				
+
 			} else {
 				initialized = false;
 			}
-			
-		} else if(parlamentar == null) {
+
+		} else if (parlamentar == null) {
 			throw new NullParlamentarException();
 		} else {
 			throw new TransmissionException();
 		}
-		
+
 		return initialized;
 	}
 
@@ -166,38 +171,41 @@ public class ParlamentarUserController {
 		return parlamentarDao.checkEmptyLocalDatabase();
 	}
 
-	public boolean unFollowedParlamentar() throws NullParlamentarException, NullCotaParlamentarException {
+	public boolean unFollowedParlamentar() throws NullParlamentarException,
+			NullCotaParlamentarException {
 		boolean result = true;
 
-		if(parlamentar != null && parlamentar.getCotas() != null) {
+		if (parlamentar != null && parlamentar.getCotas() != null) {
 			parlamentar.setSeguido(0);
 			CotaParlamentarUserController controllerCeap = CotaParlamentarUserController
 					.getInstance(context);
-	
+
 			result = controllerCeap.deleteCota(parlamentar.getId())
 					&& parlamentarDao.updateParlamentar(parlamentar);
-	
+
 			return result;
-			
-		} else if ( parlamentar == null) {
+
+		} else if (parlamentar == null) {
 			throw new NullParlamentarException();
-		}else {
-			
+		} else {
+
 			throw new NullCotaParlamentarException();
 		}
 	}
 
-	public List<Parlamentar> doRequestMajorRanking(ResponseHandler<String> responseHandler)
-			throws NullParlamentarException, ConnectionFailedException, 
+	public List<Parlamentar> doRequestMajorRanking(
+			ResponseHandler<String> responseHandler)
+			throws NullParlamentarException, ConnectionFailedException,
 			RequestFailedException, TransmissionException {
 
-		if(responseHandler != null) {
-			String urlParlamentarRankingMaiores = MountURL.mountUrlMajorRanking();
-			String jsonParlamentarRankingMaiores = HttpConnection
-					.request(responseHandler,
-							urlParlamentarRankingMaiores);
+		if (responseHandler != null) {
+			String urlParlamentarRankingMaiores = MountURL
+					.mountUrlMajorRanking();
+			String jsonParlamentarRankingMaiores = HttpConnection.request(
+					responseHandler, urlParlamentarRankingMaiores);
 
-			parlamentares = JSONHelper.listParlamentarRankingMaioresFromJSON(jsonParlamentarRankingMaiores);
+			parlamentares = JSONHelper
+					.listParlamentarRankingMaioresFromJSON(jsonParlamentarRankingMaiores);
 		} else {
 			throw new TransmissionException();
 		}
@@ -208,11 +216,12 @@ public class ParlamentarUserController {
 	public Parlamentar getParlamentar() {
 		return parlamentar;
 	}
-	
-	public Parlamentar getSelected(){
+
+	public Parlamentar getSelected() {
 		parlamentar = parlamentarDao.getById(parlamentar.getId());
-		List<CotaParlamentar>cotas = ceapController.getCotasByIdParlamentar(parlamentar.getId());
+		List<CotaParlamentar> cotas = ceapController
+				.getCotasByIdParlamentar(parlamentar.getId());
 		parlamentar.setCotas(cotas);
 		return parlamentar;
-	}	
+	}
 }
