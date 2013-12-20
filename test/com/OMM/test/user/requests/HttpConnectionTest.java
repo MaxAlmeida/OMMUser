@@ -24,7 +24,9 @@ public class HttpConnectionTest extends AndroidTestCase {
 	public void testRequest() throws ConnectionFailedException,
 			RequestFailedException, TransmissionException,
 			NullParlamentarException {
-		String url = MountURL.mountURLParlamentar(373);
+	     MountURL urlServer=MountURL.getIsntance(getContext());
+
+		String url = urlServer.mountURLParlamentar(373);
 		String json = HttpConnection.request(response, url);
 		String result = "[{\"id\":373,\"nome\":\"PAULO MALUF\",\"partido\":\"PP\",\"uf\":\"SP\"}]";
 		Parlamentar pResult = JSONHelper.listParlamentarFromJSON(result).get(0);

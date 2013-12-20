@@ -1,38 +1,74 @@
 package com.OMM.application.user.requests;
 
+import com.OMM.application.user.controller.ServerListenerController;
+
+import android.content.Context;
+
 public class MountURL {
 
-	public static final String IP = "192.168.1.11";
-
-	public static String mountURLCota(int idParlamentar) {
+//	public static final String IP = "env-6198716.jelastic.websolute.net.br";
+	
+	private String IP = null;
+	private static MountURL instance=null;
+	private ServerListenerController controller=null;
+	private MountURL(Context context)
+	{
+		controller = ServerListenerController.getInstance(context);
+		IP=controller.getUrl();
+	}
+	public static MountURL getIsntance(Context context)
+	{
+		return (instance==null ? new MountURL(context):instance);
+	}
+	
+	
+	
+	public   String mountURLCota(int idParlamentar) {
 
 		String urlCotaParlamentar = "http://" + IP
-				+ ":8080/OlhaMinhaMesada/cota?id=" + idParlamentar;
+				+ "/cota?id=" + idParlamentar;
 
 		return urlCotaParlamentar;
 	}
 
-	public static String mountURLParlamentar(int idParlamentar) {
+	public   String mountURLParlamentar(int idParlamentar) {
 
 		String urlParlamentar = "http://" + IP
-				+ ":8080/OlhaMinhaMesada/parlamentar?id=" + idParlamentar;
+				+ "/parlamentar?id=" + idParlamentar;
 
 		return urlParlamentar;
 	}
 
-	public static String mountUrlAll() {
+	public   String mountUrlAll() {
 
 		String urlAllParlamentares = "http://" + IP
-				+ ":8080/OlhaMinhaMesada/parlamentares";
+				+ "/parlamentares";
 
 		return urlAllParlamentares;
 	}
 
-	public static String mountUrlMajorRanking() {
+	public  String mountUrlMajorRanking() {
 
 		String urlRankingParlamentares = "http://" + IP
-				+ ":8080/OlhaMinhaMesada/rankingMaiores";
+				+ "/rankingMaiores";
 
 		return urlRankingParlamentares;
 	}
+	public String mountUrlServerListener()
+	{
+		return ("http://"+IP+"/urlServer");
+	}
+	public String mountUrlRequestUpdates(int cod)
+	{
+		return ("http://"+IP+"/urlServer?cod="+cod);
+	}
+	public String getIP()
+	{
+		return this.IP;
+	}
+	public String mountUrlExistsUpdate()
+	{
+		return ("http://"+IP+"/upDateCode");
+	}
+	
 }

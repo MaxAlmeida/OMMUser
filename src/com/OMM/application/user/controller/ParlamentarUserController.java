@@ -28,10 +28,12 @@ public class ParlamentarUserController {
 	private ParlamentarUserDao parlamentarDao;
 	private Context context;
 	private CotaParlamentarUserController ceapController;
+	private MountURL url=null;
 
 	private ParlamentarUserController(Context context) {
 		ceapController = CotaParlamentarUserController.getInstance(context);
 		parlamentarDao = ParlamentarUserDao.getInstance(context);
+		this.url=MountURL.getIsntance(context);
 		this.context = context;
 		parlamentares = new ArrayList<Parlamentar>();
 	}
@@ -64,16 +66,17 @@ public class ParlamentarUserController {
 			RequestFailedException {
 
 		if (responseHandler != null) {
+			
 
 			int idParlamentar = parlamentar.getId();
-			String urlParlamentar = MountURL.mountURLParlamentar(idParlamentar);
+			String urlParlamentar = url.mountURLParlamentar(idParlamentar);
 			String jsonParlamentar = HttpConnection.request(responseHandler,
 					urlParlamentar);
 
 			parlamentar = JSONHelper.listParlamentarFromJSON(jsonParlamentar)
 					.get(0);
 
-			String urlCotas = MountURL.mountURLCota(idParlamentar);
+			String urlCotas = url.mountURLCota(idParlamentar);
 			String jsonCotasParlamentar = HttpConnection.request(
 					responseHandler, urlCotas);
 
@@ -132,7 +135,8 @@ public class ParlamentarUserController {
 		boolean initialized = false;
 
 		if (response != null) {
-			String urlParlamentares = MountURL.mountUrlAll();
+			
+			String urlParlamentares = url.mountUrlAll();
 			String jsonParlamentares = HttpConnection.request(response,
 					urlParlamentares);
 			List<Parlamentar> parlamentares = JSONHelper
@@ -199,7 +203,7 @@ public class ParlamentarUserController {
 			RequestFailedException, TransmissionException {
 
 		if (responseHandler != null) {
-			String urlParlamentarRankingMaiores = MountURL
+			String urlParlamentarRankingMaiores = url
 					.mountUrlMajorRanking();
 			String jsonParlamentarRankingMaiores = HttpConnection.request(
 					responseHandler, urlParlamentarRankingMaiores);
@@ -223,5 +227,10 @@ public class ParlamentarUserController {
 				.getCotasByIdParlamentar(parlamentar.getId());
 		parlamentar.setCotas(cotas);
 		return parlamentar;
+	}
+	
+	public String getURL()
+	{
+		return url.getIP();
 	}
 }

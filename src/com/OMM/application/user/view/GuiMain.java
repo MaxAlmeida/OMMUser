@@ -2,6 +2,7 @@ package com.OMM.application.user.view;
 
 import org.apache.http.client.ResponseHandler;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -18,11 +19,14 @@ import android.widget.Button;
 import android.widget.Toast;
 import com.OMM.application.user.R;
 import com.OMM.application.user.controller.ParlamentarUserController;
+import com.OMM.application.user.controller.ServerListenerController;
 import com.OMM.application.user.exceptions.ConnectionFailedException;
 import com.OMM.application.user.exceptions.NullParlamentarException;
 import com.OMM.application.user.exceptions.RequestFailedException;
 import com.OMM.application.user.requests.HttpConnection;
+import com.OMM.application.user.requests.MountURL;
 
+@SuppressLint("ShowToast")
 public class GuiMain extends Activity implements
 		ParlamentarSeguidoListFragment.OnParlamentarSeguidoSelectedListener,
 		ParlamentarListFragment.OnParlamentarSelectedListener,
@@ -140,6 +144,8 @@ public class GuiMain extends Activity implements
 			startPopulateDB();
 		} else {
 			// nothing should be done
+			
+			
 		}
 	}
 
@@ -186,6 +192,25 @@ public class GuiMain extends Activity implements
 		}
 	}
 
+	private class requestUpdatesServer extends AsyncTask<Object, Void, Integer>
+	{
+		ProgressDialog progressDialog;
+		Integer exception = Alerts.NO_EXCEPTIONS;
+		@Override
+		protected void onPreExecute() {
+			
+			progressDialog = ProgressDialog.show(GuiMain.this,
+					"Verificando atualizações",
+					"Por favor aguarde...");
+		}
+		
+		@Override
+		protected Integer doInBackground(Object... params) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
+	}
 	private class initializeDBTask extends AsyncTask<Object, Void, Integer> {
 		ProgressDialog progressDialog;
 
@@ -193,9 +218,13 @@ public class GuiMain extends Activity implements
 
 		@Override
 		protected void onPreExecute() {
+			
+		 
+			
+			
 			progressDialog = ProgressDialog.show(GuiMain.this,
 					"Instalando Banco de Dados...",
-					"Isso pode demorar alguns minutos");
+					"Isso pode demorar alguns minutos ");
 		}
 
 		@SuppressWarnings("unchecked")
@@ -209,6 +238,8 @@ public class GuiMain extends Activity implements
 
 			try {
 				parlamentarController.insertAll(responseHandler);
+				
+				
 			} catch (ConnectionFailedException cfe) {
 				exception = Alerts.CONNECTION_FAILED_EXCEPTION;
 
@@ -217,6 +248,7 @@ public class GuiMain extends Activity implements
 
 			} catch (RequestFailedException rfe) {
 				exception = Alerts.REQUEST_FAILED_EXCEPTION;
+				
 
 			} catch (Exception e) {
 				exception = Alerts.UNEXPECTED_FAILED_EXCEPTION;

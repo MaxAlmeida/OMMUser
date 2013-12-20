@@ -20,6 +20,7 @@ import com.OMM.application.user.exceptions.NullParlamentarException;
 import com.OMM.application.user.exceptions.RequestFailedException;
 import com.OMM.application.user.model.Parlamentar;
 import com.OMM.application.user.requests.HttpConnection;
+import com.OMM.application.user.requests.MountURL;
 
 public class ParlamentarRankingListFragment extends ListFragment {
 
@@ -75,10 +76,11 @@ public class ParlamentarRankingListFragment extends ListFragment {
 	private class RankingRequestTask extends AsyncTask<Object, Void, Integer> {
 		ProgressDialog progressDialog;
 
+		MountURL url = MountURL.getIsntance(getActivity());
 		@Override
 		protected void onPreExecute() {
 			progressDialog = ProgressDialog.show(getActivity(), "Aguarde...",
-					"Buscando Dados");
+					"Buscando Dados ["+url.mountUrlMajorRanking()+"]");
 		}
 
 		@Override
@@ -152,11 +154,12 @@ public class ParlamentarRankingListFragment extends ListFragment {
 	private class RequestTask extends AsyncTask<Object, Void, Integer> {
 
 		ProgressDialog progressDialog;
+		
 
 		@Override
 		protected void onPreExecute() {
 			progressDialog = ProgressDialog.show(getActivity(), "Aguarde...",
-					"Buscando Dados");
+					"Buscando Dados ");
 		}
 
 		@SuppressWarnings("unchecked")
