@@ -2,6 +2,7 @@ package com.OMM.test.user.requests;
 
 import junit.framework.Assert;
 
+import com.OMM.application.user.controller.ServerListenerController;
 import com.OMM.application.user.requests.MountURL;
 
 import android.test.AndroidTestCase;
@@ -11,14 +12,14 @@ public class MountURLTest extends AndroidTestCase {
 	private String IP;
 	private MountURL url=null;
 	public void setUp() {
-		url=MountURL.getIsntance(getContext());
+		url=MountURL.getIsntance(getContext(),ServerListenerController.getInstance(getContext()));
 		
 
 	}
 
 	public void testMountUTL() {
 
-		MountURL mountURL = MountURL.getIsntance(getContext());
+		MountURL mountURL = MountURL.getIsntance(getContext(),ServerListenerController.getInstance(getContext()));
 		assertNotNull(mountURL);
 
 	}

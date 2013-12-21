@@ -14,6 +14,7 @@ import android.widget.ListView;
 import com.OMM.application.user.R;
 import com.OMM.application.user.adapters.ParlamentarRankingAdapter;
 import com.OMM.application.user.controller.ParlamentarUserController;
+import com.OMM.application.user.controller.ServerListenerController;
 import com.OMM.application.user.exceptions.ConnectionFailedException;
 import com.OMM.application.user.exceptions.NullCotaParlamentarException;
 import com.OMM.application.user.exceptions.NullParlamentarException;
@@ -75,8 +76,11 @@ public class ParlamentarRankingListFragment extends ListFragment {
 
 	private class RankingRequestTask extends AsyncTask<Object, Void, Integer> {
 		ProgressDialog progressDialog;
-
-		MountURL url = MountURL.getIsntance(getActivity());
+		
+		ServerListenerController serverController=ServerListenerController.getInstance(getActivity());
+		
+		
+		MountURL url = MountURL.getIsntance(getActivity(),serverController);
 		@Override
 		protected void onPreExecute() {
 			progressDialog = ProgressDialog.show(getActivity(), "Aguarde...",

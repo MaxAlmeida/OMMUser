@@ -10,15 +10,18 @@ public class MountURL {
 	
 	private String IP = null;
 	private static MountURL instance=null;
-	private ServerListenerController controller=null;
-	private MountURL(Context context)
+	 
+	private MountURL(Context context,ServerListenerController controller)
 	{
-		controller = ServerListenerController.getInstance(context);
+		 
 		IP=controller.getUrl();
 	}
-	public static MountURL getIsntance(Context context)
+	public static MountURL getIsntance(Context context,ServerListenerController controller)
 	{
-		return (instance==null ? new MountURL(context):instance);
+		 if(instance==null)
+			 instance= new MountURL(context,controller);
+		 
+		return instance;
 	}
 	
 	
@@ -54,10 +57,7 @@ public class MountURL {
 
 		return urlRankingParlamentares;
 	}
-	public String mountUrlServerListener()
-	{
-		return ("http://"+IP+"/urlServer");
-	}
+
 	public String mountUrlRequestUpdates(int cod)
 	{
 		return ("http://"+IP+"/urlServer?cod="+cod);

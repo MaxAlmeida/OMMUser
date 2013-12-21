@@ -25,9 +25,9 @@ public class CotaParlamentarUserDao {
 
 	public static CotaParlamentarUserDao getInstance(Context context) {
 
-		if (instance == null) {
+		
+		if(instance==null) 
 			instance = new CotaParlamentarUserDao(context);
-		}
 		return instance;
 	}
 

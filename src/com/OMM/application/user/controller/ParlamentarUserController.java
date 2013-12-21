@@ -28,12 +28,14 @@ public class ParlamentarUserController {
 	private ParlamentarUserDao parlamentarDao;
 	private Context context;
 	private CotaParlamentarUserController ceapController;
-	private MountURL url=null;
+	private MountURL url;
+	private ServerListenerController serverController;
 
 	private ParlamentarUserController(Context context) {
 		ceapController = CotaParlamentarUserController.getInstance(context);
 		parlamentarDao = ParlamentarUserDao.getInstance(context);
-		this.url=MountURL.getIsntance(context);
+		serverController=ServerListenerController.getInstance(context);
+		
 		this.context = context;
 		parlamentares = new ArrayList<Parlamentar>();
 	}
@@ -67,7 +69,7 @@ public class ParlamentarUserController {
 
 		if (responseHandler != null) {
 			
-
+			url=MountURL.getIsntance(context,serverController);
 			int idParlamentar = parlamentar.getId();
 			String urlParlamentar = url.mountURLParlamentar(idParlamentar);
 			String jsonParlamentar = HttpConnection.request(responseHandler,
@@ -135,7 +137,7 @@ public class ParlamentarUserController {
 		boolean initialized = false;
 
 		if (response != null) {
-			
+			url=MountURL.getIsntance(context,serverController);
 			String urlParlamentares = url.mountUrlAll();
 			String jsonParlamentares = HttpConnection.request(response,
 					urlParlamentares);
@@ -203,6 +205,7 @@ public class ParlamentarUserController {
 			RequestFailedException, TransmissionException {
 
 		if (responseHandler != null) {
+			url=MountURL.getIsntance(context,serverController);
 			String urlParlamentarRankingMaiores = url
 					.mountUrlMajorRanking();
 			String jsonParlamentarRankingMaiores = HttpConnection.request(
@@ -231,6 +234,7 @@ public class ParlamentarUserController {
 	
 	public String getURL()
 	{
+		url=MountURL.getIsntance(context,serverController);
 		return url.getIP();
 	}
 }

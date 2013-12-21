@@ -1,6 +1,10 @@
 package com.OMM.application.user.helper;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+
+import android.R.integer;
 
 import com.OMM.application.user.exceptions.NullCotaParlamentarException;
 import com.OMM.application.user.exceptions.NullParlamentarException;
@@ -82,5 +86,55 @@ public class JSONHelper {
 		}
 		return listParlamentarRankingMaiores;
 
+	}
+	public static int codUpdates(String jsonCodUpdate) throws NullPointerException,TransmissionException
+	{
+		int codUpdates=0;
+		List <String> cods=new ArrayList<String>();
+		try
+		{
+			
+			Gson gson = new Gson();
+			cods=gson.fromJson(jsonCodUpdate, new TypeToken<List<String>>(){}.getType());
+		
+			
+		Iterator<String> iterator=cods.iterator();
+		while(iterator.hasNext())
+		{
+			codUpdates=Integer.parseInt(iterator.next());
+		}
+		
+			
+		}catch(NullPointerException error)
+		{
+			
+		
+			
+		}
+		return codUpdates;
+	}
+	public static String newRequestUrl(String jsonNewUrl) throws NullPointerException
+	{
+		String newUrlServer=null;
+		List <String> urls= new ArrayList<String>();
+		
+		try{
+			Gson gson= new Gson();
+			urls=gson.fromJson(jsonNewUrl,new TypeToken<List<String>>(){}.getType());
+			
+			Iterator<String> iterator= urls.iterator();
+			while(iterator.hasNext())
+			{
+				newUrlServer= iterator.next();
+			}
+			
+		}catch(NullPointerException error)
+		{
+			
+		}
+		
+		
+		return newUrlServer;
+		
 	}
 }

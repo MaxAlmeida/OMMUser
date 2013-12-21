@@ -143,7 +143,8 @@ public class GuiMain extends Activity implements
 		if (parlamentarController.checkEmptyDB() == true) {
 			startPopulateDB();
 		} else {
-			// nothing should be done
+
+		getUpdatesServer();
 			
 			
 		}
@@ -192,25 +193,39 @@ public class GuiMain extends Activity implements
 		}
 	}
 
-	private class requestUpdatesServer extends AsyncTask<Object, Void, Integer>
+	
+	
+	private class requestServerUpdates extends AsyncTask<Object, Void,Integer>
 	{
 		ProgressDialog progressDialog;
-		Integer exception = Alerts.NO_EXCEPTIONS;
+		Integer exception= Alerts.NO_EXCEPTIONS;
+		ResponseHandler<String> responseHandler;
 		@Override
-		protected void onPreExecute() {
-			
-			progressDialog = ProgressDialog.show(GuiMain.this,
-					"Verificando atualizações",
-					"Por favor aguarde...");
+		protected void onPreExecute()
+		{
+		//	progressDialog = ProgressDialog.show(GuiMain.this,"Atualizações","Atualizando informações por favor aguarde....");
 		}
-		
 		@Override
 		protected Integer doInBackground(Object... params) {
-			// TODO Auto-generated method stub
-			return null;
+			ServerListenerController serverController = ServerListenerController.getInstance(getBaseContext());
+			responseHandler= (ResponseHandler<String>) params[0];
+			
+			try
+			{
+ 		//		if(serverController.getExistsUpdates(responseHandler)==1)
+ 		//		{
+ 		//			serverController.insertUrlServer(serverController.requestNewUrl(responseHandler, 1));
+					Toast.makeText(getBaseContext(), "OMM atualizado!",Toast.LENGTH_SHORT).show();
+ 		//		}else Toast.makeText(getBaseContext(), "Não há atualizações disponivéis!",Toast.LENGTH_SHORT).show();
+				
+			}catch (Exception e) {
+				// TODO: handle exception
+			}
+			return exception;
 		}
 		
 	}
+	
 	private class initializeDBTask extends AsyncTask<Object, Void, Integer> {
 		ProgressDialog progressDialog;
 
@@ -218,9 +233,6 @@ public class GuiMain extends Activity implements
 
 		@Override
 		protected void onPreExecute() {
-			
-		 
-			
 			
 			progressDialog = ProgressDialog.show(GuiMain.this,
 					"Instalando Banco de Dados...",
@@ -295,6 +307,13 @@ public class GuiMain extends Activity implements
 				.getResponseHandler();
 
 		initializeDBTask task = new initializeDBTask();
+		task.execute(responseHandler);
+	}
+	
+	private void getUpdatesServer()
+	{
+		ResponseHandler<String> responseHandler = HttpConnection.getResponseHandler();
+		requestServerUpdates task= new requestServerUpdates();
 		task.execute(responseHandler);
 	}
 
