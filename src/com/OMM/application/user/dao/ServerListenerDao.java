@@ -35,6 +35,7 @@ public class ServerListenerDao {
 		
 		content.put("url", url_server);
 		result = (sqliteDatabase.insert(table_name, null, content) > 0);
+		
 		sqliteDatabase.close();
 		
 		return result;

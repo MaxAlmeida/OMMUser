@@ -60,6 +60,14 @@ public class GuiMain extends Activity implements
 		final Button btn_ranking_main = (Button) findViewById(R.id.btn_ranking);
 		final Button btn_show_all_parlamentares = (Button) findViewById(R.id.btn_ic_rolagem);
 
+		
+		//depuraçao 
+		
+		ServerListenerController serverControllerDebug = ServerListenerController.getInstance(getBaseContext());
+		Toast.makeText(getBaseContext(), serverControllerDebug.getUrl(), Toast.LENGTH_LONG).show();
+		
+		
+		
 		btn_about_application_main
 				.setOnClickListener(new View.OnClickListener() {
 
@@ -141,6 +149,15 @@ public class GuiMain extends Activity implements
 				.getInstance(getBaseContext());
 
 		if (parlamentarController.checkEmptyDB() == true) {
+			
+			/*
+			 * O problema pode estar aqui 
+			 * Olhar melhor a chamada do banco 
+			 */
+				
+			ServerListenerController serverController = ServerListenerController.getInstance(getBaseContext());
+			serverController.insertUrlServer("env-6198716.jelastic.websolute.net.br");
+			
 			startPopulateDB();
 		} else {
 
@@ -230,25 +247,30 @@ public class GuiMain extends Activity implements
 		ProgressDialog progressDialog;
 
 		Integer exception = Alerts.NO_EXCEPTIONS;
-
+		
 		@Override
 		protected void onPreExecute() {
 			
 			progressDialog = ProgressDialog.show(GuiMain.this,
 					"Instalando Banco de Dados...",
 					"Isso pode demorar alguns minutos ");
+		
 		}
 
 		@SuppressWarnings("unchecked")
 		@Override
 		protected Integer doInBackground(Object... params) {
+			
 
+			
 			ParlamentarUserController parlamentarController = ParlamentarUserController
 					.getInstance(getBaseContext());
 
 			ResponseHandler<String> responseHandler = (ResponseHandler<String>) params[0];
+			
 
 			try {
+				
 				parlamentarController.insertAll(responseHandler);
 				
 				
@@ -306,6 +328,8 @@ public class GuiMain extends Activity implements
 		ResponseHandler<String> responseHandler = HttpConnection
 				.getResponseHandler();
 
+		
+		
 		initializeDBTask task = new initializeDBTask();
 		task.execute(responseHandler);
 	}

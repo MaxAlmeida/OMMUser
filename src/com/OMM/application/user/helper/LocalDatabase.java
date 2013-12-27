@@ -1,5 +1,6 @@
 package com.OMM.application.user.helper;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -24,9 +25,15 @@ public class LocalDatabase extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase database) {
 
+		ContentValues content = new ContentValues();
+
+		
+		
 		database.execSQL(tabela_parlamentar);
 		database.execSQL(tabela_cota);
 		database.execSQL(tabela_URL_SERVER);
+		//content.put("URL", "env-6198716.jelastic.websolute.net.br");
+		//database.insert(tabela_URL_SERVER, null, content);
 	}
 
 	@Override
