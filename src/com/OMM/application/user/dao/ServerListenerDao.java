@@ -56,6 +56,7 @@ public class ServerListenerDao {
 		database.close();
 		return urlServer;
 	}
+	
 	private boolean truncateTable()
 	{
 		boolean result=false;

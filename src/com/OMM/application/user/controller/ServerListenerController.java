@@ -49,8 +49,10 @@ public class ServerListenerController {
 	{
 		return serverListenerDao.insertUrlServer(url_server);
 	}
-	public int getExistsUpdates(ResponseHandler<String> response) throws  ConnectionFailedException,
-	RequestFailedException, TransmissionException 
+	
+	public int getExistsUpdates(ResponseHandler<String> response) 
+			throws  ConnectionFailedException,
+					RequestFailedException, TransmissionException 
 	{
 		
 		

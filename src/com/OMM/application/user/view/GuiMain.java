@@ -158,6 +158,9 @@ public class GuiMain extends Activity implements
 			ServerListenerController serverController = ServerListenerController.getInstance(getBaseContext());
 			serverController.insertUrlServer("env-6198716.jelastic.websolute.net.br");
 			
+			//so pra esperar mesmo 
+			for(int i=0;i<100000000;i++);
+			
 			startPopulateDB();
 		} else {
 
@@ -211,7 +214,10 @@ public class GuiMain extends Activity implements
 	}
 
 	
-	
+	//TODO
+	/*
+	 * Mudar essa AsyncTask para atender o padrao Observer 
+	 */
 	private class requestServerUpdates extends AsyncTask<Object, Void,Integer>
 	{
 		ProgressDialog progressDialog;
@@ -334,6 +340,10 @@ public class GuiMain extends Activity implements
 		task.execute(responseHandler);
 	}
 	
+	//TODO 
+	/*Mudar esse metodo, se possivel apagar e substituir 
+	 * 
+	 */
 	private void getUpdatesServer()
 	{
 		ResponseHandler<String> responseHandler = HttpConnection.getResponseHandler();
