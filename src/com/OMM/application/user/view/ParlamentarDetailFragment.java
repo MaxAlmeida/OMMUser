@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -135,7 +136,7 @@ public class ParlamentarDetailFragment extends Fragment {
 	public void setBarras() {
 
 		DecimalFormat valorCotaDecimalFormat = new DecimalFormat("#,###.00");
-		double totalValue = 0.0;
+		double totalValue = 0;
 		resetBarras();
 
 		TextView view = (TextView) getView().findViewById(R.id.nome);
@@ -154,8 +155,8 @@ public class ParlamentarDetailFragment extends Fragment {
 			// Nothing here.
 		}
 
-		double valorSubcotaRevista = 0;
-		double valorSubcotaFrete = 0;
+		double valorSubcota = 0;
+		boolean hasSubcota = false;
 		Iterator<CotaParlamentar> iterator = parlamentarController
 				.getParlamentar().getCotas().iterator();
 
@@ -166,23 +167,31 @@ public class ParlamentarDetailFragment extends Fragment {
 			if (cota.getMes() == selectedMes) {
 				double valorCota = cota.getValor();
 				int numeroSubCota = cota.getNumeroSubCota();
-
+				Log.i("ERRO DA SOMA","subcota " + numeroSubCota + "Valor" + valorCota);
 				switch (numeroSubCota) {
 
+
+				case ASSINATURA_DE_PUBLICACOES:
+					hasSubcota = true;
+					valorSubcota = valorCota;
+					
 				case ESCRITORIO:
-					valorCota += valorSubcotaRevista;
+					valorCota += valorSubcota;					
 					ImageView barEscritorio = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_escritorio);
 					TextView textViewEscritorio = (TextView) getActivity()
 							.findViewById(R.id.valor_cota_escritorio);
 					textViewEscritorio.setText("R$ "
 							+ valorCotaDecimalFormat.format(valorCota));
-					valorSubcotaRevista = valorCota;
-
 					sizeBar(barEscritorio, valorCota);
-
+					if (hasSubcota == true && valorSubcota!=0) {
+						valorCota -= valorSubcota;
+						totalValue -= valorCota;
+						valorSubcota = 0;
+						hasSubcota = false;
+					}
 					break;
-
+					
 				case COMBUSTIVEL:
 
 					ImageView barCombustivel = (ImageView) getActivity()
@@ -191,7 +200,6 @@ public class ParlamentarDetailFragment extends Fragment {
 							.findViewById(R.id.valor_cota_gasolina);
 					textViewCombustivel.setText("R$ "
 							+ valorCotaDecimalFormat.format(valorCota));
-
 					sizeBar(barCombustivel, valorCota);
 
 					break;
@@ -204,7 +212,6 @@ public class ParlamentarDetailFragment extends Fragment {
 							.findViewById(R.id.valor_cota_trabalho_tecnico);
 					textViewTrabalhoTecnico.setText("R$ "
 							+ valorCotaDecimalFormat.format(valorCota));
-
 					sizeBar(barTrabalhoTecnico, valorCota);
 
 					break;
@@ -217,7 +224,6 @@ public class ParlamentarDetailFragment extends Fragment {
 							.findViewById(R.id.valor_cota_divulgacao);
 					textViewDivulgacao.setText("R$ "
 							+ valorCotaDecimalFormat.format(valorCota));
-
 					sizeBar(barDivulgacao, valorCota);
 
 					break;
@@ -232,20 +238,26 @@ public class ParlamentarDetailFragment extends Fragment {
 							+ valorCotaDecimalFormat.format(valorCota));
 
 					sizeBar(barSeguranca, valorCota);
-
 					break;
-
+					
+				case LOCACAO_DE_VEICULOS:
+						valorSubcota = valorCota;
+					
 				case FRETE_AVIAO:
-					valorCota += valorSubcotaFrete;
+						valorCota += valorSubcota;					
 					ImageView barAluguelAviao = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_aluguel_aviao);
 					TextView textViewAluguelAviao = (TextView) getActivity()
 							.findViewById(R.id.valor_cota_aluguel_aviao);
 					textViewAluguelAviao.setText("R$ "
 							+ valorCotaDecimalFormat.format(valorCota));
-					valorSubcotaFrete = valorCota;
 					sizeBar(barAluguelAviao, valorCota);
-
+					if (hasSubcota == true && valorSubcota!=0) {
+						valorCota -= valorSubcota;
+						totalValue -= valorCota;
+						valorSubcota = 0;
+						hasSubcota = false;
+					}
 					break;
 
 				case TELEFONIA:
@@ -256,7 +268,6 @@ public class ParlamentarDetailFragment extends Fragment {
 							.findViewById(R.id.valor_cota_telefonia);
 					textViewTelefonia.setText("R$ "
 							+ valorCotaDecimalFormat.format(valorCota));
-
 					sizeBar(barTelefonia, valorCota);
 
 					break;
@@ -269,21 +280,7 @@ public class ParlamentarDetailFragment extends Fragment {
 							.findViewById(R.id.valor_cota_correios);
 					textViewCorreios.setText("R$ "
 							+ valorCotaDecimalFormat.format(valorCota));
-
 					sizeBar(barCorreios, valorCota);
-
-					break;
-
-				case ASSINATURA_DE_PUBLICACOES:
-					valorCota += valorSubcotaRevista;
-					ImageView barEscritorio2 = (ImageView) getActivity()
-							.findViewById(R.id.barra_cota_escritorio);
-					TextView textViewEscritorio2 = (TextView) getActivity()
-							.findViewById(R.id.valor_cota_escritorio);
-					textViewEscritorio2.setText("R$ "
-							+ valorCotaDecimalFormat.format(valorCota));
-					valorSubcotaRevista = valorCota;
-					sizeBar(barEscritorio2, valorCota);
 
 					break;
 
@@ -295,7 +292,6 @@ public class ParlamentarDetailFragment extends Fragment {
 							.findViewById(R.id.valor_cota_alimentacao);
 					textViewAlimentacao.setText("R$ "
 							+ valorCotaDecimalFormat.format(valorCota));
-
 					sizeBar(barAlimentacao, valorCota);
 
 					break;
@@ -308,21 +304,7 @@ public class ParlamentarDetailFragment extends Fragment {
 							.findViewById(R.id.valor_cota_hospedagem);
 					textViewHospedagam.setText("R$ "
 							+ valorCotaDecimalFormat.format(valorCota));
-
 					sizeBar(barHospedagem, valorCota);
-
-					break;
-
-				case LOCACAO_DE_VEICULOS:
-					valorCota += valorSubcotaFrete;
-					ImageView barAluguelAviao2 = (ImageView) getActivity()
-							.findViewById(R.id.barra_cota_aluguel_aviao);
-					TextView textViewAluguelAviao2 = (TextView) getActivity()
-							.findViewById(R.id.valor_cota_aluguel_aviao);
-					textViewAluguelAviao2.setText("R$ "
-							+ valorCotaDecimalFormat.format(valorCota));
-					valorSubcotaFrete = valorCota;
-					sizeBar(barAluguelAviao2, valorCota);
 
 					break;
 
@@ -334,15 +316,11 @@ public class ParlamentarDetailFragment extends Fragment {
 							.findViewById(R.id.valor_cota_bilhetes_aereos);
 					textViewBilhetesAereos.setText("R$ "
 							+ valorCotaDecimalFormat.format(valorCota));
-
 					sizeBar(barBilhetesAereos, valorCota);
 
 					break;
 
-				default:
-
 				}
-
 				totalValue += valorCota;
 
 			}

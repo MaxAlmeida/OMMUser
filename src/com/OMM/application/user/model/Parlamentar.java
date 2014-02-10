@@ -20,6 +20,8 @@ public class Parlamentar {
 
 	private List<CotaParlamentar> cotas;
 
+	private int majorRankingPos;
+	
 	public Parlamentar() {
 	}
 
@@ -95,6 +97,14 @@ public class Parlamentar {
 
 	public void setFoto(byte[] foto) {
 		this.foto = foto;
+	}
+
+	public int getMajorRankingPos() {
+		return majorRankingPos;
+	}
+
+	public void setMajorRankingPos(int majorRankingPos) {
+		this.majorRankingPos = majorRankingPos;
 	}
 
 }

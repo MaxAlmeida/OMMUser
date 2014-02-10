@@ -29,14 +29,15 @@ public class MountURL {
 	public   String mountURLCota(int idParlamentar) {
 
 		String urlCotaParlamentar = "http://" + IP
-				+ "/cota?id=" + idParlamentar;
 
+				+ "/cota?id=" + idParlamentar;
 		return urlCotaParlamentar;
 	}
 
 	public   String mountURLParlamentar(int idParlamentar) {
 
 		String urlParlamentar = "http://" + IP
+
 				+ "/parlamentar?id=" + idParlamentar;
 
 		return urlParlamentar;
@@ -45,6 +46,7 @@ public class MountURL {
 	public   String mountUrlAll() {
 
 		String urlAllParlamentares = "http://" + IP
+
 				+ "/parlamentares";
 
 		return urlAllParlamentares;
@@ -53,6 +55,7 @@ public class MountURL {
 	public  String mountUrlMajorRanking() {
 
 		String urlRankingParlamentares = "http://" + IP
+
 				+ "/rankingMaiores";
 
 		return urlRankingParlamentares;

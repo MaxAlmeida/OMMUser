@@ -4,10 +4,13 @@ import org.apache.http.client.ResponseHandler;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
@@ -124,23 +127,23 @@ public class GuiMain extends Activity implements
 					public void onClick(View v) {
 
 						// changing the buttons's visibility
-						if (btn_search_parlamentar.getVisibility() == View.GONE) {
-							btn_search_parlamentar.setVisibility(View.VISIBLE);
-							btn_parlamentar_main.setVisibility(View.VISIBLE);
-							btn_ranking_main.setVisibility(View.VISIBLE);
-							btn_about_application_main
-									.setVisibility(View.VISIBLE);
-							btn_show_all_parlamentares.setScaleX(1.0f);
-							btn_show_all_parlamentares.setScaleY(1.0f);
-							btn_show_all_parlamentares.setAlpha(1.0f);
+						if (btn_search_parlamentar.getAlpha() == 0.0f) {
+							btn_search_parlamentar.animate().alpha(1.0f);
+							btn_parlamentar_main.animate().alpha(1.0f);
+							btn_ranking_main.animate().alpha(1.0f);
+							btn_about_application_main.
+							animate().alpha(1.0f);
+							btn_show_all_parlamentares.animate().scaleX(1.0f);
+							btn_show_all_parlamentares.animate().scaleY(1.0f);
+							btn_show_all_parlamentares.animate().alpha(1.0f);
 						} else {
-							btn_search_parlamentar.setVisibility(View.GONE);
-							btn_parlamentar_main.setVisibility(View.GONE);
-							btn_ranking_main.setVisibility(View.GONE);
-							btn_about_application_main.setVisibility(View.GONE);
-							btn_show_all_parlamentares.setScaleX(0.6f);
-							btn_show_all_parlamentares.setScaleY(0.6f);
-							btn_show_all_parlamentares.setAlpha(0.5f);
+							btn_search_parlamentar.animate().alpha(0.0f);
+							btn_parlamentar_main.animate().alpha(0.0f);
+							btn_ranking_main.animate().alpha(0.0f);
+							btn_about_application_main.animate().alpha(0.0f);
+							btn_show_all_parlamentares.animate().scaleX(0.6f);
+							btn_show_all_parlamentares.animate().scaleY(0.6f);
+							btn_show_all_parlamentares.animate().alpha(0.5f);
 						}
 					}
 				});
@@ -174,7 +177,7 @@ public class GuiMain extends Activity implements
 		ParlamentarDetailFragment detailFragment = new ParlamentarDetailFragment();
 		FragmentTransaction transaction = fragmentManager.beginTransaction();
 		transaction.replace(viewId, detailFragment);
-		transaction.addToBackStack(null);
+		//transaction.addToBackStack(null);
 		transaction.commit();
 		getFragmentManager().executePendingTransactions();
 		detailFragment.setBarras();
@@ -354,6 +357,7 @@ public class GuiMain extends Activity implements
 	private void loadFragment(ListFragment listFragment) {
 		FragmentTransaction transaction = fragmentManager.beginTransaction();
 		transaction.replace(R.id.fragment_container, listFragment);
+		//transaction.addToBackStack(null);
 		transaction.commit();
 	}
 
@@ -362,5 +366,20 @@ public class GuiMain extends Activity implements
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.options_menu, menu);
 		return true;
+	}
+	
+	@Override
+	public void onBackPressed() {
+	
+		new AlertDialog.Builder(this)
+	        .setTitle("Sair")
+	        .setMessage("Tem certeza que deseja sair?")
+	        .setNegativeButton("Cancelar", null)
+	        .setPositiveButton("Ok", new OnClickListener() {
+
+	            public void onClick(DialogInterface arg0, int arg1) {
+	                GuiMain.super.onBackPressed();
+	            }
+	        }).create().show();
 	}
 }

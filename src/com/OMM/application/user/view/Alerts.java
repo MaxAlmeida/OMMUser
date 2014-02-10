@@ -17,7 +17,7 @@ public abstract class Alerts {
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
 		builder.setTitle("Ops!");
-		builder.setMessage("Falha na conex�o.");
+		builder.setMessage("Falha na conexão.");
 		builder.setNeutralButton("OK", null);
 		builder.show();
 
@@ -29,7 +29,7 @@ public abstract class Alerts {
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
 		builder.setTitle("Ops!");
-		builder.setMessage("Falha na requisi��o com banco de dados.");
+		builder.setMessage("Falha na requisição com banco de dados.");
 		builder.setNeutralButton("OK", null);
 		builder.show();
 
@@ -41,7 +41,7 @@ public abstract class Alerts {
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
 		builder.setTitle("Ops!");
-		builder.setMessage("Falha na conex�o com servidor.");
+		builder.setMessage("Falha na conexão com servidor.");
 		builder.setNeutralButton("OK", null);
 		builder.show();
 
@@ -53,7 +53,7 @@ public abstract class Alerts {
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
 		builder.setTitle("Ops!");
-		builder.setMessage("Falha na requisi��o.");
+		builder.setMessage("Falha na requisição.");
 		builder.setNeutralButton("OK", null);
 		builder.show();
 
@@ -65,7 +65,7 @@ public abstract class Alerts {
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
 		builder.setTitle("Ops!");
-		builder.setMessage("Falha na requisi��o com banco de dados.");
+		builder.setMessage("Falha na requisição com banco de dados.");
 		builder.setNeutralButton("OK", null);
 		builder.show();
 
