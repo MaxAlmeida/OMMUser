@@ -132,7 +132,7 @@ public class ParlamentarUserController {
 		boolean initialized = false;
 
 		if (response != null) {
-			String urlParlamentares = MountURL.mountUrlAll();
+			String urlParlamentares = MountURL.mountUrlMajorRanking();
 			String jsonParlamentares = HttpConnection.request(response,
 					urlParlamentares);
 			List<Parlamentar> parlamentares = JSONHelper
@@ -140,11 +140,13 @@ public class ParlamentarUserController {
 
 			if (parlamentarDao.checkEmptyLocalDatabase()) {
 				Iterator<Parlamentar> iterator = parlamentares.iterator();
-
+				int majorRankingPos = 1;
 				while (iterator.hasNext()) {
 					Parlamentar p = iterator.next();
 					p.setSeguido(0);
+					p.setMajorRankingPos(majorRankingPos);
 					parlamentarDao.insertParlamentar(p);
+					majorRankingPos++;
 				}
 
 				initialized = true;
