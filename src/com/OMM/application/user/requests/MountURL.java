@@ -1,6 +1,6 @@
 package com.OMM.application.user.requests;
 
-import com.OMM.application.user.controller.ServerListenerController;
+import com.OMM.application.user.controller.UrlHostController;
 
 import android.content.Context;
 
@@ -11,12 +11,12 @@ public class MountURL {
 	private String IP = null;
 	private static MountURL instance=null;
 	 
-	private MountURL(Context context,ServerListenerController controller)
+	private MountURL(Context context,UrlHostController controller)
 	{
 		 
 		IP=controller.getUrl();
 	}
-	public static MountURL getIsntance(Context context,ServerListenerController controller)
+	public static MountURL getIsntance(Context context,UrlHostController controller)
 	{
 		 if(instance==null)
 			 instance= new MountURL(context,controller);

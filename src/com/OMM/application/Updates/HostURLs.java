@@ -48,5 +48,10 @@ public class HostURLs implements GetServerUpdates{
 	{
 		return this.newUrl;
 	}
+	
+	public void insertNewUrl(String newUrl)
+	{
+		notifyObservers();
+	}
 
 }

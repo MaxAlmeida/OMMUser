@@ -19,7 +19,7 @@ import android.widget.Button;
 import android.widget.Toast;
 import com.OMM.application.user.R;
 import com.OMM.application.user.controller.ParlamentarUserController;
-import com.OMM.application.user.controller.ServerListenerController;
+import com.OMM.application.user.controller.UrlHostController;
 import com.OMM.application.user.exceptions.ConnectionFailedException;
 import com.OMM.application.user.exceptions.NullParlamentarException;
 import com.OMM.application.user.exceptions.RequestFailedException;
@@ -63,7 +63,7 @@ public class GuiMain extends Activity implements
 		
 		//depuraçao 
 		
-		ServerListenerController serverControllerDebug = ServerListenerController.getInstance(getBaseContext());
+		UrlHostController serverControllerDebug = UrlHostController.getInstance(getBaseContext());
 		Toast.makeText(getBaseContext(), serverControllerDebug.getUrl(), Toast.LENGTH_LONG).show();
 		
 		
@@ -155,7 +155,7 @@ public class GuiMain extends Activity implements
 			 * Olhar melhor a chamada do banco 
 			 */
 				
-			ServerListenerController serverController = ServerListenerController.getInstance(getBaseContext());
+			UrlHostController serverController = UrlHostController.getInstance(getBaseContext());
 			serverController.insertUrlServer("env-6198716.jelastic.websolute.net.br");
 			
 			//so pra esperar mesmo 
@@ -230,7 +230,7 @@ public class GuiMain extends Activity implements
 		}
 		@Override
 		protected Integer doInBackground(Object... params) {
-			ServerListenerController serverController = ServerListenerController.getInstance(getBaseContext());
+			UrlHostController serverController = UrlHostController.getInstance(getBaseContext());
 			responseHandler= (ResponseHandler<String>) params[0];
 			
 			try
