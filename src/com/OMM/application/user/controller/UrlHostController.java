@@ -18,7 +18,12 @@ import com.OMM.application.user.model.Parlamentar;
 import com.OMM.application.user.requests.HttpConnection;
 import com.OMM.application.user.requests.MountURL;
 
-
+/*
+ * classe criada para verificar se existe 
+ * atualizacoes disponiveis no servidor 
+ * eh um racunho ainda ... revisar ela toda
+ * 
+ */
 public class UrlHostController {
 
 	private static UrlHostController  instance= null;
