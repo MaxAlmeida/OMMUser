@@ -121,17 +121,17 @@ public class GuiMain extends Activity implements
 							btn_ranking_main.animate().alpha(1.0f);
 							btn_about_application_main.
 							animate().alpha(1.0f);
-							btn_show_all_parlamentares.setScaleX(1.0f);
-							btn_show_all_parlamentares.setScaleY(1.0f);
-							btn_show_all_parlamentares.setAlpha(1.0f);
+							btn_show_all_parlamentares.animate().scaleX(1.0f);
+							btn_show_all_parlamentares.animate().scaleY(1.0f);
+							btn_show_all_parlamentares.animate().alpha(1.0f);
 						} else {
 							btn_search_parlamentar.animate().alpha(0.0f);
 							btn_parlamentar_main.animate().alpha(0.0f);
 							btn_ranking_main.animate().alpha(0.0f);
 							btn_about_application_main.animate().alpha(0.0f);
-							btn_show_all_parlamentares.setScaleX(0.6f);
-							btn_show_all_parlamentares.setScaleY(0.6f);
-							btn_show_all_parlamentares.setAlpha(0.5f);
+							btn_show_all_parlamentares.animate().scaleX(0.6f);
+							btn_show_all_parlamentares.animate().scaleY(0.6f);
+							btn_show_all_parlamentares.animate().alpha(0.5f);
 						}
 					}
 				});
