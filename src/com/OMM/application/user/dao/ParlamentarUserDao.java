@@ -18,7 +18,7 @@ public class ParlamentarUserDao {
 	// TODO:Fazer try catch do banco
 
 	private static String nome_tabela = "PARLAMENTAR";
-	private static String[] colunas = { "ID_PARLAMENTAR,NOME_PARLAMENTAR,PARTIDO,UF,SEGUIDO" };
+	private static String[] colunas = { "ID_PARLAMENTAR,NOME_PARLAMENTAR,PARTIDO,UF,SEGUIDO,VALOR,RANKING_POS" };
 	private static ParlamentarUserDao instance;
 	private static LocalDatabase database;
 	private static SQLiteDatabase sqliteDatabase;
@@ -63,6 +63,8 @@ public class ParlamentarUserDao {
 		content.put("SEGUIDO", parlamentar.getIsSeguido());
 		content.put("PARTIDO", parlamentar.getPartido());
 		content.put("UF", parlamentar.getUf());
+		content.put("VALOR", parlamentar.getValor());
+		content.put("RANKING_POS", parlamentar.getMajorRankingPos());
 		boolean result = (sqliteDatabase.insert(nome_tabela, null, content) > 0);
 		sqliteDatabase.close();
 		return result;
@@ -114,7 +116,9 @@ public class ParlamentarUserDao {
 			parlamentar.setPartido(cursor.getString(cursor
 					.getColumnIndex("PARTIDO")));
 			parlamentar.setUf(cursor.getString(cursor.getColumnIndex("UF")));
-
+			parlamentar.setValor(cursor.getDouble(cursor
+					.getColumnIndex("VALOR")));
+			parlamentar.setMajorRankingPos(cursor.getInt(cursor.getColumnIndex("RANKING_POS")));
 		}
 		sqliteDatabase.close();
 		return parlamentar;
@@ -139,6 +143,9 @@ public class ParlamentarUserDao {
 			parlamentar.setPartido(cursor.getString(cursor
 					.getColumnIndex("PARTIDO")));
 			parlamentar.setUf(cursor.getString(cursor.getColumnIndex("UF")));
+			parlamentar.setValor(cursor.getDouble(cursor
+					.getColumnIndex("VALOR")));
+			parlamentar.setMajorRankingPos(cursor.getInt(cursor.getColumnIndex("RANKING_POS")));
 			listParlamentares.add(parlamentar);
 		}
 		sqliteDatabase.close();

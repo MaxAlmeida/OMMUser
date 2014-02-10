@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class LocalDatabase extends SQLiteOpenHelper {
 
 	private static String dbName = "OMM.db";
-	private static String tabela_parlamentar = "CREATE TABLE [PARLAMENTAR] ([ID_PARLAMENTAR] VARCHAR(10),[NOME_PARLAMENTAR] VARCHAR(40),[PARTIDO] VARCHAR(25), [UF] VARCHAR(2),[SEGUIDO] BOOLEAN,[FOTO] VARBINARY);";
+	private static String tabela_parlamentar = "CREATE TABLE [PARLAMENTAR] ([ID_PARLAMENTAR] VARCHAR(10),[NOME_PARLAMENTAR] VARCHAR(40),[PARTIDO] VARCHAR(25), [UF] VARCHAR(2), [VALOR] DOUBLE, [SEGUIDO] BOOLEAN,[FOTO] VARBINARY, [RANKING_POS] INT);";
 	private static String tabela_cota = "CREATE TABLE [COTA] (  [ID_COTA] VARCHAR(10),[ID_PARLAMENTAR] VARCHAR(10),[NUM_SUBCOTA] INT(10),[DESCRICAO] VARCHAR(40) ,  [MES] INTEGER,  [ANO] INTEGER, [VALOR] DOUBLE);";
 	private static String tabela_URL_SERVER = "CREATE TABLE [URL_SERVER] (  [URL] VARCHAR(1000));";
 
@@ -27,13 +27,11 @@ public class LocalDatabase extends SQLiteOpenHelper {
 
 		ContentValues content = new ContentValues();
 
-		
-		
 		database.execSQL(tabela_parlamentar);
 		database.execSQL(tabela_cota);
 		database.execSQL(tabela_URL_SERVER);
-		//content.put("URL", "env-6198716.jelastic.websolute.net.br");
-		//database.insert(tabela_URL_SERVER, null, content);
+		// content.put("URL", "env-6198716.jelastic.websolute.net.br");
+		// database.insert(tabela_URL_SERVER, null, content);
 	}
 
 	@Override

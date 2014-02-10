@@ -33,7 +33,8 @@ public class ParlamentarRankingListFragment extends ListFragment {
 		controllerParlamentar = ParlamentarUserController
 				.getInstance(getActivity());
 
-		startRankingRequest();
+		//startRankingRequest();
+		controllerParlamentar.getAll();
 
 		super.onCreate(savedInstanceState);
 
