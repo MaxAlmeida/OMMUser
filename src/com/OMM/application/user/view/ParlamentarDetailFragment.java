@@ -20,8 +20,6 @@ import android.widget.Toast;
 
 import com.OMM.application.user.R;
 import com.OMM.application.user.controller.ParlamentarUserController;
-import com.OMM.application.user.exceptions.NullCotaParlamentarException;
-import com.OMM.application.user.exceptions.NullParlamentarException;
 import com.OMM.application.user.model.CotaParlamentar;
 
 public class ParlamentarDetailFragment extends Fragment {
@@ -61,75 +59,75 @@ public class ParlamentarDetailFragment extends Fragment {
 				.getInstance(getActivity());
 		View view = inflater.inflate(R.layout.gui_detalhe, container, false);
 
-		final Button btn_detalhe_seguir = (Button) view
-				.findViewById(R.id.btn_detalhe_seguir);
-		final Button btn_detalhe_desseguir = (Button) view
-				.findViewById(R.id.btn_detalhe_desseguir);
-
-		if (parlamentarController.getParlamentar().getIsSeguido() == 1) {
-			btn_detalhe_seguir.setVisibility(View.INVISIBLE);
-			btn_detalhe_desseguir.setVisibility(View.VISIBLE);
-
-		} else {
-			btn_detalhe_desseguir.setVisibility(View.INVISIBLE);
-			btn_detalhe_seguir.setVisibility(View.VISIBLE);
-		}
+		// final Button btn_detalhe_seguir = (Button) view
+		// .findViewById(R.id.btn_detalhe_seguir);
+		// final Button btn_detalhe_desseguir = (Button) view
+		// .findViewById(R.id.btn_detalhe_desseguir);
+		//
+		// if (parlamentarController.getParlamentar().getIsSeguido() == 1) {
+		// btn_detalhe_seguir.setVisibility(View.INVISIBLE);
+		// btn_detalhe_desseguir.setVisibility(View.VISIBLE);
+		//
+		// } else {
+		// btn_detalhe_desseguir.setVisibility(View.INVISIBLE);
+		// btn_detalhe_seguir.setVisibility(View.VISIBLE);
+		// }
 
 		createButtons(view);
 
-		btn_detalhe_desseguir.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-
-				try {
-					parlamentarController.unFollowedParlamentar();
-					Toast.makeText(getActivity(), "Parlamentar DesSeguido",
-							Toast.LENGTH_SHORT).show();
-					btn_detalhe_desseguir.setVisibility(View.GONE);
-					btn_detalhe_seguir.setVisibility(View.VISIBLE);
-
-					ImageView imgView = (ImageView) getView().findViewById(
-							R.id.foto);
-					imgView.setImageResource(R.drawable.parlamentar_foto);
-
-				} catch (NullParlamentarException nullEx) {
-					Toast.makeText(getActivity(), "Erro na requisição",
-							Toast.LENGTH_SHORT).show();
-
-				} catch (NullCotaParlamentarException e) {
-
-					// TODO FAZER O TRATAMENTO DA EXCECAO
-					e.printStackTrace();
-				}
-			}
-		});
-
-		btn_detalhe_seguir.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-
-				try {
-					parlamentarController.followedParlamentar();
-					Toast.makeText(getActivity(), "Parlamentar Seguido",
-							Toast.LENGTH_SHORT).show();
-
-					ImageView imgView = (ImageView) getView().findViewById(
-							R.id.foto);
-					imgView.setImageResource(R.drawable.parlamentar_seguido_foto);
-					btn_detalhe_seguir.setVisibility(View.GONE);
-					btn_detalhe_desseguir.setVisibility(View.VISIBLE);
-
-				} catch (NullParlamentarException nullEx) {
-					Toast.makeText(getActivity(), "Erro na requisição",
-							Toast.LENGTH_SHORT).show();
-				} catch (NullCotaParlamentarException e) {
-					Toast.makeText(getActivity(), "Erro na requisição",
-							Toast.LENGTH_SHORT).show();
-				}
-			}
-		});
+		// btn_detalhe_desseguir.setOnClickListener(new View.OnClickListener() {
+		//
+		// @Override
+		// public void onClick(View v) {
+		//
+		// try {
+		// parlamentarController.unFollowedParlamentar();
+		// Toast.makeText(getActivity(), "Parlamentar DesSeguido",
+		// Toast.LENGTH_SHORT).show();
+		// btn_detalhe_desseguir.setVisibility(View.GONE);
+		// btn_detalhe_seguir.setVisibility(View.VISIBLE);
+		//
+		// ImageView imgView = (ImageView) getView().findViewById(
+		// R.id.foto);
+		// imgView.setImageResource(R.drawable.parlamentar_foto);
+		//
+		// } catch (NullParlamentarException nullEx) {
+		// Toast.makeText(getActivity(), "Erro na requisição",
+		// Toast.LENGTH_SHORT).show();
+		//
+		// } catch (NullCotaParlamentarException e) {
+		//
+		// // TODO FAZER O TRATAMENTO DA EXCECAO
+		// e.printStackTrace();
+		// }
+		// }
+		// });
+		//
+		// btn_detalhe_seguir.setOnClickListener(new View.OnClickListener() {
+		//
+		// @Override
+		// public void onClick(View v) {
+		//
+		// try {
+		// parlamentarController.followedParlamentar();
+		// Toast.makeText(getActivity(), "Parlamentar Seguido",
+		// Toast.LENGTH_SHORT).show();
+		//
+		// ImageView imgView = (ImageView) getView().findViewById(
+		// R.id.foto);
+		// imgView.setImageResource(R.drawable.parlamentar_seguido_foto);
+		// btn_detalhe_seguir.setVisibility(View.GONE);
+		// btn_detalhe_desseguir.setVisibility(View.VISIBLE);
+		//
+		// } catch (NullParlamentarException nullEx) {
+		// Toast.makeText(getActivity(), "Erro na requisição",
+		// Toast.LENGTH_SHORT).show();
+		// } catch (NullCotaParlamentarException e) {
+		// Toast.makeText(getActivity(), "Erro na requisição",
+		// Toast.LENGTH_SHORT).show();
+		// }
+		// }
+		// });
 		return view;
 	}
 
@@ -145,7 +143,12 @@ public class ParlamentarDetailFragment extends Fragment {
 		view.setText(parlamentarController.getParlamentar().getPartido());
 		view = (TextView) getView().findViewById(R.id.uf);
 		view.setText(parlamentarController.getParlamentar().getUf());
-		TextView textMes = (TextView) getView().findViewById(R.id.mes);
+		view = (TextView) getView().findViewById(R.id.pos);
+		formatRankingPos(view);
+		// TODO LOG
+		Log.i("pos Detalhe", ""
+				+ parlamentarController.getParlamentar().getMajorRankingPos());
+		TextView textMes = (TextView) getView().findViewById(R.id.mes_e_ano);
 		textMes.setText("Valores do mês " + selectedMes);
 
 		if (parlamentarController.getParlamentar().getIsSeguido() == 1) {
@@ -167,16 +170,14 @@ public class ParlamentarDetailFragment extends Fragment {
 			if (cota.getMes() == selectedMes) {
 				double valorCota = cota.getValor();
 				int numeroSubCota = cota.getNumeroSubCota();
-				Log.i("ERRO DA SOMA","subcota " + numeroSubCota + "Valor" + valorCota);
 				switch (numeroSubCota) {
-
 
 				case ASSINATURA_DE_PUBLICACOES:
 					hasSubcota = true;
 					valorSubcota = valorCota;
-					
+
 				case ESCRITORIO:
-					valorCota += valorSubcota;					
+					valorCota += valorSubcota;
 					ImageView barEscritorio = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_escritorio);
 					TextView textViewEscritorio = (TextView) getActivity()
@@ -184,14 +185,14 @@ public class ParlamentarDetailFragment extends Fragment {
 					textViewEscritorio.setText("R$ "
 							+ valorCotaDecimalFormat.format(valorCota));
 					sizeBar(barEscritorio, valorCota);
-					if (hasSubcota == true && valorSubcota!=0) {
+					if (hasSubcota == true && valorSubcota != 0) {
 						valorCota -= valorSubcota;
 						totalValue -= valorCota;
 						valorSubcota = 0;
 						hasSubcota = false;
 					}
 					break;
-					
+
 				case COMBUSTIVEL:
 
 					ImageView barCombustivel = (ImageView) getActivity()
@@ -239,12 +240,12 @@ public class ParlamentarDetailFragment extends Fragment {
 
 					sizeBar(barSeguranca, valorCota);
 					break;
-					
+
 				case LOCACAO_DE_VEICULOS:
-						valorSubcota = valorCota;
-					
+					valorSubcota = valorCota;
+
 				case FRETE_AVIAO:
-						valorCota += valorSubcota;					
+					valorCota += valorSubcota;
 					ImageView barAluguelAviao = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_aluguel_aviao);
 					TextView textViewAluguelAviao = (TextView) getActivity()
@@ -252,7 +253,7 @@ public class ParlamentarDetailFragment extends Fragment {
 					textViewAluguelAviao.setText("R$ "
 							+ valorCotaDecimalFormat.format(valorCota));
 					sizeBar(barAluguelAviao, valorCota);
-					if (hasSubcota == true && valorSubcota!=0) {
+					if (hasSubcota == true && valorSubcota != 0) {
 						valorCota -= valorSubcota;
 						totalValue -= valorCota;
 						valorSubcota = 0;
@@ -329,6 +330,23 @@ public class ParlamentarDetailFragment extends Fragment {
 		TextView total = (TextView) getActivity().findViewById(R.id.total);
 		total.setText("Total: R$ " + valorCotaDecimalFormat.format(totalValue));
 
+	}
+
+	private void formatRankingPos(TextView view) {
+		int pos = parlamentarController.getParlamentar().getMajorRankingPos();
+		if (pos < 10) {
+			view.setText("00"
+					+ parlamentarController.getParlamentar()
+							.getMajorRankingPos());
+		} else if (pos < 100) {
+			view.setText("0"
+					+ parlamentarController.getParlamentar()
+							.getMajorRankingPos());
+		} else {
+			view.setText(""
+					+ parlamentarController.getParlamentar()
+							.getMajorRankingPos());
+		}
 	}
 
 	public void sizeBar(ImageView bar, double valorCota) {

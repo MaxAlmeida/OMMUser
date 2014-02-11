@@ -147,6 +147,8 @@ public class ParlamentarUserDao {
 					.getColumnIndex("VALOR")));
 			parlamentar.setMajorRankingPos(cursor.getInt(cursor.getColumnIndex("RANKING_POS")));
 			listParlamentares.add(parlamentar);
+			//TODO LOG
+			Log.i("Dao Pos",""+parlamentar.getMajorRankingPos());
 		}
 		sqliteDatabase.close();
 		return listParlamentares;
@@ -173,6 +175,9 @@ public class ParlamentarUserDao {
 			parlamentar.setPartido(cursor.getString(cursor
 					.getColumnIndex("PARTIDO")));
 			parlamentar.setUf(cursor.getString(cursor.getColumnIndex("UF")));
+			parlamentar.setValor(cursor.getDouble(cursor
+					.getColumnIndex("VALOR")));
+			parlamentar.setMajorRankingPos(cursor.getInt(cursor.getColumnIndex("RANKING_POS")));
 			listParlamentar.add(parlamentar);
 		}
 		sqliteDatabase.close();
@@ -197,6 +202,9 @@ public class ParlamentarUserDao {
 			parlamentar.setPartido(cursor.getString(cursor
 					.getColumnIndex("PARTIDO")));
 			parlamentar.setUf(cursor.getString(cursor.getColumnIndex("UF")));
+			parlamentar.setValor(cursor.getDouble(cursor
+					.getColumnIndex("VALOR")));
+			parlamentar.setMajorRankingPos(cursor.getInt(cursor.getColumnIndex("RANKING_POS")));
 			listParlamentar.add(parlamentar);
 		}
 		sqliteDatabase.close();

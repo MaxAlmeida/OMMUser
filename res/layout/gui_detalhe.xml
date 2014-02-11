@@ -1,84 +1,174 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/fundo_detalhe" >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
 
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/descricaoParlamentar"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" 
+        android:background="@drawable/detalhe_topo_fundo" >
 
-        <ImageView
-            android:id="@+id/detalhe_fundo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/uf"
-            android:src="@drawable/detalheparlamentar_fundo" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
 
-        <Button
-            android:id="@+id/btn_detalhe_seguir"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/valor_cota_trabalho_tecnico"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/seguir"
-            android:text="Seguir" />
+            <ImageView
+                android:id="@+id/foto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_margin="3dp"
+                android:src="@drawable/parlamentar_foto" />
 
-        <Button
-            android:id="@+id/btn_detalhe_desseguir"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/valor_cota_trabalho_tecnico"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/esquecer"
-            android:text="Esquecer" />
+            <TextView
+                android:id="@+id/nome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_toRightOf="@+id/foto"
+                android:text="Large Text"
+                android:textAppearance="?android:attr/textAppearance"
+                android:textColor="#ffffff" />
 
-        <Button
+            <TextView
+                android:id="@+id/uf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/img_uf"
+                android:layout_toRightOf="@+id/img_uf"
+                android:text="MTx"
+                android:textColor="#ffffff"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/partido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/img_partido"
+                android:layout_toRightOf="@+id/img_partido"
+                android:text="Text"
+                android:textColor="#ffffff"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <ImageView
+                android:id="@+id/img_uf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/partido"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
+                android:layout_toRightOf="@+id/partido"
+                android:src="@drawable/uf" />
+
+            <ImageView
+                android:id="@+id/img_partido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/nome"
+                android:layout_below="@+id/nome"
+                android:src="@drawable/partido" />
+
+            <ImageView
+                android:id="@+id/detalhe_periodo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/foto"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="3dp"
+                android:layout_toRightOf="@+id/foto"
+                android:src="@drawable/detalheparlamentar_fundo" />
+
+            <TextView
+                android:id="@+id/mes_e_ano"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/detalhe_periodo"
+                android:layout_alignRight="@+id/detalhe_periodo"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="35dp"
+                android:text="Dados de XX/20XX" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="81dp"
+            android:layout_height="match_parent" >
+
+            <ImageView
+                android:id="@+id/rankingIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/ranking_maiores_icone" />
+
+            <ImageView
+                android:id="@+id/divisor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/linha_divisora" />
+
+            <TextView
+                android:id="@+id/pos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/rankingIcon"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="12dp"
+                android:text="547"
+                android:textColor="#ffffff"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/totalParlamentares"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/pos"
+                android:layout_alignBottom="@+id/pos"
+                android:layout_toRightOf="@+id/pos"
+                android:text="/573"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/lugar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/divisor"
+                android:layout_centerHorizontal="true"
+                android:text="Lugar"
+                android:textColor="#ffffff"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        </RelativeLayout>
+    </LinearLayout>
+	<ScrollView
+	     android:layout_width="match_parent"
+	     android:layout_height="wrap_content">
+
+         <RelativeLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:background="@drawable/fragmentparlamentar_fundo" >
+	    
+	    <Button
             android:id="@+id/btn_cota_alimentacao"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/partido"
-            android:layout_marginLeft="22dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
             android:background="@drawable/cota_alimentacao" />
-
-        <Button
-            android:id="@+id/btn_cota_aluguel_aviao"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignLeft="@+id/btn_cota_alimentacao"
-            android:layout_below="@+id/btn_cota_alimentacao"
-            android:background="@drawable/cota_aluguel_aviao" />
-
-        <Button
-            android:id="@+id/btn_cota_bilhetes_aereos"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignLeft="@+id/btn_cota_aluguel_aviao"
-            android:layout_below="@+id/btn_cota_aluguel_aviao"
-            android:background="@drawable/cota_bilhetes_aereos" />
-
-        <Button
-            android:id="@+id/btn_cota_correios"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignLeft="@+id/btn_cota_bilhetes_aereos"
-            android:layout_below="@+id/btn_cota_bilhetes_aereos"
-            android:background="@drawable/cota_correios" />
-
-        <Button
-            android:id="@+id/btn_cota_divulgacao"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignLeft="@+id/btn_cota_correios"
-            android:layout_below="@+id/btn_cota_correios"
-            android:background="@drawable/cota_divulgacao" />
 
         <Button
             android:id="@+id/btn_cota_escritorio"
@@ -86,6 +176,7 @@
             android:layout_height="40dp"
             android:layout_alignLeft="@+id/btn_cota_divulgacao"
             android:layout_below="@+id/btn_cota_divulgacao"
+            android:layout_marginTop="10dp"
             android:background="@drawable/cota_escritorio" />
 
         <Button
@@ -94,6 +185,7 @@
             android:layout_height="40dp"
             android:layout_alignLeft="@+id/btn_cota_escritorio"
             android:layout_below="@+id/btn_cota_escritorio"
+            android:layout_marginTop="10dp"
             android:background="@drawable/cota_gasolina" />
 
         <Button
@@ -102,6 +194,7 @@
             android:layout_height="40dp"
             android:layout_alignLeft="@+id/btn_cota_gasolina"
             android:layout_below="@+id/btn_cota_gasolina"
+            android:layout_marginTop="10dp"
             android:background="@drawable/cota_hospedagem" />
 
         <Button
@@ -110,6 +203,7 @@
             android:layout_height="40dp"
             android:layout_alignLeft="@+id/btn_cota_hospedagem"
             android:layout_below="@+id/btn_cota_hospedagem"
+            android:layout_marginTop="10dp"
             android:background="@drawable/cota_seguranca" />
 
         <Button
@@ -118,6 +212,7 @@
             android:layout_height="40dp"
             android:layout_alignLeft="@+id/btn_cota_seguranca"
             android:layout_below="@+id/btn_cota_seguranca"
+            android:layout_marginTop="10dp"
             android:background="@drawable/cota_telefone" />
 
         <Button
@@ -126,24 +221,8 @@
             android:layout_height="40dp"
             android:layout_alignLeft="@+id/btn_cota_telefone"
             android:layout_below="@+id/btn_cota_telefone"
+            android:layout_marginTop="10dp"
             android:background="@drawable/cota_trabalho_tecnico" />
-
-        <ImageView
-            android:id="@+id/barra_cota_alimentacao"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/btn_cota_aluguel_aviao"
-            android:layout_marginLeft="11dp"
-            android:layout_toRightOf="@+id/btn_cota_alimentacao"
-            android:src="@drawable/barra_branca" />
-
-        <ImageView
-            android:id="@+id/barra_cota_aluguel_aviao"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/btn_cota_bilhetes_aereos"
-            android:layout_alignLeft="@+id/barra_cota_alimentacao"
-            android:src="@drawable/barra_branca" />
 
         <ImageView
             android:id="@+id/barra_cota_bilhetes_aereos"
@@ -151,22 +230,6 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/btn_cota_bilhetes_aereos"
             android:layout_alignLeft="@+id/barra_cota_aluguel_aviao"
-            android:src="@drawable/barra_branca" />
-
-        <ImageView
-            android:id="@+id/barra_cota_correios"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/btn_cota_divulgacao"
-            android:layout_alignLeft="@+id/barra_cota_bilhetes_aereos"
-            android:src="@drawable/barra_branca" />
-
-        <ImageView
-            android:id="@+id/barra_cota_divulgacao"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/btn_cota_escritorio"
-            android:layout_alignLeft="@+id/barra_cota_correios"
             android:src="@drawable/barra_branca" />
 
         <ImageView
@@ -218,16 +281,6 @@
             android:src="@drawable/barra_branca" />
 
         <TextView
-            android:id="@+id/valor_cota_alimentacao"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/btn_cota_aluguel_aviao"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="15dp"
-            android:text="R$ 0,00"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <TextView
             android:id="@+id/valor_cota_aluguel_aviao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -252,16 +305,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/barra_cota_correios"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:text="R$ 0,00"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <TextView
-            android:id="@+id/valor_cota_divulgacao"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/btn_cota_escritorio"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
             android:text="R$ 0,00"
@@ -328,82 +371,99 @@
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <ImageView
-            android:id="@+id/foto"
+            android:id="@+id/barra_cota_alimentacao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:src="@drawable/parlamentar_foto" />
+            android:layout_alignBottom="@+id/btn_cota_alimentacao"
+            android:layout_toRightOf="@+id/btn_cota_aluguel_aviao"
+            android:src="@drawable/barra_branca" />
 
         <TextView
+            android:id="@+id/valor_cota_alimentacao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/valor_cota_aluguel_aviao"
+            android:layout_alignTop="@+id/barra_cota_alimentacao"
+            android:text="R$ 0,00"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <Button
+            android:id="@+id/btn_cota_correios"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/btn_cota_bilhetes_aereos"
+            android:layout_margin="10dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/cota_correios" />
+
+        <ImageView
+            android:id="@+id/barra_cota_aluguel_aviao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/btn_cota_aluguel_aviao"
+            android:layout_alignLeft="@+id/barra_cota_alimentacao"
+            android:src="@drawable/barra_branca" />
+
+        <ImageView
+            android:id="@+id/barra_cota_correios"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/btn_cota_correios"
+            android:layout_alignLeft="@+id/barra_cota_bilhetes_aereos"
+            android:src="@drawable/barra_branca" />
+
+        <TextView
+            android:id="@+id/valor_cota_divulgacao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/barra_cota_divulgacao"
+            android:layout_alignRight="@+id/valor_cota_correios"
+            android:text="R$ 0,00"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <Button
+            android:id="@+id/btn_cota_aluguel_aviao"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignLeft="@+id/btn_cota_alimentacao"
+            android:layout_below="@+id/btn_cota_alimentacao"
+            android:layout_marginTop="11dp"
+            android:background="@drawable/cota_aluguel_aviao" />
+
+        <Button
+            android:id="@+id/btn_cota_bilhetes_aereos"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_below="@+id/barra_cota_aluguel_aviao"
+            android:layout_marginTop="11dp"
+            android:layout_toLeftOf="@+id/barra_cota_bilhetes_aereos"
+            android:background="@drawable/cota_bilhetes_aereos" />
+
+        <ImageView
+            android:id="@+id/barra_cota_divulgacao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/btn_cota_divulgacao"
+            android:layout_alignLeft="@+id/barra_cota_correios"
+            android:src="@drawable/barra_branca" />
+
+        <Button
+            android:id="@+id/btn_cota_divulgacao"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_below="@+id/btn_cota_correios"
+            android:layout_toLeftOf="@+id/barra_cota_divulgacao"
+            android:background="@drawable/cota_divulgacao" />
+	     
+        <TextView 
             android:id="@+id/total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignRight="@+id/valor_cota_trabalho_tecnico"
-            android:text="Total"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textStyle="bold" />
-
-        <ImageView
-            android:id="@+id/img_uf"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignBottom="@+id/uf"
-            android:layout_alignTop="@+id/uf"
-            android:layout_toLeftOf="@+id/uf"
-            android:src="@drawable/uf" />
-
-        <TextView
-            android:id="@+id/uf"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/partido"
-            android:layout_alignBottom="@+id/partido"
-            android:layout_alignRight="@+id/valor_cota_alimentacao"
-            android:text="MTx"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <ImageView
-            android:id="@+id/img_partido"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_above="@+id/detalhe_fundo"
-            android:layout_alignLeft="@+id/nome"
-            android:layout_alignTop="@+id/partido"
-            android:src="@drawable/partido" />
-
-        <TextView
-            android:id="@+id/nome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/partido"
-            android:layout_marginBottom="14dp"
-            android:layout_marginLeft="15dp"
-            android:layout_toRightOf="@+id/foto"
-            android:text="Large Text"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <TextView
-            android:id="@+id/partido"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/foto"
-            android:layout_marginBottom="14dp"
-            android:layout_toRightOf="@+id/img_partido"
-            android:text="Text"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <TextView
-            android:id="@+id/mes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="100dp"
-            android:text="Small Text"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    </RelativeLayout>
-
-</ScrollView>
+            android:layout_below="@+id/btn_cota_trabalho_tecnico"
+            android:layout_centerInParent="true"
+            android:text="Total: R$00000.00"
+             android:textAppearance="?android:attr/textAppearanceLarge"/>
+         </RelativeLayout>
+	     </ScrollView>
+</LinearLayout>

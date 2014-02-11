@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.http.client.ResponseHandler;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.OMM.application.user.dao.ParlamentarUserDao;
 import com.OMM.application.user.exceptions.ConnectionFailedException;
@@ -71,13 +72,6 @@ public class ParlamentarUserController {
 			
 			url=MountURL.getIsntance(context,serverController);
 			int idParlamentar = parlamentar.getId();
-			String urlParlamentar = url.mountURLParlamentar(idParlamentar);
-			String jsonParlamentar = HttpConnection.request(responseHandler,
-					urlParlamentar);
-
-			parlamentar = JSONHelper.listParlamentarFromJSON(jsonParlamentar)
-					.get(0);
-
 			String urlCotas = url.mountURLCota(idParlamentar);
 			String jsonCotasParlamentar = HttpConnection.request(
 					responseHandler, urlCotas);
