@@ -27,45 +27,16 @@
 
             <TextView
                 android:id="@+id/nome"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="5dp"
+                android:layout_alignRight="@+id/detalhe_periodo"
                 android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
                 android:layout_toRightOf="@+id/foto"
                 android:text="Large Text"
-                android:textAppearance="?android:attr/textAppearance"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#ffffff" />
-
-            <TextView
-                android:id="@+id/uf"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/img_uf"
-                android:layout_toRightOf="@+id/img_uf"
-                android:text="MTx"
-                android:textColor="#ffffff"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <TextView
-                android:id="@+id/partido"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/img_partido"
-                android:layout_toRightOf="@+id/img_partido"
-                android:text="Text"
-                android:textColor="#ffffff"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <ImageView
-                android:id="@+id/img_uf"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/partido"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="5dp"
-                android:layout_toRightOf="@+id/partido"
-                android:src="@drawable/uf" />
 
             <ImageView
                 android:id="@+id/img_partido"
@@ -94,6 +65,39 @@
                 android:layout_marginBottom="5dp"
                 android:layout_marginRight="35dp"
                 android:text="Dados de XX/20XX" />
+
+            <ImageView
+                android:id="@+id/img_uf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/partido"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/partido"
+                android:src="@drawable/uf" />
+
+            <TextView
+                android:id="@+id/uf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/img_uf"
+                android:layout_below="@+id/nome"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/img_uf"
+                android:text="MTx"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#ffffff" />
+
+            <TextView
+                android:id="@+id/partido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/img_partido"
+                android:layout_alignTop="@+id/img_partido"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/img_partido"
+                android:text="Text"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#ffffff" />
 
         </RelativeLayout>
 
