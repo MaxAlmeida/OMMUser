@@ -7,7 +7,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.OMM.application.user.exceptions.NullParlamentarException;
 import com.OMM.application.user.helper.LocalDatabase;
@@ -17,8 +16,8 @@ public class ParlamentarUserDao {
 
 	// TODO:Fazer try catch do banco
 
-	private static String nome_tabela = "PARLAMENTAR";
-	private static String[] colunas = { "ID_PARLAMENTAR,NOME_PARLAMENTAR,PARTIDO,UF,SEGUIDO,VALOR,RANKING_POS" };
+	private static String tabelaParlamentar = "PARLAMENTAR";
+	private static String[] colunasParlamentar = { "ID_PARLAMENTAR,NOME_PARLAMENTAR,PARTIDO,UF,SEGUIDO,VALOR,RANKING_POS" };
 	private static ParlamentarUserDao instance;
 	private static LocalDatabase database;
 	private static SQLiteDatabase sqliteDatabase;
@@ -65,7 +64,7 @@ public class ParlamentarUserDao {
 		content.put("UF", parlamentar.getUf());
 		content.put("VALOR", parlamentar.getValor());
 		content.put("RANKING_POS", parlamentar.getMajorRankingPos());
-		boolean result = (sqliteDatabase.insert(nome_tabela, null, content) > 0);
+		boolean result = (sqliteDatabase.insert(tabelaParlamentar, null, content) > 0);
 		sqliteDatabase.close();
 		return result;
 	}
@@ -73,7 +72,7 @@ public class ParlamentarUserDao {
 	public boolean deleteParlamentar(Parlamentar parlamentar) {
 
 		sqliteDatabase = database.getWritableDatabase();
-		boolean result = (sqliteDatabase.delete(nome_tabela,
+		boolean result = (sqliteDatabase.delete(tabelaParlamentar,
 				"ID_PARLAMENTAR=?", new String[] { parlamentar.getId() + "" }) > 0);
 		sqliteDatabase.close();
 		return result;
@@ -86,7 +85,7 @@ public class ParlamentarUserDao {
 			sqliteDatabase = database.getWritableDatabase();
 			ContentValues content = new ContentValues();
 			content.put("SEGUIDO", parlamentar.getIsSeguido());
-			boolean result = (sqliteDatabase.update(nome_tabela, content,
+			boolean result = (sqliteDatabase.update(tabelaParlamentar, content,
 					"ID_PARLAMENTAR=?",
 					new String[] { parlamentar.getId() + "" }) > 0);
 			sqliteDatabase.close();
@@ -99,7 +98,7 @@ public class ParlamentarUserDao {
 	public Parlamentar getById(Integer ID_PARLAMENTAR) {
 
 		sqliteDatabase = database.getReadableDatabase();
-		Cursor cursor = sqliteDatabase.query(nome_tabela, colunas,
+		Cursor cursor = sqliteDatabase.query(tabelaParlamentar, colunasParlamentar,
 				"ID_PARLAMENTAR=?", new String[] { ID_PARLAMENTAR.toString() },
 				null, null, null);
 
@@ -147,8 +146,6 @@ public class ParlamentarUserDao {
 					.getColumnIndex("VALOR")));
 			parlamentar.setMajorRankingPos(cursor.getInt(cursor.getColumnIndex("RANKING_POS")));
 			listParlamentares.add(parlamentar);
-			//TODO LOG
-			Log.i("Dao Pos",""+parlamentar.getMajorRankingPos());
 		}
 		sqliteDatabase.close();
 		return listParlamentares;
@@ -210,4 +207,5 @@ public class ParlamentarUserDao {
 		sqliteDatabase.close();
 		return listParlamentar;
 	}
+
 }

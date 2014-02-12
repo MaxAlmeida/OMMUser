@@ -1,13 +1,15 @@
 package com.OMM.application.user.view;
 
 import java.util.List;
+
 import android.app.Activity;
 import android.app.ListFragment;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
+
 import com.OMM.application.user.R;
-import com.OMM.application.user.adapters.ParlamentarSeguidoAdapter;
+import com.OMM.application.user.adapters.ParlamentarAdapter;
 import com.OMM.application.user.controller.ParlamentarUserController;
 import com.OMM.application.user.model.Parlamentar;
 
@@ -25,7 +27,7 @@ public class ParlamentarSeguidoListFragment extends ListFragment {
 				.getInstance(getActivity());
 		List<Parlamentar> list = parlamentarController.getAllSelected();
 
-		ParlamentarSeguidoAdapter adapter = new ParlamentarSeguidoAdapter(
+		ParlamentarAdapter adapter = new ParlamentarAdapter(
 				getActivity(), R.layout.fragment_parlamentar_seguido, list);
 
 		setListAdapter(adapter);

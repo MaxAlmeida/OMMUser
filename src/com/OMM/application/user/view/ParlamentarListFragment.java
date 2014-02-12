@@ -10,7 +10,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -48,10 +47,9 @@ public class ParlamentarListFragment extends ListFragment {
 		ParlamentarAdapter adapter = new ParlamentarAdapter(getActivity(),
 				R.layout.fragment_parlamentar,
 				controllerParlamentar.getParlamentares());
-		//TODO LOG
-		Log.i("list pos",""+controllerParlamentar.getParlamentares().get(4).getMajorRankingPos());
 		setListAdapter(adapter);
 		setRetainInstance(false);
+		
 	}
 
 	@Override
@@ -90,7 +88,6 @@ public class ParlamentarListFragment extends ListFragment {
 		try {
 			parseTask.execute(inputText);
 		}
-		// TODO tratar com a devida excess�o lan�ada.
 		catch (IllegalStateException ise) {
 			// IllegalStateException
 		}
@@ -98,9 +95,10 @@ public class ParlamentarListFragment extends ListFragment {
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void setListContent(List result) {
-		ArrayAdapter listAdapter = (ArrayAdapter) getListAdapter();
+		ParlamentarAdapter listAdapter = (ParlamentarAdapter) getListAdapter();
 		listAdapter.clear();
 		listAdapter.addAll(result);
+		listAdapter.notifyDataSetChanged();
 		parseTask.setFragment(null);
 		parseTask = null;
 	}

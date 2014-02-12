@@ -1,33 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout 
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@drawable/fragmentparlamentar_fundo"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical" >
+    android:descendantFocusability="blocksDescendants"
+    android:background="@drawable/fragmentparlamentar_fundo"
+    android:orientation="horizontal" >
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content" 
+		android:layout_weight="1" 
+		android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/parlamentarlistfragment_img_arte"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:contentDescription="TODO"
-            android:src="@drawable/parlamentar_foto" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
 
-        <TextView
-            android:id="@+id/parlamentarlistfragment_txt_nome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="30dp"
-            android:layout_toRightOf="@+id/parlamentarlistfragment_img_arte"
-            android:text="TextView" />
-        
+            <ImageView
+                android:id="@+id/parlamentarlistfragment_img_arte"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:contentDescription="TODO"
+                android:src="@drawable/parlamentar_foto" />
+
+            <TextView
+                android:id="@+id/parlamentarlistfragment_txt_nome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@+id/parlamentarlistfragment_img_arte"
+                android:text="TextView" />
         </RelativeLayout>
+    </LinearLayout>
+	<LinearLayout 
+	    android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+		android:layout_weight="2" >
+	    <RelativeLayout 
+	        android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+	        <CheckBox
+	            android:id="@+id/checkbox"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentTop="true"
+	            android:layout_marginTop="50dp"
+	            android:layout_centerHorizontal="true" />
 
+	        <TextView
+	            android:id="@+id/Seguir"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_centerHorizontal="true"
+	            android:layout_centerVertical="true"
+	            android:text="Seguir" />
+
+	    </RelativeLayout>
+	</LinearLayout>
 </LinearLayout>

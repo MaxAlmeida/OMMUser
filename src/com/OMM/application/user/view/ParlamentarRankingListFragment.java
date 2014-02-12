@@ -8,20 +8,17 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.OMM.application.user.R;
 import com.OMM.application.user.adapters.ParlamentarRankingAdapter;
 import com.OMM.application.user.controller.ParlamentarUserController;
-import com.OMM.application.user.controller.UrlHostController;
 import com.OMM.application.user.exceptions.ConnectionFailedException;
 import com.OMM.application.user.exceptions.NullCotaParlamentarException;
 import com.OMM.application.user.exceptions.NullParlamentarException;
 import com.OMM.application.user.exceptions.RequestFailedException;
 import com.OMM.application.user.model.Parlamentar;
 import com.OMM.application.user.requests.HttpConnection;
-import com.OMM.application.user.requests.MountURL;
 
 public class ParlamentarRankingListFragment extends ListFragment {
 
@@ -33,7 +30,7 @@ public class ParlamentarRankingListFragment extends ListFragment {
 		controllerParlamentar = ParlamentarUserController
 				.getInstance(getActivity());
 
-		//startRankingRequest();
+		// startRankingRequest();
 		controllerParlamentar.getAll();
 
 		super.onCreate(savedInstanceState);
@@ -75,91 +72,9 @@ public class ParlamentarRankingListFragment extends ListFragment {
 		startRequest();
 	}
 
-	private class RankingRequestTask extends AsyncTask<Object, Void, Integer> {
-		ProgressDialog progressDialog;
-		
-		UrlHostController serverController=UrlHostController.getInstance(getActivity());
-		
-		
-		MountURL url = MountURL.getIsntance(getActivity(),serverController);
-		@Override
-		protected void onPreExecute() {
-			progressDialog = ProgressDialog.show(getActivity(), "Aguarde...",
-					"Buscando Dados ["+url.mountUrlMajorRanking()+"]");
-		}
-
-		@Override
-		protected Integer doInBackground(Object... params) {
-
-			Integer exception = Alerts.NO_EXCEPTIONS;
-			@SuppressWarnings("unchecked")
-			ResponseHandler<String> rh = (ResponseHandler<String>) params[0];
-			try {
-				controllerParlamentar.doRequestMajorRanking(rh);
-			} catch (ConnectionFailedException cfe) {
-				exception = Alerts.CONNECTION_FAILED_EXCEPTION;
-
-			} catch (NullParlamentarException cpe) {
-				exception = Alerts.NULL_PARLAMENTAR_EXCEPTION;
-
-			} catch (RequestFailedException rfe) {
-				exception = Alerts.REQUEST_FAILED_EXCEPTION;
-
-			} catch (Exception e) {
-				exception = Alerts.UNEXPECTED_FAILED_EXCEPTION;
-
-			}
-			return exception;
-		}
-
-		@SuppressWarnings({ "rawtypes", "unchecked" })
-		@Override
-		protected void onPostExecute(Integer result) {
-
-			progressDialog.dismiss();
-			switch (result) {
-
-			case Alerts.CONNECTION_FAILED_EXCEPTION:
-
-				Alerts.conectionFailedAlert(getActivity());
-				break;
-
-			case Alerts.NULL_PARLAMENTAR_EXCEPTION:
-
-				Alerts.parlamentarFailedAlert(getActivity());
-				break;
-
-			case Alerts.REQUEST_FAILED_EXCEPTION:
-
-				Alerts.requestFailedAlert(getActivity());
-				break;
-
-			case Alerts.UNEXPECTED_FAILED_EXCEPTION:
-
-				Alerts.unexpectedFailedAlert(getActivity());
-				break;
-
-			default:
-				ArrayAdapter listAdapter = (ArrayAdapter) getListAdapter();
-				listAdapter.clear();
-				listAdapter.addAll(controllerParlamentar.getParlamentares());
-			}
-
-		}
-	}
-
-	private void startRankingRequest() {
-
-		ResponseHandler<String> responseHandler = HttpConnection
-				.getResponseHandler();
-		RankingRequestTask task = new RankingRequestTask();
-		task.execute(responseHandler);
-	}
-
 	private class RequestTask extends AsyncTask<Object, Void, Integer> {
 
 		ProgressDialog progressDialog;
-		
 
 		@Override
 		protected void onPreExecute() {

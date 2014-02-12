@@ -20,6 +20,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
 import com.OMM.application.user.R;
 import com.OMM.application.user.controller.ParlamentarUserController;
 import com.OMM.application.user.controller.UrlHostController;
@@ -27,7 +28,6 @@ import com.OMM.application.user.exceptions.ConnectionFailedException;
 import com.OMM.application.user.exceptions.NullParlamentarException;
 import com.OMM.application.user.exceptions.RequestFailedException;
 import com.OMM.application.user.requests.HttpConnection;
-import com.OMM.application.user.requests.MountURL;
 
 @SuppressLint("ShowToast")
 public class GuiMain extends Activity implements
@@ -216,7 +216,7 @@ public class GuiMain extends Activity implements
 		}
 	}
 
-	
+	//=============================================================================================================
 	//TODO
 	/*
 	 * Mudar essa AsyncTask para atender o padrao Observer 
@@ -251,6 +251,8 @@ public class GuiMain extends Activity implements
 		}
 		
 	}
+	//=============================================================================================================
+	
 	
 	private class initializeDBTask extends AsyncTask<Object, Void, Integer> {
 		ProgressDialog progressDialog;

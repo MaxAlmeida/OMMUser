@@ -5,7 +5,6 @@ import java.util.Iterator;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -58,76 +57,7 @@ public class ParlamentarDetailFragment extends Fragment {
 		parlamentarController = ParlamentarUserController
 				.getInstance(getActivity());
 		View view = inflater.inflate(R.layout.gui_detalhe, container, false);
-
-		// final Button btn_detalhe_seguir = (Button) view
-		// .findViewById(R.id.btn_detalhe_seguir);
-		// final Button btn_detalhe_desseguir = (Button) view
-		// .findViewById(R.id.btn_detalhe_desseguir);
-		//
-		// if (parlamentarController.getParlamentar().getIsSeguido() == 1) {
-		// btn_detalhe_seguir.setVisibility(View.INVISIBLE);
-		// btn_detalhe_desseguir.setVisibility(View.VISIBLE);
-		//
-		// } else {
-		// btn_detalhe_desseguir.setVisibility(View.INVISIBLE);
-		// btn_detalhe_seguir.setVisibility(View.VISIBLE);
-		// }
-
 		createButtons(view);
-
-		// btn_detalhe_desseguir.setOnClickListener(new View.OnClickListener() {
-		//
-		// @Override
-		// public void onClick(View v) {
-		//
-		// try {
-		// parlamentarController.unFollowedParlamentar();
-		// Toast.makeText(getActivity(), "Parlamentar DesSeguido",
-		// Toast.LENGTH_SHORT).show();
-		// btn_detalhe_desseguir.setVisibility(View.GONE);
-		// btn_detalhe_seguir.setVisibility(View.VISIBLE);
-		//
-		// ImageView imgView = (ImageView) getView().findViewById(
-		// R.id.foto);
-		// imgView.setImageResource(R.drawable.parlamentar_foto);
-		//
-		// } catch (NullParlamentarException nullEx) {
-		// Toast.makeText(getActivity(), "Erro na requisição",
-		// Toast.LENGTH_SHORT).show();
-		//
-		// } catch (NullCotaParlamentarException e) {
-		//
-		// // TODO FAZER O TRATAMENTO DA EXCECAO
-		// e.printStackTrace();
-		// }
-		// }
-		// });
-		//
-		// btn_detalhe_seguir.setOnClickListener(new View.OnClickListener() {
-		//
-		// @Override
-		// public void onClick(View v) {
-		//
-		// try {
-		// parlamentarController.followedParlamentar();
-		// Toast.makeText(getActivity(), "Parlamentar Seguido",
-		// Toast.LENGTH_SHORT).show();
-		//
-		// ImageView imgView = (ImageView) getView().findViewById(
-		// R.id.foto);
-		// imgView.setImageResource(R.drawable.parlamentar_seguido_foto);
-		// btn_detalhe_seguir.setVisibility(View.GONE);
-		// btn_detalhe_desseguir.setVisibility(View.VISIBLE);
-		//
-		// } catch (NullParlamentarException nullEx) {
-		// Toast.makeText(getActivity(), "Erro na requisição",
-		// Toast.LENGTH_SHORT).show();
-		// } catch (NullCotaParlamentarException e) {
-		// Toast.makeText(getActivity(), "Erro na requisição",
-		// Toast.LENGTH_SHORT).show();
-		// }
-		// }
-		// });
 		return view;
 	}
 
@@ -145,9 +75,6 @@ public class ParlamentarDetailFragment extends Fragment {
 		view.setText(parlamentarController.getParlamentar().getUf());
 		view = (TextView) getView().findViewById(R.id.pos);
 		formatRankingPos(view);
-		// TODO LOG
-		Log.i("pos Detalhe", ""
-				+ parlamentarController.getParlamentar().getMajorRankingPos());
 		TextView textMes = (TextView) getView().findViewById(R.id.mes_e_ano);
 		textMes.setText("Valores do mês " + selectedMes);
 

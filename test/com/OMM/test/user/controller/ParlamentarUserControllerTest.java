@@ -203,7 +203,7 @@ public class ParlamentarUserControllerTest extends AndroidTestCase {
 		try {
 			controller.setParlamentar(parlamentar);
 			Parlamentar pJson = controller.doRequest(null);
-
+			pJson.getId();
 			fail("Exception not launched");
 		} catch (TransmissionException npe) {
 

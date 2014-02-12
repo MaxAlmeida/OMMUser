@@ -177,7 +177,7 @@ public class ParlamentarUserController {
 	public boolean unFollowedParlamentar() throws NullParlamentarException,
 			NullCotaParlamentarException {
 		boolean result = true;
-
+		parlamentar.setCotas(ceapController.getCotasByIdParlamentar(parlamentar.getId()));
 		if (parlamentar != null && parlamentar.getCotas() != null) {
 			parlamentar.setSeguido(0);
 			CotaParlamentarUserController controllerCeap = CotaParlamentarUserController
@@ -185,7 +185,6 @@ public class ParlamentarUserController {
 
 			result = controllerCeap.deleteCota(parlamentar.getId())
 					&& parlamentarDao.updateParlamentar(parlamentar);
-
 			return result;
 
 		} else if (parlamentar == null) {
