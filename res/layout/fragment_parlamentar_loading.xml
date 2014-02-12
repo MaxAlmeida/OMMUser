@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/fragmentparlamentar_fundo"
+    android:orientation="horizontal" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+		android:layout_weight="1" 
+		android:orientation="horizontal">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/parlamentarlistfragment_img_arte"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:contentDescription="TODO"
+                android:alpha="0.5"
+                android:src="@drawable/parlamentar_seguido_foto" />
+
+            <TextView
+                android:id="@+id/parlamentarlistfragment_txt_nome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:alpha="0.5"
+                android:layout_toRightOf="@+id/parlamentarlistfragment_img_arte"
+                android:text="TextView" />
+        </RelativeLayout>
+    </LinearLayout>
+	<LinearLayout 
+	    android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+		android:layout_weight="2" >
+	    <RelativeLayout 
+	        android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+	        <ProgressBar
+	            android:id="@+id/progressBar"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_centerInParent="true"
+	            android:layout_alignParentTop="true"
+	            android:layout_marginTop="30dp" />
+
+	    </RelativeLayout>
+	</LinearLayout>
+</LinearLayout>
