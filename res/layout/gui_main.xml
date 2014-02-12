@@ -41,6 +41,15 @@
         android:background="@drawable/btn_rolagem"
         android:rotation="30" />
 
+	<ImageView
+	    android:id="@+id/icon_esconder"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentBottom="true"
+	    android:layout_alignParentRight="true"
+	    android:layout_margin="5dp"
+	    android:background="@drawable/icon_esconder" />
+
     <Button
         android:id="@+id/btn_sobre_main"
         android:layout_width="48dp"

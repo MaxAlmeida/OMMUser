@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.OMM.application.user.R;
-import com.OMM.application.user.adapters.ParlamentarAdapter;
+import com.OMM.application.user.adapters.ParlamentarSeguidoAdapter;
 import com.OMM.application.user.controller.ParlamentarUserController;
 import com.OMM.application.user.model.Parlamentar;
 
@@ -27,7 +27,7 @@ public class ParlamentarSeguidoListFragment extends ListFragment {
 				.getInstance(getActivity());
 		List<Parlamentar> list = parlamentarController.getAllSelected();
 
-		ParlamentarAdapter adapter = new ParlamentarAdapter(
+		ParlamentarSeguidoAdapter adapter = new ParlamentarSeguidoAdapter(
 				getActivity(), R.layout.fragment_parlamentar_seguido, list);
 
 		setListAdapter(adapter);

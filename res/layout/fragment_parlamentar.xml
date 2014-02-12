@@ -23,7 +23,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:contentDescription="TODO"
-                android:src="@drawable/parlamentar_foto" />
+                android:src="@drawable/parlamentar_foto_mini" />
 
             <TextView
                 android:id="@+id/parlamentarlistfragment_txt_nome"

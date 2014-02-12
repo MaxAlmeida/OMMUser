@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.OMM.application.user.R;
@@ -62,7 +63,7 @@ public class GuiMain extends Activity implements
 		final Button btn_search_parlamentar = (Button) findViewById(R.id.btn_pesquisar_parlamentar);
 		final Button btn_ranking_main = (Button) findViewById(R.id.btn_ranking);
 		final Button btn_show_all_parlamentares = (Button) findViewById(R.id.btn_ic_rolagem);
-
+		
 		
 		//depuraçao 
 		
@@ -125,25 +126,36 @@ public class GuiMain extends Activity implements
 
 					@Override
 					public void onClick(View v) {
-
+						ImageView img_esconder = (ImageView) findViewById(R.id.icon_esconder);
 						// changing the buttons's visibility
 						if (btn_search_parlamentar.getAlpha() == 0.0f) {
+							
 							btn_search_parlamentar.animate().alpha(1.0f);
 							btn_parlamentar_main.animate().alpha(1.0f);
 							btn_ranking_main.animate().alpha(1.0f);
-							btn_about_application_main.
-							animate().alpha(1.0f);
+							btn_about_application_main.animate().alpha(1.0f);
+							
 							btn_show_all_parlamentares.animate().scaleX(1.0f);
 							btn_show_all_parlamentares.animate().scaleY(1.0f);
 							btn_show_all_parlamentares.animate().alpha(1.0f);
+							
+							img_esconder.animate().alpha(1.0f);
+							img_esconder.animate().scaleX(1.0f);
+							img_esconder.animate().scaleY(1.0f);
 						} else {
+							
 							btn_search_parlamentar.animate().alpha(0.0f);
 							btn_parlamentar_main.animate().alpha(0.0f);
 							btn_ranking_main.animate().alpha(0.0f);
 							btn_about_application_main.animate().alpha(0.0f);
+							
 							btn_show_all_parlamentares.animate().scaleX(0.6f);
 							btn_show_all_parlamentares.animate().scaleY(0.6f);
 							btn_show_all_parlamentares.animate().alpha(0.5f);
+							
+							img_esconder.animate().scaleX(0.6f);
+							img_esconder.animate().scaleY(0.6f);
+							img_esconder.animate().alpha(0.0f);
 						}
 					}
 				});

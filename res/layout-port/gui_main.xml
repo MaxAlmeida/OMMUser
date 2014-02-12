@@ -21,7 +21,8 @@
             android:orientation="vertical" >
         </FrameLayout>
     </LinearLayout>
-    <Button
+
+    <Button
         android:id="@+id/btn_ic_rolagem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,6 +31,15 @@
         android:layout_marginBottom="-70dp"
         android:layout_marginRight="-70dp"
         android:background="@drawable/btn_rolagem" />
+
+    <ImageView
+        android:id="@+id/icon_esconder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="5dp"
+        android:background="@drawable/icon_esconder" />
 
     <Button
         android:id="@+id/btn_sobre_main"

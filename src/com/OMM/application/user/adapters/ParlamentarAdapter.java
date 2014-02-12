@@ -79,8 +79,7 @@ public class ParlamentarAdapter extends BaseAdapter {
 					try {
 						controller.unFollowedParlamentar();
 						parlamentar = controller.getParlamentar();
-						removeItem((Integer) checkBox.getTag());
-						
+						notifyDataSetChanged();
 					} catch (NullParlamentarException e) {
 						Alerts.parlamentarFailedAlert(context);
 						e.printStackTrace();
@@ -119,12 +118,12 @@ public class ParlamentarAdapter extends BaseAdapter {
 			parlamentares.add(i.next());
 		}
 	}
-	
-	public void removeItem(int position){
+
+	public void removeItem(int position) {
 		parlamentares.remove(position);
 		notifyDataSetChanged();
 	}
-	
+
 	private class RequestTask extends AsyncTask<Object, Void, Integer> {
 
 		ProgressDialog progressDialog;
