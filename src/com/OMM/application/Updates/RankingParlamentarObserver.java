@@ -12,6 +12,7 @@ public class RankingParlamentarObserver implements ObserverUpdates{
 	private GetServerUpdates subject;
 	private ParlamentarUserController parlamentarController;
 	private LinkedList<Parlamentar> pilhaParlamentares;
+	
 	public RankingParlamentarObserver(
 			GetServerUpdates s,
 			LinkedList<Parlamentar> pilhaParlamentares,
@@ -28,7 +29,8 @@ public class RankingParlamentarObserver implements ObserverUpdates{
 	{
 		while(!pilhaParlamentares.isEmpty())
 		{
-		 //TODO  terminar esse metodo
+		   parlamentarController.updateParlamentarValor(pilhaParlamentares.getLast());
+		   pilhaParlamentares.removeLast();
 		}
 		
 	}

@@ -29,6 +29,7 @@
         <uses-library android:name="android.test.runner"/>
         <activity android:name=".view.GuiMain" />
         <activity android:name=".view.GuiSobre" />
+        <activity android:name=".view.Activity_tests_apagar"></activity>
     </application>
 
 </manifest>

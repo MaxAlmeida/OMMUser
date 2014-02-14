@@ -233,4 +233,16 @@ public class ParlamentarUserController {
 		url=MountURL.getIsntance(context,serverController);
 		return url.getIP();
 	}
+	
+	public boolean updateParlamentarValor(Parlamentar parlamentar)
+	{
+		try 
+		{
+			return parlamentarDao.updateParlamentarValor(parlamentar);
+		} catch (NullParlamentarException e) {
+			
+			e.printStackTrace();
+		}
+		return false;
+	}
 }
