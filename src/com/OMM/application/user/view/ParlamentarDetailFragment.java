@@ -49,6 +49,7 @@ public class ParlamentarDetailFragment extends Fragment {
 
 	ParlamentarUserController parlamentarController;
 	private int selectedMes = 1;
+	
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -451,9 +452,9 @@ public class ParlamentarDetailFragment extends Fragment {
 
 		super.onCreateOptionsMenu(menu, inflater);
 		menu.clear();
-		SubMenu sub = menu.addSubMenu("Mês");
+		SubMenu sub = menu.addSubMenu("M�s");
 		@SuppressWarnings("unused")
-		MenuItem Ano = menu.add(0, Menu.FIRST + 12, 0, "Ano");
+		SubMenu ano = menu.addSubMenu("Ano");
 		sub.add(0, Menu.FIRST, 0, "Janeiro");
 		sub.add(0, Menu.FIRST + 1, 0, "Fevereiro");
 		sub.add(0, Menu.FIRST + 2, 0, "Março");
@@ -466,6 +467,9 @@ public class ParlamentarDetailFragment extends Fragment {
 		sub.add(0, Menu.FIRST + 9, 0, "Outubro");
 		sub.add(0, Menu.FIRST + 10, 0, "Novembro");
 		sub.add(0, Menu.FIRST + 11, 0, "Dezembro");
+		ano.add(0, Menu.FIRST + 12, 0, "2013");
+		ano.add(0, Menu.FIRST + 13, 0, "2014");
+		
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
