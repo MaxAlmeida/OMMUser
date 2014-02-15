@@ -9,10 +9,13 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo.State;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -188,6 +191,15 @@ public class GuiMain extends Activity implements
 			
 		}
 	}
+
+	
+	@Override
+	protected void onResume() {
+		
+		super.onResume();
+		checkConnection();
+	}
+
 
 	private void updateFragment(int viewId) {
 		ParlamentarDetailFragment detailFragment = new ParlamentarDetailFragment();
@@ -399,5 +411,24 @@ public class GuiMain extends Activity implements
 	                GuiMain.super.onBackPressed();
 	            }
 	        }).create().show();
+	}
+	
+	private void checkConnection()
+	{
+		ConnectivityManager con =(ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		
+		//3G
+		if(con.getNetworkInfo(0).getState()==State.CONNECTED)
+		{
+			Toast.makeText(getBaseContext(), "Conexao 3G Ativa",Toast.LENGTH_SHORT).show();
+			
+		//Wifi
+		}else if(con.getNetworkInfo(1).getState()==State.CONNECTED) 
+		{
+			Toast.makeText(getBaseContext(), "Conexao Wifi",Toast.LENGTH_SHORT).show();
+		}else 
+		{
+			Toast.makeText(getBaseContext(), "Sem Conexao com internet",Toast.LENGTH_SHORT).show();
+		}
 	}
 }
