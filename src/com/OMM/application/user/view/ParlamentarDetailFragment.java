@@ -49,7 +49,7 @@ public class ParlamentarDetailFragment extends Fragment {
 
 	ParlamentarUserController parlamentarController;
 	private int selectedMes = 1;
-	
+	private int selectedAno = 2013;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -77,7 +77,7 @@ public class ParlamentarDetailFragment extends Fragment {
 		view = (TextView) getView().findViewById(R.id.pos);
 		formatRankingPos(view);
 		TextView textMes = (TextView) getView().findViewById(R.id.mes_e_ano);
-		textMes.setText("Valores do mês " + selectedMes);
+		textMes.setText("Valores do mês " + selectedMes + "/" + selectedAno);
 
 		if (parlamentarController.getParlamentar().getIsSeguido() == 1) {
 			ImageView imgView = (ImageView) getView().findViewById(R.id.foto);
@@ -95,7 +95,7 @@ public class ParlamentarDetailFragment extends Fragment {
 
 			CotaParlamentar cota = iterator.next();
 
-			if (cota.getMes() == selectedMes) {
+			if ((cota.getMes() == selectedMes) && (cota.getAno() == selectedAno)) {
 				double valorCota = cota.getValor();
 				int numeroSubCota = cota.getNumeroSubCota();
 				switch (numeroSubCota) {
@@ -335,8 +335,8 @@ public class ParlamentarDetailFragment extends Fragment {
 
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(getActivity(), "Alimentação", Toast.LENGTH_SHORT)
-						.show();
+				Toast.makeText(getActivity(), "Alimentação",
+						Toast.LENGTH_SHORT).show();
 
 			}
 		});
@@ -387,8 +387,8 @@ public class ParlamentarDetailFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				Toast.makeText(getActivity(),
-						"Manutenção de Escritório de Apoio", Toast.LENGTH_SHORT)
-						.show();
+						"Manutenção de Escritório de Apoio",
+						Toast.LENGTH_SHORT).show();
 
 			}
 		});
@@ -438,7 +438,8 @@ public class ParlamentarDetailFragment extends Fragment {
 
 					@Override
 					public void onClick(View v) {
-						Toast.makeText(getActivity(),
+						Toast.makeText(
+								getActivity(),
 								"Consultorias, Pesquisas e Trabalhos Técnicos",
 								Toast.LENGTH_SHORT).show();
 
@@ -469,7 +470,7 @@ public class ParlamentarDetailFragment extends Fragment {
 		sub.add(0, Menu.FIRST + 11, 0, "Dezembro");
 		ano.add(0, Menu.FIRST + 12, 0, "2013");
 		ano.add(0, Menu.FIRST + 13, 0, "2014");
-		
+
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -523,6 +524,14 @@ public class ParlamentarDetailFragment extends Fragment {
 		case Menu.FIRST + 11:
 			selectedMes = 12;
 			break;
+		
+		case Menu.FIRST + 12:
+		    selectedAno = 2013;
+		    break;
+		
+		case Menu.FIRST + 13:
+			selectedAno = 2014;
+		    break;
 
 		default:
 			// Nothing should be done
