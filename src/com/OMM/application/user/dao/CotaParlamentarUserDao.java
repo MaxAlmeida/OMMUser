@@ -64,7 +64,7 @@ public class CotaParlamentarUserDao {
 	public List<CotaParlamentar> getCotasByIdParlamentar(int idParlamentar) {
 		sqliteDatabase = database.getReadableDatabase();
 		Cursor cursor = sqliteDatabase.rawQuery(
-				"SELECT * FROM COTA WHERE ID_PARLAMENTAR=" + idParlamentar,
+				"SELECT * FROM COTA WHERE ID_PARLAMENTAR ORDER BY ANO=" + idParlamentar,
 				null);
 		List<CotaParlamentar> listCotas = new ArrayList<CotaParlamentar>();
 		while (cursor.moveToNext()) {
