@@ -50,6 +50,7 @@ public class ParlamentarDetailFragment extends Fragment {
 	ParlamentarUserController parlamentarController;
 	private int selectedMes = 1;
 	private int selectedAno = 2013;
+	private String mes = "Janeiro";
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -77,7 +78,7 @@ public class ParlamentarDetailFragment extends Fragment {
 		view = (TextView) getView().findViewById(R.id.pos);
 		formatRankingPos(view);
 		TextView textMes = (TextView) getView().findViewById(R.id.mes_e_ano);
-		textMes.setText("Valores do mÃªs " + selectedMes + "/" + selectedAno);
+		textMes.setText( mes +"/"+ selectedAno);
 
 		if (parlamentarController.getParlamentar().getIsSeguido() == 1) {
 			ImageView imgView = (ImageView) getView().findViewById(R.id.foto);
@@ -95,7 +96,8 @@ public class ParlamentarDetailFragment extends Fragment {
 
 			CotaParlamentar cota = iterator.next();
 
-			if ((cota.getMes() == selectedMes) && (cota.getAno() == selectedAno)) {
+			if ((cota.getMes() == selectedMes)
+					&& (cota.getAno() == selectedAno)) {
 				double valorCota = cota.getValor();
 				int numeroSubCota = cota.getNumeroSubCota();
 				switch (numeroSubCota) {
@@ -468,9 +470,22 @@ public class ParlamentarDetailFragment extends Fragment {
 		sub.add(0, Menu.FIRST + 9, 0, "Outubro");
 		sub.add(0, Menu.FIRST + 10, 0, "Novembro");
 		sub.add(0, Menu.FIRST + 11, 0, "Dezembro");
-		ano.add(0, Menu.FIRST + 12, 0, "2013");
-		ano.add(0, Menu.FIRST + 13, 0, "2014");
 
+		Iterator<CotaParlamentar> iterator = parlamentarController
+				.getParlamentar().getCotas().iterator();
+
+		int anoMaior = 2010;
+		while (iterator.hasNext()) {
+			
+			CotaParlamentar cota = iterator.next();
+
+			if (anoMaior < cota.getAno()){
+				anoMaior = cota.getAno();
+
+			ano.add(0, anoMaior, 0, Integer.toString(anoMaior));
+			// ano.add(0, Menu.FIRST + 13, 0, "2014");
+			}
+		}
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -479,59 +494,71 @@ public class ParlamentarDetailFragment extends Fragment {
 
 		case Menu.FIRST:
 			selectedMes = 1;
+			mes = "Janeiro";
 			break;
 
 		case Menu.FIRST + 1:
 			selectedMes = 2;
+			mes = "Fevereiro";
 			break;
 
 		case Menu.FIRST + 2:
 			selectedMes = 3;
+			mes = "Março";
 			break;
 
 		case Menu.FIRST + 3:
 			selectedMes = 4;
+			mes = "Abril";
 			break;
 
 		case Menu.FIRST + 4:
 			selectedMes = 5;
+			mes = "Maio";
 			break;
 
 		case Menu.FIRST + 5:
 			selectedMes = 6;
+			mes = "Junho";
 			break;
 
 		case Menu.FIRST + 6:
 			selectedMes = 7;
+			mes = "Julho";
 			break;
 
 		case Menu.FIRST + 7:
 			selectedMes = 8;
+			mes = "Agosto";
 			break;
 
 		case Menu.FIRST + 8:
 			selectedMes = 9;
+			mes = "Setembro";
 			break;
 
 		case Menu.FIRST + 9:
 			selectedMes = 10;
+			mes = "Outubro";
 			break;
 
 		case Menu.FIRST + 10:
 			selectedMes = 11;
+			mes = "Novembro";
 			break;
 
 		case Menu.FIRST + 11:
 			selectedMes = 12;
+			mes = "Dezembro";
 			break;
-		
-		case Menu.FIRST + 12:
-		    selectedAno = 2013;
-		    break;
-		
-		case Menu.FIRST + 13:
+
+		case 2013:
+			selectedAno = 2013;
+			break;
+
+		case 2014 + 13:
 			selectedAno = 2014;
-		    break;
+			break;
 
 		default:
 			// Nothing should be done
