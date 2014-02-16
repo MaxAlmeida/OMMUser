@@ -24,7 +24,7 @@
                 android:layout_alignParentTop="true"
                 android:contentDescription="TODO"
                 android:alpha="0.5"
-                android:src="@drawable/parlamentar_seguido_foto" />
+                android:src="@drawable/parlamentar_seguido_foto_mini" />
 
             <TextView
                 android:id="@+id/parlamentarlistfragment_txt_nome"
@@ -49,9 +49,9 @@
 	            android:id="@+id/progressBar"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:layout_centerInParent="true"
 	            android:layout_alignParentTop="true"
-	            android:layout_marginTop="30dp" />
+	            android:layout_marginTop="5dp"
+	            android:layout_centerHorizontal="true" />
 
 	    </RelativeLayout>
 	</LinearLayout>

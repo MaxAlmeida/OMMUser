@@ -9,10 +9,13 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo.State;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -64,12 +67,10 @@ public class GuiMain extends Activity implements
 		final Button btn_ranking_main = (Button) findViewById(R.id.btn_ranking);
 		final Button btn_show_all_parlamentares = (Button) findViewById(R.id.btn_ic_rolagem);
 		
-		
 		//depuraçao 
 		
 		UrlHostController serverControllerDebug = UrlHostController.getInstance(getBaseContext());
 		Toast.makeText(getBaseContext(), serverControllerDebug.getUrl(), Toast.LENGTH_LONG).show();
-		
 		
 		
 		btn_about_application_main
@@ -77,6 +78,7 @@ public class GuiMain extends Activity implements
 
 					@Override
 					public void onClick(View v) {
+						
 						startActivity(new Intent(getBaseContext(),
 								GuiSobre.class));
 					}
@@ -160,30 +162,16 @@ public class GuiMain extends Activity implements
 					}
 				});
 
-		parlamentarController = ParlamentarUserController
-				.getInstance(getBaseContext());
-
-		if (parlamentarController.checkEmptyDB() == true) {
-			
-			/*
-			 * O problema pode estar aqui 
-			 * Olhar melhor a chamada do banco 
-			 */
-				
-			UrlHostController serverController = UrlHostController.getInstance(getBaseContext());
-			serverController.insertUrlServer("env-6198716.jelastic.websolute.net.br");
-			
-			//so pra esperar mesmo 
-			for(int i=0;i<100000000;i++);
-			
-			startPopulateDB();
-		} else {
-
-		getUpdatesServer();
-			
-			
-		}
 	}
+
+	
+	@Override
+	protected void onResume() {
+		
+		super.onResume();
+		checkConnection();
+	}
+
 
 	private void updateFragment(int viewId) {
 		ParlamentarDetailFragment detailFragment = new ParlamentarDetailFragment();
@@ -228,146 +216,6 @@ public class GuiMain extends Activity implements
 		}
 	}
 
-	//=============================================================================================================
-	//TODO
-	/*
-	 * Mudar essa AsyncTask para atender o padrao Observer 
-	 */
-	private class requestServerUpdates extends AsyncTask<Object, Void,Integer>
-	{
-		ProgressDialog progressDialog;
-		Integer exception= Alerts.NO_EXCEPTIONS;
-		ResponseHandler<String> responseHandler;
-		@Override
-		protected void onPreExecute()
-		{
-		//	progressDialog = ProgressDialog.show(GuiMain.this,"Atualizações","Atualizando informações por favor aguarde....");
-		}
-		@Override
-		protected Integer doInBackground(Object... params) {
-			UrlHostController serverController = UrlHostController.getInstance(getBaseContext());
-			responseHandler= (ResponseHandler<String>) params[0];
-			
-			try
-			{
- 		//		if(serverController.getExistsUpdates(responseHandler)==1)
- 		//		{
- 		//			serverController.insertUrlServer(serverController.requestNewUrl(responseHandler, 1));
-					Toast.makeText(getBaseContext(), "OMM atualizado!",Toast.LENGTH_SHORT).show();
- 		//		}else Toast.makeText(getBaseContext(), "Não há atualizações disponivéis!",Toast.LENGTH_SHORT).show();
-				
-			}catch (Exception e) {
-				// TODO: handle exception
-			}
-			return exception;
-		}
-		
-	}
-	//=============================================================================================================
-	
-	
-	private class initializeDBTask extends AsyncTask<Object, Void, Integer> {
-		ProgressDialog progressDialog;
-
-		Integer exception = Alerts.NO_EXCEPTIONS;
-		
-		@Override
-		protected void onPreExecute() {
-			
-			progressDialog = ProgressDialog.show(GuiMain.this,
-					"Instalando Banco de Dados...",
-					"Isso pode demorar alguns minutos ");
-		
-		}
-
-		@SuppressWarnings("unchecked")
-		@Override
-		protected Integer doInBackground(Object... params) {
-			
-
-			
-			ParlamentarUserController parlamentarController = ParlamentarUserController
-					.getInstance(getBaseContext());
-
-			ResponseHandler<String> responseHandler = (ResponseHandler<String>) params[0];
-			
-
-			try {
-				
-				parlamentarController.insertAll(responseHandler);
-				
-				
-			} catch (ConnectionFailedException cfe) {
-				exception = Alerts.CONNECTION_FAILED_EXCEPTION;
-
-			} catch (NullParlamentarException cpe) {
-				exception = Alerts.NULL_PARLAMENTAR_EXCEPTION;
-
-			} catch (RequestFailedException rfe) {
-				exception = Alerts.REQUEST_FAILED_EXCEPTION;
-				
-
-			} catch (Exception e) {
-				exception = Alerts.UNEXPECTED_FAILED_EXCEPTION;
-
-			}
-			return exception;
-		}
-
-		protected void onPostExecute(Integer result) {
-
-			progressDialog.dismiss();
-
-			switch (result) {
-
-			case Alerts.CONNECTION_FAILED_EXCEPTION:
-
-				Alerts.conectionFailedAlert(GuiMain.this);
-				break;
-
-			case Alerts.NULL_PARLAMENTAR_EXCEPTION:
-
-				Alerts.parlamentarFailedAlert(GuiMain.this);
-				break;
-
-			case Alerts.REQUEST_FAILED_EXCEPTION:
-
-				Alerts.requestFailedAlert(GuiMain.this);
-				break;
-
-			case Alerts.UNEXPECTED_FAILED_EXCEPTION:
-
-				Alerts.unexpectedFailedAlert(GuiMain.this);
-				break;
-
-			default:
-				// Nothing should be done
-			}
-		}
-	}
-
-	private void startPopulateDB() {
-
-		ResponseHandler<String> responseHandler = HttpConnection
-				.getResponseHandler();
-
-		
-		
-		initializeDBTask task = new initializeDBTask();
-		task.execute(responseHandler);
-	}
-	
-	//TODO 
-	/*Mudar esse metodo, se possivel apagar e substituir 
-	 * 
-	 */
-	private void getUpdatesServer()
-	{
-		ResponseHandler<String> responseHandler = HttpConnection.getResponseHandler();
-		requestServerUpdates task= new requestServerUpdates();
-		task.execute(responseHandler);
-	}
-
 	private void loadFragment(ListFragment listFragment) {
 		FragmentTransaction transaction = fragmentManager.beginTransaction();
 		transaction.replace(R.id.fragment_container, listFragment);
@@ -395,5 +243,24 @@ public class GuiMain extends Activity implements
 	                GuiMain.super.onBackPressed();
 	            }
 	        }).create().show();
+	}
+	
+	private void checkConnection()
+	{
+		ConnectivityManager con =(ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		
+		//3G
+		if(con.getNetworkInfo(0).getState()==State.CONNECTED)
+		{
+			Toast.makeText(getBaseContext(), "Conexao 3G Ativa",Toast.LENGTH_SHORT).show();
+			
+		//Wifi
+		}else if(con.getNetworkInfo(1).getState()==State.CONNECTED) 
+		{
+			Toast.makeText(getBaseContext(), "Conexao Wifi",Toast.LENGTH_SHORT).show();
+		}else 
+		{
+			Toast.makeText(getBaseContext(), "Sem Conexao com internet",Toast.LENGTH_SHORT).show();
+		}
 	}
 }

@@ -22,6 +22,8 @@ public class Parlamentar {
 
 	private int majorRankingPos;
 	
+	private int idUpdate;
+	
 	public Parlamentar() {
 	}
 
@@ -105,6 +107,14 @@ public class Parlamentar {
 
 	public void setMajorRankingPos(int majorRankingPos) {
 		this.majorRankingPos = majorRankingPos;
+	}
+
+	public int getIdUpdate() {
+		return idUpdate;
+	}
+
+	public void setIdUpdate(int idUpdate) {
+		this.idUpdate = idUpdate;
 	}
 
 }

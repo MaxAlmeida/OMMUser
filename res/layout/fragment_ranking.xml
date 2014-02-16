@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout 
-    android:background="@drawable/fragmentparlamentar_fundo"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical" >
+    android:background="@drawable/fragment_ranking_fundo"
+    android:orientation="horizontal" >
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp" >
+        android:layout_width="176dp"
+        android:layout_height="wrap_content" >
 
         <TextView
-            android:id="@+id/parlamentarRankinglistfragment_txt_partido"
+            android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="33dp"
-            android:layout_marginTop="24dp"
-            android:layout_toRightOf="@+id/parlamentarlistfragment_txt_nome"
-            android:text="Partido" />
+            android:text="R$" />
+
+        <TextView
+            android:id="@+id/parlamentarRankinglistfragment_txt_valor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Valor" />
 
         <TextView
             android:id="@+id/textView2"
@@ -38,57 +39,76 @@
             android:text="UF" />
 
         <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/parlamentarRankinglistfragment_txt_valor"
-            android:layout_alignBottom="@+id/parlamentarRankinglistfragment_txt_valor"
-            android:layout_margin="1dp"
-            android:layout_marginRight="16dp"
-            android:layout_toLeftOf="@+id/parlamentarRankinglistfragment_txt_valor"
-            android:text="R$" />
-
-        <TextView
-            android:id="@+id/parlamentarRankinglistfragment_txt_valor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="18dp"
-            android:layout_marginRight="24dp"
-            android:text="Valor" />
-
-        <TextView
             android:id="@+id/parlamentarlistfragment_txt_nome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/parlamentarRankinglistfragment_txt_partido"
-            android:layout_alignBottom="@+id/parlamentarRankinglistfragment_txt_partido"
-            android:layout_marginLeft="16dp"
-            android:layout_toRightOf="@+id/moedinha"
             android:text="Nome" />
+
+        <TextView
+            android:id="@+id/parlamentarRankinglistfragment_txt_partido"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/parlamentarlistfragment_txt_nome"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="34dp"
+            android:text="Partido" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.39" >
 
         <ImageView
             android:id="@+id/moedinha"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/parlamentarlistfragment_txt_nome"
-            android:layout_alignParentLeft="true"
-            android:src="@drawable/moedinha" />
+            android:layout_centerVertical="true"
+            android:layout_margin="5dp"
+            android:layout_toLeftOf="@+id/lugar"
+            android:src="@drawable/ranking_maiores_icone" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/parlamentarlistfragment_txt_posicao"
+            android:layout_alignBottom="@+id/parlamentarlistfragment_txt_posicao"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:text="º"
+            android:textSize="15dp" />
 
         <TextView
             android:id="@+id/parlamentarlistfragment_txt_posicao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/moedinha"
-            android:layout_alignBottom="@+id/moedinha"
-            android:layout_alignRight="@+id/moedinha"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="9dp"
+            android:layout_alignTop="@+id/moedinha"
+            android:layout_toLeftOf="@+id/textView3"
+            android:layout_marginTop="5dp"
+            android:text="167"
             android:textSize="15dp"
-            android:textStyle="bold"
-            android:text="167" />
+            android:textStyle="bold" />
 
+        <TextView
+            android:id="@+id/lugar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/textView3"
+            android:layout_below="@+id/textView3"
+            android:text="Lugar"
+            android:textSize="15dp" />
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/lugar"
+            android:layout_alignTop="@+id/parlamentarlistfragment_txt_posicao"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@+id/moedinha"
+            android:src="@drawable/linha_divisora" />
 
     </RelativeLayout>
 

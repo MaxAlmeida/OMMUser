@@ -44,8 +44,6 @@ public class UrlHostDao {
 		String urlServer = null;
 		sqliteDatabase = database.getReadableDatabase();
 		Cursor cursor = null;
-		//TODO modify this exception treatment for creating the table on the local db
-		try {
 			cursor = sqliteDatabase
 					.rawQuery("SELECT URL FROM URL_SERVER", null);
 
@@ -53,9 +51,6 @@ public class UrlHostDao {
 				urlServer = cursor.getString(0);
 			}
 			database.close();
-		} catch (Exception e) {
-			urlServer = "env-6198716.jelastic.websolute.net.br";
-		}
 		return urlServer;
 	}
 

@@ -85,32 +85,7 @@ public class JSONHelper {
 		return listParlamentarRankingMaiores;
 
 	}
-	public static int codUpdates(String jsonCodUpdate) throws NullPointerException,TransmissionException
-	{
-		int codUpdates=0;
-		List <String> cods=new ArrayList<String>();
-		try
-		{
-			
-			Gson gson = new Gson();
-			cods=gson.fromJson(jsonCodUpdate, new TypeToken<List<String>>(){}.getType());
-		
-			
-		Iterator<String> iterator=cods.iterator();
-		while(iterator.hasNext())
-		{
-			codUpdates=Integer.parseInt(iterator.next());
-		}
-		
-			
-		}catch(NullPointerException error)
-		{
-			
-		
-			
-		}
-		return codUpdates;
-	}
+	
 	public static String newRequestUrl(String jsonNewUrl) throws NullPointerException
 	{
 		String newUrlServer=null;
@@ -134,5 +109,20 @@ public class JSONHelper {
 		
 		return newUrlServer;
 		
+	}
+
+	public static int updateFromJSON(String jsonUpdate) {
+		int codUpdates=0;
+		List <String> cods=new ArrayList<String>();
+		try
+		{
+			
+			Gson gson = new Gson();
+			cods=gson.fromJson(jsonUpdate, new TypeToken<List<String>>(){}.getType());
+			codUpdates=Integer.parseInt(cods.get(cods.size()));
+		}catch(NullPointerException error)
+		{
+		}
+		return codUpdates;
 	}
 }

@@ -16,6 +16,8 @@ public class CotaParlamentar {
 
 	private double valor;
 
+	private int idUpdate;
+	
 	public CotaParlamentar() {
 	}
 
@@ -73,6 +75,14 @@ public class CotaParlamentar {
 
 	public void setValor(double valor) {
 		this.valor = valor;
+	}
+
+	public int getIdUpdate() {
+		return idUpdate;
+	}
+
+	public void setIdUpdate(int idUpdate) {
+		this.idUpdate = idUpdate;
 	}
 
 }

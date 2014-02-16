@@ -59,7 +59,7 @@ public class ParlamentarAdapter extends BaseAdapter {
 		if (parlamentar.getIsSeguido() == 1) {
 			ImageView imageView = (ImageView) view
 					.findViewById(R.id.parlamentarlistfragment_img_arte);
-			imageView.setImageResource(R.drawable.parlamentar_seguido_foto);
+			imageView.setImageResource(R.drawable.parlamentar_seguido_foto_mini);
 			checkBox.setChecked(true);
 		}
 		checkBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {

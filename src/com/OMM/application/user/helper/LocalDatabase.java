@@ -7,10 +7,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class LocalDatabase extends SQLiteOpenHelper {
 
 	private static String dbName = "OMM.db";
-	private static String tabela_parlamentar = "CREATE TABLE [PARLAMENTAR] ([ID_PARLAMENTAR] VARCHAR(10),[NOME_PARLAMENTAR] VARCHAR(40),[PARTIDO] VARCHAR(25), [UF] VARCHAR(2), [VALOR] DOUBLE, [SEGUIDO] BOOLEAN,[FOTO] VARBINARY, [RANKING_POS] VARCHAR(10));";
-	private static String tabela_cota = "CREATE TABLE [COTA] (  [ID_COTA] VARCHAR(10),[ID_PARLAMENTAR] VARCHAR(10),[NUM_SUBCOTA] INT(10),[DESCRICAO] VARCHAR(40) ,  [MES] INTEGER,  [ANO] INTEGER, [VALOR] DOUBLE);";
-	private static String tabela_URL_SERVER = "CREATE TABLE [URL_SERVER] (  [URL] VARCHAR(1000));";
-
+	private static String tabela_parlamentar = "CREATE TABLE [PARLAMENTAR] ( [ID_PARLAMENTAR] VARCHAR(10),[ID_ATUALIZACAO] INT,[NOME_PARLAMENTAR] VARCHAR(40),[PARTIDO] VARCHAR(25), [UF] VARCHAR(2), [VALOR] DOUBLE, [SEGUIDO] BOOLEAN,[FOTO] VARBINARY, [RANKING_POS] VARCHAR(10) );";
+	private static String tabela_cota = "CREATE TABLE [COTA] (  [ID_COTA] VARCHAR(10),[ID_PARLAMENTAR] VARCHAR(10),[ID_ATUALIZACAO] INT,[NUM_SUBCOTA] INT(10),[DESCRICAO] VARCHAR(40) ,  [MES] INTEGER,  [ANO] INTEGER, [VALOR] DOUBLE );";
+	private static String tabela_url_server = "CREATE TABLE [URL_SERVER] ( [URL] VARCHAR(1000));";
 	private static int version = 1;
 
 	public LocalDatabase(Context context) {
@@ -28,7 +27,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
 
 		database.execSQL(tabela_parlamentar);
 		database.execSQL(tabela_cota);
-		database.execSQL(tabela_URL_SERVER);
+		database.execSQL(tabela_url_server);
 		// content.put("URL", "env-6198716.jelastic.websolute.net.br");
 		// database.insert(tabela_URL_SERVER, null, content);
 	}

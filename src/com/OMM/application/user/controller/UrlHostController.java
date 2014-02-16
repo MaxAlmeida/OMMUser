@@ -64,7 +64,7 @@ public class UrlHostController {
 		String url= this.url.mountUrlExistsUpdate();
 		String jsonCodUpdate =HttpConnection.request(response, url);
 		
-		return JSONHelper.codUpdates(jsonCodUpdate);
+		return JSONHelper.updateFromJSON(jsonCodUpdate);
 		
 	}
 	public String requestNewUrl(ResponseHandler<String> response,int cod) throws NullPointerException,ConnectionFailedException,

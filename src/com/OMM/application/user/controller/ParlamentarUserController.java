@@ -30,12 +30,12 @@ public class ParlamentarUserController {
 	private Context context;
 	private CotaParlamentarUserController ceapController;
 	private MountURL url;
-	private UrlHostController serverController;
+	private UrlHostController urlHostController;
 
 	private ParlamentarUserController(Context context) {
 		ceapController = CotaParlamentarUserController.getInstance(context);
 		parlamentarDao = ParlamentarUserDao.getInstance(context);
-		serverController=UrlHostController.getInstance(context);
+		urlHostController=UrlHostController.getInstance(context);
 		
 		this.context = context;
 		parlamentares = new ArrayList<Parlamentar>();
@@ -70,7 +70,7 @@ public class ParlamentarUserController {
 
 		if (responseHandler != null) {
 			
-			url=MountURL.getIsntance(context,serverController);
+			url=MountURL.getIsntance(context,urlHostController);
 			int idParlamentar = parlamentar.getId();
 			String urlCotas = url.mountURLCota(idParlamentar);
 			String jsonCotasParlamentar = HttpConnection.request(
@@ -108,10 +108,10 @@ public class ParlamentarUserController {
 		boolean result = true;
 
 		if (parlamentar != null && parlamentar.getCotas() != null) {
-			CotaParlamentarUserController controllerCeap = CotaParlamentarUserController
+			CotaParlamentarUserController cotaParlamentarUserController = CotaParlamentarUserController
 					.getInstance(context);
 			parlamentar.setSeguido(1);
-			result = controllerCeap.persistCotasOnLocalDatabase(parlamentar
+			result = cotaParlamentarUserController.persistCotasOnLocalDatabase(parlamentar
 					.getCotas())
 					&& parlamentarDao.updateParlamentar(parlamentar);
 			return result;
@@ -131,7 +131,7 @@ public class ParlamentarUserController {
 		boolean initialized = false;
 
 		if (response != null) {
-			url=MountURL.getIsntance(context,serverController);
+			url=MountURL.getIsntance(context,urlHostController);
 			String urlParlamentares = url.mountUrlMajorRanking();
 
 			String jsonParlamentares = HttpConnection.request(response,
@@ -201,7 +201,7 @@ public class ParlamentarUserController {
 			RequestFailedException, TransmissionException {
 
 		if (responseHandler != null) {
-			url=MountURL.getIsntance(context,serverController);
+			url=MountURL.getIsntance(context,urlHostController);
 			String urlParlamentarRankingMaiores = url
 					.mountUrlMajorRanking();
 			String jsonParlamentarRankingMaiores = HttpConnection.request(
@@ -230,7 +230,12 @@ public class ParlamentarUserController {
 	
 	public String getURL()
 	{
-		url=MountURL.getIsntance(context,serverController);
+		url=MountURL.getIsntance(context,urlHostController);
 		return url.getIP();
 	}
+	
+	public int getIdUpdateParlamentar(){
+		return parlamentarDao.getIdUpdateParlamentar(parlamentar.getId());	
+	}
+	
 }

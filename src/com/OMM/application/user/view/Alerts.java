@@ -17,13 +17,13 @@ public abstract class Alerts {
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
 		builder.setTitle("Ops!");
-		builder.setMessage("Falha na conexão.");
+		builder.setMessage("Falha na conexão, verifique sua conexão com a internet.");
 		builder.setNeutralButton("OK", null);
 		builder.show();
 
 		Log.i("Alerts", "Exception ConnectionFailed");
 	}
-
+	
 	public static void parlamentarFailedAlert(Context context) {
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -41,7 +41,7 @@ public abstract class Alerts {
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
 		builder.setTitle("Ops!");
-		builder.setMessage("Falha na conexão com servidor.");
+		builder.setMessage("Falha na conexão com o servidor.");
 		builder.setNeutralButton("OK", null);
 		builder.show();
 
