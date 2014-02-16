@@ -7,7 +7,6 @@ import java.util.List;
 import org.apache.http.client.ResponseHandler;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.OMM.application.user.dao.ParlamentarUserDao;
 import com.OMM.application.user.exceptions.ConnectionFailedException;
@@ -238,4 +237,16 @@ public class ParlamentarUserController {
 		return parlamentarDao.getIdUpdateParlamentar(parlamentar.getId());	
 	}
 	
+	public boolean updateParlamentarValor(Parlamentar parlamentar)
+	{
+		try 
+		{
+			return parlamentarDao.updateParlamentarValor(parlamentar);
+		} catch (NullParlamentarException e) {
+			
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 }

@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.OMM.application.user.controller.UrlHostController;
 
-public class UrlHostMain implements ObserverUrlUpdates {
+public class UrlHostMain implements ObserverUpdates {
 
 	private GetServerUpdates serverUpdatesUrl;
 	private UrlHostController serverListener;
@@ -17,13 +17,14 @@ public class UrlHostMain implements ObserverUrlUpdates {
 		
 		this.serverListener=UrlHostController.getInstance(context);
 	}
+
+
 	@Override
-	public void update(String newUrl) 
-	{
-		
-		serverListener.insertUrlServer(newUrl);
+	public void update() {
+		// TODO Auto-generated method stub
 		
 	}
+	
 	
 	
 }

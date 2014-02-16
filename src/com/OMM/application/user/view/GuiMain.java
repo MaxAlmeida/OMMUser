@@ -1,14 +1,11 @@
 package com.OMM.application.user.view;
 
-import org.apache.http.client.ResponseHandler;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ListFragment;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -16,7 +13,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo.State;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,12 +22,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.OMM.application.user.R;
-import com.OMM.application.user.controller.ParlamentarUserController;
 import com.OMM.application.user.controller.UrlHostController;
-import com.OMM.application.user.exceptions.ConnectionFailedException;
-import com.OMM.application.user.exceptions.NullParlamentarException;
-import com.OMM.application.user.exceptions.RequestFailedException;
-import com.OMM.application.user.requests.HttpConnection;
 
 @SuppressLint("ShowToast")
 public class GuiMain extends Activity implements
@@ -46,7 +37,6 @@ public class GuiMain extends Activity implements
 	private static final int ANGLE_LIST_ALL_PARLAMENTARES_BUTTON = 0;
 	private static final int ANGLE_RANKING_BUTTON = -30;
 
-	private static ParlamentarUserController parlamentarController;
 	private static FragmentManager fragmentManager;
 
 	@Override
@@ -80,7 +70,10 @@ public class GuiMain extends Activity implements
 					public void onClick(View v) {
 						
 						startActivity(new Intent(getBaseContext(),
-								GuiSobre.class));
+								Activity_tests_apagar.class));
+						
+					/*	startActivity(new Intent(getBaseContext(),
+								GuiSobre.class));*/
 					}
 				});
 
@@ -171,7 +164,6 @@ public class GuiMain extends Activity implements
 		super.onResume();
 		checkConnection();
 	}
-
 
 	private void updateFragment(int viewId) {
 		ParlamentarDetailFragment detailFragment = new ParlamentarDetailFragment();

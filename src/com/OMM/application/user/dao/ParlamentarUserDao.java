@@ -95,7 +95,7 @@ public class ParlamentarUserDao {
 			throw new NullParlamentarException();
 		}
 	}
-	
+
 	public boolean updateParlamentarValor(Parlamentar parlamentar) throws NullParlamentarException
 	{
 		if(parlamentar!=null)
@@ -115,7 +115,6 @@ public class ParlamentarUserDao {
 			throw new NullParlamentarException();
 		}	
 	}
-	
 
 	public Parlamentar getById(Integer ID_PARLAMENTAR) {
 
@@ -149,8 +148,9 @@ public class ParlamentarUserDao {
 	public List<Parlamentar> getAll() {
 
 		sqliteDatabase = database.getReadableDatabase();
-		Cursor cursor = sqliteDatabase.rawQuery("SELECT * FROM PARLAMENTAR",
+		Cursor cursor = sqliteDatabase.rawQuery("SELECT * FROM PARLAMENTAR order by VALOR DESC",
 				null);
+		
 		List<Parlamentar> listParlamentares = new ArrayList<Parlamentar>();
 
 		while (cursor.moveToNext()) {
