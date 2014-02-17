@@ -7,6 +7,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -14,8 +15,8 @@ public class RankingListFragment extends Fragment {
 	
 	private static FragmentManager fragmentManager;
 
-	private View majorRankingView = getActivity().findViewById(R.id.majorRanking_list);
-	private View minorRankingView = getActivity().findViewById(R.id.minorRanking_list);
+	private View majorRankingView;
+	private View minorRankingView;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -26,10 +27,20 @@ public class RankingListFragment extends Fragment {
 		
 		fragmentManager = this.getFragmentManager();
 		
-		majorRankingView.setOnClickListener(majorRankingListListener);
-		minorRankingView.setOnClickListener(minorRankingListListener);
-
+		
 		return view;
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		majorRankingView = getActivity().findViewById(R.id.majorRanking_list);
+		minorRankingView = getActivity().findViewById(R.id.minorRanking_list);
+		
+		majorRankingView.setClickable(true);
+		majorRankingView.setOnClickListener(majorRankingListListener);
+		minorRankingView.setClickable(true);
+		minorRankingView.setOnClickListener(minorRankingListListener);
 	}
 	
 	View.OnClickListener majorRankingListListener = new View.OnClickListener() {
