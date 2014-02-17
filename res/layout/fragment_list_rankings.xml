@@ -19,7 +19,7 @@
             android:src="@drawable/ranking_maiores_icone" />
 
         <TextView
-            android:id="@+id/parlamentarlistfragment_txt_nome"
+            android:id="@+id/majorRanking_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -41,7 +41,7 @@
             android:src="@drawable/moedinha" />
 
         <TextView
-            android:id="@+id/parlamentarlistfragment_txt_nome"
+            android:id="@+id/minorRanking_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
