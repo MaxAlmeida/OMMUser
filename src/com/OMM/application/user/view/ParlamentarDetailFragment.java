@@ -556,7 +556,7 @@ public class ParlamentarDetailFragment extends Fragment {
 			selectedAno = 2013;
 			break;
 
-		case 2014 + 13:
+		case 2014:
 			selectedAno = 2014;
 			break;
 
