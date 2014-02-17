@@ -3,6 +3,7 @@ package com.OMM.application.user.view;
 import org.apache.http.client.ResponseHandler;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ListFragment;
@@ -16,6 +17,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
 import com.OMM.application.user.R;
 import com.OMM.application.user.controller.ParlamentarUserController;
 import com.OMM.application.user.exceptions.ConnectionFailedException;
@@ -97,8 +99,12 @@ public class GuiMain extends Activity implements
 
 			@Override
 			public void onClick(View v) {
-				ParlamentarRankingListFragment listFragment = new ParlamentarRankingListFragment();
-				loadFragment(listFragment);
+//				ParlamentarRankingListFragment listFragment = new ParlamentarRankingListFragment();
+//				loadFragment(listFragment);
+				
+				RankingListFragment rankingListFragment = new RankingListFragment();
+				updateFragment(R.id.fragment_container, rankingListFragment);
+				
 				Toast.makeText(getBaseContext(), MESSAGE_TO_RANKINGS,
 						Toast.LENGTH_SHORT).show();
 				btn_show_all_parlamentares.setRotation(ANGLE_RANKING_BUTTON);
@@ -143,46 +149,50 @@ public class GuiMain extends Activity implements
 		}
 	}
 
-	private void updateFragment(int viewId) {
-		ParlamentarDetailFragment detailFragment = new ParlamentarDetailFragment();
+	private void updateFragment(int viewId, Fragment fragment) {
 		FragmentTransaction transaction = fragmentManager.beginTransaction();
-		transaction.replace(viewId, detailFragment);
+		transaction.replace(viewId, fragment);
 		transaction.addToBackStack(null);
 		transaction.commit();
 		getFragmentManager().executePendingTransactions();
-		detailFragment.setBarras();
 	}
 
 	@Override
 	public void OnParlamentarSeguidoSelected() {
+		
+		ParlamentarDetailFragment detailFragment = new ParlamentarDetailFragment();
 
 		// Replaces the details according to the orientation of cell phone
 		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-			updateFragment(R.id.fragment_container);
+			updateFragment(R.id.fragment_container, detailFragment);
 
 		} else {
-			updateFragment(R.id.detail_fragment_container);
+			updateFragment(R.id.detail_fragment_container, detailFragment);
 		}
 	}
 
 	@Override
 	public void OnParlamentarSelected() {
 
+		ParlamentarDetailFragment detailFragment = new ParlamentarDetailFragment();
+		
 		// Replaces the details according to the orientation of cell phone
 		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-			updateFragment(R.id.fragment_container);
+			updateFragment(R.id.fragment_container, detailFragment);
 
 		} else {
-			updateFragment(R.id.detail_fragment_container);
+			updateFragment(R.id.detail_fragment_container, detailFragment);
 		}
 	}
 
 	public void OnParlamentarRankingSelected() {
+		ParlamentarDetailFragment detailFragment = new ParlamentarDetailFragment();
+		
 		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-			updateFragment(R.id.fragment_container);
+			updateFragment(R.id.fragment_container, detailFragment);
 
 		} else {
-			updateFragment(R.id.detail_fragment_container);
+			updateFragment(R.id.detail_fragment_container, detailFragment);
 		}
 	}
 
