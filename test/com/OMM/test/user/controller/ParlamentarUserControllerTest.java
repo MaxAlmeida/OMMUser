@@ -230,7 +230,7 @@ public class ParlamentarUserControllerTest extends AndroidTestCase {
 		assertNotNull(lista);
 
 	}
-	
+
 	public void testCheckEmptyDBFalse() {
 		assertFalse(controller.checkEmptyDB());
 	}

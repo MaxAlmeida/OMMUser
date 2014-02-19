@@ -71,20 +71,15 @@ public class CotaParlamentarUserControllerTest extends AndroidTestCase {
 	public void testGetCotasByIdParlamentar()
 			throws NullCotaParlamentarException {
 
-		Parlamentar parlamentarDeleteCota = new Parlamentar();
-		parlamentarDeleteCota.setId(114);
-		List<CotaParlamentar> list = new ArrayList<CotaParlamentar>();
-		CotaParlamentar cota = new CotaParlamentar();
-		cota.setIdParlamentar(114);
-		list.add(cota);
-		parlamentarDeleteCota.setCotas(list);
+		ArrayList<CotaParlamentar> cotas = new ArrayList<CotaParlamentar>();
+		CotaParlamentar cotaParlamentar = new CotaParlamentar();
+		cotaParlamentar.setIdParlamentar(0);
+		cotaParlamentar.setValor(200.0f);
+		cotas.add(cotaParlamentar);
+		controller.persistCotasOnLocalDatabase(cotas);
 
-		controller
-				.persistCotasOnLocalDatabase(parlamentarDeleteCota.getCotas());
-		List<CotaParlamentar> listResult = controller
-				.getCotasByIdParlamentar(114);
-
-		assertSame(listResult.get(0), list.get(0));
+		assertEquals(cotas.get(0).getValor(), controller
+				.getCotasByIdParlamentar(0).get(0).getValor(),0.0f);
 	}
 
 	public void testGetCotasByIdParlamentarExceptions()

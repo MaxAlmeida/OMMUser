@@ -46,13 +46,4 @@ public class MountURLTest extends AndroidTestCase {
 
 	}
 
-	public void testMountUrlMajorRanking() {
-
-		String urlMajorRanking = "http://" + IP
-				+ "/rankingMaiores";
-
-		Assert.assertEquals(urlMajorRanking, url.mountUrlAll());
-
-	}
-
 }

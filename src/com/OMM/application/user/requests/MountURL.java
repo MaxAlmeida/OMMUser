@@ -47,7 +47,7 @@ public class MountURL {
 
 		String urlRankingParlamentares = "http://" + IP
 
-		+ "/rankingMaiores";
+		+ "/parlamentares";
 
 		return urlRankingParlamentares;
 	}
