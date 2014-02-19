@@ -3,12 +3,10 @@ package com.OMM.test.user.helper;
 import java.util.List;
 
 import junit.framework.Assert;
-
 import android.test.AndroidTestCase;
 
 import com.OMM.application.user.exceptions.NullCotaParlamentarException;
 import com.OMM.application.user.exceptions.NullParlamentarException;
-import com.OMM.application.user.exceptions.TransmissionException;
 import com.OMM.application.user.helper.JSONHelper;
 import com.OMM.application.user.model.CotaParlamentar;
 import com.OMM.application.user.model.Parlamentar;
@@ -27,8 +25,7 @@ public class JSONHelperTest extends AndroidTestCase {
 		assertEquals(JSONHelper.class, helper.getClass());
 	}
 
-	public void testListParlamentarFromJSON() throws TransmissionException,
-			NullParlamentarException {
+	public void testListParlamentarFromJSON() throws NullParlamentarException {
 
 		Parlamentar parlamentar = new Parlamentar();
 		parlamentar.setNome("PAULO MALUF");
@@ -46,7 +43,7 @@ public class JSONHelperTest extends AndroidTestCase {
 	}
 
 	public void testListParlamentarFromJSONNullCotaParlamentarException()
-			throws NullParlamentarException, TransmissionException {
+			throws NullParlamentarException {
 
 		try {
 			JSONHelper.listParlamentarFromJSON("[{}]").get(0);
@@ -56,18 +53,8 @@ public class JSONHelperTest extends AndroidTestCase {
 		}
 	}
 
-	public void testListParlamentarFromJSONTransmissionException()
-			throws NullParlamentarException, TransmissionException {
-
-		try {
-			JSONHelper.listParlamentarFromJSON("Teste");
-		} catch (TransmissionException te) {
-
-		}
-	}
-
 	public void testListCotaParlamentarFromJSON()
-			throws NullCotaParlamentarException, TransmissionException {
+			throws NullCotaParlamentarException {
 
 		CotaParlamentar cota = new CotaParlamentar();
 		cota.setCod(144068);
@@ -82,7 +69,7 @@ public class JSONHelperTest extends AndroidTestCase {
 	}
 
 	public void testListCotaParlamentarFromJSONNullCotaParlamentarException()
-			throws NullCotaParlamentarException, TransmissionException {
+			throws NullCotaParlamentarException {
 
 		try {
 			JSONHelper.listCotaParlamentarFromJSON("[{}]").get(0);
@@ -91,18 +78,8 @@ public class JSONHelperTest extends AndroidTestCase {
 		}
 	}
 
-	public void testListCotaParlamentarFromJSONTransmissionException()
-			throws NullCotaParlamentarException, TransmissionException {
-
-		try {
-			JSONHelper.listCotaParlamentarFromJSON("Teste");
-		} catch (TransmissionException te) {
-
-		}
-	}
-
 	public void testListParlamentarRankingMaioresFromJSON()
-			throws NullParlamentarException, TransmissionException {
+			throws NullParlamentarException {
 
 		try {
 			Parlamentar parlamentarFirst = new Parlamentar();
@@ -126,13 +103,11 @@ public class JSONHelperTest extends AndroidTestCase {
 
 		} catch (NullParlamentarException e) {
 
-		} catch (TransmissionException e) {
-
 		}
 	}
 
 	public void testListParlamentarRankingMaioresFromJSONNullParlamentarException()
-			throws NullCotaParlamentarException, TransmissionException {
+			throws NullCotaParlamentarException {
 
 		try {
 			Parlamentar parlamentarFirst = new Parlamentar();
@@ -157,13 +132,11 @@ public class JSONHelperTest extends AndroidTestCase {
 
 		} catch (NullParlamentarException e) {
 
-		} catch (TransmissionException e) {
-
-		}
+		} 
 	}
 
 	public void testListParlamentarRankingMaioresFromJSONTransmissionException()
-			throws NullCotaParlamentarException, TransmissionException {
+			throws NullCotaParlamentarException {
 
 		try {
 			Parlamentar parlamentarFirst = new Parlamentar();
@@ -187,8 +160,6 @@ public class JSONHelperTest extends AndroidTestCase {
 			fail("Exception ");
 
 		} catch (NullParlamentarException e) {
-
-		} catch (TransmissionException e) {
 
 		}
 	}

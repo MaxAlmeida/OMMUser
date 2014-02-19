@@ -4,12 +4,10 @@ import org.apache.http.client.ResponseHandler;
 
 import android.test.AndroidTestCase;
 
-
 import com.OMM.application.user.controller.UrlHostController;
 import com.OMM.application.user.exceptions.ConnectionFailedException;
 import com.OMM.application.user.exceptions.NullParlamentarException;
 import com.OMM.application.user.exceptions.RequestFailedException;
-import com.OMM.application.user.exceptions.TransmissionException;
 import com.OMM.application.user.helper.JSONHelper;
 import com.OMM.application.user.model.Parlamentar;
 import com.OMM.application.user.requests.HttpConnection;
@@ -24,9 +22,9 @@ public class HttpConnectionTest extends AndroidTestCase {
 	}
 
 	public void testRequest() throws ConnectionFailedException,
-			RequestFailedException, TransmissionException,
-			NullParlamentarException {
-	     MountURL urlServer=MountURL.getIsntance(getContext(),UrlHostController.getInstance(getContext()));
+			RequestFailedException, NullParlamentarException {
+		MountURL urlServer = MountURL.getIsntance(getContext(),
+				UrlHostController.getInstance(getContext()));
 
 		String url = urlServer.mountURLParlamentar(373);
 		String json = HttpConnection.request(response, url);

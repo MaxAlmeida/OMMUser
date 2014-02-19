@@ -84,8 +84,7 @@ public class CotaParlamentarUserControllerTest extends AndroidTestCase {
 		List<CotaParlamentar> listResult = controller
 				.getCotasByIdParlamentar(114);
 
-		assertSame(listResult.get(0).getIdParlamentar(), list.get(0)
-				.getIdParlamentar());
+		assertSame(listResult.get(0), list.get(0));
 	}
 
 	public void testGetCotasByIdParlamentarExceptions()

@@ -15,7 +15,6 @@ import com.OMM.application.user.exceptions.ConnectionFailedException;
 import com.OMM.application.user.exceptions.NullCotaParlamentarException;
 import com.OMM.application.user.exceptions.NullParlamentarException;
 import com.OMM.application.user.exceptions.RequestFailedException;
-import com.OMM.application.user.exceptions.TransmissionException;
 import com.OMM.application.user.helper.JSONHelper;
 import com.OMM.application.user.model.CotaParlamentar;
 import com.OMM.application.user.model.Parlamentar;
@@ -182,8 +181,8 @@ public class ParlamentarUserControllerTest extends AndroidTestCase {
 	}
 
 	public void testDoRequest() throws ConnectionFailedException,
-			RequestFailedException, TransmissionException,
-			NullParlamentarException, NullCotaParlamentarException {
+			RequestFailedException, NullParlamentarException,
+			NullCotaParlamentarException {
 		Parlamentar p = new Parlamentar();
 		p.setId(373);
 		controller.setParlamentar(p);
@@ -195,51 +194,21 @@ public class ParlamentarUserControllerTest extends AndroidTestCase {
 		assertEquals(pResult.getNome(), pJson.getNome());
 	}
 
-	public void testDoRequestTransmissionException()
-			throws NullParlamentarException, NullCotaParlamentarException,
-			TransmissionException, ConnectionFailedException,
-			RequestFailedException {
-
-		try {
-			controller.setParlamentar(parlamentar);
-			Parlamentar pJson = controller.doRequest(null);
-			pJson.getId();
-			fail("Exception not launched");
-		} catch (TransmissionException npe) {
-
-		}
-	}
-
 	public void testGetSelected() {
 
 		assertNotNull(controller.getSelected());
 	}
 
 	public void testInsertAllFalse() throws NullParlamentarException,
-			ConnectionFailedException, RequestFailedException,
-			TransmissionException {
+			ConnectionFailedException, RequestFailedException {
 
 		ResponseHandler<String> response = HttpConnection.getResponseHandler();
 		assertFalse(controller.insertAll(response));
 
 	}
 
-	public void testInsertAllFalseTransmissionException()
-			throws NullParlamentarException, TransmissionException,
-			ConnectionFailedException, RequestFailedException {
-
-		try {
-			controller.insertAll(null);
-
-			fail("Exception not launched");
-		} catch (TransmissionException npe) {
-
-		}
-	}
-
 	public void testInsertAllTrue() throws NullParlamentarException,
-			ConnectionFailedException, RequestFailedException,
-			TransmissionException {
+			ConnectionFailedException, RequestFailedException {
 
 		controller.getAll();
 		Iterator<Parlamentar> iterator = controller.getAll().iterator();
@@ -255,19 +224,6 @@ public class ParlamentarUserControllerTest extends AndroidTestCase {
 
 	}
 
-	public void testInsertAllTrueTransmissionException()
-			throws NullParlamentarException, TransmissionException,
-			ConnectionFailedException, RequestFailedException {
-
-		try {
-			controller.insertAll(null);
-
-			fail("Exception not launched");
-		} catch (TransmissionException npe) {
-
-		}
-	}
-
 	public void testGetAllSelected() {
 		List<Parlamentar> lista = new ArrayList<Parlamentar>();
 		lista = controller.getAllSelected();
@@ -276,8 +232,7 @@ public class ParlamentarUserControllerTest extends AndroidTestCase {
 	}
 
 	public void testDoRequestMajorRanking() throws NullParlamentarException,
-			ConnectionFailedException, RequestFailedException,
-			TransmissionException {
+			ConnectionFailedException, RequestFailedException {
 		Parlamentar p = new Parlamentar();
 		p.setId(373);
 		controller.setParlamentar(p);
@@ -289,22 +244,8 @@ public class ParlamentarUserControllerTest extends AndroidTestCase {
 		assertEquals(pResult.getNome(), pJson.get(0).getNome());
 	}
 
-	public void testDorequestMajorRankingTransmissionException()
-			throws NullParlamentarException, ConnectionFailedException,
-			RequestFailedException, TransmissionException {
-		try {
-			controller.doRequestMajorRanking(null);
-
-			fail("Exception not launched");
-		} catch (TransmissionException npe) {
-
-		}
-	}
-
 	public void testCheckEmptyDBFalse() {
-
 		assertFalse(controller.checkEmptyDB());
-
 	}
 
 	public void testCheckEmptyDBTrue() {

@@ -12,8 +12,7 @@ public class MountURLTest extends AndroidTestCase {
 	private MountURL url=null;
 	public void setUp() {
 		url=MountURL.getIsntance(getContext(),UrlHostController.getInstance(getContext()));
-		
-
+		IP = url.getIP();
 	}
 
 	public void testMountUTL() {

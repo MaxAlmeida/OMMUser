@@ -88,7 +88,7 @@ public class ParlamentarUserDaoTest extends AndroidTestCase {
 
 	public void testUpdateParlamentar() throws NullParlamentarException {
 		parlamentarA.setSeguido(1);
-		assertTrue(parlamentarDao.updateParlamentar(parlamentarA));
+		assertTrue(parlamentarDao.setSeguidoParlamentar(parlamentarA));
 	}
 
 	public void testGetById() {
