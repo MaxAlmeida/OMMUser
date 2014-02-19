@@ -50,20 +50,23 @@ public class ParlamentarAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		parlamentar = parlamentares.get(position);
+		
 		final View view = inflater.inflate(R.layout.fragment_parlamentar, null);
 		TextView textView = (TextView) view
 				.findViewById(R.id.parlamentarlistfragment_txt_nome);
 		textView.setText(parlamentar.getNome());
+		
 		final CheckBox checkBox = (CheckBox) view.findViewById(R.id.checkbox);
 		checkBox.setTag(position);
+		
 		if (parlamentar.getIsSeguido() == 1) {
 			ImageView imageView = (ImageView) view
 					.findViewById(R.id.parlamentarlistfragment_img_arte);
 			imageView.setImageResource(R.drawable.parlamentar_seguido_foto_mini);
 			checkBox.setChecked(true);
 		}
+		
 		checkBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView,
 					boolean isChecked) {

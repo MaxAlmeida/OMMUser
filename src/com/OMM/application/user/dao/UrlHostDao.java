@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.OMM.application.user.helper.LocalDatabase;
 
@@ -13,6 +14,7 @@ public class UrlHostDao {
 	private LocalDatabase database;
 	private String table_name = "URL_SERVER";
 	private SQLiteDatabase sqliteDatabase;
+	private String defaultUrl = "192.168.1.64:8080/OlhaMinhaMesada";
 
 	private UrlHostDao(Context context) {
 		this.database = new LocalDatabase(context);
@@ -44,13 +46,17 @@ public class UrlHostDao {
 		String urlServer = null;
 		sqliteDatabase = database.getReadableDatabase();
 		Cursor cursor = null;
-			cursor = sqliteDatabase
-					.rawQuery("SELECT URL FROM URL_SERVER", null);
+		cursor = sqliteDatabase.rawQuery("SELECT URL FROM URL_SERVER", null);
 
-			while (cursor.moveToNext()) {
-				urlServer = cursor.getString(0);
-			}
-			database.close();
+		if (cursor.getCount()==0) {
+			insertUrlServer(defaultUrl);
+			return defaultUrl;
+		}
+		while (cursor.moveToNext()) {
+			urlServer = cursor.getString(0);
+		}
+		
+		database.close();
 		return urlServer;
 	}
 

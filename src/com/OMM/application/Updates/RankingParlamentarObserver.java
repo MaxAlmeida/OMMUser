@@ -9,7 +9,6 @@ import com.OMM.application.user.model.Parlamentar;
 
 public class RankingParlamentarObserver implements ObserverUpdates{
 
-	private GetServerUpdates subject;
 	private ParlamentarUserController parlamentarController;
 	private LinkedList<Parlamentar> pilhaParlamentares;
 	

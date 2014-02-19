@@ -64,6 +64,7 @@ public class ParlamentarUserDao {
 		content.put("UF", parlamentar.getUf());
 		content.put("VALOR", parlamentar.getValor());
 		content.put("RANKING_POS", parlamentar.getMajorRankingPos());
+		content.put("ID_ATUALIZACAO", parlamentar.getIdUpdate());
 		boolean result = (sqliteDatabase.insert(tabelaParlamentar, null,
 				content) > 0);
 		sqliteDatabase.close();
@@ -79,7 +80,7 @@ public class ParlamentarUserDao {
 		return result;
 	}
 
-	public boolean updateParlamentar(Parlamentar parlamentar)
+	public boolean setSeguidoParlamentar(Parlamentar parlamentar)
 			throws NullParlamentarException {
 
 		if (parlamentar != null) {
@@ -96,24 +97,25 @@ public class ParlamentarUserDao {
 		}
 	}
 
-	public boolean updateParlamentarValor(Parlamentar parlamentar) throws NullParlamentarException
-	{
-		if(parlamentar!=null)
-		{
+	public boolean updateParlamentar(Parlamentar parlamentar)
+			throws NullParlamentarException {
+		if (parlamentar != null) {
 			sqliteDatabase = database.getWritableDatabase();
-			ContentValues content=new ContentValues();
-			content.put("VALOR",parlamentar.getValor());
+			ContentValues content = new ContentValues();
+			content.put("VALOR", parlamentar.getValor());
 			content.put("RANKING_POS", parlamentar.getMajorRankingPos());
-			
-			boolean result=(sqliteDatabase.update(tabelaParlamentar, content, "ID_PARLAMENTAR=?",
-					new String[]{parlamentar.getId()+""})>0);
-			
+			content.put("ID_ATUALIZACAO", parlamentar.getIdUpdate());
+
+			boolean result = (sqliteDatabase.update(tabelaParlamentar, content,
+					"ID_PARLAMENTAR=?",
+					new String[] { parlamentar.getId() + "" }) > 0);
+
 			sqliteDatabase.close();
 			return result;
-			
-		}else {
+
+		} else {
 			throw new NullParlamentarException();
-		}	
+		}
 	}
 
 	public Parlamentar getById(Integer ID_PARLAMENTAR) {
@@ -140,6 +142,8 @@ public class ParlamentarUserDao {
 					.getColumnIndex("VALOR")));
 			parlamentar.setMajorRankingPos(cursor.getInt(cursor
 					.getColumnIndex("RANKING_POS")));
+			parlamentar.setIdUpdate(cursor.getInt(cursor
+					.getColumnIndex("ID_ATUALIZACAO")));
 		}
 		sqliteDatabase.close();
 		return parlamentar;
@@ -148,9 +152,9 @@ public class ParlamentarUserDao {
 	public List<Parlamentar> getAll() {
 
 		sqliteDatabase = database.getReadableDatabase();
-		Cursor cursor = sqliteDatabase.rawQuery("SELECT * FROM PARLAMENTAR order by VALOR DESC",
-				null);
-		
+		Cursor cursor = sqliteDatabase.rawQuery(
+				"SELECT * FROM PARLAMENTAR order by VALOR DESC", null);
+
 		List<Parlamentar> listParlamentares = new ArrayList<Parlamentar>();
 
 		while (cursor.moveToNext()) {
@@ -169,6 +173,8 @@ public class ParlamentarUserDao {
 					.getColumnIndex("VALOR")));
 			parlamentar.setMajorRankingPos(cursor.getInt(cursor
 					.getColumnIndex("RANKING_POS")));
+			parlamentar.setIdUpdate(cursor.getInt(cursor
+					.getColumnIndex("ID_ATUALIZACAO")));
 			listParlamentares.add(parlamentar);
 		}
 		sqliteDatabase.close();
@@ -201,6 +207,8 @@ public class ParlamentarUserDao {
 			parlamentar.setMajorRankingPos(cursor.getInt(cursor
 					.getColumnIndex("RANKING_POS")));
 			listParlamentar.add(parlamentar);
+			parlamentar.setIdUpdate(cursor.getInt(cursor
+					.getColumnIndex("ID_ATUALIZACAO")));
 		}
 		sqliteDatabase.close();
 		return listParlamentar;
@@ -228,20 +236,41 @@ public class ParlamentarUserDao {
 					.getColumnIndex("VALOR")));
 			parlamentar.setMajorRankingPos(cursor.getInt(cursor
 					.getColumnIndex("RANKING_POS")));
+			parlamentar.setIdUpdate(cursor.getInt(cursor
+					.getColumnIndex("ID_ATUALIZACAO")));
 			listParlamentar.add(parlamentar);
 		}
 		sqliteDatabase.close();
 		return listParlamentar;
 	}
 
-	public int getIdUpdateParlamentar(int idParlamentar){
+	public List<Integer> getAllSelectedIds() {
 		sqliteDatabase = database.getReadableDatabase();
 		Cursor cursor = sqliteDatabase.rawQuery(
-				"SELECT ID_UPDATE FROM PARLAMENTAR WHERE ID_PARLAMENTAR="+idParlamentar, null);
+				"SELECT ID_PARLAMENTAR FROM PARLAMENTAR WHERE SEGUIDO IN(1)",
+				null);
 
-		int idUpdate = cursor.getInt(cursor.getColumnIndex("ID_UPDATE"));
+		List<Integer> parlamentaresIds = new ArrayList<Integer>();
+
+		while (cursor.moveToNext()) {
+			Integer integer = cursor.getInt(cursor
+					.getColumnIndex("ID_PARLAMENTAR"));
+			parlamentaresIds.add(integer);
+		}
 		sqliteDatabase.close();
-		
+		return parlamentaresIds;
+
+	}
+
+	public int getIdUpdateParlamentar(int idParlamentar) {
+		sqliteDatabase = database.getReadableDatabase();
+		Cursor cursor = sqliteDatabase.rawQuery(
+				"SELECT ID_UPDATE FROM PARLAMENTAR WHERE ID_PARLAMENTAR="
+						+ idParlamentar, null);
+
+		int idUpdate = cursor.getInt(cursor.getColumnIndex("ID_ATUALIZACAO"));
+		sqliteDatabase.close();
+
 		return idUpdate;
 	}
 }

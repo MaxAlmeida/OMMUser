@@ -13,7 +13,6 @@ import com.OMM.application.user.exceptions.ConnectionFailedException;
 import com.OMM.application.user.exceptions.NullCotaParlamentarException;
 import com.OMM.application.user.exceptions.NullParlamentarException;
 import com.OMM.application.user.exceptions.RequestFailedException;
-import com.OMM.application.user.exceptions.TransmissionException;
 import com.OMM.application.user.helper.JSONHelper;
 import com.OMM.application.user.model.CotaParlamentar;
 import com.OMM.application.user.model.Parlamentar;
@@ -34,8 +33,8 @@ public class ParlamentarUserController {
 	private ParlamentarUserController(Context context) {
 		ceapController = CotaParlamentarUserController.getInstance(context);
 		parlamentarDao = ParlamentarUserDao.getInstance(context);
-		urlHostController=UrlHostController.getInstance(context);
-		
+		urlHostController = UrlHostController.getInstance(context);
+
 		this.context = context;
 		parlamentares = new ArrayList<Parlamentar>();
 	}
@@ -64,12 +63,11 @@ public class ParlamentarUserController {
 
 	public Parlamentar doRequest(ResponseHandler<String> responseHandler)
 			throws NullParlamentarException, NullCotaParlamentarException,
-			TransmissionException, ConnectionFailedException,
-			RequestFailedException {
+			ConnectionFailedException, RequestFailedException {
 
 		if (responseHandler != null) {
-			
-			url=MountURL.getIsntance(context,urlHostController);
+
+			url = MountURL.getIsntance(context, urlHostController);
 			int idParlamentar = parlamentar.getId();
 			String urlCotas = url.mountURLCota(idParlamentar);
 			String jsonCotasParlamentar = HttpConnection.request(
@@ -83,10 +81,7 @@ public class ParlamentarUserController {
 		} else if (parlamentar == null) {
 			throw new NullParlamentarException();
 
-		} else {
-			throw new TransmissionException();
 		}
-
 		return parlamentar;
 	}
 
@@ -110,9 +105,9 @@ public class ParlamentarUserController {
 			CotaParlamentarUserController cotaParlamentarUserController = CotaParlamentarUserController
 					.getInstance(context);
 			parlamentar.setSeguido(1);
-			result = cotaParlamentarUserController.persistCotasOnLocalDatabase(parlamentar
-					.getCotas())
-					&& parlamentarDao.updateParlamentar(parlamentar);
+			result = cotaParlamentarUserController
+					.persistCotasOnLocalDatabase(parlamentar.getCotas())
+					&& parlamentarDao.setSeguidoParlamentar(parlamentar);
 			return result;
 
 		} else if (parlamentar == null) {
@@ -125,12 +120,12 @@ public class ParlamentarUserController {
 
 	public boolean insertAll(ResponseHandler<String> response)
 			throws NullParlamentarException, ConnectionFailedException,
-			RequestFailedException, TransmissionException {
+			RequestFailedException {
 
 		boolean initialized = false;
 
 		if (response != null) {
-			url=MountURL.getIsntance(context,urlHostController);
+			url = MountURL.getIsntance(context, urlHostController);
 			String urlParlamentares = url.mountUrlMajorRanking();
 
 			String jsonParlamentares = HttpConnection.request(response,
@@ -157,8 +152,6 @@ public class ParlamentarUserController {
 
 		} else if (parlamentar == null) {
 			throw new NullParlamentarException();
-		} else {
-			throw new TransmissionException();
 		}
 
 		return initialized;
@@ -176,14 +169,16 @@ public class ParlamentarUserController {
 	public boolean unFollowedParlamentar() throws NullParlamentarException,
 			NullCotaParlamentarException {
 		boolean result = true;
-		parlamentar.setCotas(ceapController.getCotasByIdParlamentar(parlamentar.getId()));
+		
 		if (parlamentar != null && parlamentar.getCotas() != null) {
+			parlamentar.setCotas(ceapController.getCotasByIdParlamentar(parlamentar
+					.getId()));
 			parlamentar.setSeguido(0);
 			CotaParlamentarUserController controllerCeap = CotaParlamentarUserController
 					.getInstance(context);
 
 			result = controllerCeap.deleteCota(parlamentar.getId())
-					&& parlamentarDao.updateParlamentar(parlamentar);
+					&& parlamentarDao.setSeguidoParlamentar(parlamentar);
 			return result;
 
 		} else if (parlamentar == null) {
@@ -197,21 +192,17 @@ public class ParlamentarUserController {
 	public List<Parlamentar> doRequestMajorRanking(
 			ResponseHandler<String> responseHandler)
 			throws NullParlamentarException, ConnectionFailedException,
-			RequestFailedException, TransmissionException {
+			RequestFailedException {
 
 		if (responseHandler != null) {
-			url=MountURL.getIsntance(context,urlHostController);
-			String urlParlamentarRankingMaiores = url
-					.mountUrlMajorRanking();
+			url = MountURL.getIsntance(context, urlHostController);
+			String urlParlamentarRankingMaiores = url.mountUrlMajorRanking();
 			String jsonParlamentarRankingMaiores = HttpConnection.request(
 					responseHandler, urlParlamentarRankingMaiores);
 
 			parlamentares = JSONHelper
 					.listParlamentarRankingMaioresFromJSON(jsonParlamentarRankingMaiores);
-		} else {
-			throw new TransmissionException();
 		}
-
 		return parlamentares;
 	}
 
@@ -226,27 +217,37 @@ public class ParlamentarUserController {
 		parlamentar.setCotas(cotas);
 		return parlamentar;
 	}
-	
-	public String getURL()
-	{
-		url=MountURL.getIsntance(context,urlHostController);
-		return url.getIP();
+
+	public int getIdUpdateParlamentar() {
+		return parlamentarDao.getIdUpdateParlamentar(parlamentar.getId());
 	}
-	
-	public int getIdUpdateParlamentar(){
-		return parlamentarDao.getIdUpdateParlamentar(parlamentar.getId());	
-	}
-	
-	public boolean updateParlamentarValor(Parlamentar parlamentar)
-	{
-		try 
-		{
-			return parlamentarDao.updateParlamentarValor(parlamentar);
+
+	public boolean updateParlamentarValor(Parlamentar parlamentar) {
+		try {
+			return parlamentarDao.updateParlamentar(parlamentar);
 		} catch (NullParlamentarException e) {
-			
+
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	public List<Integer> getAllSelectedIds() {
+		return parlamentarDao.getAllSelectedIds();
+	}
+
+	public int getLastIdUpdate() {
+		parlamentares = parlamentarDao.getAll();
+		int idUpdate = 0;
+
+		Iterator<Parlamentar> iterator = parlamentares.iterator();
+		while (iterator.hasNext()) {
+			Parlamentar p = iterator.next();
+			if (p.getIdUpdate() > idUpdate) {
+				idUpdate = p.getIdUpdate();
+			}
+		}
+		return idUpdate;
 	}
 
 }

@@ -2,17 +2,16 @@ package com.OMM.application.user.view;
 
 import java.util.LinkedList;
 
-import com.OMM.application.Updates.RankingParlamentarObserver;
-import com.OMM.application.Updates.ServerUpdatesSubject;
-import com.OMM.application.user.R;
-import com.OMM.application.user.model.Parlamentar;
-
-import junit.framework.Protectable;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.OMM.application.Updates.RankingParlamentarObserver;
+import com.OMM.application.Updates.ServerUpdatesSubject;
+import com.OMM.application.user.R;
+import com.OMM.application.user.model.Parlamentar;
 
 public class Activity_tests_apagar extends Activity {
 

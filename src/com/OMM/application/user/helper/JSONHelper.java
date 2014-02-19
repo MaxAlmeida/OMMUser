@@ -6,17 +6,14 @@ import java.util.List;
 
 import com.OMM.application.user.exceptions.NullCotaParlamentarException;
 import com.OMM.application.user.exceptions.NullParlamentarException;
-import com.OMM.application.user.exceptions.TransmissionException;
 import com.OMM.application.user.model.CotaParlamentar;
 import com.OMM.application.user.model.Parlamentar;
 import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
 public class JSONHelper {
 	public static List<Parlamentar> listParlamentarFromJSON(
-			String jsonParlamentar) throws TransmissionException,
-			NullParlamentarException {
+			String jsonParlamentar) throws NullParlamentarException {
 		List<Parlamentar> listParlamentar;
 		try {
 			Gson gson = new Gson();
@@ -24,8 +21,6 @@ public class JSONHelper {
 					new TypeToken<List<Parlamentar>>() {
 					}.getType());
 
-		} catch (JsonSyntaxException jse) {
-			throw new TransmissionException();
 		} catch (NullPointerException e) {
 
 			throw new NullParlamentarException();
@@ -34,8 +29,7 @@ public class JSONHelper {
 	}
 
 	public static List<CotaParlamentar> listCotaParlamentarFromJSON(
-			String jsonCotaParlamentar) throws NullCotaParlamentarException,
-			TransmissionException {
+			String jsonCotaParlamentar) throws NullCotaParlamentarException {
 		List<CotaParlamentar> listCotaParlamentar;
 		try {
 			Gson gson = new Gson();
@@ -46,11 +40,7 @@ public class JSONHelper {
 		} catch (NullPointerException npe) {
 
 			throw new NullCotaParlamentarException();
-		} catch (JsonSyntaxException jse) {
-
-			throw new TransmissionException();
 		}
-
 		if (listCotaParlamentar == null) {
 			throw new NullCotaParlamentarException();
 
@@ -60,7 +50,7 @@ public class JSONHelper {
 
 	public static List<Parlamentar> listParlamentarRankingMaioresFromJSON(
 			String jsonParlamentarRankingMaiores)
-			throws NullParlamentarException, TransmissionException {
+			throws NullParlamentarException {
 		List<Parlamentar> listParlamentarRankingMaiores;
 
 		try {
@@ -73,11 +63,7 @@ public class JSONHelper {
 		} catch (NullPointerException npe) {
 
 			throw new NullParlamentarException();
-		} catch (JsonSyntaxException jse) {
-
-			throw new TransmissionException();
-		}
-
+		} 
 		if (listParlamentarRankingMaiores == null) {
 			throw new NullParlamentarException();
 
@@ -85,43 +71,40 @@ public class JSONHelper {
 		return listParlamentarRankingMaiores;
 
 	}
-	
-	public static String newRequestUrl(String jsonNewUrl) throws NullPointerException
-	{
-		String newUrlServer=null;
-		List <String> urls= new ArrayList<String>();
-		
-		try{
-			Gson gson= new Gson();
-			urls=gson.fromJson(jsonNewUrl,new TypeToken<List<String>>(){}.getType());
-			
-			Iterator<String> iterator= urls.iterator();
-			while(iterator.hasNext())
-			{
-				newUrlServer= iterator.next();
+
+	public static String newRequestUrl(String jsonNewUrl)
+			throws NullPointerException {
+		String newUrlServer = null;
+		List<String> urls = new ArrayList<String>();
+
+		try {
+			Gson gson = new Gson();
+			urls = gson.fromJson(jsonNewUrl, new TypeToken<List<String>>() {
+			}.getType());
+
+			Iterator<String> iterator = urls.iterator();
+			while (iterator.hasNext()) {
+				newUrlServer = iterator.next();
 			}
-			
-		}catch(NullPointerException error)
-		{
-			
+
+		} catch (NullPointerException error) {
+
 		}
-		
-		
+
 		return newUrlServer;
-		
+
 	}
 
 	public static int updateFromJSON(String jsonUpdate) {
-		int codUpdates=0;
-		List <String> cods=new ArrayList<String>();
-		try
-		{
-			
+		int codUpdates = 0;
+		List<String> cods = new ArrayList<String>();
+		try {
+
 			Gson gson = new Gson();
-			cods=gson.fromJson(jsonUpdate, new TypeToken<List<String>>(){}.getType());
-			codUpdates=Integer.parseInt(cods.get(cods.size()));
-		}catch(NullPointerException error)
-		{
+			cods = gson.fromJson(jsonUpdate, new TypeToken<List<String>>() {
+			}.getType());
+			codUpdates = Integer.parseInt(cods.get(cods.size()));
+		} catch (NullPointerException error) {
 		}
 		return codUpdates;
 	}

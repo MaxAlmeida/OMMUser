@@ -1,18 +1,19 @@
 package com.OMM.application.Updates;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.client.ResponseHandler;
 
 import android.content.Context;
 
+import com.OMM.application.user.controller.CotaParlamentarUserController;
 import com.OMM.application.user.controller.ParlamentarUserController;
 import com.OMM.application.user.controller.UrlHostController;
 import com.OMM.application.user.exceptions.ConnectionFailedException;
 import com.OMM.application.user.exceptions.NullCotaParlamentarException;
 import com.OMM.application.user.exceptions.NullParlamentarException;
 import com.OMM.application.user.exceptions.RequestFailedException;
-import com.OMM.application.user.exceptions.TransmissionException;
 import com.OMM.application.user.helper.JSONHelper;
 import com.OMM.application.user.model.CotaParlamentar;
 import com.OMM.application.user.model.Parlamentar;
@@ -22,6 +23,7 @@ import com.OMM.application.user.requests.MountURL;
 public class DataUpdate {
 
 	private ParlamentarUserController parlamentarController;
+	private CotaParlamentarUserController cotaParlamentarController;
 	private UrlHostController urlHostController;
 	private Context context;
 
@@ -29,64 +31,77 @@ public class DataUpdate {
 		this.context = context;
 		urlHostController = UrlHostController.getInstance(context);
 		parlamentarController = ParlamentarUserController.getInstance(context);
+		cotaParlamentarController = CotaParlamentarUserController
+				.getInstance(context);
 	}
 
-	public Parlamentar doRequest(ResponseHandler<String> responseHandler,
-			Parlamentar parlamentar) throws TransmissionException,
-			ConnectionFailedException, RequestFailedException,
-			NullParlamentarException {
+	public List<Parlamentar> doRequestParlamentar(
+			ResponseHandler<String> responseHandler)
+			throws ConnectionFailedException,
+			RequestFailedException, NullParlamentarException {
+
+		List<Parlamentar> parlamentares = new ArrayList<Parlamentar>();
 
 		if (responseHandler != null) {
 			String url;
-			parlamentarController.setParlamentar(parlamentar);
 			int idUpdate = parlamentarController.getIdUpdateParlamentar();
 			url = MountURL.getIsntance(context, urlHostController)
-					.mountUrlParlamentarUpdate(idUpdate, parlamentar.getId());
+					.mountUrlParlamentarUpdate(idUpdate);
 			String jsonParlamentarUpdate = HttpConnection.request(
 					responseHandler, url);
 
-			List<Parlamentar> parlamentares = JSONHelper
+			parlamentares = JSONHelper
 					.listParlamentarFromJSON(jsonParlamentarUpdate);
-			if (parlamentares.size() != 0) {
-				parlamentar = parlamentares.get(0);
-				parlamentarController.setParlamentar(parlamentar);
-			}
-			else{
-				//nothing here
-			}
-		} else {
-			throw new TransmissionException();
+			parlamentarController.setParlamentares(parlamentares);
 		}
-		return parlamentar;
+		return parlamentares;
 	}
 
-	public Parlamentar doRequestCota(ResponseHandler<String> responseHandler,
-			Parlamentar parlamentar) throws TransmissionException,
-			ConnectionFailedException, RequestFailedException,
+	public List<CotaParlamentar> doRequestCota(
+			ResponseHandler<String> responseHandler)
+			throws ConnectionFailedException, RequestFailedException,
 			NullParlamentarException, NullCotaParlamentarException {
+
+		List<CotaParlamentar> cotaParlamentar = new ArrayList<CotaParlamentar>();
 
 		if (responseHandler != null) {
 			String url;
-			parlamentarController.setParlamentar(parlamentar);
-			int idUpdate = parlamentarController.getIdUpdateParlamentar();
+
+			ArrayList<Integer> parlamentaresIds = (ArrayList<Integer>) parlamentarController
+					.getAllSelectedIds();
+			int idUpdate = parlamentarController.getLastIdUpdate();
 			url = MountURL.getIsntance(context, urlHostController)
-					.mountUrlCotaParlamentarUpdate(idUpdate, parlamentar.getId());
+					.mountUrlCotaParlamentarUpdate(idUpdate, parlamentaresIds);
 			String jsonCotaParlamentarUpdate = HttpConnection.request(
 					responseHandler, url);
 
-			List<CotaParlamentar> cotaParlamentar = JSONHelper
+			cotaParlamentar = JSONHelper
 					.listCotaParlamentarFromJSON(jsonCotaParlamentarUpdate);
 			if (cotaParlamentar.size() != 0) {
-				parlamentar.setCotas(cotaParlamentar);
-				parlamentarController.setParlamentar(parlamentar);
+				cotaParlamentarController
+						.persistCotasOnLocalDatabase(cotaParlamentar);
+			} else {
+				// nothing here
 			}
-			else{
-				//nothing here
-			}
-		} else {
-			throw new TransmissionException();
 		}
-		return parlamentar;
+		return cotaParlamentar;
 	}
-	
+
+	public boolean doRequestUpdateVerify(ResponseHandler<String> responseHandler)
+			throws ConnectionFailedException, RequestFailedException {
+
+		int idUpdate = parlamentarController.getLastIdUpdate();
+
+		String url = MountURL.getIsntance(context, urlHostController)
+				.mountUrlExistsUpdate();
+		String jsonUpdateVerify = HttpConnection.request(responseHandler, url);
+		int serverIdUpdate = JSONHelper.updateFromJSON(jsonUpdateVerify);
+
+		if (serverIdUpdate > idUpdate) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 }

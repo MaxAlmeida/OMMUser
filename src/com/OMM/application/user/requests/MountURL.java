@@ -1,8 +1,11 @@
 package com.OMM.application.user.requests;
 
-import com.OMM.application.user.controller.UrlHostController;
+import java.util.Iterator;
+import java.util.List;
 
 import android.content.Context;
+
+import com.OMM.application.user.controller.UrlHostController;
 
 public class MountURL {
 
@@ -67,17 +70,23 @@ public class MountURL {
 	}
 
 	public String mountUrlExistsUpdate() {
-		return ("http://" + IP + "/updateCode");
+		return ("http://" + IP + "/verifyUpdate");
 	}
 
-	public String mountUrlParlamentarUpdate(int idUpdate, int idParlamentar) {
-		return ("http://" + IP + "/parlamentarDataUpdate?idParlamentar="
-				+ idParlamentar + "&idUpdate=" + idUpdate);
+	public String mountUrlParlamentarUpdate(int idUpdate) {
+		return ("http://" + IP + "/parlamentarUpdate?idUpdate=" + idUpdate);
 	}
 	
-	public String mountUrlCotaParlamentarUpdate(int idUpdate, int idParlamentar) {
-		return ("http://" + IP + "/cotaDataUpdate?idParlamentar="
-				+ idParlamentar + "&idUpdate=" + idUpdate);
+	public String mountUrlCotaParlamentarUpdate(int idUpdate, List<Integer> parlamentaresIds) {
+		String returns = ("http://" + IP + "/cotaUpdate?idUpdate=" + idUpdate);
+		
+		Iterator<Integer> i = parlamentaresIds.iterator();
+		
+		while(i.hasNext()){
+			returns+="&idParlamentar[]="+i.next();
+		}
+		
+		return returns;	
 	}
 	
 }

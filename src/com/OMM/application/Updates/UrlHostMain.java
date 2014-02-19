@@ -12,10 +12,10 @@ public class UrlHostMain implements ObserverUpdates {
 
 	public UrlHostMain(GetServerUpdates serverUpdates,Context context)
 	{
-		this.serverUpdatesUrl=serverUpdates;
+		this.setServerUpdatesUrl(serverUpdates);
 		serverUpdates.registerObserver(this);
 		
-		this.serverListener=UrlHostController.getInstance(context);
+		this.setServerListener(UrlHostController.getInstance(context));
 	}
 
 
@@ -23,6 +23,26 @@ public class UrlHostMain implements ObserverUpdates {
 	public void update() {
 		// TODO Auto-generated method stub
 		
+	}
+
+
+	public GetServerUpdates getServerUpdatesUrl() {
+		return serverUpdatesUrl;
+	}
+
+
+	public void setServerUpdatesUrl(GetServerUpdates serverUpdatesUrl) {
+		this.serverUpdatesUrl = serverUpdatesUrl;
+	}
+
+
+	public UrlHostController getServerListener() {
+		return serverListener;
+	}
+
+
+	public void setServerListener(UrlHostController serverListener) {
+		this.serverListener = serverListener;
 	}
 	
 	

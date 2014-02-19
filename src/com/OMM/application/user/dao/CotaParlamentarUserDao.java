@@ -42,6 +42,7 @@ public class CotaParlamentarUserDao {
 			cota = iterator.next();
 			content.put("ID_COTA", cota.getCod());
 			content.put("ID_PARLAMENTAR", cota.getIdParlamentar());
+			content.put("ID_ATUALIZACAO", cota.getIdUpdate());
 			content.put("DESCRICAO", cota.getDescricao());
 			content.put("MES", cota.getMes());
 			content.put("ANO", cota.getAno());
@@ -69,13 +70,14 @@ public class CotaParlamentarUserDao {
 		List<CotaParlamentar> listCotas = new ArrayList<CotaParlamentar>();
 		while (cursor.moveToNext()) {
 			CotaParlamentar cota = new CotaParlamentar();
-			cota.setCod(cursor.getInt(0));
-			cota.setIdParlamentar(idParlamentar);
-			cota.setNumeroSubCota(cursor.getInt(2));
-			cota.setDescricao(cursor.getString(3));
-			cota.setMes(cursor.getInt(4));
-			cota.setAno(cursor.getInt(5));
-			cota.setValor(cursor.getDouble(6));
+			cota.setCod(cursor.getInt(cursor.getColumnIndex("ID_COTA")));
+			cota.setIdParlamentar(cursor.getColumnIndex("ID_PARLAMENTAR"));
+			cota.setIdUpdate(cursor.getColumnIndex("ID_ATUALIZACAO"));
+			cota.setNumeroSubCota(cursor.getInt(cursor.getColumnIndex("NUM_SUBCOTA")));
+			cota.setDescricao(cursor.getString(cursor.getColumnIndex("DESCRICAO")));
+			cota.setMes(cursor.getInt(cursor.getColumnIndex("MES")));
+			cota.setAno(cursor.getInt(cursor.getColumnIndex("ANO")));
+			cota.setValor(cursor.getDouble(cursor.getColumnIndex("VALOR")));
 			listCotas.add(cota);
 		}
 		sqliteDatabase.close();

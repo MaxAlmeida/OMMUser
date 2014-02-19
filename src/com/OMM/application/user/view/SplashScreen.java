@@ -3,59 +3,187 @@ package com.OMM.application.user.view;
 import org.apache.http.client.ResponseHandler;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
-import android.media.MediaPlayer;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo.State;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.widget.Toast;
 
+import com.OMM.application.Updates.DataUpdate;
 import com.OMM.application.user.R;
 import com.OMM.application.user.controller.ParlamentarUserController;
-import com.OMM.application.user.controller.UrlHostController;
 import com.OMM.application.user.exceptions.ConnectionFailedException;
+import com.OMM.application.user.exceptions.NullCotaParlamentarException;
 import com.OMM.application.user.exceptions.NullParlamentarException;
 import com.OMM.application.user.exceptions.RequestFailedException;
 import com.OMM.application.user.requests.HttpConnection;
-
+@SuppressWarnings("unchecked")
 public class SplashScreen extends Activity {
 
-	private final int DURACAO_DA_TELA = 2860;
+	private static final int NO_CONNECTIVITY = 0;
+	private static final int CONNECTIVIVTY_3G = 1;
+	private static final int CONNECTIVITY_WIFI = 2;
+
 	private ParlamentarUserController parlamentarController;
+	private boolean isEmpty = true;
+	private boolean needsUpdate = true;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.splash_screen);
 
-		MediaPlayer splashSound = MediaPlayer.create(this, R.raw.splash);
-		splashSound.start();
-		splashSound.seekTo(2000);
-
 		parlamentarController = ParlamentarUserController
 				.getInstance(getBaseContext());
+		isEmpty = parlamentarController.checkEmptyDB();
+	}
 
-		if (parlamentarController.checkEmptyDB() == true) {
+	@Override
+	protected void onResume() {
+		super.onResume();
 
-			/*
-			 * O problema pode estar aqui Olhar melhor a chamada do banco
-			 */
-
-			UrlHostController serverController = UrlHostController
-					.getInstance(getBaseContext());
-			serverController
-					.insertUrlServer("192.168.1.106:8080/OlhaMinhaMesada");
-
-			// so pra esperar mesmo
-			for (int i = 0; i < 100000000; i++) {
+		switch (checkConnection()) {
+		case NO_CONNECTIVITY:
+			NoDataConnection noDataConnection = new NoDataConnection();
+			noDataConnection.execute();
+			break;
+		case CONNECTIVIVTY_3G:
+			InitBy3G initBy3G = new InitBy3G();
+			initBy3G.execute();
+			break;
+		case CONNECTIVITY_WIFI:
+			if (isEmpty) {
+				startPopulateDB();
 			}
-			startPopulateDB();
-		} else {
+			else{
+				startUpdateDB();
+			}
+			break;
+		default:
+			// nothing here
+			break;
+		}
+		if (!isEmpty) {
+			startApplication();
+		}
+	}
 
-			getUpdatesServer();
+	private int checkConnection() {
+		ConnectivityManager con = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		try {
+			// 3G
+			if (con.getNetworkInfo(0).getState() == State.CONNECTED) {
+				return 1;
+			}
+			// Wifi
+			else if (con.getNetworkInfo(1).getState() == State.CONNECTED) {
+				return 2;
+			} else {
+				return 0;
+			}
+		} catch (Exception e) {
+			return 0;
+		}
+	}
+
+	private void startApplication() {
+		Intent myAction = new Intent(SplashScreen.this, GuiMain.class);
+		SplashScreen.this.startActivity(myAction);
+		SplashScreen.this.finish();
+	}
+
+	private void startUpdateDB() {
+		ResponseHandler<String> responseHandler = HttpConnection
+				.getResponseHandler();
+		UpdateDBTask task = new UpdateDBTask();
+		task.execute(responseHandler);
+	}
+
+	private void startPopulateDB() {
+
+		ResponseHandler<String> responseHandler = HttpConnection
+				.getResponseHandler();
+		initializeDBTask task = new initializeDBTask();
+		task.execute(responseHandler);
+	}
+
+	// =============================================================================================================
+	private class InitBy3G extends AsyncTask<Object, Void, Boolean> {
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			if (isEmpty) {
+				AlertDialog.Builder builder = new Builder(SplashScreen.this);
+				builder.setTitle("Instalação do Banco de Dados");
+				builder.setMessage("Esse procedimento pode gerar gastos adicionais devido ao uso de dados. Deseja continuar?");
+				builder.setPositiveButton("Sim!", positiveListener);
+				builder.setNegativeButton("Não.", null);
+				builder.show();
+			} else {
+				AlertDialog.Builder builder = new Builder(SplashScreen.this);
+				builder.setTitle("Atualização de Dados");
+				builder.setMessage("Esse procedimento pode gerar gastos adicionais devido ao uso de dados. Deseja continuar?");
+				builder.setPositiveButton("Sim!", positiveListener);
+				builder.setNegativeButton("Não.", null);
+				builder.show();
+			}
 
 		}
+
+		@Override
+		protected Boolean doInBackground(Object... params) {
+			return true;
+		}
+
+		OnClickListener positiveListener = new OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				if (isEmpty)
+					startPopulateDB();
+				else {
+					startUpdateDB();
+				}
+			}
+		};
+	}
+
+	private class NoDataConnection extends AsyncTask<Object, Void, Boolean> {
+
+		AlertDialog.Builder builder = new Builder(SplashScreen.this);
+		boolean okToinitDataBase = false;
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			builder.setTitle("Conexão de Dados");
+			builder.setMessage("Não foi detectada nenhuma conexão de dados, por isso"
+					+ " as informações dos parlamentares podem estar desatualizadas."
+					+ " Atualize seu aplicativo com frequência.");
+			builder.setNeutralButton("Ok", listener);
+			builder.show();
+		}
+
+		@Override
+		protected Boolean doInBackground(Object... params) {
+
+			return okToinitDataBase;
+		}
+
+		OnClickListener listener = new OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				startApplication();
+			}
+		};
 	}
 
 	private class initializeDBTask extends AsyncTask<Object, Void, Integer> {
@@ -69,9 +197,9 @@ public class SplashScreen extends Activity {
 			progressDialog = ProgressDialog.show(SplashScreen.this,
 					"Instalando Banco de Dados...",
 					"Isso pode demorar alguns minutos ");
+
 		}
 
-		@SuppressWarnings("unchecked")
 		@Override
 		protected Integer doInBackground(Object... params) {
 
@@ -121,87 +249,91 @@ public class SplashScreen extends Activity {
 				Alerts.requestFailedAlert(SplashScreen.this);
 				break;
 
-			case Alerts.UNEXPECTED_FAILED_EXCEPTION:
+			default:
 
 				Alerts.unexpectedFailedAlert(SplashScreen.this);
 				break;
-
-			default:
-				// Nothing should be done
 			}
-			new Handler().postDelayed(new Runnable() {
 
-				@Override
-				public void run() {
-
-					Intent myAction = new Intent(SplashScreen.this,
-							GuiMain.class);
-					SplashScreen.this.startActivity(myAction);
-					SplashScreen.this.finish();
-				}
-			}, DURACAO_DA_TELA);
-
+			// Intent myAction = new Intent(SplashScreen.this, GuiMain.class);
+			// SplashScreen.this.startActivity(myAction);
+			// SplashScreen.this.finish();
 		}
 	}
 
-	private void startPopulateDB() {
-
-		ResponseHandler<String> responseHandler = HttpConnection
-				.getResponseHandler();
-
-		initializeDBTask task = new initializeDBTask();
-		task.execute(responseHandler);
-	}
-
-	// TODO
-	/*
-	 * Mudar esse metodo, se possivel apagar e substituir
-	 */
-	private void getUpdatesServer() {
-		ResponseHandler<String> responseHandler = HttpConnection
-				.getResponseHandler();
-		requestServerUpdates task = new requestServerUpdates();
-		task.execute(responseHandler);
-	}
-
-	// =============================================================================================================
-	// TODO
-	/*
-	 * Mudar essa AsyncTask para atender o padrao Observer
-	 */
-	private class requestServerUpdates extends AsyncTask<Object, Void, Integer> {
+	public class UpdateDBTask extends AsyncTask<Object, Void, Integer> {
+		DataUpdate dataUpdate;
 		ProgressDialog progressDialog;
 		Integer exception = Alerts.NO_EXCEPTIONS;
-		ResponseHandler<String> responseHandler;
-
+		ResponseHandler<String> responseHandlerVerify;
+		ResponseHandler<String> responseHandlerCota;
+		ResponseHandler<String> responseHandlerParlamentar;
+		
+		
 		@Override
 		protected void onPreExecute() {
-			// progressDialog =
-			// ProgressDialog.show(GuiMain.this,"Atualizações","Atualizando informações por favor aguarde....");
+			progressDialog = ProgressDialog.show(SplashScreen.this,
+					"Atualizando Dados...",
+					"Isso pode demorar alguns minutos");
 		}
 
 		@Override
 		protected Integer doInBackground(Object... params) {
-			UrlHostController serverController = UrlHostController
-					.getInstance(getBaseContext());
-			responseHandler = (ResponseHandler<String>) params[0];
 
+			dataUpdate = new DataUpdate(SplashScreen.this);
+			responseHandlerVerify = (ResponseHandler<String>) params[0];
 			try {
-				// if(serverController.getExistsUpdates(responseHandler)==1)
-				// {
-				// serverController.insertUrlServer(serverController.requestNewUrl(responseHandler,
-				// 1));
-				Toast.makeText(getBaseContext(), "OMM atualizado!",
-						Toast.LENGTH_SHORT).show();
-				// }else Toast.makeText(getBaseContext(),
-				// "Não há atualizações disponivéis!",Toast.LENGTH_SHORT).show();
+				needsUpdate = dataUpdate.doRequestUpdateVerify(responseHandlerVerify);
+				if(needsUpdate){
+					dataUpdate.doRequestParlamentar(responseHandlerParlamentar);
+					dataUpdate.doRequestCota(responseHandlerCota);
+				}
+			
+			}  catch (ConnectionFailedException cfe) {
+				exception = Alerts.CONNECTION_FAILED_EXCEPTION;
 
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
+			} catch (RequestFailedException rfe) {
+				exception = Alerts.REQUEST_FAILED_EXCEPTION;
+
+			} catch(NullParlamentarException npe){
+				exception = Alerts.NULL_PARLAMENTAR_EXCEPTION;
+			
+			}catch (NullCotaParlamentarException ncpe){
+				exception = Alerts.NULL_COTA_PARLAMENTAR_EXCEPTION;
+			}	
+		
 			return exception;
 		}
+		protected void onPostExecute(Integer result) {
 
+			progressDialog.dismiss();
+
+			switch (result) {
+
+			case Alerts.CONNECTION_FAILED_EXCEPTION:
+
+				Alerts.conectionFailedAlert(SplashScreen.this);
+				break;
+
+			case Alerts.NULL_PARLAMENTAR_EXCEPTION:
+
+				Alerts.parlamentarFailedAlert(SplashScreen.this);
+				break;
+
+			case Alerts.REQUEST_FAILED_EXCEPTION:
+
+				Alerts.requestFailedAlert(SplashScreen.this);
+				break;
+
+			default:
+
+				Alerts.unexpectedFailedAlert(SplashScreen.this);
+				break;
+			}
+
+			// Intent myAction = new Intent(SplashScreen.this, GuiMain.class);
+			// SplashScreen.this.startActivity(myAction);
+			// SplashScreen.this.finish();
+		}
 	}
-	// =============================================================================================================
 }
