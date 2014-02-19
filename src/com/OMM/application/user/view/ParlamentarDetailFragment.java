@@ -51,6 +51,7 @@ public class ParlamentarDetailFragment extends Fragment {
 	private int selectedMes = 1;
 	private int selectedAno = 2013;
 	private String mes = "Janeiro";
+	
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -484,14 +485,16 @@ public class ParlamentarDetailFragment extends Fragment {
 
 			ano.add(0, anoMaior, 0, Integer.toString(anoMaior));
 			// ano.add(0, Menu.FIRST + 13, 0, "2014");
+			
 			}
 		}
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
-
+        
+        
 		switch (item.getItemId()) {
-
+		case 0:
 		case Menu.FIRST:
 			selectedMes = 1;
 			mes = "Janeiro";
@@ -551,7 +554,7 @@ public class ParlamentarDetailFragment extends Fragment {
 			selectedMes = 12;
 			mes = "Dezembro";
 			break;
-
+/*
 		case 2013:
 			selectedAno = 2013;
 			break;
@@ -559,10 +562,11 @@ public class ParlamentarDetailFragment extends Fragment {
 		case 2014:
 			selectedAno = 2014;
 			break;
-
+*/
 		default:
-			// Nothing should be done
-			break;
+			
+			selectedAno = item.getItemId();
+		    break;
 		}
 
 		setBarras();
