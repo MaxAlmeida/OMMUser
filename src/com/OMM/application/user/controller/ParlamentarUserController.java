@@ -189,23 +189,6 @@ public class ParlamentarUserController {
 		}
 	}
 
-	public List<Parlamentar> doRequestAllParlamentares(
-			ResponseHandler<String> responseHandler)
-			throws NullParlamentarException, ConnectionFailedException,
-			RequestFailedException {
-
-		if (responseHandler != null) {
-			url = MountURL.getIsntance(context, urlHostController);
-			String urlParlamentares = url.mountUrlAll();
-			String jsonParlamentarRankingMaiores = HttpConnection.request(
-					responseHandler, urlParlamentares);
-
-			parlamentares = JSONHelper
-					.listParlamentarRankingMaioresFromJSON(jsonParlamentarRankingMaiores);
-		}
-		return parlamentares;
-	}
-
 	public Parlamentar getParlamentar() {
 		return parlamentar;
 	}
@@ -217,12 +200,14 @@ public class ParlamentarUserController {
 		parlamentar.setCotas(cotas);
 		return parlamentar;
 	}
-
+	
+	//TODO: Test for this method
 	public int getIdUpdateParlamentar() {
 		return parlamentarDao.getIdUpdateParlamentar(parlamentar.getId());
 	}
-
-	public boolean updateParlamentarValor(Parlamentar parlamentar) {
+	
+	//TODO: Test for this method
+	public boolean updateParlamentar(Parlamentar parlamentar) {
 		try {
 			return parlamentarDao.updateParlamentar(parlamentar);
 		} catch (NullParlamentarException e) {
@@ -231,11 +216,13 @@ public class ParlamentarUserController {
 		}
 		return false;
 	}
-
+	
+	//TODO: Test for this method
 	public List<Integer> getAllSelectedIds() {
 		return parlamentarDao.getAllSelectedIds();
 	}
-
+	
+	//TODO: Test for this method
 	public int getLastIdUpdate() {
 		parlamentares = parlamentarDao.getAll();
 		int idUpdate = 0;

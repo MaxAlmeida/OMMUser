@@ -30,7 +30,7 @@ public class CotaParlamentarUserDao {
 			instance = new CotaParlamentarUserDao(context);
 		return instance;
 	}
-
+	//TODO: Refactor test for this method
 	public boolean insertCotasOnFollowedParlamentar(List<CotaParlamentar> cotas) {
 		sqliteDatabase = database.getWritableDatabase();
 		ContentValues content;
@@ -62,6 +62,7 @@ public class CotaParlamentarUserDao {
 		return result;
 	}
 
+	//TODO: Refactor test for this method
 	public List<CotaParlamentar> getCotasByIdParlamentar(int idParlamentar) {
 		sqliteDatabase = database.getReadableDatabase();
 		Cursor cursor = sqliteDatabase.rawQuery(

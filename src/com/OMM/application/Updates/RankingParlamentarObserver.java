@@ -28,7 +28,7 @@ public class RankingParlamentarObserver implements ObserverUpdates{
 	{
 		while(!pilhaParlamentares.isEmpty())
 		{
-		   parlamentarController.updateParlamentarValor(pilhaParlamentares.getLast());
+		   parlamentarController.updateParlamentar(pilhaParlamentares.getLast());
 		   pilhaParlamentares.removeLast();
 		}
 		

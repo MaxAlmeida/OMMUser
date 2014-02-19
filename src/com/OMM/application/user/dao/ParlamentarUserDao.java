@@ -14,8 +14,6 @@ import com.OMM.application.user.model.Parlamentar;
 
 public class ParlamentarUserDao {
 
-	// TODO:Fazer try catch do banco
-
 	private static String tabelaParlamentar = "PARLAMENTAR";
 	private static String[] colunasParlamentar = { "ID_PARLAMENTAR,ID_ATUALIZACAO,NOME_PARLAMENTAR,PARTIDO,UF,SEGUIDO,VALOR,RANKING_POS" };
 	private static ParlamentarUserDao instance;
@@ -97,6 +95,7 @@ public class ParlamentarUserDao {
 		}
 	}
 
+	//TODO: Test for this method
 	public boolean updateParlamentar(Parlamentar parlamentar)
 			throws NullParlamentarException {
 		if (parlamentar != null) {
@@ -243,7 +242,7 @@ public class ParlamentarUserDao {
 		sqliteDatabase.close();
 		return listParlamentar;
 	}
-
+	//TODO: Test for this method
 	public List<Integer> getAllSelectedIds() {
 		sqliteDatabase = database.getReadableDatabase();
 		Cursor cursor = sqliteDatabase.rawQuery(
@@ -261,7 +260,8 @@ public class ParlamentarUserDao {
 		return parlamentaresIds;
 
 	}
-
+	
+	//TODO: Test for this method
 	public int getIdUpdateParlamentar(int idParlamentar) {
 		sqliteDatabase = database.getReadableDatabase();
 		Cursor cursor = sqliteDatabase.rawQuery(
