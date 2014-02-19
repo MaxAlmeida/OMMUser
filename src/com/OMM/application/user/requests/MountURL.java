@@ -45,15 +45,6 @@ public class MountURL {
 
 	public String mountUrlAll() {
 
-		String urlAllParlamentares = "http://" + IP
-
-		+ "/parlamentares";
-
-		return urlAllParlamentares;
-	}
-
-	public String mountUrlMajorRanking() {
-
 		String urlRankingParlamentares = "http://" + IP
 
 		+ "/rankingMaiores";

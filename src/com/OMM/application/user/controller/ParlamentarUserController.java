@@ -126,7 +126,7 @@ public class ParlamentarUserController {
 
 		if (response != null) {
 			url = MountURL.getIsntance(context, urlHostController);
-			String urlParlamentares = url.mountUrlMajorRanking();
+			String urlParlamentares = url.mountUrlAll();
 
 			String jsonParlamentares = HttpConnection.request(response,
 					urlParlamentares);
@@ -189,16 +189,16 @@ public class ParlamentarUserController {
 		}
 	}
 
-	public List<Parlamentar> doRequestMajorRanking(
+	public List<Parlamentar> doRequestAllParlamentares(
 			ResponseHandler<String> responseHandler)
 			throws NullParlamentarException, ConnectionFailedException,
 			RequestFailedException {
 
 		if (responseHandler != null) {
 			url = MountURL.getIsntance(context, urlHostController);
-			String urlParlamentarRankingMaiores = url.mountUrlMajorRanking();
+			String urlParlamentares = url.mountUrlAll();
 			String jsonParlamentarRankingMaiores = HttpConnection.request(
-					responseHandler, urlParlamentarRankingMaiores);
+					responseHandler, urlParlamentares);
 
 			parlamentares = JSONHelper
 					.listParlamentarRankingMaioresFromJSON(jsonParlamentarRankingMaiores);

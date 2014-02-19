@@ -51,7 +51,7 @@ public class MountURLTest extends AndroidTestCase {
 		String urlMajorRanking = "http://" + IP
 				+ "/rankingMaiores";
 
-		Assert.assertEquals(urlMajorRanking, url.mountUrlMajorRanking());
+		Assert.assertEquals(urlMajorRanking, url.mountUrlAll());
 
 	}
 
