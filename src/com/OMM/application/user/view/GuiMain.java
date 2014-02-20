@@ -28,7 +28,7 @@ import com.OMM.application.user.requests.HttpConnection;
 public class GuiMain extends Activity implements
 		ParlamentarSeguidoListFragment.OnParlamentarSeguidoSelectedListener,
 		ParlamentarListFragment.OnParlamentarSelectedListener,
-		ParlamentarRankingListFragment.OnParlamentarRankingSelectedListener {
+		ParlamentarRankingListFragment.OnParlamentarRankingSelectedListener, ParlamentarMenorListFragment.OnParlamentarMenorSelectedListener {
 
 	private static final String MESSAGE_TO_PARLAMENTARES_FOLLOWED = "Parlamentares Seguidos";
 	private static final String MESSAGE_TO_SEARCH_PARLAMENTAR = "Pesquisar Parlamentar";
@@ -287,5 +287,11 @@ public class GuiMain extends Activity implements
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.options_menu, menu);
 		return true;
+	}
+
+	@Override
+	public void OnParlamentarMenorSelected() {
+		// TODO Auto-generated method stub
+		
 	}
 }
