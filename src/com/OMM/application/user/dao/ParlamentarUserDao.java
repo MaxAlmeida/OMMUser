@@ -145,6 +145,30 @@ public class ParlamentarUserDao {
 		return listParlamentares;
 	}
 
+	public List<Parlamentar> getMinor() {
+
+		sqliteDatabase = database.getReadableDatabase();
+		Cursor cursor = sqliteDatabase.rawQuery("SELECT * FROM PARLAMENTAR ORDER BY VALOR",
+				null);
+		List<Parlamentar> listParlamentares = new ArrayList<Parlamentar>();
+
+		while (cursor.moveToNext()) {
+
+			Parlamentar parlamentar = new Parlamentar();
+			parlamentar.setId(cursor.getInt(cursor
+					.getColumnIndex("ID_PARLAMENTAR")));
+			parlamentar.setNome(cursor.getString(cursor
+					.getColumnIndex("NOME_PARLAMENTAR")));
+			parlamentar.setSeguido(cursor.getInt(cursor
+					.getColumnIndex("SEGUIDO")));
+			parlamentar.setPartido(cursor.getString(cursor
+					.getColumnIndex("PARTIDO")));
+			parlamentar.setUf(cursor.getString(cursor.getColumnIndex("UF")));
+			listParlamentares.add(parlamentar);
+		}
+		sqliteDatabase.close();
+		return listParlamentares;
+	}
 	public List<Parlamentar> getSelectedByName(String nameParlamentar) {
 
 		sqliteDatabase = database.getReadableDatabase();

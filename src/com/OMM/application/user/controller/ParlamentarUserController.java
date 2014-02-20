@@ -102,7 +102,13 @@ public class ParlamentarUserController {
 		parlamentares = parlamentarDao.getAll();
 		return parlamentares;
 	}
-
+    
+	public List<Parlamentar> getMinor(){
+		
+		parlamentares = parlamentarDao.getMinor();
+		return parlamentares;
+	}
+	
 	public boolean followedParlamentar() throws NullCotaParlamentarException,
 			NullParlamentarException {
 
