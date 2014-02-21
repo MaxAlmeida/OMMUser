@@ -14,6 +14,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo.State;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.OMM.application.Updates.DataUpdate;
 import com.OMM.application.user.R;
@@ -38,10 +39,14 @@ public class SplashScreen extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.splash_screen);
-
+		
+		
+		
 		parlamentarController = ParlamentarUserController
 				.getInstance(getBaseContext());
 		isEmpty = parlamentarController.checkEmptyDB();
+		
+		
 	}
 
 	@Override
@@ -60,9 +65,11 @@ public class SplashScreen extends Activity {
 		case CONNECTIVITY_WIFI:
 			if (isEmpty) {
 				startPopulateDB();
+				startApplication();
 			}
 			else{
 				startUpdateDB();
+				
 			}
 			break;
 		default:
@@ -72,6 +79,8 @@ public class SplashScreen extends Activity {
 		if (!isEmpty) {
 			startApplication();
 		}
+		
+		
 	}
 
 	private int checkConnection() {
@@ -223,7 +232,7 @@ public class SplashScreen extends Activity {
 
 			} catch (Exception e) {
 				exception = Alerts.UNEXPECTED_FAILED_EXCEPTION;
-
+				
 			}
 			return exception;
 		}
@@ -247,6 +256,9 @@ public class SplashScreen extends Activity {
 			case Alerts.REQUEST_FAILED_EXCEPTION:
 
 				Alerts.requestFailedAlert(SplashScreen.this);
+				break;
+			case Alerts.RUNTIME_EXCEPTION:
+				Alerts.runtimeException(SplashScreen.this);
 				break;
 
 			default:
@@ -300,7 +312,10 @@ public class SplashScreen extends Activity {
 			
 			}catch (NullCotaParlamentarException ncpe){
 				exception = Alerts.NULL_COTA_PARLAMENTAR_EXCEPTION;
-			}	
+			}catch(RuntimeException e)
+			{
+				exception=Alerts.RUNTIME_EXCEPTION;
+			}
 		
 			return exception;
 		}

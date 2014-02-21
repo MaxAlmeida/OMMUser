@@ -13,8 +13,8 @@ public class UrlHostDao {
 	private LocalDatabase database;
 	private String table_name = "URL_SERVER";
 	private SQLiteDatabase sqliteDatabase;
-	private String defaultUrl = "192.168.1.64:8080/OlhaMinhaMesada";
-
+	//private String defaultUrl = "192.168.1.64:8080/OlhaMinhaMesada";
+	private String defaultUrl="env-6198716.jelastic.websolute.net.br";
 	private UrlHostDao(Context context) {
 		this.database = new LocalDatabase(context);
 	}

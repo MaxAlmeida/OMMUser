@@ -11,6 +11,7 @@ public abstract class Alerts {
 	public static final int REQUEST_FAILED_EXCEPTION = 3;
 	public static final int UNEXPECTED_FAILED_EXCEPTION = 4;
 	public static final int NULL_COTA_PARLAMENTAR_EXCEPTION = 5;
+	public static final int RUNTIME_EXCEPTION=6;
 
 	public static void conectionFailedAlert(Context context) {
 
@@ -70,6 +71,17 @@ public abstract class Alerts {
 		builder.show();
 
 		Log.i("Alerts", "Exception NullCotaParlamentar");
+	}
+	public static void runtimeException(Context context)
+	{
+		AlertDialog.Builder builder = new AlertDialog.Builder(context);
+		
+		builder.setTitle("Ops!");
+		builder.setMessage("RunTimeException");
+		builder.setNeutralButton("OK", null);
+		builder.show();
+		
+		Log.i("Alerts","Exception RuntimeException");
 	}
 
 }
