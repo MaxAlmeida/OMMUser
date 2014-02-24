@@ -1,5 +1,6 @@
 package com.OMM.application.user.view;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import android.app.Activity;
@@ -29,8 +30,8 @@ public class Activity_tests_apagar extends Activity {
 			@Override
 			public void onClick(View v) {
 				
-				LinkedList<Parlamentar> pilhaParlamentares = new LinkedList<Parlamentar>();
-				ServerUpdatesSubject subject = new ServerUpdatesSubject();
+				ArrayList<Parlamentar> pilhaParlamentares = new ArrayList<Parlamentar>();
+				ServerUpdatesSubject subject = new ServerUpdatesSubject(getBaseContext());
 				
 				
 				//{"id":7,"nome":"RAUL LIMA","partido":"PP","uf":"RR"}
@@ -54,12 +55,14 @@ public class Activity_tests_apagar extends Activity {
 				pilhaParlamentares.add(parlamentar);
 				
 				pilhaParlamentares.add(parlamentar3);
+				subject.setListParlamentares(pilhaParlamentares);
+				
 				
 				RankingParlamentarObserver observer=new RankingParlamentarObserver(subject, 
 						pilhaParlamentares, getBaseContext());
 				
-				
 				subject.notifyObservers();
+				
 				Toast.makeText(getBaseContext(), "Feito!",Toast.LENGTH_SHORT).show();
 				
 			}
@@ -70,8 +73,8 @@ public class Activity_tests_apagar extends Activity {
 			@Override
 			public void onClick(View v) {
 				
-				LinkedList<Parlamentar> pilhaParlamentares = new LinkedList<Parlamentar>();
-				ServerUpdatesSubject subject = new ServerUpdatesSubject();
+				ArrayList<Parlamentar> pilhaParlamentares = new ArrayList<Parlamentar>();
+				ServerUpdatesSubject subject = new ServerUpdatesSubject(getBaseContext());
 				
 				
 				//{"id":7,"nome":"RAUL LIMA","partido":"PP","uf":"RR"}
@@ -95,9 +98,10 @@ public class Activity_tests_apagar extends Activity {
 				pilhaParlamentares.add(parlamentar);
 				
 				pilhaParlamentares.add(parlamentar3);
+				subject.setListParlamentares(pilhaParlamentares);
 				
-				RankingParlamentarObserver observer=new RankingParlamentarObserver(subject, 
-						pilhaParlamentares, getBaseContext());
+				RankingParlamentarObserver observer=new RankingParlamentarObserver
+						(subject, pilhaParlamentares, getBaseContext());
 				
 				
 				subject.notifyObservers();

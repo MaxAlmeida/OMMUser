@@ -1,49 +1,28 @@
 package com.OMM.application.Updates;
 
-import android.content.Context;
+import java.util.List;
 
 import com.OMM.application.user.controller.UrlHostController;
+import com.OMM.application.user.model.Parlamentar;
 
-public class UrlHostMain implements ObserverUpdates {
+
+public class UrlHostMain implements ObserverUpdatesParlamentar {
 
 	private GetServerUpdates serverUpdatesUrl;
 	private UrlHostController serverListener;
-	
-
-	public UrlHostMain(GetServerUpdates serverUpdates,Context context)
-	{
-		this.setServerUpdatesUrl(serverUpdates);
-		serverUpdates.registerObserver(this);
-		
-		this.setServerListener(UrlHostController.getInstance(context));
-	}
-
-
 	@Override
-	public void update() {
+	public void update(List<Parlamentar> list) {
 		// TODO Auto-generated method stub
 		
 	}
+	
+
+	
 
 
-	public GetServerUpdates getServerUpdatesUrl() {
-		return serverUpdatesUrl;
-	}
 
 
-	public void setServerUpdatesUrl(GetServerUpdates serverUpdatesUrl) {
-		this.serverUpdatesUrl = serverUpdatesUrl;
-	}
-
-
-	public UrlHostController getServerListener() {
-		return serverListener;
-	}
-
-
-	public void setServerListener(UrlHostController serverListener) {
-		this.serverListener = serverListener;
-	}
+	
 	
 	
 	

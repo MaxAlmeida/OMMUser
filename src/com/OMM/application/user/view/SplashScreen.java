@@ -14,9 +14,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo.State;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.widget.Toast;
 
-import com.OMM.application.Updates.DataUpdate;
+import com.OMM.application.Updates.*;
 import com.OMM.application.user.R;
 import com.OMM.application.user.controller.ParlamentarUserController;
 import com.OMM.application.user.exceptions.ConnectionFailedException;
@@ -275,6 +274,7 @@ public class SplashScreen extends Activity {
 
 	public class UpdateDBTask extends AsyncTask<Object, Void, Integer> {
 		DataUpdate dataUpdate;
+		ServerUpdatesSubject subject;
 		ProgressDialog progressDialog;
 		Integer exception = Alerts.NO_EXCEPTIONS;
 		ResponseHandler<String> responseHandlerVerify;
@@ -292,6 +292,8 @@ public class SplashScreen extends Activity {
 		@Override
 		protected Integer doInBackground(Object... params) {
 
+			subject=new ServerUpdatesSubject(SplashScreen.this);
+			
 			dataUpdate = new DataUpdate(SplashScreen.this);
 			responseHandlerVerify = (ResponseHandler<String>) params[0];
 			try {

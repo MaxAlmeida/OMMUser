@@ -1,9 +1,13 @@
 package com.OMM.application.Updates;
 
 public interface GetServerUpdates {
-	
-	public void registerObserver(ObserverUpdates o);
-	public void removeObserver(ObserverUpdates o);
+	//TODO 
+	/*
+	 * mudar assinatura dos metodos para 
+	 * outros observadores serem reconhecidos
+	 */
+	public void registerObserver(ObserverUpdatesParlamentar parlamentar,ObserverUpDatesCotas cotas);
+	public void removeObserver(ObserverUpdatesParlamentar parlamentar,ObserverUpDatesCotas cotas);
 	public void notifyObservers();
 
 }

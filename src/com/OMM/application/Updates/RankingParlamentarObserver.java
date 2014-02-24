@@ -1,35 +1,38 @@
 package com.OMM.application.Updates;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 import android.content.Context;
 
 import com.OMM.application.user.controller.ParlamentarUserController;
 import com.OMM.application.user.model.Parlamentar;
 
-public class RankingParlamentarObserver implements ObserverUpdates{
+public class RankingParlamentarObserver implements ObserverUpdatesParlamentar{
 
 	private ParlamentarUserController parlamentarController;
-	private LinkedList<Parlamentar> pilhaParlamentares;
+	private ArrayList<Parlamentar> pilhaParlamentares;
+
 	
 	public RankingParlamentarObserver(
 			GetServerUpdates s,
-			LinkedList<Parlamentar> pilhaParlamentares,
+			ArrayList<Parlamentar> pilhaParlamentares,
 			Context context)
 	{	
 		this.pilhaParlamentares=pilhaParlamentares;
-		s.registerObserver(this);
+		s.registerObserver(this,null);
 		parlamentarController = ParlamentarUserController.getInstance(context);
 		
 	}
 	
 	@Override
-	public void update()
+	public void update(List<Parlamentar> list)
 	{
-		while(!pilhaParlamentares.isEmpty())
+		while(!list.isEmpty())
 		{
-		   parlamentarController.updateParlamentar(pilhaParlamentares.getLast());
-		   pilhaParlamentares.removeLast();
+		   parlamentarController.updateParlamentar(pilhaParlamentares.get(0));
+		   list.remove(0);
 		}
 		
 	}
