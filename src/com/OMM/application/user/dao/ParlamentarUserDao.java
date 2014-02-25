@@ -164,6 +164,7 @@ public class ParlamentarUserDao {
 			parlamentar.setPartido(cursor.getString(cursor
 					.getColumnIndex("PARTIDO")));
 			parlamentar.setUf(cursor.getString(cursor.getColumnIndex("UF")));
+			parlamentar.setValor(cursor.getDouble(cursor.getColumnIndex("VALOR")));
 			listParlamentares.add(parlamentar);
 		}
 		sqliteDatabase.close();
