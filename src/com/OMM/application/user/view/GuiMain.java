@@ -292,6 +292,14 @@ public class GuiMain extends Activity implements
 	@Override
 	public void OnParlamentarMenorSelected() {
 		// TODO Auto-generated method stub
+ParlamentarDetailFragment detailFragment = new ParlamentarDetailFragment();
 		
+		// Replaces the details according to the orientation of cell phone
+		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+			updateFragment(R.id.fragment_container, detailFragment);
+
+		} else {
+			updateFragment(R.id.detail_fragment_container, detailFragment);
+		}
 	}
 }
