@@ -6,7 +6,17 @@ public class Parlamentar {
 
 	private int id;
 
+	private int ranking;
+	
 	private String nome;
+
+	public int getRanking() {
+		return ranking;
+	}
+
+	public void setRanking(int ranking) {
+		this.ranking = ranking;
+	}
 
 	private String partido;
 
@@ -77,8 +87,8 @@ public class Parlamentar {
 		return valor;
 	}
 
-	public void setValor(double valor) {
-		this.valor = valor;
+	public void setValor(double string) {
+		this.valor = string;
 	}
 
 	public List<CotaParlamentar> getCotas() {

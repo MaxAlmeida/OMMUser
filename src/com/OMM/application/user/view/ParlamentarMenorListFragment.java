@@ -3,18 +3,15 @@ package com.OMM.application.user.view;
 import java.util.List;
 
 import com.OMM.application.user.R;
-import com.OMM.application.user.adapters.ParlamentarRankingAdapter;
+import com.OMM.application.user.adapters.ParlamentarMinorAdapter;
 import com.OMM.application.user.controller.ParlamentarUserController;
 import com.OMM.application.user.model.Parlamentar;
-
-import com.OMM.application.user.view.ParlamentarSeguidoListFragment.OnParlamentarSeguidoSelectedListener;
 
 import android.app.Activity;
 import android.app.ListFragment;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -40,7 +37,7 @@ public class ParlamentarMenorListFragment extends ListFragment {
 				.getInstance(getActivity());
 		List<Parlamentar> list = parlamentarController.getMinor();
 		setHasOptionsMenu(true);
-		ParlamentarRankingAdapter adapter = new ParlamentarRankingAdapter(
+		ParlamentarMinorAdapter adapter = new ParlamentarMinorAdapter(
 				getActivity(), R.layout.fragment_ranking, list);
 
 		setListAdapter(adapter);
@@ -95,12 +92,6 @@ public class ParlamentarMenorListFragment extends ListFragment {
 		protected void onPostExecute(Void result) {
 			fragment.setListContent(parlamentarController.getParlamentares());
 		}
-	}
-
-	private ParlamentarMenorListFragment fragment;
-
-	private void setFragment(ParlamentarMenorListFragment fragment) {
-		this.fragment = fragment;
 	}
 
 	private void updateListContent(String inputText) {

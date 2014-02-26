@@ -166,6 +166,8 @@ public class ParlamentarUserDao {
 			parlamentar.setUf(cursor.getString(cursor.getColumnIndex("UF")));
 			parlamentar.setValor(cursor.getDouble(cursor
 					.getColumnIndex("VALOR")));
+			parlamentar.setRanking(cursor.getInt(cursor
+					.getColumnIndex("RANKING_POS")));
 			listParlamentares.add(parlamentar);
 		}
 		sqliteDatabase.close();
@@ -195,6 +197,8 @@ public class ParlamentarUserDao {
 			parlamentar.setUf(cursor.getString(cursor.getColumnIndex("UF")));
 			parlamentar.setValor(cursor.getDouble(cursor
 					.getColumnIndex("VALOR")));
+			parlamentar.setRanking(cursor.getInt(cursor
+					.getColumnIndex("RANKING_POS")));
 			listParlamentar.add(parlamentar);
 		}
 		sqliteDatabase.close();
