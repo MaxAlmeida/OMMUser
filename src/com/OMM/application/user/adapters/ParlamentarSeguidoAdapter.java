@@ -59,7 +59,8 @@ public class ParlamentarSeguidoAdapter extends BaseAdapter {
 		if (parlamentar.getIsSeguido() == 1) {
 			ImageView imageView = (ImageView) view
 					.findViewById(R.id.parlamentarlistfragment_img_arte);
-			imageView.setImageResource(R.drawable.parlamentar_seguido_foto_mini);
+			imageView
+					.setImageResource(R.drawable.parlamentar_seguido_foto_mini);
 			checkBox.setChecked(true);
 		}
 		checkBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -81,12 +82,12 @@ public class ParlamentarSeguidoAdapter extends BaseAdapter {
 						parlamentar = controller.getParlamentar();
 						view.animate().alpha(0.0f);
 						removeItem((Integer) checkBox.getTag());
-						
+
 					} catch (NullParlamentarException e) {
-						Alerts.parlamentarFailedAlert(context);
+						Alerts.parlamentarFailedAlert(context, null);
 						e.printStackTrace();
 					} catch (NullCotaParlamentarException e) {
-						Alerts.cotaParlamentarFailedAlert(context);
+						Alerts.cotaParlamentarFailedAlert(context, null);
 						e.printStackTrace();
 					}
 				}
@@ -120,12 +121,12 @@ public class ParlamentarSeguidoAdapter extends BaseAdapter {
 			parlamentares.add(i.next());
 		}
 	}
-	
-	public void removeItem(int position){
+
+	public void removeItem(int position) {
 		parlamentares.remove(position);
 		notifyDataSetChanged();
 	}
-	
+
 	private class RequestTask extends AsyncTask<Object, Void, Integer> {
 
 		ProgressDialog progressDialog;
@@ -160,8 +161,8 @@ public class ParlamentarSeguidoAdapter extends BaseAdapter {
 			} catch (NullCotaParlamentarException ncpe) {
 				result = Alerts.NULL_COTA_PARLAMENTAR_EXCEPTION;
 
-			} catch (Exception e) {
-				result = Alerts.UNEXPECTED_FAILED_EXCEPTION;
+				// } catch (Exception e) {
+				// result = Alerts.UNEXPECTED_FAILED_EXCEPTION;
 
 			}
 			return result;
@@ -177,10 +178,10 @@ public class ParlamentarSeguidoAdapter extends BaseAdapter {
 				try {
 					controller.followedParlamentar();
 				} catch (NullCotaParlamentarException e) {
-					Alerts.cotaParlamentarFailedAlert(context);
+					Alerts.cotaParlamentarFailedAlert(context, null);
 
 				} catch (NullParlamentarException e) {
-					Alerts.parlamentarFailedAlert(context);
+					Alerts.parlamentarFailedAlert(context, null);
 
 				}
 				Toast.makeText(context, "Seguido!", Toast.LENGTH_SHORT).show();
@@ -188,28 +189,28 @@ public class ParlamentarSeguidoAdapter extends BaseAdapter {
 
 			case Alerts.CONNECTION_FAILED_EXCEPTION:
 
-				Alerts.conectionFailedAlert(context);
+				Alerts.conectionFailedAlert(context, null);
 				break;
 
 			case Alerts.NULL_PARLAMENTAR_EXCEPTION:
 
-				Alerts.parlamentarFailedAlert(context);
+				Alerts.parlamentarFailedAlert(context, null);
 				break;
 
 			case Alerts.NULL_COTA_PARLAMENTAR_EXCEPTION:
 
-				Alerts.cotaParlamentarFailedAlert(context);
+				Alerts.cotaParlamentarFailedAlert(context, null);
 				break;
 
 			case Alerts.REQUEST_FAILED_EXCEPTION:
 
-				Alerts.requestFailedAlert(context);
+				Alerts.requestFailedAlert(context, null);
 				break;
 
-			case Alerts.UNEXPECTED_FAILED_EXCEPTION:
-
-				Alerts.unexpectedFailedAlert(context);
-				break;
+			// case Alerts.UNEXPECTED_FAILED_EXCEPTION:
+			//
+			// Alerts.unexpectedFailedAlert(context);
+			// break;
 
 			default:
 				// Nothing should be done

@@ -229,28 +229,28 @@ public class ParlamentarListFragment extends ListFragment {
 
 			case Alerts.CONNECTION_FAILED_EXCEPTION:
 
-				Alerts.conectionFailedAlert(getActivity());
+				Alerts.conectionFailedAlert(getActivity(), null);
 				break;
 
 			case Alerts.NULL_PARLAMENTAR_EXCEPTION:
 
-				Alerts.parlamentarFailedAlert(getActivity());
+				Alerts.parlamentarFailedAlert(getActivity(), null);
 				break;
 
 			case Alerts.NULL_COTA_PARLAMENTAR_EXCEPTION:
 
-				Alerts.cotaParlamentarFailedAlert(getActivity());
+				Alerts.cotaParlamentarFailedAlert(getActivity(), null);
 				break;
 
 			case Alerts.REQUEST_FAILED_EXCEPTION:
 
-				Alerts.requestFailedAlert(getActivity());
+				Alerts.requestFailedAlert(getActivity(), null);
 				break;
 
-			case Alerts.UNEXPECTED_FAILED_EXCEPTION:
-
-				Alerts.unexpectedFailedAlert(getActivity());
-				break;
+			// case Alerts.UNEXPECTED_FAILED_EXCEPTION:
+			//
+			// Alerts.unexpectedFailedAlert(getActivity(), null);
+			// break;
 
 			default:
 				// Nothing should be done
@@ -274,4 +274,5 @@ public class ParlamentarListFragment extends ListFragment {
 		inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus()
 				.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 	}
+	
 }

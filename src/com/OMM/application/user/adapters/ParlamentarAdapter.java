@@ -84,10 +84,10 @@ public class ParlamentarAdapter extends BaseAdapter {
 						parlamentar = controller.getParlamentar();
 						notifyDataSetChanged();
 					} catch (NullParlamentarException e) {
-						Alerts.parlamentarFailedAlert(context);
+						Alerts.parlamentarFailedAlert(context, null);
 						e.printStackTrace();
 					} catch (NullCotaParlamentarException e) {
-						Alerts.cotaParlamentarFailedAlert(context);
+						Alerts.cotaParlamentarFailedAlert(context, null);
 						e.printStackTrace();
 					}
 				}
@@ -161,8 +161,8 @@ public class ParlamentarAdapter extends BaseAdapter {
 			} catch (NullCotaParlamentarException ncpe) {
 				result = Alerts.NULL_COTA_PARLAMENTAR_EXCEPTION;
 
-			} catch (Exception e) {
-				result = Alerts.UNEXPECTED_FAILED_EXCEPTION;
+				// } catch (Exception e) {
+				// result = Alerts.UNEXPECTED_FAILED_EXCEPTION;
 
 			}
 			return result;
@@ -178,10 +178,10 @@ public class ParlamentarAdapter extends BaseAdapter {
 				try {
 					controller.followedParlamentar();
 				} catch (NullCotaParlamentarException e) {
-					Alerts.cotaParlamentarFailedAlert(context);
+					Alerts.cotaParlamentarFailedAlert(context, null);
 
 				} catch (NullParlamentarException e) {
-					Alerts.parlamentarFailedAlert(context);
+					Alerts.parlamentarFailedAlert(context, null);
 
 				}
 				Toast.makeText(context, "Seguido!", Toast.LENGTH_SHORT).show();
@@ -189,28 +189,28 @@ public class ParlamentarAdapter extends BaseAdapter {
 
 			case Alerts.CONNECTION_FAILED_EXCEPTION:
 
-				Alerts.conectionFailedAlert(context);
+				Alerts.conectionFailedAlert(context, null);
 				break;
 
 			case Alerts.NULL_PARLAMENTAR_EXCEPTION:
 
-				Alerts.parlamentarFailedAlert(context);
+				Alerts.parlamentarFailedAlert(context, null);
 				break;
 
 			case Alerts.NULL_COTA_PARLAMENTAR_EXCEPTION:
 
-				Alerts.cotaParlamentarFailedAlert(context);
+				Alerts.cotaParlamentarFailedAlert(context, null);
 				break;
 
 			case Alerts.REQUEST_FAILED_EXCEPTION:
 
-				Alerts.requestFailedAlert(context);
+				Alerts.requestFailedAlert(context, null);
 				break;
 
-			case Alerts.UNEXPECTED_FAILED_EXCEPTION:
-
-				Alerts.unexpectedFailedAlert(context);
-				break;
+			// case Alerts.UNEXPECTED_FAILED_EXCEPTION:
+			//
+			// Alerts.unexpectedFailedAlert(context);
+			// break;
 
 			default:
 				// Nothing should be done

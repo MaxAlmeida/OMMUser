@@ -23,6 +23,7 @@ import com.OMM.application.user.exceptions.NullCotaParlamentarException;
 import com.OMM.application.user.exceptions.NullParlamentarException;
 import com.OMM.application.user.exceptions.RequestFailedException;
 import com.OMM.application.user.requests.HttpConnection;
+
 @SuppressWarnings("unchecked")
 public class SplashScreen extends Activity {
 
@@ -38,14 +39,11 @@ public class SplashScreen extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.splash_screen);
-		
-		
-		
+
 		parlamentarController = ParlamentarUserController
 				.getInstance(getBaseContext());
 		isEmpty = parlamentarController.checkEmptyDB();
-		
-		
+
 	}
 
 	@Override
@@ -64,11 +62,8 @@ public class SplashScreen extends Activity {
 		case CONNECTIVITY_WIFI:
 			if (isEmpty) {
 				startPopulateDB();
-				startApplication();
-			}
-			else{
+			} else {
 				startUpdateDB();
-				
 			}
 			break;
 		default:
@@ -78,8 +73,7 @@ public class SplashScreen extends Activity {
 		if (!isEmpty) {
 			startApplication();
 		}
-		
-		
+
 	}
 
 	private int checkConnection() {
@@ -121,7 +115,6 @@ public class SplashScreen extends Activity {
 		task.execute(responseHandler);
 	}
 
-	// =============================================================================================================
 	private class InitBy3G extends AsyncTask<Object, Void, Boolean> {
 
 		@Override
@@ -229,9 +222,9 @@ public class SplashScreen extends Activity {
 			} catch (RequestFailedException rfe) {
 				exception = Alerts.REQUEST_FAILED_EXCEPTION;
 
-			} catch (Exception e) {
-				exception = Alerts.UNEXPECTED_FAILED_EXCEPTION;
-				
+				// } catch (Exception e) {
+				// exception = Alerts.UNEXPECTED_FAILED_EXCEPTION;
+				//
 			}
 			return exception;
 		}
@@ -244,35 +237,32 @@ public class SplashScreen extends Activity {
 
 			case Alerts.CONNECTION_FAILED_EXCEPTION:
 
-				Alerts.conectionFailedAlert(SplashScreen.this);
+				Alerts.conectionFailedAlert(SplashScreen.this, positiveListener);
 				break;
 
 			case Alerts.NULL_PARLAMENTAR_EXCEPTION:
 
-				Alerts.parlamentarFailedAlert(SplashScreen.this);
+				Alerts.parlamentarFailedAlert(SplashScreen.this, positiveListener);
 				break;
 
 			case Alerts.REQUEST_FAILED_EXCEPTION:
 
-				Alerts.requestFailedAlert(SplashScreen.this);
+				Alerts.requestFailedAlert(SplashScreen.this, positiveListener);
 				break;
 			case Alerts.RUNTIME_EXCEPTION:
-				Alerts.runtimeException(SplashScreen.this);
+				Alerts.runtimeException(SplashScreen.this, positiveListener);
 				break;
 
 			default:
 
-				Alerts.unexpectedFailedAlert(SplashScreen.this);
+				Alerts.unexpectedFailedAlert(SplashScreen.this, positiveListener);
 				break;
 			}
 
-			// Intent myAction = new Intent(SplashScreen.this, GuiMain.class);
-			// SplashScreen.this.startActivity(myAction);
-			// SplashScreen.this.finish();
 		}
 	}
 
-	public class UpdateDBTask extends AsyncTask<Object, Void, Integer> {
+	private class UpdateDBTask extends AsyncTask<Object, Void, Integer> {
 		DataUpdate dataUpdate;
 		ServerUpdatesSubject subject;
 		ProgressDialog progressDialog;
@@ -280,47 +270,46 @@ public class SplashScreen extends Activity {
 		ResponseHandler<String> responseHandlerVerify;
 		ResponseHandler<String> responseHandlerCota;
 		ResponseHandler<String> responseHandlerParlamentar;
-		
-		
+
 		@Override
 		protected void onPreExecute() {
 			progressDialog = ProgressDialog.show(SplashScreen.this,
-					"Atualizando Dados...",
-					"Isso pode demorar alguns minutos");
+					"Atualizando Dados...", "Isso pode demorar alguns minutos");
 		}
 
 		@Override
 		protected Integer doInBackground(Object... params) {
 
-			subject=new ServerUpdatesSubject(SplashScreen.this);
-			
+			subject = new ServerUpdatesSubject(SplashScreen.this);
+
 			dataUpdate = new DataUpdate(SplashScreen.this);
 			responseHandlerVerify = (ResponseHandler<String>) params[0];
 			try {
-				needsUpdate = dataUpdate.doRequestUpdateVerify(responseHandlerVerify);
-				if(needsUpdate){
+				needsUpdate = dataUpdate
+						.doRequestUpdateVerify(responseHandlerVerify);
+				if (needsUpdate) {
 					dataUpdate.doRequestParlamentar(responseHandlerParlamentar);
 					dataUpdate.doRequestCota(responseHandlerCota);
 				}
-			
-			}  catch (ConnectionFailedException cfe) {
+
+			} catch (ConnectionFailedException cfe) {
 				exception = Alerts.CONNECTION_FAILED_EXCEPTION;
 
 			} catch (RequestFailedException rfe) {
 				exception = Alerts.REQUEST_FAILED_EXCEPTION;
 
-			} catch(NullParlamentarException npe){
+			} catch (NullParlamentarException npe) {
 				exception = Alerts.NULL_PARLAMENTAR_EXCEPTION;
-			
-			}catch (NullCotaParlamentarException ncpe){
+
+			} catch (NullCotaParlamentarException ncpe) {
 				exception = Alerts.NULL_COTA_PARLAMENTAR_EXCEPTION;
-			}catch(RuntimeException e)
-			{
-				exception=Alerts.RUNTIME_EXCEPTION;
+			} catch (RuntimeException e) {
+				exception = Alerts.RUNTIME_EXCEPTION;
 			}
-		
+
 			return exception;
 		}
+
 		protected void onPostExecute(Integer result) {
 
 			progressDialog.dismiss();
@@ -329,28 +318,34 @@ public class SplashScreen extends Activity {
 
 			case Alerts.CONNECTION_FAILED_EXCEPTION:
 
-				Alerts.conectionFailedAlert(SplashScreen.this);
+				Alerts.conectionFailedAlert(SplashScreen.this,positiveListener);
 				break;
 
 			case Alerts.NULL_PARLAMENTAR_EXCEPTION:
 
-				Alerts.parlamentarFailedAlert(SplashScreen.this);
+				Alerts.parlamentarFailedAlert(SplashScreen.this,positiveListener);
 				break;
 
 			case Alerts.REQUEST_FAILED_EXCEPTION:
 
-				Alerts.requestFailedAlert(SplashScreen.this);
+				Alerts.requestFailedAlert(SplashScreen.this,positiveListener);
 				break;
 
 			default:
 
-				Alerts.unexpectedFailedAlert(SplashScreen.this);
+				Alerts.unexpectedFailedAlert(SplashScreen.this,positiveListener);
 				break;
 			}
 
-			// Intent myAction = new Intent(SplashScreen.this, GuiMain.class);
-			// SplashScreen.this.startActivity(myAction);
-			// SplashScreen.this.finish();
 		}
 	}
+
+	OnClickListener positiveListener = new OnClickListener() {
+
+		@Override
+		public void onClick(DialogInterface dialog, int which) {
+			startApplication();
+		}
+	};
+
 }
