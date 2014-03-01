@@ -170,15 +170,21 @@ public class ParlamentarUserController {
 			NullCotaParlamentarException {
 		boolean result = true;
 		
-		if (parlamentar != null && parlamentar.getCotas() != null) {
-			parlamentar.setCotas(ceapController.getCotasByIdParlamentar(parlamentar
-					.getId()));
+		parlamentar.setCotas(ceapController.getCotasByIdParlamentar(parlamentar
+ 				.getId()));
+		
+		if (parlamentar != null && parlamentar.getCotas() != null)
+		{
+ 			
+ 			
 			parlamentar.setSeguido(0);
 			CotaParlamentarUserController controllerCeap = CotaParlamentarUserController
 					.getInstance(context);
 
 			result = controllerCeap.deleteCota(parlamentar.getId())
 					&& parlamentarDao.setSeguidoParlamentar(parlamentar);
+			
+			
 			return result;
 
 		} else if (parlamentar == null) {

@@ -54,6 +54,7 @@ public class ParlamentarSeguidoAdapter extends BaseAdapter {
 		TextView textView = (TextView) view
 				.findViewById(R.id.parlamentarlistfragment_txt_nome);
 		textView.setText(parlamentar.getNome());
+		
 		final CheckBox checkBox = (CheckBox) view.findViewById(R.id.checkbox);
 		checkBox.setTag(position);
 		if (parlamentar.getIsSeguido() == 1) {
@@ -68,9 +69,15 @@ public class ParlamentarSeguidoAdapter extends BaseAdapter {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView,
 					boolean isChecked) {
+				
 				controller = ParlamentarUserController.getInstance(context);
 				parlamentar = parlamentares.get((Integer) checkBox.getTag());
 				controller.setParlamentar(parlamentar);
+				
+
+				//TODO apagar isso
+				String debug="";
+				
 				if (isChecked) {
 					ResponseHandler<String> responseHandler = HttpConnection
 							.getResponseHandler();
@@ -78,16 +85,31 @@ public class ParlamentarSeguidoAdapter extends BaseAdapter {
 					task.execute(responseHandler);
 				} else {
 					try {
-						controller.unFollowedParlamentar();
+						
 						parlamentar = controller.getParlamentar();
+						controller.unFollowedParlamentar();
 						view.animate().alpha(0.0f);
 						removeItem((Integer) checkBox.getTag());
+						
+						
+						
 
 					} catch (NullParlamentarException e) {
-						Alerts.parlamentarFailedAlert(context, null);
+						//Alerts.parlamentarFailedAlert(context, null);
+						debug="\nNullParlamentar\n=="+this.getClass().getName()+"==\n"+
+								  "\ncontroller:"+controller.getParlamentar()+
+								  "\nparlamentar:"+parlamentar.getNome()+"["+parlamentar.getId()+"]";
+								  
+						Alerts.debugdAlert(context, null, debug);
 						e.printStackTrace();
 					} catch (NullCotaParlamentarException e) {
-						Alerts.cotaParlamentarFailedAlert(context, null);
+					//	Alerts.cotaParlamentarFailedAlert(context, null);
+						debug="\nNullCota\n=="+this.getClass().getName()+"==\n"+
+								  "\ncontroller:"+controller.getParlamentar()+
+								   "\nparlamentar:"+parlamentar.getNome()+"["+parlamentar.getId()+"]";
+								//  "\nCota:"+parlamentar.getCotas().get(0);
+						
+						Alerts.debugdAlert(context, null, debug);
 						e.printStackTrace();
 					}
 				}

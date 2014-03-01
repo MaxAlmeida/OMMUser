@@ -91,5 +91,19 @@ public abstract class Alerts {
 
 		Log.i("Alerts", "Exception RuntimeException");
 	}
+	
+	//TODO apagar 
+	public static void debugdAlert(Context context,
+			OnClickListener positivelistener,String debug) {
+
+		AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+		builder.setTitle("Debug Alert");
+		builder.setMessage("Debug:"+debug);
+		builder.setNeutralButton("OK", positivelistener);
+		builder.show();
+
+		Log.i("Alerts", "Exception NullParlamentarException.");
+	}
 
 }

@@ -70,6 +70,7 @@ public class ParlamentarAdapter extends BaseAdapter {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView,
 					boolean isChecked) {
+				String debug="";
 				controller = ParlamentarUserController.getInstance(context);
 				parlamentar = parlamentares.get((Integer) checkBox.getTag());
 				controller.setParlamentar(parlamentar);
@@ -83,11 +84,17 @@ public class ParlamentarAdapter extends BaseAdapter {
 						controller.unFollowedParlamentar();
 						parlamentar = controller.getParlamentar();
 						notifyDataSetChanged();
+						debug="controller:"+controller.getClass().getName()+"/n"+
+							  "parlamentar:"+parlamentar.getClass().getName()+"/n"+
+							  "controllerParlamentar:"+controller.getParlamentar().getClass().getName()+"/n" ;
+						
 					} catch (NullParlamentarException e) {
-						Alerts.parlamentarFailedAlert(context, null);
+						Alerts.debugdAlert(context, null,"parlamentar/n"+debug );
+					//	Alerts.parlamentarFailedAlert(context, null);
 						e.printStackTrace();
 					} catch (NullCotaParlamentarException e) {
-						Alerts.cotaParlamentarFailedAlert(context, null);
+					//	Alerts.cotaParlamentarFailedAlert(context, null);
+						Alerts.debugdAlert(context, null,"cotas/n"+debug );
 						e.printStackTrace();
 					}
 				}
