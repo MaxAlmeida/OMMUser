@@ -10,7 +10,6 @@ import android.test.AndroidTestCase;
 
 import com.OMM.application.user.dao.ParlamentarUserDao;
 import com.OMM.application.user.exceptions.NullParlamentarException;
-import com.OMM.application.user.model.CotaParlamentar;
 import com.OMM.application.user.model.Parlamentar;
 
 public class ParlamentarUserDaoTest extends AndroidTestCase {

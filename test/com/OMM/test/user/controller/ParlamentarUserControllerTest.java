@@ -202,6 +202,8 @@ public class ParlamentarUserControllerTest extends AndroidTestCase {
 
 		try {
 			controller.setParlamentar(parlamentar);
+			
+			@SuppressWarnings("unused")
 			Parlamentar pJson = controller.doRequest(null);
 
 			fail("Exception not launched");
