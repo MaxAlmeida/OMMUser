@@ -13,12 +13,12 @@ import android.widget.TextView;
 import com.OMM.application.user.R;
 import com.OMM.application.user.model.Parlamentar;
 
-public class ParlamentarRankingAdapter extends ArrayAdapter<Parlamentar> {
+public class MajorRankingAdapter extends ArrayAdapter<Parlamentar> {
 
 	private Context context;
 	private List<Parlamentar> parlamentares;
 
-	public ParlamentarRankingAdapter(Context context, int textViewResourceId,
+	public MajorRankingAdapter(Context context, int textViewResourceId,
 			List<Parlamentar> parlamentares) {
 		super(context, textViewResourceId, parlamentares);
 

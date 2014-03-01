@@ -21,7 +21,7 @@ import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 
 import com.OMM.application.user.R;
-import com.OMM.application.user.adapters.ParlamentarRankingAdapter;
+import com.OMM.application.user.adapters.MajorRankingAdapter;
 import com.OMM.application.user.controller.ParlamentarUserController;
 import com.OMM.application.user.exceptions.ConnectionFailedException;
 import com.OMM.application.user.exceptions.NullCotaParlamentarException;
@@ -46,7 +46,7 @@ public class MajorRankingListFragment extends ListFragment {
 
 		super.onCreate(savedInstanceState);
 
-		ParlamentarRankingAdapter adapter = new ParlamentarRankingAdapter(
+		MajorRankingAdapter adapter = new MajorRankingAdapter(
 				getActivity(), R.layout.fragment_ranking,
 				controllerParlamentar.getParlamentares());
 
