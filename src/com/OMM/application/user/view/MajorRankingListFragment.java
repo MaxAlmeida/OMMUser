@@ -7,9 +7,11 @@ import org.apache.http.client.ResponseHandler;
 import android.app.Activity;
 import android.app.ListFragment;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -103,6 +105,8 @@ public class MajorRankingListFragment extends ListFragment {
 			// IllegalStateException
 		}
 	}
+	
+	
 	
 	private String filter(String source, int start, int end) {
 
@@ -315,5 +319,13 @@ public class MajorRankingListFragment extends ListFragment {
 
 		RequestTask task = new RequestTask();
 		task.execute(responseHandler);
+	}
+	
+	private void hideKeyboard() {
+		InputMethodManager inputManager = (InputMethodManager) getActivity()
+				.getSystemService(Context.INPUT_METHOD_SERVICE);
+		
+		inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus()
+				.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 	}
 }
