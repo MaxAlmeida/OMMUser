@@ -104,6 +104,21 @@ public class MajorRankingListFragment extends ListFragment {
 		}
 	}
 	
+	private String filter(String source, int start, int end) {
+
+		StringBuilder sb = new StringBuilder(end - start);
+		for (int i = start; i < end; i++) {
+			char c = source.charAt(i);
+			if (isCharAllowed(c)) // put your condition here
+				sb.append(c);
+			else {
+				// do nothing here.
+			}
+		}
+		String sp = new String(sb);
+		return sp;
+	}
+	
 	private boolean isCharAllowed(char c) {
 		return Character.isLetterOrDigit(c) || Character.isSpaceChar(c);
 	}
