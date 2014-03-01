@@ -10,10 +10,15 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SearchView;
+import android.widget.SearchView.OnQueryTextListener;
 
 import com.OMM.application.user.R;
 import com.OMM.application.user.adapters.ParlamentarRankingAdapter;
@@ -106,7 +111,35 @@ public class MajorRankingListFragment extends ListFragment {
 		}
 	}
 	
-	
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+		super.onCreateOptionsMenu(menu, inflater);
+		menu.clear();
+		MenuItem search = menu.add("Pesquisa");
+		final SearchView sv = new SearchView(getActivity());
+		search.setActionView(sv);
+		search.setIcon(R.drawable.ic_search);
+		search.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		sv.setOnQueryTextListener(new OnQueryTextListener() {
+
+			@Override
+			public boolean onQueryTextSubmit(String query) {
+				query = filter(query, 0, query.length());
+				updateListContent(query);
+				hideKeyboard();
+				return true;
+			}
+
+			@Override
+			public boolean onQueryTextChange(String query) {
+				query = filter(query, 0, query.length());
+				updateListContent(query);
+
+				return false;
+			}
+		});
+	}
 	
 	private String filter(String source, int start, int end) {
 
