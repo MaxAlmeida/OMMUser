@@ -1,5 +1,7 @@
 package com.OMM.application.user.view;
 
+import java.util.List;
+
 import org.apache.http.client.ResponseHandler;
 
 import android.app.Activity;
@@ -25,6 +27,7 @@ public class MajorRankingListFragment extends ListFragment {
 
 	private OnParlamentarRankingSelectedListener listener;
 	private static ParlamentarUserController controllerParlamentar;
+	private ParseTask parseTask = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -32,6 +35,7 @@ public class MajorRankingListFragment extends ListFragment {
 				.getInstance(getActivity());
 
 		startRankingRequest();
+		setHasOptionsMenu(true);
 
 		super.onCreate(savedInstanceState);
 
@@ -48,8 +52,41 @@ public class MajorRankingListFragment extends ListFragment {
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		controllerParlamentar.setParlamentar((Parlamentar) getListAdapter()
 				.getItem(position));
+		
 		updateDetail();
 
+	}
+
+	private static class ParseTask extends AsyncTask<String, Void, Void> {
+
+		private MajorRankingListFragment fragment;
+
+		private void setFragment(MajorRankingListFragment fragment) {
+			this.fragment = fragment;
+		}
+
+		@Override
+		protected Void doInBackground(String... params) {
+			controllerParlamentar.getByName(params[0]);
+			
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+			fragment.setListContent(controllerParlamentar.getParlamentares());
+		}
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	private void setListContent(List result) {
+		ArrayAdapter listAdapter = (ArrayAdapter) getListAdapter();
+		
+		listAdapter.clear();
+		listAdapter.addAll(result);
+		
+		parseTask.setFragment(null);
+		parseTask = null;
 	}
 
 	public interface OnParlamentarRankingSelectedListener {
@@ -61,6 +98,7 @@ public class MajorRankingListFragment extends ListFragment {
 		super.onAttach(activity);
 		if (activity instanceof OnParlamentarRankingSelectedListener) {
 			listener = (OnParlamentarRankingSelectedListener) activity;
+			
 		} else {
 			throw new ClassCastException(
 					activity.toString()
@@ -85,10 +123,12 @@ public class MajorRankingListFragment extends ListFragment {
 		protected Integer doInBackground(Object... params) {
 
 			Integer exception = Alerts.NO_EXCEPTIONS;
+			
 			@SuppressWarnings("unchecked")
 			ResponseHandler<String> rh = (ResponseHandler<String>) params[0];
 			try {
 				controllerParlamentar.doRequestMajorRanking(rh);
+				
 			} catch (ConnectionFailedException cfe) {
 				exception = Alerts.CONNECTION_FAILED_EXCEPTION;
 
@@ -134,10 +174,10 @@ public class MajorRankingListFragment extends ListFragment {
 
 			default:
 				ArrayAdapter listAdapter = (ArrayAdapter) getListAdapter();
+				
 				listAdapter.clear();
 				listAdapter.addAll(controllerParlamentar.getParlamentares());
 			}
-
 		}
 	}
 
@@ -145,6 +185,7 @@ public class MajorRankingListFragment extends ListFragment {
 
 		ResponseHandler<String> responseHandler = HttpConnection
 				.getResponseHandler();
+		
 		RankingRequestTask task = new RankingRequestTask();
 		task.execute(responseHandler);
 	}
@@ -171,6 +212,7 @@ public class MajorRankingListFragment extends ListFragment {
 			try {
 				parlamentarController.doRequest(rh);
 				result = Alerts.NO_EXCEPTIONS;
+				
 			} catch (ConnectionFailedException cfe) {
 				result = Alerts.CONNECTION_FAILED_EXCEPTION;
 
@@ -187,6 +229,7 @@ public class MajorRankingListFragment extends ListFragment {
 				result = Alerts.UNEXPECTED_FAILED_EXCEPTION;
 
 			}
+			
 			return result;
 		}
 
