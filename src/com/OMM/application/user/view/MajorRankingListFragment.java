@@ -116,24 +116,29 @@ public class MajorRankingListFragment extends ListFragment {
 
 		super.onCreateOptionsMenu(menu, inflater);
 		menu.clear();
-		MenuItem search = menu.add("Pesquisa");
-		final SearchView sv = new SearchView(getActivity());
-		search.setActionView(sv);
-		search.setIcon(R.drawable.ic_search);
-		search.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-		sv.setOnQueryTextListener(new OnQueryTextListener() {
+		MenuItem searchItem = menu.add("Pesquisa");
+		final SearchView searchView = new SearchView(getActivity());
+		
+		searchItem.setActionView(searchView);
+		searchItem.setIcon(R.drawable.ic_search);
+		searchItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		
+		searchView.setOnQueryTextListener(new OnQueryTextListener() {
 
 			@Override
 			public boolean onQueryTextSubmit(String query) {
 				query = filter(query, 0, query.length());
+				
 				updateListContent(query);
 				hideKeyboard();
+				
 				return true;
 			}
 
 			@Override
 			public boolean onQueryTextChange(String query) {
 				query = filter(query, 0, query.length());
+				
 				updateListContent(query);
 
 				return false;
@@ -143,21 +148,25 @@ public class MajorRankingListFragment extends ListFragment {
 	
 	private String filter(String source, int start, int end) {
 
-		StringBuilder sb = new StringBuilder(end - start);
+		StringBuilder stringBuilder = new StringBuilder(end - start);
+		
 		for (int i = start; i < end; i++) {
-			char c = source.charAt(i);
-			if (isCharAllowed(c)) // put your condition here
-				sb.append(c);
+			char caughtChar = source.charAt(i);
+			
+			if (isCharAllowed(caughtChar)) // put your condition here
+				stringBuilder.append(caughtChar);
+			
 			else {
 				// do nothing here.
 			}
 		}
-		String sp = new String(sb);
-		return sp;
+		
+		String producedString = new String(stringBuilder);
+		return producedString;
 	}
 	
-	private boolean isCharAllowed(char c) {
-		return Character.isLetterOrDigit(c) || Character.isSpaceChar(c);
+	private boolean isCharAllowed(char caracter) {
+		return Character.isLetterOrDigit(caracter) || Character.isSpaceChar(caracter);
 	}
 
 	public interface OnParlamentarRankingSelectedListener {
@@ -196,9 +205,9 @@ public class MajorRankingListFragment extends ListFragment {
 			Integer exception = Alerts.NO_EXCEPTIONS;
 			
 			@SuppressWarnings("unchecked")
-			ResponseHandler<String> rh = (ResponseHandler<String>) params[0];
+			ResponseHandler<String> responseHandler = (ResponseHandler<String>) params[0];
 			try {
-				controllerParlamentar.doRequestMajorRanking(rh);
+				controllerParlamentar.doRequestMajorRanking(responseHandler);
 				
 			} catch (ConnectionFailedException cfe) {
 				exception = Alerts.CONNECTION_FAILED_EXCEPTION;
@@ -279,9 +288,9 @@ public class MajorRankingListFragment extends ListFragment {
 			ParlamentarUserController parlamentarController = ParlamentarUserController
 					.getInstance(getActivity());
 
-			ResponseHandler<String> rh = (ResponseHandler<String>) params[0];
+			ResponseHandler<String> responseHandler = (ResponseHandler<String>) params[0];
 			try {
-				parlamentarController.doRequest(rh);
+				parlamentarController.doRequest(responseHandler);
 				result = Alerts.NO_EXCEPTIONS;
 				
 			} catch (ConnectionFailedException cfe) {
