@@ -21,7 +21,7 @@ import com.OMM.application.user.exceptions.RequestFailedException;
 import com.OMM.application.user.model.Parlamentar;
 import com.OMM.application.user.requests.HttpConnection;
 
-public class ParlamentarRankingListFragment extends ListFragment {
+public class MajorRankingListFragment extends ListFragment {
 
 	private OnParlamentarRankingSelectedListener listener;
 	private static ParlamentarUserController controllerParlamentar;

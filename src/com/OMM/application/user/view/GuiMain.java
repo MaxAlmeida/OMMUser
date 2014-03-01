@@ -28,7 +28,7 @@ import com.OMM.application.user.requests.HttpConnection;
 public class GuiMain extends Activity implements
 		ParlamentarSeguidoListFragment.OnParlamentarSeguidoSelectedListener,
 		ParlamentarListFragment.OnParlamentarSelectedListener,
-		ParlamentarRankingListFragment.OnParlamentarRankingSelectedListener, ParlamentarMenorListFragment.OnParlamentarMenorSelectedListener {
+		MajorRankingListFragment.OnParlamentarRankingSelectedListener, ParlamentarMenorListFragment.OnParlamentarMenorSelectedListener {
 
 	private static final String MESSAGE_TO_PARLAMENTARES_FOLLOWED = "Parlamentares Seguidos";
 	private static final String MESSAGE_TO_SEARCH_PARLAMENTAR = "Pesquisar Parlamentar";
