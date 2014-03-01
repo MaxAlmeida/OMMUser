@@ -88,6 +88,21 @@ public class MajorRankingListFragment extends ListFragment {
 		parseTask.setFragment(null);
 		parseTask = null;
 	}
+	
+	private void updateListContent(String inputText) {
+
+		if (parseTask == null) {
+			parseTask = new ParseTask();
+			parseTask.setFragment(this);
+		}
+		try {
+			parseTask.execute(inputText);
+		}
+		// TODO: tratar com a devida excessão lançada
+		catch (IllegalStateException ise) {
+			// IllegalStateException
+		}
+	}
 
 	public interface OnParlamentarRankingSelectedListener {
 		public void OnParlamentarRankingSelected();
