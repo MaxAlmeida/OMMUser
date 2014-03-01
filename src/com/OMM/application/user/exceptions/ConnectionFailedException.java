@@ -1,6 +1,5 @@
 package com.OMM.application.user.exceptions;
 
-import java.util.Arrays;
 
 public class ConnectionFailedException extends Exception {
 
