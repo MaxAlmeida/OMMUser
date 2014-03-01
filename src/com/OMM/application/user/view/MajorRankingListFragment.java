@@ -103,6 +103,10 @@ public class MajorRankingListFragment extends ListFragment {
 			// IllegalStateException
 		}
 	}
+	
+	private boolean isCharAllowed(char c) {
+		return Character.isLetterOrDigit(c) || Character.isSpaceChar(c);
+	}
 
 	public interface OnParlamentarRankingSelectedListener {
 		public void OnParlamentarRankingSelected();
