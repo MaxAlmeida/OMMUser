@@ -14,8 +14,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo.State;
 import android.os.AsyncTask;
 import android.os.Bundle;
-
-import com.OMM.application.updates.DataUpdate;
 import com.OMM.application.updates.ServerUpdatesSubject;
 import com.OMM.application.user.R;
 import com.OMM.application.user.controller.ParlamentarUserController;
@@ -268,7 +266,7 @@ public class SplashScreen extends Activity {
 	}
 
 	private class UpdateDBTask extends AsyncTask<Object, Void, Integer> {
-		DataUpdate dataUpdate;
+		
 		ServerUpdatesSubject subject;
 		ProgressDialog progressDialog;
 		Integer exception = Alerts.NO_EXCEPTIONS;
@@ -285,16 +283,15 @@ public class SplashScreen extends Activity {
 
 			subject = new ServerUpdatesSubject(SplashScreen.this);
 
-			dataUpdate = new DataUpdate(SplashScreen.this);
 			response = (ResponseHandler<String>) params[0];
 			try {
-				needsUpdate = dataUpdate.doRequestUpdateVerify(response);
+				needsUpdate = subject.doRequestUpdateVerify(response);
 
 				response = HttpConnection.getResponseHandler();
 
 				if (needsUpdate) {
-					dataUpdate.doRequestParlamentar(response);
-					dataUpdate.doRequestCota(response);
+					subject.doRequestParlamentar(response);
+					subject.doRequestCota(response);
 				}
 
 			} catch (ConnectionFailedException cfe) {

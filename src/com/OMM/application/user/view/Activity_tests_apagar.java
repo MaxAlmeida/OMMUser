@@ -1,16 +1,14 @@
 package com.OMM.application.user.view;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.OMM.application.Updates.RankingParlamentarObserver;
-import com.OMM.application.Updates.ServerUpdatesSubject;
+import com.OMM.application.updates.RankingParlamentarObserver;
+import com.OMM.application.updates.ServerUpdatesSubject;
 import com.OMM.application.user.R;
 import com.OMM.application.user.model.Parlamentar;
 
