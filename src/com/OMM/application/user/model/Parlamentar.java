@@ -30,6 +30,16 @@ public class Parlamentar {
 	}
 
 	public Parlamentar(int id, String nome, String partido, String uf,
+			int seguido,double valor) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.partido = partido;
+		this.uf = uf;
+		this.seguido = seguido;
+		this.valor=valor;
+	}
+	public Parlamentar(int id, String nome, String partido, String uf,
 			int seguido) {
 		super();
 		this.id = id;

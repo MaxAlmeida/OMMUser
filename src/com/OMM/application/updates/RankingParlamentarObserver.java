@@ -8,19 +8,19 @@ import android.content.Context;
 import com.OMM.application.user.controller.ParlamentarUserController;
 import com.OMM.application.user.model.Parlamentar;
 
+
 public class RankingParlamentarObserver implements ObserverUpdatesParlamentar{
 
 	private ParlamentarUserController parlamentarController;
-	private ArrayList<Parlamentar> pilhaParlamentares;
+	
 
 	
 	public RankingParlamentarObserver(
-			GetServerUpdates s,
-			ArrayList<Parlamentar> pilhaParlamentares,
+			GetServerUpdates subject,
 			Context context)
 	{	
-		this.pilhaParlamentares=pilhaParlamentares;
-		s.registerObserver(this,null);
+		
+		subject.registerObserver(this, null);
 		parlamentarController = ParlamentarUserController.getInstance(context);
 		
 	}
@@ -30,10 +30,21 @@ public class RankingParlamentarObserver implements ObserverUpdatesParlamentar{
 	{
 		while(!list.isEmpty())
 		{
-		   parlamentarController.updateParlamentar(pilhaParlamentares.get(0));
+		   parlamentarController.updateParlamentar(list.get(0));
 		   list.remove(0);
 		}
 		
 	}
+
+	public ParlamentarUserController getParlamentarController() {
+		return parlamentarController;
+	}
+
+	public void setParlamentarController(
+			ParlamentarUserController parlamentarController) {
+		this.parlamentarController = parlamentarController;
+	}
+
+	
 
 }

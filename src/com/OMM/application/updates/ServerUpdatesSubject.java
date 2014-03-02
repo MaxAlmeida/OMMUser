@@ -189,4 +189,54 @@ public class ServerUpdatesSubject implements GetServerUpdates {
 	{
 		this.listParlamentares=list;
 	}
+	
+	
+	public ArrayList<ObserverUpdatesParlamentar> getObserversParlamentarList() {
+		return observersParlamentarList;
+	}
+	public ArrayList<ObserverUpDatesCotas> getObserversCotasList() {
+		return observersCotasList;
+	}
+	public ParlamentarUserController getParlamentarController() {
+		return parlamentarController;
+	}
+	public CotaParlamentarUserController getCotaParlamentarController() {
+		return cotaParlamentarController;
+	}
+	public UrlHostController getUrlHostController() {
+		return urlHostController;
+	}
+	public List<Parlamentar> getListParlamentares() {
+		return listParlamentares;
+	}
+	public List<CotaParlamentar> getListCotas() {
+		return listCotas;
+	}
+	public void setObserversParlamentarList(
+			ArrayList<ObserverUpdatesParlamentar> observersParlamentarList) {
+		this.observersParlamentarList = observersParlamentarList;
+	}
+	public void setObserversCotasList(
+			ArrayList<ObserverUpDatesCotas> observersCotasList) {
+		this.observersCotasList = observersCotasList;
+	}
+	public void setParlamentarController(
+			ParlamentarUserController parlamentarController) {
+		this.parlamentarController = parlamentarController;
+	}
+	public void setCotaParlamentarController(
+			CotaParlamentarUserController cotaParlamentarController) {
+		this.cotaParlamentarController = cotaParlamentarController;
+	}
+	public void setUrlHostController(UrlHostController urlHostController) {
+		this.urlHostController = urlHostController;
+	}
+	public void setListParlamentares(List<Parlamentar> listParlamentares) {
+		this.listParlamentares = listParlamentares;
+	}
+	public void setListCotas(List<CotaParlamentar> listCotas) {
+		this.listCotas = listCotas;
+	}
+	
+	
 }
