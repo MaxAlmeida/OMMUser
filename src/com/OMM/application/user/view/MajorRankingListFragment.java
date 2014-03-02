@@ -40,15 +40,16 @@ public class MajorRankingListFragment extends ListFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		controllerParlamentar = ParlamentarUserController
 				.getInstance(getActivity());
-
-		startRankingRequest();
+        
+		//List<Parlamentar> list = controllerParlamentar.getAll();
+		//startRankingRequest();
 		setHasOptionsMenu(true);
 
 		super.onCreate(savedInstanceState);
 
 		MajorRankingAdapter adapter = new MajorRankingAdapter(
 				getActivity(), R.layout.fragment_ranking,
-				controllerParlamentar.getParlamentares());
+				controllerParlamentar.getAll());
 
 		setListAdapter(adapter);
 		setRetainInstance(false);
