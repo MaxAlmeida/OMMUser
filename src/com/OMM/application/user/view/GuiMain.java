@@ -67,10 +67,7 @@ public class GuiMain extends Activity implements
 					public void onClick(View v) {
 						
 						startActivity(new Intent(getBaseContext(),
-								Activity_tests_apagar.class));
-						
-					/*	startActivity(new Intent(getBaseContext(),
-								GuiSobre.class));*/
+								GuiSobre.class));
 					}
 				});
 
