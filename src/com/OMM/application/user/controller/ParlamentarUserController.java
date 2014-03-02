@@ -173,12 +173,15 @@ public class ParlamentarUserController {
 		if (parlamentar != null) {
 			parlamentar.setCotas(ceapController.getCotasByIdParlamentar(parlamentar
 					.getId()));
+
 			parlamentar.setSeguido(0);
 			CotaParlamentarUserController controllerCeap = CotaParlamentarUserController
 					.getInstance(context);
 
 			result = controllerCeap.deleteCota(parlamentar.getId())
 					&& parlamentarDao.setSeguidoParlamentar(parlamentar);
+			
+			
 			return result;
 
 		} else if (parlamentar == null) {

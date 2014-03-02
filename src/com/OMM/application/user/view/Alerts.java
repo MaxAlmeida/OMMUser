@@ -12,8 +12,8 @@ public abstract class Alerts {
 	public static final int REQUEST_FAILED_EXCEPTION = 3;
 	public static final int UNEXPECTED_FAILED_EXCEPTION = 4;
 	public static final int NULL_COTA_PARLAMENTAR_EXCEPTION = 5;
-	public static final int RUNTIME_EXCEPTION = 6;	
-	
+	public static final int RUNTIME_EXCEPTION = 6;
+
 	public static void conectionFailedAlert(Context context,
 			OnClickListener positivelistener) {
 
@@ -53,19 +53,6 @@ public abstract class Alerts {
 		Log.i("Alerts", "Exception RequestFailed.");
 	}
 
-//	public static void unexpectedFailedAlert(Context context,
-//			OnClickListener positivelistener) {
-//
-//		AlertDialog.Builder builder = new AlertDialog.Builder(context);
-//
-//		builder.setTitle("Ops!");
-//		builder.setMessage("Falha na requisição.");
-//		builder.setNeutralButton("OK", positivelistener);
-//		builder.show();
-//
-//		Log.i("Alerts", "Exception.");
-//	}
-
 	public static void cotaParlamentarFailedAlert(Context context,
 			OnClickListener positivelistener) {
 
@@ -91,5 +78,4 @@ public abstract class Alerts {
 
 		Log.i("Alerts", "Exception RuntimeException");
 	}
-
 }

@@ -221,7 +221,7 @@ public class SplashScreen extends Activity {
 
 			} catch (RequestFailedException rfe) {
 				exception = Alerts.REQUEST_FAILED_EXCEPTION;
-
+				
 				// } catch (Exception e) {
 				// exception = Alerts.UNEXPECTED_FAILED_EXCEPTION;
 				//
