@@ -84,5 +84,4 @@ public class CotaParlamentarUserDao {
 		sqliteDatabase.close();
 		return listCotas;
 	}
-
 }
