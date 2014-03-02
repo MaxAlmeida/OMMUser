@@ -14,8 +14,10 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo.State;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 
-import com.OMM.application.Updates.*;
+import com.OMM.application.Updates.DataUpdate;
+import com.OMM.application.Updates.ServerUpdatesSubject;
 import com.OMM.application.user.R;
 import com.OMM.application.user.controller.ParlamentarUserController;
 import com.OMM.application.user.exceptions.ConnectionFailedException;
@@ -26,6 +28,8 @@ import com.OMM.application.user.requests.HttpConnection;
 
 @SuppressWarnings("unchecked")
 public class SplashScreen extends Activity {
+
+	private static long SPLASH_TIME = 1000;
 
 	private static final int NO_CONNECTIVITY = 0;
 	private static final int CONNECTIVIVTY_3G = 1;
@@ -67,11 +71,8 @@ public class SplashScreen extends Activity {
 			}
 			break;
 		default:
-			// nothing here
-			break;
-		}
-		if (!isEmpty) {
 			startApplication();
+			break;
 		}
 
 	}
@@ -95,9 +96,15 @@ public class SplashScreen extends Activity {
 	}
 
 	private void startApplication() {
+		// new Handler().postDelayed(new Runnable() {
+		// @Override
+		// public void run() {
 		Intent myAction = new Intent(SplashScreen.this, GuiMain.class);
 		SplashScreen.this.startActivity(myAction);
 		SplashScreen.this.finish();
+		// }
+		// }, SPLASH_TIME);
+
 	}
 
 	private void startUpdateDB() {
@@ -221,17 +228,17 @@ public class SplashScreen extends Activity {
 
 			} catch (RequestFailedException rfe) {
 				exception = Alerts.REQUEST_FAILED_EXCEPTION;
-				
-				// } catch (Exception e) {
-				// exception = Alerts.UNEXPECTED_FAILED_EXCEPTION;
-				//
+
 			}
 			return exception;
 		}
 
 		protected void onPostExecute(Integer result) {
 
-			progressDialog.dismiss();
+			try {
+				progressDialog.dismiss();
+			} catch (Exception e) {
+			}
 
 			switch (result) {
 
@@ -242,7 +249,8 @@ public class SplashScreen extends Activity {
 
 			case Alerts.NULL_PARLAMENTAR_EXCEPTION:
 
-				Alerts.parlamentarFailedAlert(SplashScreen.this, positiveListener);
+				Alerts.parlamentarFailedAlert(SplashScreen.this,
+						positiveListener);
 				break;
 
 			case Alerts.REQUEST_FAILED_EXCEPTION:
@@ -266,9 +274,7 @@ public class SplashScreen extends Activity {
 		ServerUpdatesSubject subject;
 		ProgressDialog progressDialog;
 		Integer exception = Alerts.NO_EXCEPTIONS;
-		ResponseHandler<String> responseHandlerVerify;
-		ResponseHandler<String> responseHandlerCota;
-		ResponseHandler<String> responseHandlerParlamentar;
+		ResponseHandler<String> response;
 
 		@Override
 		protected void onPreExecute() {
@@ -282,13 +288,15 @@ public class SplashScreen extends Activity {
 			subject = new ServerUpdatesSubject(SplashScreen.this);
 
 			dataUpdate = new DataUpdate(SplashScreen.this);
-			responseHandlerVerify = (ResponseHandler<String>) params[0];
+			response = (ResponseHandler<String>) params[0];
 			try {
-				needsUpdate = dataUpdate
-						.doRequestUpdateVerify(responseHandlerVerify);
+				needsUpdate = dataUpdate.doRequestUpdateVerify(response);
+
+				response = HttpConnection.getResponseHandler();
+
 				if (needsUpdate) {
-					dataUpdate.doRequestParlamentar(responseHandlerParlamentar);
-					dataUpdate.doRequestCota(responseHandlerCota);
+					dataUpdate.doRequestParlamentar(response);
+					dataUpdate.doRequestCota(response);
 				}
 
 			} catch (ConnectionFailedException cfe) {
@@ -311,23 +319,26 @@ public class SplashScreen extends Activity {
 
 		protected void onPostExecute(Integer result) {
 
-			progressDialog.dismiss();
-
+			try {
+				progressDialog.dismiss();
+			} catch (Exception e) {
+			}
 			switch (result) {
 
 			case Alerts.CONNECTION_FAILED_EXCEPTION:
 
-				Alerts.conectionFailedAlert(SplashScreen.this,positiveListener);
+				Alerts.conectionFailedAlert(SplashScreen.this, positiveListener);
 				break;
 
 			case Alerts.NULL_PARLAMENTAR_EXCEPTION:
 
-				Alerts.parlamentarFailedAlert(SplashScreen.this,positiveListener);
+				Alerts.parlamentarFailedAlert(SplashScreen.this,
+						positiveListener);
 				break;
 
 			case Alerts.REQUEST_FAILED_EXCEPTION:
 
-				Alerts.requestFailedAlert(SplashScreen.this,positiveListener);
+				Alerts.requestFailedAlert(SplashScreen.this, positiveListener);
 				break;
 
 			default:

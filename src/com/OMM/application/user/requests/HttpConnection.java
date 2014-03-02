@@ -44,7 +44,7 @@ public class HttpConnection {
 		}
 	};
 
-	public static ResponseHandler<String> getResponseHandler() {
+	public synchronized static ResponseHandler<String> getResponseHandler() {
 		return responseHandler;
 	}
 
