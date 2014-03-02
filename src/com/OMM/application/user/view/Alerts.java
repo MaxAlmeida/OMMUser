@@ -12,15 +12,15 @@ public abstract class Alerts {
 	public static final int REQUEST_FAILED_EXCEPTION = 3;
 	public static final int UNEXPECTED_FAILED_EXCEPTION = 4;
 	public static final int NULL_COTA_PARLAMENTAR_EXCEPTION = 5;
-	public static final int RUNTIME_EXCEPTION = 6;
-
+	public static final int RUNTIME_EXCEPTION = 6;	
+	
 	public static void conectionFailedAlert(Context context,
 			OnClickListener positivelistener) {
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
 		builder.setTitle("Ops!");
-		builder.setMessage("Falha na conexão, verifique sua conexão com a internet.");
+		builder.setMessage("O servidor não está respondendo. Desculpe pelo transtorno.");
 		builder.setNeutralButton("OK", positivelistener);
 		builder.show();
 
@@ -33,7 +33,7 @@ public abstract class Alerts {
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
 		builder.setTitle("Ops!");
-		builder.setMessage("Falha na requisição com banco de dados.");
+		builder.setMessage("Falha na requisição com o servidor. Dados insuficientes recebidos.");
 		builder.setNeutralButton("OK", positivelistener);
 		builder.show();
 
@@ -46,25 +46,25 @@ public abstract class Alerts {
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
 		builder.setTitle("Ops!");
-		builder.setMessage("Falha na conexão com o servidor.");
+		builder.setMessage("Falha na verificação do protocolo de envio. Desculpe pelo transtorno.");
 		builder.setNeutralButton("OK", positivelistener);
 		builder.show();
 
 		Log.i("Alerts", "Exception RequestFailed.");
 	}
 
-	public static void unexpectedFailedAlert(Context context,
-			OnClickListener positivelistener) {
-
-		AlertDialog.Builder builder = new AlertDialog.Builder(context);
-
-		builder.setTitle("Ops!");
-		builder.setMessage("Falha na requisição.");
-		builder.setNeutralButton("OK", positivelistener);
-		builder.show();
-
-		Log.i("Alerts", "Exception.");
-	}
+//	public static void unexpectedFailedAlert(Context context,
+//			OnClickListener positivelistener) {
+//
+//		AlertDialog.Builder builder = new AlertDialog.Builder(context);
+//
+//		builder.setTitle("Ops!");
+//		builder.setMessage("Falha na requisição.");
+//		builder.setNeutralButton("OK", positivelistener);
+//		builder.show();
+//
+//		Log.i("Alerts", "Exception.");
+//	}
 
 	public static void cotaParlamentarFailedAlert(Context context,
 			OnClickListener positivelistener) {
@@ -72,7 +72,7 @@ public abstract class Alerts {
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
 		builder.setTitle("Ops!");
-		builder.setMessage("Falha na requisição com banco de dados.");
+		builder.setMessage("Falha na requisição com o servidor. Dados insuficientes recebidos.");
 		builder.setNeutralButton("OK", positivelistener);
 		builder.show();
 

@@ -105,6 +105,12 @@ public class ParlamentarDetailFragment extends Fragment {
 
 				case ESCRITORIO:
 					valorCota += valorSubcota;
+					if (hasSubcota == true && valorSubcota != 0) {
+						valorCota -= valorSubcota;
+						totalValue -= valorCota;
+						valorSubcota = 0;
+						hasSubcota = false;
+					}
 					ImageView barEscritorio = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_escritorio);
 					TextView textViewEscritorio = (TextView) getActivity()
@@ -112,12 +118,7 @@ public class ParlamentarDetailFragment extends Fragment {
 					textViewEscritorio.setText("R$ "
 							+ valorCotaDecimalFormat.format(valorCota));
 					sizeBar(barEscritorio, valorCota);
-					if (hasSubcota == true && valorSubcota != 0) {
-						valorCota -= valorSubcota;
-						totalValue -= valorCota;
-						valorSubcota = 0;
-						hasSubcota = false;
-					}
+					
 					break;
 
 				case COMBUSTIVEL:
@@ -169,10 +170,17 @@ public class ParlamentarDetailFragment extends Fragment {
 					break;
 
 				case LOCACAO_DE_VEICULOS:
+					hasSubcota = true;
 					valorSubcota = valorCota;
 
 				case FRETE_AVIAO:
 					valorCota += valorSubcota;
+					if (hasSubcota == true && valorSubcota != 0) {
+						valorCota -= valorSubcota;
+						totalValue -= valorCota;
+						valorSubcota = 0;
+						hasSubcota = false;
+					}
 					ImageView barAluguelAviao = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_aluguel_aviao);
 					TextView textViewAluguelAviao = (TextView) getActivity()
@@ -180,12 +188,7 @@ public class ParlamentarDetailFragment extends Fragment {
 					textViewAluguelAviao.setText("R$ "
 							+ valorCotaDecimalFormat.format(valorCota));
 					sizeBar(barAluguelAviao, valorCota);
-					if (hasSubcota == true && valorSubcota != 0) {
-						valorCota -= valorSubcota;
-						totalValue -= valorCota;
-						valorSubcota = 0;
-						hasSubcota = false;
-					}
+					
 					break;
 
 				case TELEFONIA:

@@ -255,8 +255,7 @@ public class SplashScreen extends Activity {
 
 			default:
 
-				Alerts.unexpectedFailedAlert(SplashScreen.this, positiveListener);
-				break;
+				startApplication();
 			}
 
 		}
@@ -333,8 +332,7 @@ public class SplashScreen extends Activity {
 
 			default:
 
-				Alerts.unexpectedFailedAlert(SplashScreen.this,positiveListener);
-				break;
+				startApplication();
 			}
 
 		}

@@ -143,10 +143,10 @@ public class ParlamentarRankingListFragment extends ListFragment {
 				Alerts.requestFailedAlert(getActivity(), null);
 				break;
 
-			case Alerts.UNEXPECTED_FAILED_EXCEPTION:
-
-				Alerts.unexpectedFailedAlert(getActivity(), null);
-				break;
+//			case Alerts.UNEXPECTED_FAILED_EXCEPTION:
+//
+//				Alerts.unexpectedFailedAlert(getActivity(), null);
+//				break;
 
 			default:
 				// Nothing should be done

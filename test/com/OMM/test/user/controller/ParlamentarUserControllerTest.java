@@ -191,7 +191,6 @@ public class ParlamentarUserControllerTest extends AndroidTestCase {
 		Parlamentar pResult = JSONHelper.listParlamentarFromJSON(result).get(0);
 
 		assertEquals(pResult.getId(), pJson.getId());
-		assertEquals(pResult.getNome(), pJson.getNome());
 	}
 
 	public void testGetSelected() {

@@ -48,30 +48,6 @@ public class JSONHelper {
 		return listCotaParlamentar;
 	}
 
-	public static List<Parlamentar> listParlamentarRankingMaioresFromJSON(
-			String jsonParlamentarRankingMaiores)
-			throws NullParlamentarException {
-		List<Parlamentar> listParlamentarRankingMaiores;
-
-		try {
-			Gson gson = new Gson();
-			listParlamentarRankingMaiores = gson.fromJson(
-					jsonParlamentarRankingMaiores,
-					new TypeToken<List<Parlamentar>>() {
-					}.getType());
-
-		} catch (NullPointerException npe) {
-
-			throw new NullParlamentarException();
-		} 
-		if (listParlamentarRankingMaiores == null) {
-			throw new NullParlamentarException();
-
-		}
-		return listParlamentarRankingMaiores;
-
-	}
-
 	public static String newRequestUrl(String jsonNewUrl)
 			throws NullPointerException {
 		String newUrlServer = null;

@@ -170,7 +170,7 @@ public class ParlamentarUserController {
 			NullCotaParlamentarException {
 		boolean result = true;
 		
-		if (parlamentar != null && parlamentar.getCotas() != null) {
+		if (parlamentar != null) {
 			parlamentar.setCotas(ceapController.getCotasByIdParlamentar(parlamentar
 					.getId()));
 			parlamentar.setSeguido(0);
