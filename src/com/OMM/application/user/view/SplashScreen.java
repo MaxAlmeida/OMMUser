@@ -14,10 +14,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo.State;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 
-import com.OMM.application.Updates.DataUpdate;
-import com.OMM.application.Updates.ServerUpdatesSubject;
+import com.OMM.application.updates.DataUpdate;
+import com.OMM.application.updates.ServerUpdatesSubject;
 import com.OMM.application.user.R;
 import com.OMM.application.user.controller.ParlamentarUserController;
 import com.OMM.application.user.exceptions.ConnectionFailedException;
@@ -29,7 +28,6 @@ import com.OMM.application.user.requests.HttpConnection;
 @SuppressWarnings("unchecked")
 public class SplashScreen extends Activity {
 
-	private static long SPLASH_TIME = 1000;
 
 	private static final int NO_CONNECTIVITY = 0;
 	private static final int CONNECTIVIVTY_3G = 1;
