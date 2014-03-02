@@ -1,5 +1,5 @@
-package com.OMM.application.Updates;
-//TODO apagar essa classe
+package com.OMM.application.updates;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +20,7 @@ import com.OMM.application.user.model.Parlamentar;
 import com.OMM.application.user.requests.HttpConnection;
 import com.OMM.application.user.requests.MountURL;
 
+//TODO apagar essa classe
 public class DataUpdate {
 
 	private ParlamentarUserController parlamentarController;

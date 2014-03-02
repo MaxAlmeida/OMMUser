@@ -1,4 +1,4 @@
-package com.OMM.application.Updates;
+package com.OMM.application.updates;
 
 public interface GetServerUpdates {
 	//TODO 
