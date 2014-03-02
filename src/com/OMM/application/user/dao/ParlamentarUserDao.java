@@ -95,7 +95,6 @@ public class ParlamentarUserDao {
 		}
 	}
 
-	// TODO: Test for this method
 	public boolean updateParlamentar(Parlamentar parlamentar)
 			throws NullParlamentarException {
 		if (parlamentar != null) {
@@ -243,7 +242,6 @@ public class ParlamentarUserDao {
 		return listParlamentar;
 	}
 
-	// TODO: Test for this method
 	public List<Integer> getAllSelectedIds() {
 		sqliteDatabase = database.getReadableDatabase();
 		Cursor cursor = sqliteDatabase.rawQuery(
@@ -262,7 +260,6 @@ public class ParlamentarUserDao {
 
 	}
 
-	// TODO: Test for this method
 	public int getIdUpdateParlamentar(Integer idParlamentar) {
 		sqliteDatabase = database.getReadableDatabase();
 		Cursor cursor = sqliteDatabase.query(tabelaParlamentar,

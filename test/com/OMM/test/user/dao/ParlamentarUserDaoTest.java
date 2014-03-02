@@ -7,6 +7,7 @@ import java.util.List;
 import junit.framework.Assert;
 import android.content.Context;
 import android.test.AndroidTestCase;
+import android.util.Log;
 
 import com.OMM.application.user.dao.ParlamentarUserDao;
 import com.OMM.application.user.exceptions.NullParlamentarException;
@@ -26,7 +27,6 @@ public class ParlamentarUserDaoTest extends AndroidTestCase {
 		parlamentarC = new Parlamentar();
 
 		// Parlamentar A
-
 		parlamentarA.setId(777);
 		parlamentarA.setNome("Parlamentar Teste Insert");
 		parlamentarA.setSeguido(0);
@@ -86,7 +86,7 @@ public class ParlamentarUserDaoTest extends AndroidTestCase {
 		assertTrue(parlamentarDao.deleteParlamentar(parlamentarB));
 	}
 
-	public void testUpdateParlamentar() throws NullParlamentarException {
+	public void testsetSeguidoParlamentar() throws NullParlamentarException {
 		parlamentarA.setSeguido(1);
 		assertTrue(parlamentarDao.setSeguidoParlamentar(parlamentarA));
 	}
@@ -124,4 +124,39 @@ public class ParlamentarUserDaoTest extends AndroidTestCase {
 		assertSame(lista.get(0).getClass(), Parlamentar.class);
 	}
 
+	public void testUpdateParlamentar() throws NullParlamentarException{
+		// Parlamentar A
+		parlamentarA.setId(777);
+		parlamentarA.setSeguido(0);
+		parlamentarA.setPartido("PU");
+		parlamentarA.setUf("DF");
+		parlamentarA.setIdUpdate(2);
+		parlamentarA.setValor(300.0f);
+		
+		parlamentarDao.updateParlamentar(parlamentarA);
+		
+		Parlamentar p = parlamentarDao.getById(parlamentarA.getId());
+		
+		assertEquals(parlamentarA.getIdUpdate(), p.getIdUpdate());
+		assertEquals(parlamentarA.getValor(), p.getValor());
+	}
+	
+	public void testGetAllSelectedIds(){
+		List<Parlamentar> list = parlamentarDao.getAllSelected();
+		List<Integer> ids = new ArrayList<Integer>();
+		Iterator<Parlamentar> i = list.iterator();
+		while(i.hasNext()){
+			int id = i.next().getId();
+			ids.add(id);
+			Log.i("DaoAllSelectedIds", "Id "+id);
+		}
+		assertEquals(ids, parlamentarDao.getAllSelectedIds());
+	}
+	
+	public void testGetIdUpdateParlamentar(){
+		
+		int idUpdate = parlamentarDao.getIdUpdateParlamentar(parlamentarA.getId());
+		
+		assertEquals(parlamentarA.getIdUpdate(), idUpdate);
+	}
 }
