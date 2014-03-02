@@ -162,24 +162,6 @@ public class ParlamentarUserControllerTest extends AndroidTestCase {
 		}
 	}
 
-	public void testUnFollowedParlamentarNullCotaParlamentarException()
-			throws NullCotaParlamentarException, NullParlamentarException {
-
-		try {
-			Parlamentar parlamentar = controller.getByName("TIRIRICA").get(0);
-			List<CotaParlamentar> list = null;
-			parlamentar.setSeguido(0);
-			parlamentar.setCotas(list);
-			controller.setParlamentar(parlamentar);
-
-			controller.unFollowedParlamentar();
-			fail("Exceptions not launched");
-
-		} catch (NullCotaParlamentarException npe) {
-
-		}
-	}
-
 	public void testDoRequest() throws ConnectionFailedException,
 			RequestFailedException, NullParlamentarException,
 			NullCotaParlamentarException {
@@ -246,4 +228,7 @@ public class ParlamentarUserControllerTest extends AndroidTestCase {
 
 		assertTrue(controller.checkEmptyDB());
 	}
+	
+	
+	
 }
