@@ -49,7 +49,7 @@ public class MajorRankingAdapter extends ArrayAdapter<Parlamentar> {
 				+ valor.format(parlamentares.get(position).getValor()));
 		TextView textViewPosicao = (TextView) view
 				.findViewById(R.id.parlamentarlistfragment_txt_posicao);
-		textViewPosicao.setText("" + (position + 1));
+		textViewPosicao.setText("" + (parlamentares.get(position).getRanking() + 1));
 
 		return view;
 	}
