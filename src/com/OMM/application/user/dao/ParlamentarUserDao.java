@@ -95,7 +95,7 @@ public class ParlamentarUserDao {
 		}
 	}
 
-	//TODO: Test for this method
+	// TODO: Test for this method
 	public boolean updateParlamentar(Parlamentar parlamentar)
 			throws NullParlamentarException {
 		if (parlamentar != null) {
@@ -242,7 +242,8 @@ public class ParlamentarUserDao {
 		sqliteDatabase.close();
 		return listParlamentar;
 	}
-	//TODO: Test for this method
+
+	// TODO: Test for this method
 	public List<Integer> getAllSelectedIds() {
 		sqliteDatabase = database.getReadableDatabase();
 		Cursor cursor = sqliteDatabase.rawQuery(
@@ -260,17 +261,23 @@ public class ParlamentarUserDao {
 		return parlamentaresIds;
 
 	}
-	
-	//TODO: Test for this method
-	public int getIdUpdateParlamentar(int idParlamentar) {
+
+	// TODO: Test for this method
+	public int getIdUpdateParlamentar(Integer idParlamentar) {
 		sqliteDatabase = database.getReadableDatabase();
-		Cursor cursor = sqliteDatabase.rawQuery(
-				"SELECT ID_UPDATE FROM PARLAMENTAR WHERE ID_PARLAMENTAR="
-						+ idParlamentar, null);
+		Cursor cursor = sqliteDatabase.query(tabelaParlamentar,
+				colunasParlamentar, "ID_PARLAMENTAR=?",
+				new String[] { idParlamentar.toString() }, null, null, null);
 
-		int idUpdate = cursor.getInt(cursor.getColumnIndex("ID_ATUALIZACAO"));
+		if (cursor.moveToFirst()) {
+
+			int idUpdate = cursor.getInt(cursor
+					.getColumnIndex("ID_ATUALIZACAO"));
+			sqliteDatabase.close();
+
+			return idUpdate;
+		}
 		sqliteDatabase.close();
-
-		return idUpdate;
+		return 0;
 	}
 }

@@ -204,12 +204,10 @@ public class ParlamentarUserController {
 		return parlamentar;
 	}
 	
-	//TODO: Test for this method
 	public int getIdUpdateParlamentar() {
 		return parlamentarDao.getIdUpdateParlamentar(parlamentar.getId());
 	}
 	
-	//TODO: Test for this method
 	public boolean updateParlamentar(Parlamentar parlamentar) {
 		try {
 			return parlamentarDao.updateParlamentar(parlamentar);
@@ -220,12 +218,10 @@ public class ParlamentarUserController {
 		return false;
 	}
 	
-	//TODO: Test for this method
 	public List<Integer> getAllSelectedIds() {
 		return parlamentarDao.getAllSelectedIds();
 	}
 	
-	//TODO: Test for this method
 	public int getLastIdUpdate() {
 		parlamentares = parlamentarDao.getAll();
 		int idUpdate = 0;

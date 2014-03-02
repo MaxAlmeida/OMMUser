@@ -8,6 +8,7 @@ import org.apache.http.client.ResponseHandler;
 
 import android.content.Context;
 import android.test.AndroidTestCase;
+import android.util.Log;
 
 import com.OMM.application.user.controller.ParlamentarUserController;
 import com.OMM.application.user.dao.ParlamentarUserDao;
@@ -38,6 +39,7 @@ public class ParlamentarUserControllerTest extends AndroidTestCase {
 		parlamentar.setNome("TIRIRICA");
 		parlamentar.setId(0);
 		parlamentar.setSeguido(0);
+		parlamentar.setIdUpdate(2);
 		dao.insertParlamentar(parlamentar);
 	}
 
@@ -218,8 +220,8 @@ public class ParlamentarUserControllerTest extends AndroidTestCase {
 
 	public void testCheckEmptyDBTrue() {
 
-		controller.getAll();
-		Iterator<Parlamentar> iterator = controller.getAll().iterator();
+		List<Parlamentar> list = controller.getAll();
+		Iterator<Parlamentar> iterator = list.iterator();
 
 		while (iterator.hasNext()) {
 			Parlamentar p = iterator.next();
@@ -229,6 +231,95 @@ public class ParlamentarUserControllerTest extends AndroidTestCase {
 		assertTrue(controller.checkEmptyDB());
 	}
 	
+	public void testGetIdUpdateParlamentar(){
+		
+		List<Parlamentar> list = null;
+		int idUpdate = -1;
+		list = controller.getAll();
+		
+		if(list==null){
+			fail("banco vazio");
+		}
+		else{
+			Log.i("IDUPDATE",list.get(0).getIdUpdate()+"");
+			controller.setParlamentar(list.get(0));
+			idUpdate = controller.getIdUpdateParlamentar();
+			if(idUpdate<0){
+				assertTrue(false);
+			}
+			else{
+				assertTrue(true);
+			}
+		}
+	}
 	
+	public void testUpdateParlamentar(){
+		parlamentar = new Parlamentar();
+		parlamentar.setNome("TIRIRICA");
+		parlamentar.setId(0);
+		parlamentar.setSeguido(0);
+		parlamentar.setIdUpdate(3);
+		parlamentar.setValor(300.0f);
+		parlamentar.setMajorRankingPos(3);
+		
+		controller.updateParlamentar(parlamentar);
+		
+		Parlamentar p = dao.getById(0);
+		Log.i("testUpdateParlamentar","idUpdate "+ p.getIdUpdate()+"");
+		Log.i("testUpdateParlamentar","valor "+ p.getValor()+"");
+		Log.i("testUpdateParlamentar","ranking "+ p.getMajorRankingPos()+"");
+		assertEquals(parlamentar.getIdUpdate(), p.getIdUpdate());
+		assertEquals(parlamentar.getValor(), p.getValor(), 0.0f);
+		assertEquals(parlamentar.getMajorRankingPos(), p.getMajorRankingPos());
+		
+	}
 	
+	public void testGetAllSelectedIds(){
+		parlamentar = new Parlamentar();
+		parlamentar.setNome("MACACO");
+		parlamentar.setId(0);
+		parlamentar.setSeguido(1);
+		parlamentar.setIdUpdate(3);
+		parlamentar.setValor(300.0f);
+		parlamentar.setMajorRankingPos(2);
+		
+		dao.insertParlamentar(parlamentar);
+		List<Parlamentar> list = dao.getAllSelected();
+		List<Integer> ids = new ArrayList<Integer>();
+		
+		Iterator<Parlamentar> iterator = list.iterator();
+		while(iterator.hasNext()){
+			Integer i = iterator.next().getId();
+			ids.add(i);
+			Log.i("SelectedIds ","id "+i);
+		}
+		
+		ArrayList<Integer> selectedIds = (ArrayList<Integer>)controller.getAllSelectedIds();
+		
+		assertEquals(ids, selectedIds);
+	}
+	public void testLastIdUpdate(){
+		parlamentar = new Parlamentar();
+		parlamentar.setNome("MACACO");
+		parlamentar.setId(0);
+		parlamentar.setSeguido(1);
+		parlamentar.setIdUpdate(3);
+		parlamentar.setValor(300.0f);
+		parlamentar.setMajorRankingPos(2);
+		
+		dao.insertParlamentar(parlamentar);
+		
+		List<Parlamentar> list = dao.getAll();
+		int idUpdate = 0;
+
+		Iterator<Parlamentar> iterator = list.iterator();
+		while (iterator.hasNext()) {
+			Parlamentar p = iterator.next();
+			if (p.getIdUpdate() > idUpdate) {
+				idUpdate = p.getIdUpdate();
+			}
+		}
+		Log.i("LastIdUpdate","lastIdUpdate "+idUpdate);
+		assertEquals(idUpdate, controller.getLastIdUpdate());
+	}
 }
