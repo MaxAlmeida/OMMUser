@@ -1,16 +1,14 @@
 package com.OMM.application.user.view;
 
-import com.OMM.application.user.R;
-
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.OMM.application.user.R;
 
 public class AllRankingsFragment extends Fragment {
 

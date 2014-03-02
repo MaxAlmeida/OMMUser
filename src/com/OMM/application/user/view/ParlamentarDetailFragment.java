@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -56,6 +57,7 @@ public class ParlamentarDetailFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		super.onCreateView(inflater, container, savedInstanceState);
 		setHasOptionsMenu(true);
 		parlamentarController = ParlamentarUserController
 				.getInstance(getActivity());
@@ -64,6 +66,14 @@ public class ParlamentarDetailFragment extends Fragment {
 		return view;
 	}
 
+	@Override
+	public void onResume() {
+		super.onResume();
+		if(this.isVisible()){
+			setBarras();
+		}
+	}
+	
 	public void setBarras() {
 
 		DecimalFormat valorCotaDecimalFormat = new DecimalFormat("#,###.00");

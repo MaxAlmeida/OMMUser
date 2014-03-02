@@ -66,7 +66,7 @@ public class ParlamentarMinorRankingListFragment extends ListFragment {
 		} else {
 			throw new ClassCastException(
 					activity.toString()
-							+ "must implement ParlamentarMenorListFragment.OnParlamentarSelectedListner");
+							+ "must implement ParlamentarMinorRankingListFragment.OnParlamentarSelectedListner");
 		}
 	}
 
