@@ -506,7 +506,7 @@ public class ParlamentarDetailFragment extends Fragment {
 
 		case Menu.FIRST + 2:
 			selectedMes = 3;
-			mes = "Mar�o";
+			mes = "Março";
 			break;
 
 		case Menu.FIRST + 3:

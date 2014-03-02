@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?><LinearLayout 
+    android:background="@drawable/fragmentparlamentar_fundo"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/majorRanking_list"
+        android:layout_width="match_parent"
+        android:layout_height="100dp" >
+
+        <ImageView
+            android:id="@+id/moedinha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ranking_maiores_icone" />
+
+        <TextView
+            android:id="@+id/majorRanking_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="Ranking dos Maiores Gastadores" />
+
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:id="@+id/minorRanking_list"
+        android:layout_width="match_parent"
+        android:layout_height="100dp" >
+
+        <ImageView
+            android:id="@+id/moedinha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/moedinha" />
+
+        <TextView
+            android:id="@+id/minorRanking_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="Ranking dos Menores Gastadores" />
+
+     </RelativeLayout>
+</LinearLayout>

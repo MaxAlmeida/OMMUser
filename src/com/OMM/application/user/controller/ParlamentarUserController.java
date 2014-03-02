@@ -95,6 +95,13 @@ public class ParlamentarUserController {
 		parlamentares = parlamentarDao.getAll();
 		return parlamentares;
 	}
+	
+	public List<Parlamentar> getMinor() {
+
+		parlamentares = parlamentarDao.getMinor();
+		return parlamentares;
+	}
+	
 
 	public boolean followedParlamentar() throws NullCotaParlamentarException,
 			NullParlamentarException {
@@ -169,10 +176,10 @@ public class ParlamentarUserController {
 	public boolean unFollowedParlamentar() throws NullParlamentarException,
 			NullCotaParlamentarException {
 		boolean result = true;
-		
+
 		if (parlamentar != null) {
-			parlamentar.setCotas(ceapController.getCotasByIdParlamentar(parlamentar
-					.getId()));
+			parlamentar.setCotas(ceapController
+					.getCotasByIdParlamentar(parlamentar.getId()));
 
 			parlamentar.setSeguido(0);
 			CotaParlamentarUserController controllerCeap = CotaParlamentarUserController
@@ -180,8 +187,7 @@ public class ParlamentarUserController {
 
 			result = controllerCeap.deleteCota(parlamentar.getId())
 					&& parlamentarDao.setSeguidoParlamentar(parlamentar);
-			
-			
+
 			return result;
 
 		} else if (parlamentar == null) {
@@ -203,11 +209,11 @@ public class ParlamentarUserController {
 		parlamentar.setCotas(cotas);
 		return parlamentar;
 	}
-	
+
 	public int getIdUpdateParlamentar() {
 		return parlamentarDao.getIdUpdateParlamentar(parlamentar.getId());
 	}
-	
+
 	public boolean updateParlamentar(Parlamentar parlamentar) {
 		try {
 			return parlamentarDao.updateParlamentar(parlamentar);
@@ -217,11 +223,11 @@ public class ParlamentarUserController {
 		}
 		return false;
 	}
-	
+
 	public List<Integer> getAllSelectedIds() {
 		return parlamentarDao.getAllSelectedIds();
 	}
-	
+
 	public int getLastIdUpdate() {
 		parlamentares = parlamentarDao.getAll();
 		int idUpdate = 0;

@@ -22,6 +22,8 @@ public class Parlamentar {
 
 	private int majorRankingPos;
 	
+	private int minorRankingPos;
+	
 	private int idUpdate;
 	
 	public Parlamentar() {
@@ -115,6 +117,14 @@ public class Parlamentar {
 
 	public void setIdUpdate(int idUpdate) {
 		this.idUpdate = idUpdate;
+	}
+	
+	public int getMinorRankingPos() {
+		return minorRankingPos;
+	}
+
+	public void setMinorRankingPos(int minorRankingPos) {
+		this.minorRankingPos = minorRankingPos;
 	}
 
 }
