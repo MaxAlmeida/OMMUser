@@ -24,8 +24,8 @@ public class GuiMain extends Activity
 		implements
 		ParlamentarSeguidoListFragment.OnParlamentarSeguidoSelectedListener,
 		ParlamentarListFragment.OnParlamentarSelectedListener,
-		ParlamentarMajorRankingListFragment.OnParlamentarRankingSelectedListener,
-		ParlamentarMinorRankingListFragment.OnParlamentarMenorSelectedListener {
+		ParlamentarMajorRankingListFragment.OnParlamentarMajorSelectedListener,
+		ParlamentarMinorRankingListFragment.OnParlamentarMinorSelectedListener {
 
 	private static final String MESSAGE_TO_PARLAMENTARES_FOLLOWED = "Parlamentares Seguidos";
 	private static final String MESSAGE_TO_SEARCH_PARLAMENTAR = "Pesquisar Parlamentar";
@@ -195,8 +195,9 @@ public class GuiMain extends Activity
 			updateFragment(R.id.detail_fragment_container, parlamentarDetail);
 		}
 	}
-
-	public void OnParlamentarRankingSelected() {
+	
+	@Override
+	public void OnParlamentarMajorSelected() {
 
 		ParlamentarDetailFragment parlamentarDetail = new ParlamentarDetailFragment();
 		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -208,7 +209,7 @@ public class GuiMain extends Activity
 	}
 
 	@Override
-	public void OnParlamentarMenorSelected() {
+	public void OnParlamentarMinorSelected() {
 
 		ParlamentarDetailFragment detailFragment = new ParlamentarDetailFragment();
 		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {

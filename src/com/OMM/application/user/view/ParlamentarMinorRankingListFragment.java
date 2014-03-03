@@ -24,7 +24,7 @@ import android.widget.SearchView.OnQueryTextListener;
 
 public class ParlamentarMinorRankingListFragment extends ListFragment {
 
-	private OnParlamentarMenorSelectedListener listener;
+	private OnParlamentarMinorSelectedListener listener;
 	private static ParlamentarUserController parlamentarController;
 	ParseTask parseTask;
 
@@ -54,15 +54,15 @@ public class ParlamentarMinorRankingListFragment extends ListFragment {
 		updateDetail();
 	}
 
-	public interface OnParlamentarMenorSelectedListener {
-		public void OnParlamentarMenorSelected();
+	public interface OnParlamentarMinorSelectedListener {
+		public void OnParlamentarMinorSelected();
 	}
 
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
-		if (activity instanceof OnParlamentarMenorSelectedListener) {
-			listener = (OnParlamentarMenorSelectedListener) activity;
+		if (activity instanceof OnParlamentarMinorSelectedListener) {
+			listener = (OnParlamentarMinorSelectedListener) activity;
 		} else {
 			throw new ClassCastException(
 					activity.toString()
@@ -71,7 +71,7 @@ public class ParlamentarMinorRankingListFragment extends ListFragment {
 	}
 
 	private void updateDetail() {
-		listener.OnParlamentarMenorSelected();
+		listener.OnParlamentarMinorSelected();
 	}
 
 	private static class ParseTask extends AsyncTask<String, Void, Void> {
@@ -109,9 +109,8 @@ public class ParlamentarMinorRankingListFragment extends ListFragment {
 		}
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private void setListContent(List result) {
-		ArrayAdapter listAdapter = (ArrayAdapter) getListAdapter();
+	private void setListContent(List<Parlamentar> result) {
+		ParlamentarMinorAdapter listAdapter = (ParlamentarMinorAdapter) getListAdapter();
 		listAdapter.clear();
 		listAdapter.addAll(result);
 		parseTask.setFragment(null);

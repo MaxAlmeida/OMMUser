@@ -2,11 +2,14 @@ package com.OMM.application.user.view;
 
 import java.util.List;
 
-import org.apache.http.client.ResponseHandler;
+import com.OMM.application.user.R;
+import com.OMM.application.user.adapters.MajorRankingAdapter;
+import com.OMM.application.user.adapters.ParlamentarMinorAdapter;
+import com.OMM.application.user.controller.ParlamentarUserController;
+import com.OMM.application.user.model.Parlamentar;
 
 import android.app.Activity;
 import android.app.ListFragment;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -20,34 +23,23 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 
-import com.OMM.application.user.R;
-import com.OMM.application.user.adapters.MajorRankingAdapter;
-import com.OMM.application.user.controller.ParlamentarUserController;
-import com.OMM.application.user.exceptions.ConnectionFailedException;
-import com.OMM.application.user.exceptions.NullCotaParlamentarException;
-import com.OMM.application.user.exceptions.NullParlamentarException;
-import com.OMM.application.user.exceptions.RequestFailedException;
-import com.OMM.application.user.model.Parlamentar;
-import com.OMM.application.user.requests.HttpConnection;
-
 public class ParlamentarMajorRankingListFragment extends ListFragment {
 
-	private OnParlamentarRankingSelectedListener listener;
+	private OnParlamentarMajorSelectedListener listener;
 	private static ParlamentarUserController parlamentarController;
 	ParseTask parseTask;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		parlamentarController = ParlamentarUserController
-				.getInstance(getActivity());
-
-		parlamentarController.getAll();
 
 		super.onCreate(savedInstanceState);
 
+		parlamentarController = ParlamentarUserController
+				.getInstance(getActivity());
+		List<Parlamentar> list = parlamentarController.getAll();
+		setHasOptionsMenu(true);
 		MajorRankingAdapter adapter = new MajorRankingAdapter(
-				getActivity(), R.layout.fragment_ranking,
-				parlamentarController.getParlamentares());
+				getActivity(), R.layout.fragment_ranking, list);
 
 		setListAdapter(adapter);
 		setRetainInstance(false);
@@ -56,41 +48,33 @@ public class ParlamentarMajorRankingListFragment extends ListFragment {
 
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
+
 		parlamentarController.setParlamentar((Parlamentar) getListAdapter()
 				.getItem(position));
+		parlamentarController.getSelected();
 		updateDetail();
-
 	}
 
-	public interface OnParlamentarRankingSelectedListener {
-		public void OnParlamentarRankingSelected();
+	public interface OnParlamentarMajorSelectedListener {
+		public void OnParlamentarMajorSelected();
 	}
 
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
-		if (activity instanceof OnParlamentarRankingSelectedListener) {
-			listener = (OnParlamentarRankingSelectedListener) activity;
+		if (activity instanceof OnParlamentarMajorSelectedListener) {
+			listener = (OnParlamentarMajorSelectedListener) activity;
 		} else {
 			throw new ClassCastException(
 					activity.toString()
-							+ "must implement ParlamentarRankingListFragment.OnParlamentarSelectedListner");
+							+ "must implement ParlamentarMajorRankingListFragment.OnParlamentarSelectedListner");
 		}
 	}
 
 	private void updateDetail() {
-		startRequest();
+		listener.OnParlamentarMajorSelected();
 	}
-	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private void setListContent(List result) {
-		ArrayAdapter listAdapter = (ArrayAdapter) getListAdapter();
-		listAdapter.clear();
-		listAdapter.addAll(result);
-		parseTask.setFragment(null);
-		parseTask = null;
-	}
-	
+
 	private static class ParseTask extends AsyncTask<String, Void, Void> {
 
 		private ParlamentarMajorRankingListFragment fragment;
@@ -111,7 +95,6 @@ public class ParlamentarMajorRankingListFragment extends ListFragment {
 		}
 	}
 
-
 	private void updateListContent(String inputText) {
 
 		if (parseTask == null) {
@@ -127,98 +110,13 @@ public class ParlamentarMajorRankingListFragment extends ListFragment {
 		}
 	}
 
-	
-	private class RequestTask extends AsyncTask<Object, Void, Integer> {
-
-		ProgressDialog progressDialog;
-
-		@Override
-		protected void onPreExecute() {
-			progressDialog = ProgressDialog.show(getActivity(), "Aguarde...",
-					"Buscando Dados ");
-		}
-
-		@SuppressWarnings("unchecked")
-		@Override
-		protected Integer doInBackground(Object... params) {
-
-			Integer result = null;
-			ParlamentarUserController parlamentarController = ParlamentarUserController
-					.getInstance(getActivity());
-
-			ResponseHandler<String> rh = (ResponseHandler<String>) params[0];
-			try {
-				parlamentarController.doRequest(rh);
-				result = Alerts.NO_EXCEPTIONS;
-			} catch (ConnectionFailedException cfe) {
-				result = Alerts.CONNECTION_FAILED_EXCEPTION;
-
-			} catch (RequestFailedException rfe) {
-				result = Alerts.REQUEST_FAILED_EXCEPTION;
-
-			} catch (NullParlamentarException npe) {
-				result = Alerts.NULL_PARLAMENTAR_EXCEPTION;
-
-			} catch (NullCotaParlamentarException ncpe) {
-				result = Alerts.NULL_COTA_PARLAMENTAR_EXCEPTION;
-
-			} catch (Exception e) {
-				result = Alerts.UNEXPECTED_FAILED_EXCEPTION;
-
-			}
-			return result;
-		}
-
-		@Override
-		protected void onPostExecute(Integer result) {
-			progressDialog.dismiss();
-
-			switch ((Integer) result) {
-			case 0:
-
-				listener.OnParlamentarRankingSelected();
-				break;
-
-			case Alerts.CONNECTION_FAILED_EXCEPTION:
-
-				Alerts.conectionFailedAlert(getActivity(), null);
-				break;
-
-			case Alerts.NULL_PARLAMENTAR_EXCEPTION:
-
-				Alerts.parlamentarFailedAlert(getActivity(), null);
-				break;
-
-			case Alerts.NULL_COTA_PARLAMENTAR_EXCEPTION:
-
-				Alerts.cotaParlamentarFailedAlert(getActivity(), null);
-				break;
-
-			case Alerts.REQUEST_FAILED_EXCEPTION:
-
-				Alerts.requestFailedAlert(getActivity(), null);
-				break;
-
-//			case Alerts.UNEXPECTED_FAILED_EXCEPTION:
-//
-//				Alerts.unexpectedFailedAlert(getActivity(), null);
-//				break;
-
-			default:
-				// Nothing should be done
-			}
-		}
+	private void setListContent(List<Parlamentar> result) {
+		MajorRankingAdapter listAdapter = (MajorRankingAdapter) getListAdapter();
+		listAdapter.clear();
+		listAdapter.addAll(result);
+		parseTask.setFragment(null);
+		parseTask = null;
 	}
-
-	private void startRequest() {
-
-		ResponseHandler<String> responseHandler = HttpConnection
-				.getResponseHandler();
-
-		RequestTask task = new RequestTask();
-		task.execute(responseHandler);
-	}
-	
 
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -275,6 +173,4 @@ public class ParlamentarMajorRankingListFragment extends ListFragment {
 		inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus()
 				.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 	}
-
-	
 }
