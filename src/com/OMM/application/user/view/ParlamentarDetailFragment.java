@@ -20,6 +20,8 @@ import android.widget.Toast;
 
 import com.OMM.application.user.R;
 import com.OMM.application.user.controller.ParlamentarUserController;
+import com.OMM.application.user.exceptions.NullCotaParlamentarException;
+import com.OMM.application.user.exceptions.NullParlamentarException;
 import com.OMM.application.user.model.CotaParlamentar;
 
 public class ParlamentarDetailFragment extends Fragment {
@@ -469,6 +471,14 @@ public class ParlamentarDetailFragment extends Fragment {
 		menu.clear();
 		SubMenu sub = menu.addSubMenu("Mês");
 		SubMenu ano = menu.addSubMenu("Ano");
+		if (parlamentarController.getParlamentar().getIsSeguido() == 1) {
+			MenuItem esquecer = menu.add(0,Menu.FIRST + 12, 0, "Esquecer");
+			esquecer.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		} else {
+			MenuItem seguir = menu.add(0, Menu.FIRST + 13, 0, "Seguir");
+			seguir.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+			
+		}
 		sub.add(0, Menu.FIRST, 0, "Janeiro");
 		sub.add(0, Menu.FIRST + 1, 0, "Fevereiro");
 		sub.add(0, Menu.FIRST + 2, 0, "Março");
@@ -563,7 +573,45 @@ public class ParlamentarDetailFragment extends Fragment {
 			selectedMes = 12;
 			mes = "Dezembro";
 			break;
+			
+		case Menu.FIRST +12:
+			try {
+				parlamentarController.followedParlamentar();
+				Toast.makeText(getActivity(), "Parlamentar desseguido",
+						Toast.LENGTH_SHORT).show();
 
+				ImageView imgView = (ImageView) getView().findViewById(
+						R.id.foto);
+				imgView.setImageResource(R.drawable.parlamentar_foto);
+				
+			} catch (NullParlamentarException nullEx) {
+				Toast.makeText(getActivity(), "Erro na requisição",
+						Toast.LENGTH_SHORT).show();
+			} catch (NullCotaParlamentarException e) {
+				Toast.makeText(getActivity(), "Erro na requisição",
+						Toast.LENGTH_SHORT).show();
+			}
+          break;
+          
+		case Menu.FIRST + 13:
+			try {
+				parlamentarController.followedParlamentar();
+				Toast.makeText(getActivity(), "Parlamentar Seguido",
+						Toast.LENGTH_SHORT).show();
+
+				ImageView imgView = (ImageView) getView().findViewById(
+						R.id.foto);
+				imgView.setImageResource(R.drawable.parlamentar_seguido_foto);
+				
+
+			} catch (NullParlamentarException nullEx) {
+				Toast.makeText(getActivity(), "Erro na requisição",
+						Toast.LENGTH_SHORT).show();
+			} catch (NullCotaParlamentarException e) {
+				Toast.makeText(getActivity(), "Erro na requisição",
+						Toast.LENGTH_SHORT).show();
+			}
+			break;
 		default:
 			
 			selectedAno = item.getItemId();
