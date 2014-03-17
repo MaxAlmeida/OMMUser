@@ -1,7 +1,6 @@
 package com.OMM.application.user.view;
 
 import org.apache.http.client.ResponseHandler;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -23,9 +22,14 @@ import com.OMM.application.user.exceptions.NullParlamentarException;
 import com.OMM.application.user.exceptions.RequestFailedException;
 import com.OMM.application.user.requests.HttpConnection;
 
-@SuppressWarnings("unchecked")
-public class SplashScreen extends Activity {
+/**
+ * @author Arthur Jahn
+ * 
+ */
 
+@SuppressWarnings("unchecked")
+// not verifying ResponseHandler
+public class SplashScreen extends Activity {
 
 	private static final int NO_CONNECTIVITY = 0;
 	private static final int CONNECTIVIVTY_3G = 1;
@@ -92,18 +96,14 @@ public class SplashScreen extends Activity {
 	}
 
 	private void startApplication() {
-		// new Handler().postDelayed(new Runnable() {
-		// @Override
-		// public void run() {
+
 		Intent myAction = new Intent(SplashScreen.this, GuiMain.class);
 		SplashScreen.this.startActivity(myAction);
 		SplashScreen.this.finish();
-		// }
-		// }, SPLASH_TIME);
-
 	}
 
 	private void startUpdateDB() {
+		
 		ResponseHandler<String> responseHandler = HttpConnection
 				.getResponseHandler();
 		UpdateDBTask task = new UpdateDBTask();
@@ -128,14 +128,14 @@ public class SplashScreen extends Activity {
 				builder.setTitle("Instalação do Banco de Dados");
 				builder.setMessage("Esse procedimento pode gerar gastos adicionais devido ao uso de dados. Deseja continuar?");
 				builder.setPositiveButton("Sim!", positiveListener);
-				builder.setNegativeButton("Não.", null);
+				builder.setNegativeButton("Não.", negativeListener);
 				builder.show();
 			} else {
 				AlertDialog.Builder builder = new Builder(SplashScreen.this);
 				builder.setTitle("Atualização de Dados");
 				builder.setMessage("Esse procedimento pode gerar gastos adicionais devido ao uso de dados. Deseja continuar?");
 				builder.setPositiveButton("Sim!", positiveListener);
-				builder.setNegativeButton("Não.", null);
+				builder.setNegativeButton("Não.", negativeListener);
 				builder.show();
 			}
 
@@ -145,6 +145,14 @@ public class SplashScreen extends Activity {
 		protected Boolean doInBackground(Object... params) {
 			return true;
 		}
+
+		OnClickListener negativeListener = new OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				startApplication();
+			}
+		};
 
 		OnClickListener positiveListener = new OnClickListener() {
 
@@ -266,7 +274,7 @@ public class SplashScreen extends Activity {
 	}
 
 	private class UpdateDBTask extends AsyncTask<Object, Void, Integer> {
-		
+
 		ServerUpdatesSubject subject;
 		ProgressDialog progressDialog;
 		Integer exception = Alerts.NO_EXCEPTIONS;

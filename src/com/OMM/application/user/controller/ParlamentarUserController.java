@@ -102,7 +102,6 @@ public class ParlamentarUserController {
 		return parlamentares;
 	}
 	
-
 	public boolean followedParlamentar() throws NullCotaParlamentarException,
 			NullParlamentarException {
 

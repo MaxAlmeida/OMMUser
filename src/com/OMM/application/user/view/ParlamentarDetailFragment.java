@@ -5,7 +5,6 @@ import java.util.Iterator;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -34,24 +33,24 @@ public class ParlamentarDetailFragment extends Fragment {
 	private static final int LOWER_LIMIT_RED_BAR = 5000;
 
 	// NumeroSubCota's values ​​coming from database
-	private static final int ESCRITORIO = 1;
-	private static final int COMBUSTIVEL = 3;
-	private static final int TRABALHO_TECNICO_E_CONSULTORIA = 4;
-	private static final int DIVULGACAO_ATIVIDADE_PARLAMENTAR = 5;
-	private static final int SEGURANCA = 8;
-	private static final int FRETE_AVIAO = 9;
-	private static final int TELEFONIA = 10;
-	private static final int SERVICOS_POSTAIS = 11;
-	private static final int ASSINATURA_DE_PUBLICACOES = 12;
-	private static final int ALIMENTACAO = 13;
-	private static final int HOSPEDAGEM = 14;
-	private static final int LOCACAO_DE_VEICULOS = 15;
-	private static final int EMISSAO_BILHETES_AEREOS = 999;
+	private static final int OFFICE = 1;
+	private static final int FUEL = 3;
+	private static final int TECHNICAL_WORK_AND_CONSULTORY = 4;
+	private static final int DISCLOSURE_OF_PARLIAMENTARY_ACTIVITY = 5;
+	private static final int SECURITY = 8;
+	private static final int CARGO_AIRCRAFT = 9;
+	private static final int PHONE = 10;
+	private static final int POST_SERVICES = 11;
+	private static final int PUBLICATIONS_SIGNATURE = 12;
+	private static final int FEED = 13;
+	private static final int LODGING = 14;
+	private static final int LEASE_OF_VEHICLES = 15;
+	private static final int ISSUANCE_OF_AIR_TICKETS = 999;
 
 	ParlamentarUserController parlamentarController;
-	private int selectedMes = 1;
-	private int selectedAno = 2013;
-	private String mes = "Janeiro";
+	private int selectedMonth = 1;
+	private int selectedYear = 2013;
+	private String month = "Janeiro";
 	
 
 	@Override
@@ -70,15 +69,15 @@ public class ParlamentarDetailFragment extends Fragment {
 	public void onResume() {
 		super.onResume();
 		if(this.isVisible()){
-			setBarras();
+			setBars();
 		}
 	}
 	
-	public void setBarras() {
+	public void setBars() {
 
 		DecimalFormat valorCotaDecimalFormat = new DecimalFormat("#,###.00");
 		double totalValue = 0;
-		resetBarras();
+		resetBars();
 
 		TextView view = (TextView) getView().findViewById(R.id.nome);
 		view.setText(parlamentarController.getParlamentar().getNome());
@@ -89,7 +88,7 @@ public class ParlamentarDetailFragment extends Fragment {
 		view = (TextView) getView().findViewById(R.id.pos);
 		formatRankingPos(view);
 		TextView textMes = (TextView) getView().findViewById(R.id.mes_e_ano);
-		textMes.setText( mes +"/"+ selectedAno);
+		textMes.setText( month +"/"+ selectedYear);
 
 		if (parlamentarController.getParlamentar().getIsSeguido() == 1) {
 			ImageView imgView = (ImageView) getView().findViewById(R.id.foto);
@@ -107,17 +106,17 @@ public class ParlamentarDetailFragment extends Fragment {
 
 			CotaParlamentar cota = iterator.next();
 
-			if ((cota.getMes() == selectedMes)
-					&& (cota.getAno() == selectedAno)) {
+			if ((cota.getMes() == selectedMonth)
+					&& (cota.getAno() == selectedYear)) {
 				double valorCota = cota.getValor();
 				int numeroSubCota = cota.getNumeroSubCota();
 				switch (numeroSubCota) {
 
-				case ASSINATURA_DE_PUBLICACOES:
+				case PUBLICATIONS_SIGNATURE:
 					hasSubcota = true;
 					valorSubcota = valorCota;
 
-				case ESCRITORIO:
+				case OFFICE:
 					valorCota += valorSubcota;
 					if (hasSubcota == true && valorSubcota != 0) {
 						valorCota -= valorSubcota;
@@ -134,7 +133,7 @@ public class ParlamentarDetailFragment extends Fragment {
 					sizeBar(barEscritorio, valorCota);
 					break;
 
-				case COMBUSTIVEL:
+				case FUEL:
 
 					ImageView barCombustivel = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_gasolina);
@@ -145,7 +144,7 @@ public class ParlamentarDetailFragment extends Fragment {
 					sizeBar(barCombustivel, valorCota);
 					break;
 
-				case TRABALHO_TECNICO_E_CONSULTORIA:
+				case TECHNICAL_WORK_AND_CONSULTORY:
 
 					ImageView barTrabalhoTecnico = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_trabalho_tecnico);
@@ -157,7 +156,7 @@ public class ParlamentarDetailFragment extends Fragment {
 
 					break;
 
-				case DIVULGACAO_ATIVIDADE_PARLAMENTAR:
+				case DISCLOSURE_OF_PARLIAMENTARY_ACTIVITY:
 
 					ImageView barDivulgacao = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_divulgacao);
@@ -169,7 +168,7 @@ public class ParlamentarDetailFragment extends Fragment {
 
 					break;
 
-				case SEGURANCA:
+				case SECURITY:
 
 					ImageView barSeguranca = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_seguranca);
@@ -181,11 +180,11 @@ public class ParlamentarDetailFragment extends Fragment {
 					sizeBar(barSeguranca, valorCota);
 					break;
 
-				case LOCACAO_DE_VEICULOS:
+				case LEASE_OF_VEHICLES:
 					hasSubcota = true;
 					valorSubcota = valorCota;
 
-				case FRETE_AVIAO:
+				case CARGO_AIRCRAFT:
 					valorCota += valorSubcota;
 					if (hasSubcota == true && valorSubcota != 0) {
 						valorCota -= valorSubcota;
@@ -203,7 +202,7 @@ public class ParlamentarDetailFragment extends Fragment {
 					
 					break;
 
-				case TELEFONIA:
+				case PHONE:
 
 					ImageView barTelefonia = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_telefonia);
@@ -215,7 +214,7 @@ public class ParlamentarDetailFragment extends Fragment {
 
 					break;
 
-				case SERVICOS_POSTAIS:
+				case POST_SERVICES:
 
 					ImageView barCorreios = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_correios);
@@ -227,7 +226,7 @@ public class ParlamentarDetailFragment extends Fragment {
 
 					break;
 
-				case ALIMENTACAO:
+				case FEED:
 
 					ImageView barAlimentacao = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_alimentacao);
@@ -239,7 +238,7 @@ public class ParlamentarDetailFragment extends Fragment {
 
 					break;
 
-				case HOSPEDAGEM:
+				case LODGING:
 
 					ImageView barHospedagem = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_hoespedagem);
@@ -251,7 +250,7 @@ public class ParlamentarDetailFragment extends Fragment {
 
 					break;
 
-				case EMISSAO_BILHETES_AEREOS:
+				case ISSUANCE_OF_AIR_TICKETS:
 
 					ImageView barBilhetesAereos = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_bilhetes_aereos);
@@ -291,25 +290,25 @@ public class ParlamentarDetailFragment extends Fragment {
 		}
 	}
 
-	public void sizeBar(ImageView bar, double valorCota) {
+	public void sizeBar(ImageView bar, double cotaValue) {
 
-		if (valorCota <= UPPER_LIMIT_WHITE_BAR) {
+		if (cotaValue <= UPPER_LIMIT_WHITE_BAR) {
 
 			bar.setImageResource(R.drawable.barra_branca);
 
-		} else if (valorCota <= UPPER_LIMIT_GREEN_BAR) {
+		} else if (cotaValue <= UPPER_LIMIT_GREEN_BAR) {
 
 			bar.setImageResource(R.drawable.barra_verde);
 
-		} else if (valorCota <= UPPER_LIMIT_YELLOW_BAR) {
+		} else if (cotaValue <= UPPER_LIMIT_YELLOW_BAR) {
 
 			bar.setImageResource(R.drawable.barra_amarela);
 
-		} else if (valorCota <= UPPER_LIMIT_ORANGE_BAR) {
+		} else if (cotaValue <= UPPER_LIMIT_ORANGE_BAR) {
 
 			bar.setImageResource(R.drawable.barra_laranja);
 
-		} else if (valorCota > LOWER_LIMIT_RED_BAR) {
+		} else if (cotaValue > LOWER_LIMIT_RED_BAR) {
 
 			bar.setImageResource(R.drawable.barra_vermelha);
 
@@ -505,76 +504,76 @@ public class ParlamentarDetailFragment extends Fragment {
 		switch (item.getItemId()) {
 		case 0:
 		case Menu.FIRST:
-			selectedMes = 1;
-			mes = "Janeiro";
+			selectedMonth = 1;
+			month = "Janeiro";
 			break;
 
 		case Menu.FIRST + 1:
-			selectedMes = 2;
-			mes = "Fevereiro";
+			selectedMonth = 2;
+			month = "Fevereiro";
 			break;
 
 		case Menu.FIRST + 2:
-			selectedMes = 3;
-			mes = "Março";
+			selectedMonth = 3;
+			month = "Março";
 			break;
 
 		case Menu.FIRST + 3:
-			selectedMes = 4;
-			mes = "Abril";
+			selectedMonth = 4;
+			month = "Abril";
 			break;
 
 		case Menu.FIRST + 4:
-			selectedMes = 5;
-			mes = "Maio";
+			selectedMonth = 5;
+			month = "Maio";
 			break;
 
 		case Menu.FIRST + 5:
-			selectedMes = 6;
-			mes = "Junho";
+			selectedMonth = 6;
+			month = "Junho";
 			break;
 
 		case Menu.FIRST + 6:
-			selectedMes = 7;
-			mes = "Julho";
+			selectedMonth = 7;
+			month = "Julho";
 			break;
 
 		case Menu.FIRST + 7:
-			selectedMes = 8;
-			mes = "Agosto";
+			selectedMonth = 8;
+			month = "Agosto";
 			break;
 
 		case Menu.FIRST + 8:
-			selectedMes = 9;
-			mes = "Setembro";
+			selectedMonth = 9;
+			month = "Setembro";
 			break;
 
 		case Menu.FIRST + 9:
-			selectedMes = 10;
-			mes = "Outubro";
+			selectedMonth = 10;
+			month = "Outubro";
 			break;
 
 		case Menu.FIRST + 10:
-			selectedMes = 11;
-			mes = "Novembro";
+			selectedMonth = 11;
+			month = "Novembro";
 			break;
 
 		case Menu.FIRST + 11:
-			selectedMes = 12;
-			mes = "Dezembro";
+			selectedMonth = 12;
+			month = "Dezembro";
 			break;
 
 		default:
 			
-			selectedAno = item.getItemId();
+			selectedYear = item.getItemId();
 		    break;
 		}
 
-		setBarras();
+		setBars();
 		return true;
 	}
 
-	public void resetBarras() {
+	public void resetBars() {
 
 		double valorCota = 0;
 

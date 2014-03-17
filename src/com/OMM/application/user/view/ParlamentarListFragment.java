@@ -92,8 +92,7 @@ public class ParlamentarListFragment extends ListFragment {
 		}
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private void setListContent(List result) {
+	private void setListContent(List<Parlamentar> result) {
 		ParlamentarAdapter listAdapter = (ParlamentarAdapter) getListAdapter();
 		listAdapter.clear();
 		listAdapter.addAll(result);
@@ -210,10 +209,8 @@ public class ParlamentarListFragment extends ListFragment {
 			} catch (NullCotaParlamentarException ncpe) {
 				result = Alerts.NULL_COTA_PARLAMENTAR_EXCEPTION;
 
-			} catch (Exception e) {
-				result = Alerts.UNEXPECTED_FAILED_EXCEPTION;
-
-			}
+			} 
+			
 			return result;
 		}
 

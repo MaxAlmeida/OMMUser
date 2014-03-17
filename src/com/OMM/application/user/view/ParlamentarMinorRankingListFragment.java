@@ -2,11 +2,6 @@ package com.OMM.application.user.view;
 
 import java.util.List;
 
-import com.OMM.application.user.R;
-import com.OMM.application.user.adapters.ParlamentarMinorAdapter;
-import com.OMM.application.user.controller.ParlamentarUserController;
-import com.OMM.application.user.model.Parlamentar;
-
 import android.app.Activity;
 import android.app.ListFragment;
 import android.content.Context;
@@ -17,10 +12,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
+
+import com.OMM.application.user.R;
+import com.OMM.application.user.adapters.ParlamentarMinorAdapter;
+import com.OMM.application.user.controller.ParlamentarUserController;
+import com.OMM.application.user.model.Parlamentar;
 
 public class ParlamentarMinorRankingListFragment extends ListFragment {
 
@@ -103,7 +102,6 @@ public class ParlamentarMinorRankingListFragment extends ListFragment {
 		try {
 			parseTask.execute(inputText);
 		}
-		// TODO tratar com a devida excess�o lan�ada.
 		catch (IllegalStateException ise) {
 			// IllegalStateException
 		}

@@ -10,7 +10,6 @@ public abstract class Alerts {
 	public static final int CONNECTION_FAILED_EXCEPTION = 1;
 	public static final int NULL_PARLAMENTAR_EXCEPTION = 2;
 	public static final int REQUEST_FAILED_EXCEPTION = 3;
-	public static final int UNEXPECTED_FAILED_EXCEPTION = 4;
 	public static final int NULL_COTA_PARLAMENTAR_EXCEPTION = 5;
 	public static final int RUNTIME_EXCEPTION = 6;
 

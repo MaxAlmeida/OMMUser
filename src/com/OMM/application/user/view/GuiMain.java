@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.app.ListFragment;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
@@ -27,12 +26,12 @@ public class GuiMain extends Activity
 		ParlamentarMajorRankingListFragment.OnParlamentarMajorSelectedListener,
 		ParlamentarMinorRankingListFragment.OnParlamentarMinorSelectedListener {
 
-	private static final String MESSAGE_TO_PARLAMENTARES_FOLLOWED = "Parlamentares Seguidos";
-	private static final String MESSAGE_TO_SEARCH_PARLAMENTAR = "Pesquisar Parlamentar";
-	private static final String MESSAGE_TO_RANKINGS = "Rankings entre parlamentares";
-	private static final int ANGLE_PARLAMENTARES_FOLLOWED_BUTTON = 30;
-	private static final int ANGLE_LIST_ALL_PARLAMENTARES_BUTTON = 0;
-	private static final int ANGLE_RANKING_BUTTON = -30;
+	private static final String PARLAMENTARES_FOLLOWED_MESSAGE = "Parlamentares Seguidos";
+	private static final String SEARCH_PARLAMENTAR_MESSAGE = "Pesquisar Parlamentar";
+	private static final String RANKINGS_MESSAGE = "Rankings entre parlamentares";
+	private static final int FOLLOWED_PARLAMENTARES_BUTTON_ANGLE = 30;
+	private static final int LIST_ALL_PARLAMENTARES_BUTTON_ANGLE = 0;
+	private static final int RANKINGS_BUTTON_ANGLE = -30;
 
 	
 	private static FragmentManager fragmentManager;
@@ -55,20 +54,13 @@ public class GuiMain extends Activity
 		final Button btn_ranking_main = (Button) findViewById(R.id.btn_ranking);
 		final Button btn_show_all_parlamentares = (Button) findViewById(R.id.btn_ic_rolagem);
 
-		// //depuraçao
-		//
-		// UrlHostController serverControllerDebug =
-		// UrlHostController.getInstance(getBaseContext());
-		// Toast.makeText(getBaseContext(), serverControllerDebug.getUrl(),
-		// Toast.LENGTH_LONG).show();
-
 		btn_about_application_main
 				.setOnClickListener(new View.OnClickListener() {
 
 					@Override
 					public void onClick(View v) {
 						startActivity(new Intent(getBaseContext(),
-								GuiSobre.class));
+								GuiAbout.class));
 					}
 				});
 
@@ -77,12 +69,12 @@ public class GuiMain extends Activity
 			@Override
 			public void onClick(View v) {
 				ParlamentarSeguidoListFragment listFragment = new ParlamentarSeguidoListFragment();
-				loadFragment(listFragment);
+				updateFragment(R.id.fragment_container,listFragment);
 				Toast.makeText(getBaseContext(),
-						MESSAGE_TO_PARLAMENTARES_FOLLOWED, Toast.LENGTH_SHORT)
+						PARLAMENTARES_FOLLOWED_MESSAGE, Toast.LENGTH_SHORT)
 						.show();
 				btn_show_all_parlamentares
-						.setRotation(ANGLE_PARLAMENTARES_FOLLOWED_BUTTON);
+						.setRotation(FOLLOWED_PARLAMENTARES_BUTTON_ANGLE);
 			}
 		});
 
@@ -91,11 +83,11 @@ public class GuiMain extends Activity
 			@Override
 			public void onClick(View v) {
 				ParlamentarListFragment listFragment = new ParlamentarListFragment();
-				loadFragment(listFragment);
-				Toast.makeText(getBaseContext(), MESSAGE_TO_SEARCH_PARLAMENTAR,
+				updateFragment(R.id.fragment_container,listFragment);
+				Toast.makeText(getBaseContext(), SEARCH_PARLAMENTAR_MESSAGE,
 						Toast.LENGTH_SHORT).show();
 				btn_show_all_parlamentares
-						.setRotation(ANGLE_LIST_ALL_PARLAMENTARES_BUTTON);
+						.setRotation(LIST_ALL_PARLAMENTARES_BUTTON_ANGLE);
 			}
 		});
 
@@ -104,15 +96,12 @@ public class GuiMain extends Activity
 			@Override
 			public void onClick(View v) {
 
-				// ParlamentarRankingListFragment listFragment = new
-				// ParlamentarRankingListFragment();
-				// loadFragment(listFragment);
 				AllRankingsFragment rankingListFragment = new AllRankingsFragment();
 				updateFragment(R.id.fragment_container, rankingListFragment);
 
-				Toast.makeText(getBaseContext(), MESSAGE_TO_RANKINGS,
+				Toast.makeText(getBaseContext(), RANKINGS_MESSAGE,
 						Toast.LENGTH_SHORT).show();
-				btn_show_all_parlamentares.setRotation(ANGLE_RANKING_BUTTON);
+				btn_show_all_parlamentares.setRotation(RANKINGS_BUTTON_ANGLE);
 			}
 		});
 
@@ -155,13 +144,7 @@ public class GuiMain extends Activity
 						}
 					}
 				});
-
 	}
-
-	// @Override
-	// protected void onResume() {
-	// super.onResume();
-	// }
 
 	private void updateFragment(int viewId, Fragment fragment) {
 		FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -218,13 +201,6 @@ public class GuiMain extends Activity
 		} else {
 			updateFragment(R.id.detail_fragment_container, detailFragment);
 		}
-	}
-
-
-	private void loadFragment(ListFragment listFragment) {
-		FragmentTransaction transaction = fragmentManager.beginTransaction();
-		transaction.replace(R.id.fragment_container, listFragment);
-		transaction.commit();
 	}
 
 	@Override

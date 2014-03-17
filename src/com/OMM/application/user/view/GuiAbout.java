@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import com.OMM.application.user.R;
 
-public class GuiSobre extends Activity {
+public class GuiAbout extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
