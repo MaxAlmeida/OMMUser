@@ -1,0 +1,610 @@
+---
+acc_average: 0.727272727272727
+acc_kurtosis: -0.353886873835898
+acc_maximum: 3
+acc_median: 0
+acc_mininum: 0
+acc_mode: 0
+acc_skewness: 0.922133475283713
+acc_standard_deviation: 0.935125058192151
+acc_sum: 16
+acc_variance: 0.874458874458874
+accm_average: 1.6712580348944
+accm_kurtosis: 4.86469174238408
+accm_maximum: 5.55555555555556
+accm_median: 1.125
+accm_mininum: 1
+accm_mode: 1
+accm_skewness: 2.22194349154039
+accm_standard_deviation: 1.10999349000654
+accm_sum: 36.7676767676768
+accm_variance: 1.2320855478569
+amloc_average: 12.058689164371
+amloc_kurtosis: 8.09933603841709
+amloc_maximum: 65.5555555555556
+amloc_median: 10.3
+amloc_mininum: 1
+amloc_mode: 1
+amloc_skewness: 2.70527834638603
+amloc_standard_deviation: 13.901172806601
+amloc_sum: 265.291161616162
+amloc_variance: 193.242605398982
+anpm_average: 0.811386593204775
+anpm_kurtosis: -0.838491845786598
+anpm_maximum: 2
+anpm_median: 0.833333333333333
+anpm_mininum: 0
+anpm_mode: 1
+anpm_skewness: 0.100317878216895
+anpm_standard_deviation: 0.573288477336197
+anpm_sum: 17.8505050505051
+anpm_variance: 0.328659678246455
+cbo_average: 0.545454545454545
+cbo_kurtosis: -0.652666179693206
+cbo_maximum: 2
+cbo_median: 0
+cbo_mininum: 0
+cbo_mode: 0
+cbo_skewness: 0.989675843359543
+cbo_standard_deviation: 0.800432783369497
+cbo_sum: 12
+cbo_variance: 0.640692640692641
+dit_average: 0.772727272727273
+dit_kurtosis: -0.305882352941176
+dit_maximum: 1
+dit_median: 1
+dit_mininum: 0
+dit_mode: 1
+dit_skewness: -1.30158274691194
+dit_standard_deviation: 0.428932027228889
+dit_sum: 17
+dit_variance: 0.183982683982684
+lcom4_average: 2.13636363636364
+lcom4_kurtosis: 2.57896708977917
+lcom4_maximum: 6
+lcom4_median: 2
+lcom4_mininum: 1
+lcom4_mode: 2
+lcom4_skewness: 1.67826412906691
+lcom4_standard_deviation: 1.2834274997779
+lcom4_sum: 47
+lcom4_variance: 1.64718614718615
+loc_average: 70.5909090909091
+loc_kurtosis: 11.822217663223
+loc_maximum: 590
+loc_median: 28.5
+loc_mininum: 1
+loc_mode: 1
+loc_skewness: 3.44040083397898
+loc_standard_deviation: 125.232225843073
+loc_sum: 1553
+loc_variance: 15683.1103896104
+mmloc_average: 27.5909090909091
+mmloc_kurtosis: 8.2676747413102
+mmloc_maximum: 199
+mmloc_median: 13.5
+mmloc_mininum: 1
+mmloc_mode: 1
+mmloc_skewness: 2.9382304017149
+mmloc_standard_deviation: 44.7837758578548
+mmloc_sum: 607
+mmloc_variance: 2005.58658008658
+noa_average: 3.27272727272727
+noa_kurtosis: 9.88998139289671
+noa_maximum: 23
+noa_median: 2
+noa_mininum: 0
+noa_mode: 0
+noa_skewness: 3.07873231791528
+noa_standard_deviation: 4.92981037191394
+noa_sum: 72
+noa_variance: 24.3030303030303
+noc_average: 0.181818181818182
+noc_kurtosis: 0.722222222222223
+noc_maximum: 1
+noc_median: 0
+noc_mininum: 0
+noc_mode: 0
+noc_skewness: 1.64991582276861
+noc_standard_deviation: 0.394771016975861
+noc_sum: 4
+noc_variance: 0.155844155844156
+nom_average: 4.18181818181818
+nom_kurtosis: -0.569263596921239
+nom_maximum: 11
+nom_median: 3
+nom_mininum: 1
+nom_mode: 3
+nom_skewness: 0.922534390989828
+nom_standard_deviation: 3.30420170657739
+nom_sum: 92
+nom_variance: 10.9177489177489
+npa_average: 0.272727272727273
+npa_kurtosis: 17.047619047619
+npa_maximum: 6
+npa_median: 0
+npa_mininum: 0
+npa_mode: 0
+npa_skewness: 4.36435780471985
+npa_standard_deviation: 1.27920429813366
+npa_sum: 6
+npa_variance: 1.63636363636364
+npm_average: 1.81818181818182
+npm_kurtosis: 0.278824589868395
+npm_maximum: 8
+npm_median: 1
+npm_mininum: 0
+npm_mode: 0
+npm_skewness: 1.1526791068955
+npm_standard_deviation: 2.3631368103467
+npm_sum: 40
+npm_variance: 5.58441558441559
+rfc_average: 9.77272727272727
+rfc_kurtosis: 2.22674995659638
+rfc_maximum: 45
+rfc_median: 6.5
+rfc_mininum: 1
+rfc_mode: 1
+rfc_skewness: 1.67389040197342
+rfc_standard_deviation: 11.39729215201
+rfc_sum: 215
+rfc_variance: 129.898268398268
+sc_average: 1.04545454545455
+sc_kurtosis: -0.457924073016633
+sc_maximum: 4
+sc_median: 0
+sc_mininum: 0
+sc_mode: 0
+sc_skewness: 1.09275017024244
+sc_standard_deviation: 1.58796883522474
+sc_sum: 23
+sc_variance: 2.52164502164502
+total_abstract_classes: 0
+total_cof: 0.0346320346320346
+total_eloc: 1618
+total_loc: 1553
+total_methods_per_abstract_class: 0
+total_modules: 22
+total_modules_with_defined_attributes: 17
+total_modules_with_defined_methods: 22
+total_nom: 92
+---
+_filename:
+  - src/com/OMM/application/user/view/Alerts.java
+_module: com::OMM::application::user::view::Alerts
+acc: 0
+accm: 1
+amloc: 12
+anpm: 2
+cbo: 0
+dit: 0
+lcom4: 5
+loc: 60
+mmloc: 12
+noa: 6
+noc: 0
+nom: 5
+npa: 6
+npm: 5
+rfc: 5
+sc: 0
+---
+_filename:
+  - src/com/OMM/application/user/view/AllRankingsFragment.java
+_module: com::OMM::application::user::view::AllRankingsFragment
+acc: 0
+accm: 1
+amloc: 10
+anpm: 1.5
+cbo: 0
+dit: 1
+lcom4: 2
+loc: 20
+mmloc: 10
+noa: 5
+noc: 0
+nom: 2
+npa: 0
+npm: 2
+rfc: 7
+sc: 0
+---
+_filename:
+  - src/com/OMM/application/user/view/GuiAbout.java
+_module: com::OMM::application::user::view::GuiAbout
+acc: 0
+accm: 1
+amloc: 6
+anpm: 1
+cbo: 0
+dit: 1
+lcom4: 1
+loc: 6
+mmloc: 6
+noa: 0
+noc: 0
+nom: 1
+npa: 0
+npm: 0
+rfc: 1
+sc: 0
+---
+_filename:
+  - src/com/OMM/application/user/view/GuiMain.java
+_module: com::OMM::application::user::view::GuiMain
+acc: 0
+accm: 1.75
+amloc: 21.625
+anpm: 0.5
+cbo: 0
+dit: 1
+lcom4: 3
+loc: 173
+mmloc: 108
+noa: 7
+noc: 0
+nom: 8
+npa: 0
+npm: 6
+rfc: 21
+sc: 0
+---
+_filename:
+  - src/com/OMM/application/user/view/ParlamentarDetailFragment.java
+_module: com::OMM::application::user::view::ParlamentarDetailFragment
+acc: 0
+accm: 5.55555555555556
+amloc: 65.5555555555556
+anpm: 1.11111111111111
+cbo: 0
+dit: 1
+lcom4: 1
+loc: 590
+mmloc: 199
+noa: 23
+noc: 0
+nom: 9
+npa: 0
+npm: 8
+rfc: 45
+sc: 0
+---
+_filename:
+  - src/com/OMM/application/user/view/ParlamentarListFragment.java
+_module: com::OMM::application::user::view::ParlamentarListFragment
+acc: 2
+accm: 1.54545454545455
+amloc: 10.7272727272727
+anpm: 1.27272727272727
+cbo: 2
+dit: 1
+lcom4: 2
+loc: 118
+mmloc: 28
+noa: 3
+noc: 0
+nom: 11
+npa: 0
+npm: 4
+rfc: 27
+sc: 4
+---
+_filename:
+  - src/com/OMM/application/user/view/ParlamentarListFragment.java
+_module: com::OMM::application::user::view::ParlamentarListFragment::ParseTask
+acc: 1
+accm: 1
+amloc: 3.33333333333333
+anpm: 1
+cbo: 1
+dit: 1
+lcom4: 2
+loc: 10
+mmloc: 4
+noa: 1
+noc: 0
+nom: 3
+npa: 0
+npm: 0
+rfc: 8
+sc: 2
+---
+_filename:
+  - src/com/OMM/application/user/view/ParlamentarListFragment.java
+_module: com::OMM::application::user::view::ParlamentarListFragment::OnParlamentarSelectedListener
+acc: 3
+accm: 1
+amloc: 1
+anpm: 0
+cbo: 0
+dit: 0
+lcom4: 1
+loc: 1
+mmloc: 1
+noa: 0
+noc: 1
+nom: 1
+npa: 0
+npm: 1
+rfc: 1
+sc: 0
+---
+_filename:
+  - src/com/OMM/application/user/view/ParlamentarListFragment.java
+_module: com::OMM::application::user::view::ParlamentarListFragment::RequestTask
+acc: 0
+accm: 3
+amloc: 22.6666666666667
+anpm: 0.666666666666667
+cbo: 2
+dit: 1
+lcom4: 2
+loc: 68
+mmloc: 38
+noa: 1
+noc: 0
+nom: 3
+npa: 0
+npm: 0
+rfc: 7
+sc: 4
+---
+_filename:
+  - src/com/OMM/application/user/view/ParlamentarMajorRankingListFragment.java
+_module: com::OMM::application::user::view::ParlamentarMajorRankingListFragment
+acc: 1
+accm: 1.5
+amloc: 10.7
+anpm: 1.4
+cbo: 2
+dit: 1
+lcom4: 2
+loc: 107
+mmloc: 28
+noa: 3
+noc: 0
+nom: 10
+npa: 0
+npm: 4
+rfc: 24
+sc: 4
+---
+_filename:
+  - src/com/OMM/application/user/view/ParlamentarMajorRankingListFragment.java
+_module: com::OMM::application::user::view::ParlamentarMajorRankingListFragment::OnParlamentarMajorSelectedListener
+acc: 2
+accm: 1
+amloc: 1
+anpm: 0
+cbo: 0
+dit: 0
+lcom4: 1
+loc: 1
+mmloc: 1
+noa: 0
+noc: 1
+nom: 1
+npa: 0
+npm: 1
+rfc: 1
+sc: 0
+---
+_filename:
+  - src/com/OMM/application/user/view/ParlamentarMajorRankingListFragment.java
+_module: com::OMM::application::user::view::ParlamentarMajorRankingListFragment::ParseTask
+acc: 1
+accm: 1
+amloc: 3.33333333333333
+anpm: 1
+cbo: 1
+dit: 1
+lcom4: 2
+loc: 10
+mmloc: 4
+noa: 1
+noc: 0
+nom: 3
+npa: 0
+npm: 0
+rfc: 8
+sc: 2
+---
+_filename:
+  - src/com/OMM/application/user/view/ParlamentarMinorRankingListFragment.java
+_module: com::OMM::application::user::view::ParlamentarMinorRankingListFragment
+acc: 1
+accm: 1.5
+amloc: 10.6
+anpm: 1.4
+cbo: 2
+dit: 1
+lcom4: 2
+loc: 106
+mmloc: 28
+noa: 3
+noc: 0
+nom: 10
+npa: 0
+npm: 4
+rfc: 24
+sc: 4
+---
+_filename:
+  - src/com/OMM/application/user/view/ParlamentarMinorRankingListFragment.java
+_module: com::OMM::application::user::view::ParlamentarMinorRankingListFragment::OnParlamentarMinorSelectedListener
+acc: 2
+accm: 1
+amloc: 1
+anpm: 0
+cbo: 0
+dit: 0
+lcom4: 1
+loc: 1
+mmloc: 1
+noa: 0
+noc: 1
+nom: 1
+npa: 0
+npm: 1
+rfc: 1
+sc: 0
+---
+_filename:
+  - src/com/OMM/application/user/view/ParlamentarMinorRankingListFragment.java
+_module: com::OMM::application::user::view::ParlamentarMinorRankingListFragment::ParseTask
+acc: 1
+accm: 1
+amloc: 3.33333333333333
+anpm: 1
+cbo: 1
+dit: 1
+lcom4: 2
+loc: 10
+mmloc: 4
+noa: 1
+noc: 0
+nom: 3
+npa: 0
+npm: 0
+rfc: 8
+sc: 2
+---
+_filename:
+  - src/com/OMM/application/user/view/ParlamentarSeguidoListFragment.java
+_module: com::OMM::application::user::view::ParlamentarSeguidoListFragment
+acc: 0
+accm: 1.25
+amloc: 8.75
+anpm: 1.5
+cbo: 1
+dit: 1
+lcom4: 1
+loc: 35
+mmloc: 15
+noa: 2
+noc: 0
+nom: 4
+npa: 0
+npm: 3
+rfc: 10
+sc: 1
+---
+_filename:
+  - src/com/OMM/application/user/view/ParlamentarSeguidoListFragment.java
+_module: com::OMM::application::user::view::ParlamentarSeguidoListFragment::OnParlamentarSeguidoSelectedListener
+acc: 2
+accm: 1
+amloc: 1
+anpm: 0
+cbo: 0
+dit: 0
+lcom4: 1
+loc: 1
+mmloc: 1
+noa: 0
+noc: 1
+nom: 1
+npa: 0
+npm: 1
+rfc: 1
+sc: 0
+---
+_filename:
+  - src/com/OMM/application/user/view/SplashScreen.java
+_module: com::OMM::application::user::view::SplashScreen
+acc: 0
+accm: 2.16666666666667
+amloc: 11.8333333333333
+anpm: 0.166666666666667
+cbo: 0
+dit: 1
+lcom4: 6
+loc: 71
+mmloc: 25
+noa: 7
+noc: 0
+nom: 6
+npa: 0
+npm: 0
+rfc: 6
+sc: 0
+---
+_filename:
+  - src/com/OMM/application/user/view/SplashScreen.java
+_module: com::OMM::application::user::view::SplashScreen::InitBy3G
+acc: 0
+accm: 1.5
+amloc: 11
+anpm: 0.5
+cbo: 0
+dit: 1
+lcom4: 2
+loc: 22
+mmloc: 19
+noa: 2
+noc: 0
+nom: 2
+npa: 0
+npm: 0
+rfc: 2
+sc: 0
+---
+_filename:
+  - src/com/OMM/application/user/view/SplashScreen.java
+_module: com::OMM::application::user::view::SplashScreen::NoDataConnection
+acc: 0
+accm: 1
+amloc: 6.5
+anpm: 0.5
+cbo: 0
+dit: 1
+lcom4: 2
+loc: 13
+mmloc: 9
+noa: 3
+noc: 0
+nom: 2
+npa: 0
+npm: 0
+rfc: 2
+sc: 0
+---
+_filename:
+  - src/com/OMM/application/user/view/SplashScreen.java
+_module: com::OMM::application::user::view::SplashScreen::initializeDBTask
+acc: 0
+accm: 3
+amloc: 21.3333333333333
+anpm: 0.666666666666667
+cbo: 0
+dit: 1
+lcom4: 3
+loc: 64
+mmloc: 34
+noa: 1
+noc: 0
+nom: 3
+npa: 0
+npm: 0
+rfc: 3
+sc: 0
+---
+_filename:
+  - src/com/OMM/application/user/view/SplashScreen.java
+_module: com::OMM::application::user::view::SplashScreen::UpdateDBTask
+acc: 0
+accm: 3
+amloc: 22
+anpm: 0.666666666666667
+cbo: 0
+dit: 1
+lcom4: 3
+loc: 66
+mmloc: 32
+noa: 3
+noc: 0
+nom: 3
+npa: 0
+npm: 0
+rfc: 3
+sc: 0
