@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,6 +20,8 @@ import android.widget.Toast;
 
 import com.OMM.application.user.R;
 import com.OMM.application.user.controller.ParlamentarUserController;
+import com.OMM.application.user.exceptions.NullCotaParlamentarException;
+import com.OMM.application.user.exceptions.NullParlamentarException;
 import com.OMM.application.user.model.CotaParlamentar;
 
 public class ParlamentarDetailFragment extends Fragment {
@@ -33,24 +36,24 @@ public class ParlamentarDetailFragment extends Fragment {
 	private static final int LOWER_LIMIT_RED_BAR = 5000;
 
 	// NumeroSubCota's values ​​coming from database
-	private static final int OFFICE = 1;
-	private static final int FUEL = 3;
-	private static final int TECHNICAL_WORK_AND_CONSULTORY = 4;
-	private static final int DISCLOSURE_OF_PARLIAMENTARY_ACTIVITY = 5;
-	private static final int SECURITY = 8;
-	private static final int CARGO_AIRCRAFT = 9;
-	private static final int PHONE = 10;
-	private static final int POST_SERVICES = 11;
-	private static final int PUBLICATIONS_SIGNATURE = 12;
-	private static final int FEED = 13;
-	private static final int LODGING = 14;
-	private static final int LEASE_OF_VEHICLES = 15;
-	private static final int ISSUANCE_OF_AIR_TICKETS = 999;
+	private static final int ESCRITORIO = 1;
+	private static final int COMBUSTIVEL = 3;
+	private static final int TRABALHO_TECNICO_E_CONSULTORIA = 4;
+	private static final int DIVULGACAO_ATIVIDADE_PARLAMENTAR = 5;
+	private static final int SEGURANCA = 8;
+	private static final int FRETE_AVIAO = 9;
+	private static final int TELEFONIA = 10;
+	private static final int SERVICOS_POSTAIS = 11;
+	private static final int ASSINATURA_DE_PUBLICACOES = 12;
+	private static final int ALIMENTACAO = 13;
+	private static final int HOSPEDAGEM = 14;
+	private static final int LOCACAO_DE_VEICULOS = 15;
+	private static final int EMISSAO_BILHETES_AEREOS = 999;
 
 	ParlamentarUserController parlamentarController;
-	private int selectedMonth = 1;
-	private int selectedYear = 2013;
-	private String month = "Janeiro";
+	private int selectedMes = 1;
+	private int selectedAno = 2013;
+	private String mes = "Janeiro";
 	
 
 	@Override
@@ -69,15 +72,15 @@ public class ParlamentarDetailFragment extends Fragment {
 	public void onResume() {
 		super.onResume();
 		if(this.isVisible()){
-			setBars();
+			setBarras();
 		}
 	}
 	
-	public void setBars() {
+	public void setBarras() {
 
 		DecimalFormat valorCotaDecimalFormat = new DecimalFormat("#,###.00");
 		double totalValue = 0;
-		resetBars();
+		resetBarras();
 
 		TextView view = (TextView) getView().findViewById(R.id.nome);
 		view.setText(parlamentarController.getParlamentar().getNome());
@@ -88,7 +91,7 @@ public class ParlamentarDetailFragment extends Fragment {
 		view = (TextView) getView().findViewById(R.id.pos);
 		formatRankingPos(view);
 		TextView textMes = (TextView) getView().findViewById(R.id.mes_e_ano);
-		textMes.setText( month +"/"+ selectedYear);
+		textMes.setText( mes +"/"+ selectedAno);
 
 		if (parlamentarController.getParlamentar().getIsSeguido() == 1) {
 			ImageView imgView = (ImageView) getView().findViewById(R.id.foto);
@@ -106,17 +109,17 @@ public class ParlamentarDetailFragment extends Fragment {
 
 			CotaParlamentar cota = iterator.next();
 
-			if ((cota.getMes() == selectedMonth)
-					&& (cota.getAno() == selectedYear)) {
+			if ((cota.getMes() == selectedMes)
+					&& (cota.getAno() == selectedAno)) {
 				double valorCota = cota.getValor();
 				int numeroSubCota = cota.getNumeroSubCota();
 				switch (numeroSubCota) {
 
-				case PUBLICATIONS_SIGNATURE:
+				case ASSINATURA_DE_PUBLICACOES:
 					hasSubcota = true;
 					valorSubcota = valorCota;
 
-				case OFFICE:
+				case ESCRITORIO:
 					valorCota += valorSubcota;
 					if (hasSubcota == true && valorSubcota != 0) {
 						valorCota -= valorSubcota;
@@ -133,7 +136,7 @@ public class ParlamentarDetailFragment extends Fragment {
 					sizeBar(barEscritorio, valorCota);
 					break;
 
-				case FUEL:
+				case COMBUSTIVEL:
 
 					ImageView barCombustivel = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_gasolina);
@@ -144,7 +147,7 @@ public class ParlamentarDetailFragment extends Fragment {
 					sizeBar(barCombustivel, valorCota);
 					break;
 
-				case TECHNICAL_WORK_AND_CONSULTORY:
+				case TRABALHO_TECNICO_E_CONSULTORIA:
 
 					ImageView barTrabalhoTecnico = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_trabalho_tecnico);
@@ -156,7 +159,7 @@ public class ParlamentarDetailFragment extends Fragment {
 
 					break;
 
-				case DISCLOSURE_OF_PARLIAMENTARY_ACTIVITY:
+				case DIVULGACAO_ATIVIDADE_PARLAMENTAR:
 
 					ImageView barDivulgacao = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_divulgacao);
@@ -168,7 +171,7 @@ public class ParlamentarDetailFragment extends Fragment {
 
 					break;
 
-				case SECURITY:
+				case SEGURANCA:
 
 					ImageView barSeguranca = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_seguranca);
@@ -180,11 +183,11 @@ public class ParlamentarDetailFragment extends Fragment {
 					sizeBar(barSeguranca, valorCota);
 					break;
 
-				case LEASE_OF_VEHICLES:
+				case LOCACAO_DE_VEICULOS:
 					hasSubcota = true;
 					valorSubcota = valorCota;
 
-				case CARGO_AIRCRAFT:
+				case FRETE_AVIAO:
 					valorCota += valorSubcota;
 					if (hasSubcota == true && valorSubcota != 0) {
 						valorCota -= valorSubcota;
@@ -202,7 +205,7 @@ public class ParlamentarDetailFragment extends Fragment {
 					
 					break;
 
-				case PHONE:
+				case TELEFONIA:
 
 					ImageView barTelefonia = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_telefonia);
@@ -214,7 +217,7 @@ public class ParlamentarDetailFragment extends Fragment {
 
 					break;
 
-				case POST_SERVICES:
+				case SERVICOS_POSTAIS:
 
 					ImageView barCorreios = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_correios);
@@ -226,7 +229,7 @@ public class ParlamentarDetailFragment extends Fragment {
 
 					break;
 
-				case FEED:
+				case ALIMENTACAO:
 
 					ImageView barAlimentacao = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_alimentacao);
@@ -238,7 +241,7 @@ public class ParlamentarDetailFragment extends Fragment {
 
 					break;
 
-				case LODGING:
+				case HOSPEDAGEM:
 
 					ImageView barHospedagem = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_hoespedagem);
@@ -250,7 +253,7 @@ public class ParlamentarDetailFragment extends Fragment {
 
 					break;
 
-				case ISSUANCE_OF_AIR_TICKETS:
+				case EMISSAO_BILHETES_AEREOS:
 
 					ImageView barBilhetesAereos = (ImageView) getActivity()
 							.findViewById(R.id.barra_cota_bilhetes_aereos);
@@ -290,25 +293,25 @@ public class ParlamentarDetailFragment extends Fragment {
 		}
 	}
 
-	public void sizeBar(ImageView bar, double cotaValue) {
+	public void sizeBar(ImageView bar, double valorCota) {
 
-		if (cotaValue <= UPPER_LIMIT_WHITE_BAR) {
+		if (valorCota <= UPPER_LIMIT_WHITE_BAR) {
 
 			bar.setImageResource(R.drawable.barra_branca);
 
-		} else if (cotaValue <= UPPER_LIMIT_GREEN_BAR) {
+		} else if (valorCota <= UPPER_LIMIT_GREEN_BAR) {
 
 			bar.setImageResource(R.drawable.barra_verde);
 
-		} else if (cotaValue <= UPPER_LIMIT_YELLOW_BAR) {
+		} else if (valorCota <= UPPER_LIMIT_YELLOW_BAR) {
 
 			bar.setImageResource(R.drawable.barra_amarela);
 
-		} else if (cotaValue <= UPPER_LIMIT_ORANGE_BAR) {
+		} else if (valorCota <= UPPER_LIMIT_ORANGE_BAR) {
 
 			bar.setImageResource(R.drawable.barra_laranja);
 
-		} else if (cotaValue > LOWER_LIMIT_RED_BAR) {
+		} else if (valorCota > LOWER_LIMIT_RED_BAR) {
 
 			bar.setImageResource(R.drawable.barra_vermelha);
 
@@ -468,6 +471,19 @@ public class ParlamentarDetailFragment extends Fragment {
 		menu.clear();
 		SubMenu sub = menu.addSubMenu("Mês");
 		SubMenu ano = menu.addSubMenu("Ano");
+		//if (parlamentarController.getParlamentar().getIsSeguido() == 1) {
+			MenuItem esquecer = menu.add(0,Menu.FIRST + 12, 0, "Esquecer");
+			esquecer.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		//} else {
+			MenuItem seguir = menu.add(0, Menu.FIRST + 13, 0, "Seguir");
+			seguir.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+			if(parlamentarController.getParlamentar().getIsSeguido() == 1){
+				seguir.setVisible(false);
+			}
+			else {
+				esquecer.setVisible(false);
+			}
+		//}
 		sub.add(0, Menu.FIRST, 0, "Janeiro");
 		sub.add(0, Menu.FIRST + 1, 0, "Fevereiro");
 		sub.add(0, Menu.FIRST + 2, 0, "Março");
@@ -504,76 +520,117 @@ public class ParlamentarDetailFragment extends Fragment {
 		switch (item.getItemId()) {
 		case 0:
 		case Menu.FIRST:
-			selectedMonth = 1;
-			month = "Janeiro";
+			selectedMes = 1;
+			mes = "Janeiro";
 			break;
 
 		case Menu.FIRST + 1:
-			selectedMonth = 2;
-			month = "Fevereiro";
+			selectedMes = 2;
+			mes = "Fevereiro";
 			break;
 
 		case Menu.FIRST + 2:
-			selectedMonth = 3;
-			month = "Março";
+			selectedMes = 3;
+			mes = "Março";
 			break;
 
 		case Menu.FIRST + 3:
-			selectedMonth = 4;
-			month = "Abril";
+			selectedMes = 4;
+			mes = "Abril";
 			break;
 
 		case Menu.FIRST + 4:
-			selectedMonth = 5;
-			month = "Maio";
+			selectedMes = 5;
+			mes = "Maio";
 			break;
 
 		case Menu.FIRST + 5:
-			selectedMonth = 6;
-			month = "Junho";
+			selectedMes = 6;
+			mes = "Junho";
 			break;
 
 		case Menu.FIRST + 6:
-			selectedMonth = 7;
-			month = "Julho";
+			selectedMes = 7;
+			mes = "Julho";
 			break;
 
 		case Menu.FIRST + 7:
-			selectedMonth = 8;
-			month = "Agosto";
+			selectedMes = 8;
+			mes = "Agosto";
 			break;
 
 		case Menu.FIRST + 8:
-			selectedMonth = 9;
-			month = "Setembro";
+			selectedMes = 9;
+			mes = "Setembro";
 			break;
 
 		case Menu.FIRST + 9:
-			selectedMonth = 10;
-			month = "Outubro";
+			selectedMes = 10;
+			mes = "Outubro";
 			break;
 
 		case Menu.FIRST + 10:
-			selectedMonth = 11;
-			month = "Novembro";
+			selectedMes = 11;
+			mes = "Novembro";
 			break;
 
 		case Menu.FIRST + 11:
-			selectedMonth = 12;
-			month = "Dezembro";
+			selectedMes = 12;
+			mes = "Dezembro";
 			break;
+			
+		case Menu.FIRST +12:
+			try {
+				parlamentarController.unfollowedParlamentar();
+				Toast.makeText(getActivity(), "Parlamentar desseguido",
+						Toast.LENGTH_SHORT).show();
+				
+				ImageView imgView = (ImageView) getView().findViewById(
+						R.id.foto);
+				imgView.setImageResource(R.drawable.parlamentar_foto);
+				
+				getActivity().invalidateOptionsMenu();
+				
+			} catch (NullParlamentarException nullEx) {
+				Toast.makeText(getActivity(), "Erro na requisição",
+						Toast.LENGTH_SHORT).show();
+			} catch (NullCotaParlamentarException e) {
+				Toast.makeText(getActivity(), "Erro na requisição",
+						Toast.LENGTH_SHORT).show();
+			}
+          break;
+          
+		case Menu.FIRST + 13:
+			try {
+				parlamentarController.followedParlamentar();
+				Toast.makeText(getActivity(), "Parlamentar Seguido",
+						Toast.LENGTH_SHORT).show();
 
+				ImageView imgView = (ImageView) getView().findViewById(
+						R.id.foto);
+				imgView.setImageResource(R.drawable.parlamentar_seguido_foto);
+				
+				getActivity().invalidateOptionsMenu();
+
+			} catch (NullParlamentarException nullEx) {
+				Toast.makeText(getActivity(), "Erro na requisição",
+						Toast.LENGTH_SHORT).show();
+			} catch (NullCotaParlamentarException e) {
+				Toast.makeText(getActivity(), "Erro na requisição",
+						Toast.LENGTH_SHORT).show();
+			}
+			break;
 		default:
 			
-			selectedYear = item.getItemId();
+			selectedAno = item.getItemId();
 		    break;
 		}
 
-		setBars();
+		setBarras();
 		return true;
 	}
 
-	public void resetBars() {
+	public void resetBarras() {
 
 		double valorCota = 0;
 

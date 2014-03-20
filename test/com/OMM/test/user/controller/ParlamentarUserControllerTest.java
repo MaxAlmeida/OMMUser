@@ -118,7 +118,7 @@ public class ParlamentarUserControllerTest extends AndroidTestCase {
 		controller.followedParlamentar();
 		parlamentar.setSeguido(0);
 		controller.setParlamentar(parlamentar);
-		assertTrue(controller.unFollowedParlamentar());
+		assertTrue(controller.unfollowedParlamentar());
 	}
 
 	public void testFollowedParlamentarNullParlamentrarException()
@@ -155,7 +155,7 @@ public class ParlamentarUserControllerTest extends AndroidTestCase {
 			throws NullParlamentarException, NullCotaParlamentarException {
 		try {
 			controller.setParlamentar(null);
-			controller.unFollowedParlamentar();
+			controller.unfollowedParlamentar();
 
 			fail("Exceptions no launched");
 

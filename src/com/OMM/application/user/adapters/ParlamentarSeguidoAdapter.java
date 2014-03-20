@@ -83,7 +83,7 @@ public class ParlamentarSeguidoAdapter extends BaseAdapter {
 					try {
 
 						parlamentar = controller.getParlamentar();
-						controller.unFollowedParlamentar();
+						controller.unfollowedParlamentar();
 						view.animate().alpha(0.0f);
 						removeItem((Integer) checkBox.getTag());
 

@@ -81,7 +81,7 @@ public class ParlamentarAdapter extends BaseAdapter {
 					task.execute(responseHandler);
 				} else {
 					try {
-						controller.unFollowedParlamentar();
+						controller.unfollowedParlamentar();
 						parlamentar = controller.getParlamentar();
 						notifyDataSetChanged();
 

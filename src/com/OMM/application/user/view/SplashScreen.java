@@ -91,7 +91,7 @@ public class SplashScreen extends Activity {
 				return 0;
 			}
 		} catch (Exception e) {
-			return 0;
+			return 2;
 		}
 	}
 
