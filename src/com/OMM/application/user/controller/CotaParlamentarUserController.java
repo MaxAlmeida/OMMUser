@@ -11,7 +11,6 @@ import com.OMM.application.user.model.CotaParlamentar;
 public class CotaParlamentarUserController {
 
 	private static CotaParlamentarUserController instance;
-
 	private CotaParlamentarUserDao cotaParlamentarDao;
 
 	private CotaParlamentarUserController(Context context) {

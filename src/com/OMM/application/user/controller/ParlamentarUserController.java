@@ -44,9 +44,7 @@ public class ParlamentarUserController {
 		if (instance == null) {
 			instance = new ParlamentarUserController(context);
 		}
-
 		return instance;
-
 	}
 
 	public void setParlamentar(Parlamentar parlamentar) {
