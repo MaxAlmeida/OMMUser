@@ -27,7 +27,7 @@ public class RankingParlamentarObserverTest extends AndroidTestCase {
 		observer=new RankingParlamentarObserver(subject, context);
 		dao=ParlamentarUserDao.getInstance(context);
 		
-		parlamentarTest=new Parlamentar(999,"Teste","Teste","DF",0,100);
+		parlamentarTest=new Parlamentar(999,"Teste","Teste","DF",0);
 		dao.insertParlamentar(parlamentarTest);
 		
 		
