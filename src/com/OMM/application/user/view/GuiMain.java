@@ -23,9 +23,9 @@ public class GuiMain extends Activity
 		implements
 		ParlamentarSeguidoListFragment.OnParlamentarSeguidoSelectedListener,
 		ParlamentarListFragment.OnParlamentarSelectedListener,
-		ParlamentarMajorRankingListFragment.OnParlamentarMajorSelectedListener,
-		ParlamentarMinorRankingListFragment.OnParlamentarMinorSelectedListener {
-
+		ParlamentarMajorRankingListFragment.OnParlamentarMajorSelectedListener//,
+		//ParlamentarMinorRankingListFragment.OnParlamentarMinorSelectedListener {
+		{
 	private static final String PARLAMENTARES_FOLLOWED_MESSAGE = "Parlamentares Seguidos";
 	private static final String SEARCH_PARLAMENTAR_MESSAGE = "Pesquisar Parlamentar";
 	private static final String RANKINGS_MESSAGE = "Rankings entre parlamentares";
@@ -179,6 +179,7 @@ public class GuiMain extends Activity
 		}
 	}
 	
+	
 	@Override
 	public void OnParlamentarMajorSelected() {
 
@@ -191,17 +192,19 @@ public class GuiMain extends Activity
 		}
 	}
 
-	@Override
-	public void OnParlamentarMinorSelected() {
-
-		ParlamentarDetailFragment detailFragment = new ParlamentarDetailFragment();
-		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-			updateFragment(R.id.fragment_container, detailFragment);
-
-		} else {
-			updateFragment(R.id.detail_fragment_container, detailFragment);
-		}
-	}
+//	@Override
+//	public void OnParlamentarMinorSelected() {
+//
+//		ParlamentarDetailFragment detailFragment = new ParlamentarDetailFragment();
+//		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+//			
+//			updateFragment(R.id.fragment_container, detailFragment);
+//			
+//			
+//		} else {
+//			updateFragment(R.id.detail_fragment_container, detailFragment);
+//		}
+//	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
