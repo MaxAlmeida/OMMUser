@@ -5,7 +5,7 @@ import java.util.List;
 
 import android.content.Context;
 
-import com.OMM.application.user.controller.UrlHostController;
+import com.OMM.application.user.controller.ServerUpdatesController;
 
 public class MountURL {
 
@@ -14,12 +14,12 @@ public class MountURL {
 	private String IP = null;
 	private static MountURL instance = null;
 
-	private MountURL(Context context, UrlHostController controller) {
+	private MountURL(Context context, ServerUpdatesController controller) {
 		IP = controller.getUrl();
 	}
 
 	public static MountURL getIsntance(Context context,
-			UrlHostController controller) {
+			ServerUpdatesController controller) {
 		if (instance == null)
 			instance = new MountURL(context, controller);
 

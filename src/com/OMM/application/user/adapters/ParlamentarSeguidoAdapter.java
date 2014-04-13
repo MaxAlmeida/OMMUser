@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.OMM.application.user.R;
+import com.OMM.application.user.alerts.Alerts;
 import com.OMM.application.user.controller.ParlamentarUserController;
 import com.OMM.application.user.exceptions.ConnectionFailedException;
 import com.OMM.application.user.exceptions.NullCotaParlamentarException;
@@ -28,7 +29,6 @@ import com.OMM.application.user.exceptions.NullParlamentarException;
 import com.OMM.application.user.exceptions.RequestFailedException;
 import com.OMM.application.user.model.Parlamentar;
 import com.OMM.application.user.requests.HttpConnection;
-import com.OMM.application.user.view.Alerts;
 
 public class ParlamentarSeguidoAdapter extends BaseAdapter {
 	private Context context;

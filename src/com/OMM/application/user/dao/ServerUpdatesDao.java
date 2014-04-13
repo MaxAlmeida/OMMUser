@@ -7,22 +7,22 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.OMM.application.user.helper.LocalDatabase;
 
-public class UrlHostDao {
+public class ServerUpdatesDao {
 
-	private static UrlHostDao instance = null;
+	private static ServerUpdatesDao instance = null;
 	private LocalDatabase database;
 	private String table_name = "URL_SERVER";
 	private SQLiteDatabase sqliteDatabase;
-	private String defaultUrl = "192.168.1.4:8080/OlhaMinhaMesada";
+	private String defaultUrl = "192.168.1.106:8080/OlhaMinhaMesada";
 	//private String defaultUrl="env-6198716.jelastic.websolute.net.br";
-	private UrlHostDao(Context context) {
+	private ServerUpdatesDao(Context context) {
 		this.database = new LocalDatabase(context);
 	}
 
-	public static UrlHostDao getInstance(Context context) {
+	public static ServerUpdatesDao getInstance(Context context) {
 
 		if (instance == null)
-			instance = new UrlHostDao(context);
+			instance = new ServerUpdatesDao(context);
 		return instance;
 
 	}

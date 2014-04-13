@@ -21,6 +21,7 @@ import android.widget.SearchView.OnQueryTextListener;
 
 import com.OMM.application.user.R;
 import com.OMM.application.user.adapters.ParlamentarAdapter;
+import com.OMM.application.user.alerts.Alerts;
 import com.OMM.application.user.controller.ParlamentarUserController;
 import com.OMM.application.user.exceptions.ConnectionFailedException;
 import com.OMM.application.user.exceptions.NullCotaParlamentarException;

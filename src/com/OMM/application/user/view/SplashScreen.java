@@ -1,6 +1,7 @@
 package com.OMM.application.user.view;
 
 import org.apache.http.client.ResponseHandler;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -13,8 +14,10 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo.State;
 import android.os.AsyncTask;
 import android.os.Bundle;
+
 import com.OMM.application.updates.ServerUpdatesSubject;
 import com.OMM.application.user.R;
+import com.OMM.application.user.alerts.Alerts;
 import com.OMM.application.user.controller.ParlamentarUserController;
 import com.OMM.application.user.exceptions.ConnectionFailedException;
 import com.OMM.application.user.exceptions.NullCotaParlamentarException;
