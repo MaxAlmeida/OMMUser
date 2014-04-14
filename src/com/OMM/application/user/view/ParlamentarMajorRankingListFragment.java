@@ -2,8 +2,11 @@ package com.OMM.application.user.view;
 
 import java.util.List;
 
+import org.apache.http.client.ResponseHandler;
+
 import android.app.Activity;
 import android.app.ListFragment;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -19,7 +22,12 @@ import android.widget.SearchView.OnQueryTextListener;
 import com.OMM.application.user.R;
 import com.OMM.application.user.adapters.MajorRankingAdapter;
 import com.OMM.application.user.controller.ParlamentarUserController;
+import com.OMM.application.user.exceptions.ConnectionFailedException;
+import com.OMM.application.user.exceptions.NullCotaParlamentarException;
+import com.OMM.application.user.exceptions.NullParlamentarException;
+import com.OMM.application.user.exceptions.RequestFailedException;
 import com.OMM.application.user.model.Parlamentar;
+import com.OMM.application.user.requests.HttpConnection;
 
 public class ParlamentarMajorRankingListFragment extends ListFragment {
 
@@ -70,7 +78,12 @@ public class ParlamentarMajorRankingListFragment extends ListFragment {
 	}
 
 	private void updateDetail() {
-		listener.OnParlamentarMajorSelected();
+		if (parlamentarController.getParlamentar().getIsSeguido() == 1) {
+			parlamentarController.getSelected();
+			listener.OnParlamentarMajorSelected();
+		} else {
+			startRequest();
+		}
 	}
 
 	private static class ParseTask extends AsyncTask<String, Void, Void> {
@@ -170,5 +183,95 @@ public class ParlamentarMajorRankingListFragment extends ListFragment {
 				.getSystemService(Context.INPUT_METHOD_SERVICE);
 		inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus()
 				.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+	}
+	
+	private class RequestTask extends AsyncTask<Object, Void, Integer> {
+
+		ProgressDialog progressDialog;
+
+		@Override
+		protected void onPreExecute() {
+			progressDialog = ProgressDialog.show(getActivity(), "Aguarde...",
+					"Buscando Dados");
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		protected Integer doInBackground(Object... params) {
+
+			Integer result = null;
+			ParlamentarUserController parlamentarController = ParlamentarUserController
+					.getInstance(getActivity());
+
+			ResponseHandler<String> rh = (ResponseHandler<String>) params[0];
+			try {
+				parlamentarController.doRequest(rh);
+				result = Alerts.NO_EXCEPTIONS;
+			} catch (ConnectionFailedException cfe) {
+				result = Alerts.CONNECTION_FAILED_EXCEPTION;
+
+			} catch (RequestFailedException rfe) {
+				result = Alerts.REQUEST_FAILED_EXCEPTION;
+
+			} catch (NullParlamentarException npe) {
+				result = Alerts.NULL_PARLAMENTAR_EXCEPTION;
+
+			} catch (NullCotaParlamentarException ncpe) {
+				result = Alerts.NULL_COTA_PARLAMENTAR_EXCEPTION;
+
+			} 
+			
+			return result;
+		}
+
+		@Override
+		protected void onPostExecute(Integer result) {
+			progressDialog.dismiss();
+
+			switch ((Integer) result) {
+			case 0:
+
+				listener.OnParlamentarMajorSelected();
+				break;
+
+			case Alerts.CONNECTION_FAILED_EXCEPTION:
+
+				Alerts.conectionFailedAlert(getActivity(), null);
+				break;
+
+			case Alerts.NULL_PARLAMENTAR_EXCEPTION:
+
+				Alerts.parlamentarFailedAlert(getActivity(), null);
+				break;
+
+			case Alerts.NULL_COTA_PARLAMENTAR_EXCEPTION:
+
+				Alerts.cotaParlamentarFailedAlert(getActivity(), null);
+				break;
+
+			case Alerts.REQUEST_FAILED_EXCEPTION:
+
+				Alerts.requestFailedAlert(getActivity(), null);
+				break;
+
+			// case Alerts.UNEXPECTED_FAILED_EXCEPTION:
+			//
+			// Alerts.unexpectedFailedAlert(getActivity(), null);
+			// break;
+
+			default:
+				// Nothing should be done
+			}
+		}
+	}
+
+	private void startRequest() {
+
+		ResponseHandler<String> responseHandler = HttpConnection
+				.getResponseHandler();
+
+		RequestTask task = new RequestTask();
+		task.execute(responseHandler);
+
 	}
 }
