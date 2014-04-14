@@ -74,4 +74,10 @@ public class JSONHelperTest extends AndroidTestCase {
 
 		}
 	}
+	
+	public void testUpdateFromJSON() {
+		int updateId = JSONHelper.updateFromJSON("[1]");
+		assertEquals(1, updateId);
+	}
+		
 }

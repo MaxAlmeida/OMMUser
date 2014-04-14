@@ -79,8 +79,9 @@ public class JSONHelper {
 			Gson gson = new Gson();
 			cods = gson.fromJson(jsonUpdate, new TypeToken<List<String>>() {
 			}.getType());
-			codUpdates = Integer.parseInt(cods.get(cods.size()));
+			codUpdates = Integer.parseInt(cods.get(cods.size()-1));
 		} catch (NullPointerException error) {
+			
 		}
 		return codUpdates;
 	}

@@ -1,6 +1,7 @@
 package com.OMM.application.user.view;
 
 import org.apache.http.client.ResponseHandler;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -13,8 +14,10 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo.State;
 import android.os.AsyncTask;
 import android.os.Bundle;
+
 import com.OMM.application.updates.ServerUpdatesSubject;
 import com.OMM.application.user.R;
+import com.OMM.application.user.alerts.AlertsFactory;
 import com.OMM.application.user.controller.ParlamentarUserController;
 import com.OMM.application.user.exceptions.ConnectionFailedException;
 import com.OMM.application.user.exceptions.NullCotaParlamentarException;
@@ -47,7 +50,6 @@ public class SplashScreen extends Activity {
 		parlamentarController = ParlamentarUserController
 				.getInstance(getBaseContext());
 		isEmpty = parlamentarController.checkEmptyDB();
-
 	}
 
 	@Override
@@ -233,7 +235,7 @@ public class SplashScreen extends Activity {
 			} catch (RequestFailedException rfe) {
 				exception = Alerts.REQUEST_FAILED_EXCEPTION;
 
-			}
+			} 
 			return exception;
 		}
 
@@ -243,30 +245,11 @@ public class SplashScreen extends Activity {
 				progressDialog.dismiss();
 			} catch (Exception e) {
 			}
-
-			switch (result) {
-
-			case Alerts.CONNECTION_FAILED_EXCEPTION:
-
-				Alerts.conectionFailedAlert(SplashScreen.this, positiveListener);
-				break;
-
-			case Alerts.NULL_PARLAMENTAR_EXCEPTION:
-
-				Alerts.parlamentarFailedAlert(SplashScreen.this,
-						positiveListener);
-				break;
-
-			case Alerts.REQUEST_FAILED_EXCEPTION:
-
-				Alerts.requestFailedAlert(SplashScreen.this, positiveListener);
-				break;
-			case Alerts.RUNTIME_EXCEPTION:
-				Alerts.runtimeException(SplashScreen.this, positiveListener);
-				break;
-
-			default:
-
+			if(result != AlertsFactory.NO_EXCEPTIONS){
+				AlertsFactory af = AlertsFactory.getInstance(SplashScreen.this);
+				af.createAlert(result, positiveListener, null);
+			}
+			else{
 				startApplication();
 			}
 
@@ -295,8 +278,6 @@ public class SplashScreen extends Activity {
 			try {
 				needsUpdate = subject.doRequestUpdateVerify(response);
 
-				response = HttpConnection.getResponseHandler();
-
 				if (needsUpdate) {
 					subject.doRequestParlamentar(response);
 					subject.doRequestCota(response);
@@ -313,9 +294,7 @@ public class SplashScreen extends Activity {
 
 			} catch (NullCotaParlamentarException ncpe) {
 				exception = Alerts.NULL_COTA_PARLAMENTAR_EXCEPTION;
-			} catch (RuntimeException e) {
-				exception = Alerts.RUNTIME_EXCEPTION;
-			}
+			} 
 
 			return exception;
 		}
@@ -326,29 +305,13 @@ public class SplashScreen extends Activity {
 				progressDialog.dismiss();
 			} catch (Exception e) {
 			}
-			switch (result) {
-
-			case Alerts.CONNECTION_FAILED_EXCEPTION:
-
-				Alerts.conectionFailedAlert(SplashScreen.this, positiveListener);
-				break;
-
-			case Alerts.NULL_PARLAMENTAR_EXCEPTION:
-
-				Alerts.parlamentarFailedAlert(SplashScreen.this,
-						positiveListener);
-				break;
-
-			case Alerts.REQUEST_FAILED_EXCEPTION:
-
-				Alerts.requestFailedAlert(SplashScreen.this, positiveListener);
-				break;
-
-			default:
-
+			if(result != AlertsFactory.NO_EXCEPTIONS){
+				AlertsFactory af = AlertsFactory.getInstance(SplashScreen.this);
+				af.createAlert(result, positiveListener, null);
+			}
+			else{
 				startApplication();
 			}
-
 		}
 	}
 
