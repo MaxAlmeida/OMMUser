@@ -14,8 +14,8 @@ public class UnknownExceptionAlert {
 
 	private UnknownExceptionAlert(Context context,
 			OnClickListener positivelistener) {
-		instance.context = context;
-		instance.positiveListener = positivelistener;
+		this.context = context;
+		this.positiveListener = positivelistener;
 	}
 
 	protected static UnknownExceptionAlert getInstance(Context context,

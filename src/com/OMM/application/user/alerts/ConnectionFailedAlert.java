@@ -14,8 +14,8 @@ public class ConnectionFailedAlert {
 
 	private ConnectionFailedAlert(Context context,
 			OnClickListener positivelistener) {
-		instance.context = context;
-		instance.positiveListener = positivelistener;
+		this.context = context;
+		this.positiveListener = positivelistener;
 	}
 
 	protected static ConnectionFailedAlert getInstance(Context context,

@@ -13,8 +13,8 @@ public class RequestFailedAlert {
 	private OnClickListener positiveListener;
 
 	private RequestFailedAlert(Context context, OnClickListener positivelistener) {
-		instance.context = context;
-		instance.positiveListener = positivelistener;
+		this.context = context;
+		this.positiveListener = positivelistener;
 	}
 
 	protected static RequestFailedAlert getInstance(Context context,

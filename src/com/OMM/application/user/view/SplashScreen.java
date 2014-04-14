@@ -295,7 +295,7 @@ public class SplashScreen extends Activity {
 			} catch (NullCotaParlamentarException ncpe) {
 				exception = AlertsFactory.NULL_COTA_PARLAMENTAR_EXCEPTION;
 			} 
-
+			exception = AlertsFactory.REQUEST_FAILED_EXCEPTION;
 			return exception;
 		}
 

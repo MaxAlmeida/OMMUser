@@ -38,16 +38,19 @@ public class AlertsFactory {
 
 		switch (type) {
 		case CONNECTION_FAILED_EXCEPTION:
-			Alerts.conectionFailedAlert(context, positivelistener);
+			ConnectionFailedAlert.getInstance(context, positivelistener).createAlertDialog();
 			break;	
 		case NULL_PARLAMENTARY_EXCEPTION:
-			Alerts.parlamentarFailedAlert(context, positivelistener);
+			NullParlamentaryAlert.getInstance(context, positivelistener).createAlertDialog();
 			break;
 		case REQUEST_FAILED_EXCEPTION:
-			Alerts.requestFailedAlert(context, positivelistener);
+			RequestFailedAlert.getInstance(context, positivelistener).createAlertDialog();
+			break;
+		case NULL_COTA_PARLAMENTAR_EXCEPTION:
+			NullCotaParlamentarAlert.getInstance(context, positivelistener).createAlertDialog();
 			break;
 		case RUNTIME_EXCEPTION:
-			Alerts.runtimeException(context, positivelistener);
+			RuntimeAlert.getInstance(context, positivelistener).createAlertDialog();
 			break;
 		default:			
 			break;

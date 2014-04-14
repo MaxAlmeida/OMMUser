@@ -5,24 +5,24 @@ import android.content.Context;
 import android.content.DialogInterface.OnClickListener;
 import android.util.Log;
 
-public class NullParlamentaryAlert {
+public class NullCotaParlamentarAlert {
 
-	private static NullParlamentaryAlert instance = null;
+	private static NullCotaParlamentarAlert instance = null;
 	private static AlertDialog alertInstance = null;
 	private Context context;
 	private OnClickListener positiveListener;
 
-	private NullParlamentaryAlert(Context context,
+	private NullCotaParlamentarAlert(Context context,
 			OnClickListener positivelistener) {
 		this.context = context;
 		this.positiveListener = positivelistener;
 	}
 
-	protected static NullParlamentaryAlert getInstance(Context context,
+	protected static NullCotaParlamentarAlert getInstance(Context context,
 			OnClickListener positivelistener) {
 
 		if (instance == null) {
-			instance = new NullParlamentaryAlert(context, positivelistener);
+			instance = new NullCotaParlamentarAlert(context, positivelistener);
 		}
 
 		else {

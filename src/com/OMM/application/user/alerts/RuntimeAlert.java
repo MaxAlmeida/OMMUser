@@ -12,8 +12,8 @@ public class RuntimeAlert {
 	private OnClickListener positiveListener;
 
 	private RuntimeAlert(Context context, OnClickListener positivelistener) {
-		instance.context = context;
-		instance.positiveListener = positivelistener;
+		this.context = context;
+		this.positiveListener = positivelistener;
 	}
 
 	protected static RuntimeAlert getInstance(Context context,
