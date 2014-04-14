@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.OMM.application.user.R;
+import com.OMM.application.user.alerts.AlertsFactory;
 import com.OMM.application.user.controller.ParlamentarUserController;
 import com.OMM.application.user.exceptions.ConnectionFailedException;
 import com.OMM.application.user.exceptions.NullCotaParlamentarException;
@@ -28,7 +29,6 @@ import com.OMM.application.user.exceptions.NullParlamentarException;
 import com.OMM.application.user.exceptions.RequestFailedException;
 import com.OMM.application.user.model.Parlamentar;
 import com.OMM.application.user.requests.HttpConnection;
-import com.OMM.application.user.view.Alerts;
 
 public class ParlamentarSeguidoAdapter extends BaseAdapter {
 	private Context context;
@@ -88,9 +88,11 @@ public class ParlamentarSeguidoAdapter extends BaseAdapter {
 						removeItem((Integer) checkBox.getTag());
 
 					} catch (NullParlamentarException e) {
-						Alerts.parlamentarFailedAlert(context, null);
+						AlertsFactory alertsFactory = AlertsFactory.getInstance(context);
+						alertsFactory.createAlert(AlertsFactory.NULL_PARLAMENTARY_EXCEPTION, null, null);							
 					} catch (NullCotaParlamentarException e) {
-						Alerts.cotaParlamentarFailedAlert(context, null);
+						AlertsFactory alertsFactory = AlertsFactory.getInstance(context);
+						alertsFactory.createAlert(AlertsFactory.NULL_COTA_PARLAMENTAR_EXCEPTION, null, null);
 					}
 				}
 			}
@@ -150,22 +152,18 @@ public class ParlamentarSeguidoAdapter extends BaseAdapter {
 			ResponseHandler<String> rh = (ResponseHandler<String>) params[0];
 			try {
 				parlamentarController.doRequest(rh);
-				result = Alerts.NO_EXCEPTIONS;
+				result = AlertsFactory.NO_EXCEPTIONS;
 			} catch (ConnectionFailedException cfe) {
-				result = Alerts.CONNECTION_FAILED_EXCEPTION;
+				result = AlertsFactory.CONNECTION_FAILED_EXCEPTION;
 
 			} catch (RequestFailedException rfe) {
-				result = Alerts.REQUEST_FAILED_EXCEPTION;
+				result = AlertsFactory.REQUEST_FAILED_EXCEPTION;
 
 			} catch (NullParlamentarException npe) {
-				result = Alerts.NULL_PARLAMENTAR_EXCEPTION;
+				result = AlertsFactory.NULL_PARLAMENTARY_EXCEPTION;
 
 			} catch (NullCotaParlamentarException ncpe) {
-				result = Alerts.NULL_COTA_PARLAMENTAR_EXCEPTION;
-
-				// } catch (Exception e) {
-				// result = Alerts.UNEXPECTED_FAILED_EXCEPTION;
-
+				result = AlertsFactory.NULL_COTA_PARLAMENTAR_EXCEPTION;
 			}
 			return result;
 		}
@@ -174,50 +172,23 @@ public class ParlamentarSeguidoAdapter extends BaseAdapter {
 		protected void onPostExecute(Integer result) {
 			progressDialog.dismiss();
 			notifyDataSetChanged();
-			switch ((Integer) result) {
-			case 0:
-
+			if(result == AlertsFactory.NO_EXCEPTIONS){
 				try {
 					controller.followedParlamentar();
 				} catch (NullCotaParlamentarException e) {
-					Alerts.cotaParlamentarFailedAlert(context, null);
+					AlertsFactory alertsFactory = AlertsFactory.getInstance(context);
+					alertsFactory.createAlert(AlertsFactory.NULL_COTA_PARLAMENTAR_EXCEPTION, null, null);
 
 				} catch (NullParlamentarException e) {
-					Alerts.parlamentarFailedAlert(context, null);
-
+					AlertsFactory alertsFactory = AlertsFactory.getInstance(context);
+					alertsFactory.createAlert(AlertsFactory.NULL_PARLAMENTARY_EXCEPTION, null, null);
 				}
 				Toast.makeText(context, "Seguido!", Toast.LENGTH_SHORT).show();
-				break;
-
-			case Alerts.CONNECTION_FAILED_EXCEPTION:
-
-				Alerts.conectionFailedAlert(context, null);
-				break;
-
-			case Alerts.NULL_PARLAMENTAR_EXCEPTION:
-
-				Alerts.parlamentarFailedAlert(context, null);
-				break;
-
-			case Alerts.NULL_COTA_PARLAMENTAR_EXCEPTION:
-
-				Alerts.cotaParlamentarFailedAlert(context, null);
-				break;
-
-			case Alerts.REQUEST_FAILED_EXCEPTION:
-
-				Alerts.requestFailedAlert(context, null);
-				break;
-
-			// case Alerts.UNEXPECTED_FAILED_EXCEPTION:
-			//
-			// Alerts.unexpectedFailedAlert(context);
-			// break;
-
-			default:
-				// Nothing should be done
+			}
+			else{
+				AlertsFactory alertsFactory = AlertsFactory.getInstance(context);
+				alertsFactory.createAlert(result, null, null);
 			}
 		}
 	}
-
 }

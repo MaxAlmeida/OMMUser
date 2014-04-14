@@ -21,6 +21,7 @@ import android.widget.SearchView.OnQueryTextListener;
 
 import com.OMM.application.user.R;
 import com.OMM.application.user.adapters.ParlamentarAdapter;
+import com.OMM.application.user.alerts.AlertsFactory;
 import com.OMM.application.user.controller.ParlamentarUserController;
 import com.OMM.application.user.exceptions.ConnectionFailedException;
 import com.OMM.application.user.exceptions.NullCotaParlamentarException;
@@ -196,19 +197,19 @@ public class ParlamentarListFragment extends ListFragment {
 			ResponseHandler<String> rh = (ResponseHandler<String>) params[0];
 			try {
 				parlamentarController.doRequest(rh);
-				result = Alerts.NO_EXCEPTIONS;
+				result = AlertsFactory.NO_EXCEPTIONS;
 			} catch (ConnectionFailedException cfe) {
-				result = Alerts.CONNECTION_FAILED_EXCEPTION;
+				result = AlertsFactory.CONNECTION_FAILED_EXCEPTION;
 
 			} catch (RequestFailedException rfe) {
-				result = Alerts.REQUEST_FAILED_EXCEPTION;
+				result = AlertsFactory.REQUEST_FAILED_EXCEPTION;
 
 			} catch (NullParlamentarException npe) {
-				result = Alerts.NULL_PARLAMENTAR_EXCEPTION;
+				result = AlertsFactory.NULL_PARLAMENTARY_EXCEPTION;
 
 			} catch (NullCotaParlamentarException ncpe) {
-				result = Alerts.NULL_COTA_PARLAMENTAR_EXCEPTION;
-
+				result = AlertsFactory.NULL_COTA_PARLAMENTAR_EXCEPTION;
+				
 			} 
 			
 			return result;
@@ -218,41 +219,14 @@ public class ParlamentarListFragment extends ListFragment {
 		protected void onPostExecute(Integer result) {
 			progressDialog.dismiss();
 
-			switch ((Integer) result) {
-			case 0:
-
+			if(result == AlertsFactory.NO_EXCEPTIONS){
 				listener.OnParlamentarSelected();
-				break;
-
-			case Alerts.CONNECTION_FAILED_EXCEPTION:
-
-				Alerts.conectionFailedAlert(getActivity(), null);
-				break;
-
-			case Alerts.NULL_PARLAMENTAR_EXCEPTION:
-
-				Alerts.parlamentarFailedAlert(getActivity(), null);
-				break;
-
-			case Alerts.NULL_COTA_PARLAMENTAR_EXCEPTION:
-
-				Alerts.cotaParlamentarFailedAlert(getActivity(), null);
-				break;
-
-			case Alerts.REQUEST_FAILED_EXCEPTION:
-
-				Alerts.requestFailedAlert(getActivity(), null);
-				break;
-
-			// case Alerts.UNEXPECTED_FAILED_EXCEPTION:
-			//
-			// Alerts.unexpectedFailedAlert(getActivity(), null);
-			// break;
-
-			default:
-				// Nothing should be done
 			}
-		}
+			else{
+				AlertsFactory alertsFactory = AlertsFactory.getInstance(getActivity());
+				alertsFactory.createAlert(result, null, null);
+			}
+					}
 	}
 
 	private void startRequest() {

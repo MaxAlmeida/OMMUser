@@ -1,4 +1,4 @@
-package com.OMM.application.user.view;
+package com.OMM.application.user.alerts;
 
 import android.app.AlertDialog;
 import android.content.Context;

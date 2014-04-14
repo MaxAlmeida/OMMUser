@@ -203,7 +203,7 @@ public class SplashScreen extends Activity {
 	private class initializeDBTask extends AsyncTask<Object, Void, Integer> {
 		ProgressDialog progressDialog;
 
-		Integer exception = Alerts.NO_EXCEPTIONS;
+		Integer exception = AlertsFactory.NO_EXCEPTIONS;
 
 		@Override
 		protected void onPreExecute() {
@@ -227,13 +227,13 @@ public class SplashScreen extends Activity {
 				parlamentarController.insertAll(dataResponseHandler);
 
 			} catch (ConnectionFailedException cfe) {
-				exception = Alerts.CONNECTION_FAILED_EXCEPTION;
+				exception = AlertsFactory.CONNECTION_FAILED_EXCEPTION;
 
 			} catch (NullParlamentarException cpe) {
-				exception = Alerts.NULL_PARLAMENTAR_EXCEPTION;
+				exception = AlertsFactory.NULL_PARLAMENTARY_EXCEPTION;
 
 			} catch (RequestFailedException rfe) {
-				exception = Alerts.REQUEST_FAILED_EXCEPTION;
+				exception = AlertsFactory.REQUEST_FAILED_EXCEPTION;
 
 			} 
 			return exception;
@@ -260,7 +260,7 @@ public class SplashScreen extends Activity {
 
 		ServerUpdatesSubject subject;
 		ProgressDialog progressDialog;
-		Integer exception = Alerts.NO_EXCEPTIONS;
+		Integer exception = AlertsFactory.NO_EXCEPTIONS;
 		ResponseHandler<String> response;
 
 		@Override
@@ -284,16 +284,16 @@ public class SplashScreen extends Activity {
 				}
 
 			} catch (ConnectionFailedException cfe) {
-				exception = Alerts.CONNECTION_FAILED_EXCEPTION;
+				exception = AlertsFactory.CONNECTION_FAILED_EXCEPTION;
 
 			} catch (RequestFailedException rfe) {
-				exception = Alerts.REQUEST_FAILED_EXCEPTION;
+				exception = AlertsFactory.REQUEST_FAILED_EXCEPTION;
 
 			} catch (NullParlamentarException npe) {
-				exception = Alerts.NULL_PARLAMENTAR_EXCEPTION;
+				exception = AlertsFactory.NULL_PARLAMENTARY_EXCEPTION;
 
 			} catch (NullCotaParlamentarException ncpe) {
-				exception = Alerts.NULL_COTA_PARLAMENTAR_EXCEPTION;
+				exception = AlertsFactory.NULL_COTA_PARLAMENTAR_EXCEPTION;
 			} 
 
 			return exception;
