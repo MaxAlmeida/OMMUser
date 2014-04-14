@@ -29,10 +29,11 @@ import com.OMM.application.user.exceptions.NullParlamentarException;
 import com.OMM.application.user.exceptions.RequestFailedException;
 import com.OMM.application.user.model.Parlamentar;
 import com.OMM.application.user.requests.HttpConnection;
+import com.OMM.application.user.view.ParlamentarMajorRankingListFragment.OnParlamentarMajorSelectedListener;
 
 public class ParlamentarMinorRankingListFragment extends ListFragment {
 
-	private OnParlamentarMinorSelectedListener listener;
+	private OnParlamentarMajorSelectedListener listener;
 	private static ParlamentarUserController parlamentarController;
 	ParseTask parseTask;
 
@@ -43,6 +44,10 @@ public class ParlamentarMinorRankingListFragment extends ListFragment {
 
 		parlamentarController = ParlamentarUserController
 				.getInstance(getActivity());
+		//TODO 
+		/*
+		 * Mudança aqui 
+		 */
 		List<Parlamentar> list = parlamentarController.getMinor();
 		setHasOptionsMenu(true);
 		ParlamentarMinorAdapter adapter = new ParlamentarMinorAdapter(
@@ -68,20 +73,34 @@ public class ParlamentarMinorRankingListFragment extends ListFragment {
 
 	@Override
 	public void onAttach(Activity activity) {
+		//TODO   Experimento 
+		
+//		super.onAttach(activity);
+//		if (activity instanceof OnParlamentarMinorSelectedListener) {
+//			listener = (OnParlamentarMinorSelectedListener) activity;
+//		} else {
+//			throw new ClassCastException(
+//					activity.toString()
+//							+ "must implement ParlamentarMinorRankingListFragment.OnParlamentarSelectedListner");
+//		}
+		
+		
 		super.onAttach(activity);
-		if (activity instanceof OnParlamentarMinorSelectedListener) {
-			listener = (OnParlamentarMinorSelectedListener) activity;
+		if (activity instanceof OnParlamentarMajorSelectedListener) {
+			listener = (OnParlamentarMajorSelectedListener) activity;
 		} else {
 			throw new ClassCastException(
 					activity.toString()
 							+ "must implement ParlamentarMinorRankingListFragment.OnParlamentarSelectedListner");
 		}
+		
+		
 	}
 
 	private void updateDetail() {
 		if (parlamentarController.getParlamentar().getIsSeguido() == 1) {
 			parlamentarController.getSelected();
-			listener.OnParlamentarMinorSelected();
+			listener.OnParlamentarMajorSelected();
 		} else {
 			startRequest();
 		}
@@ -121,6 +140,13 @@ public class ParlamentarMinorRankingListFragment extends ListFragment {
 		}
 	}
 
+	//TODO 
+	/*
+	 * Verificar a implementação da interface Minor e maior .. 
+	 * a unica diferença e a ordem do ranking ... procurar uma 
+	 * melhor maneira de remover a duplicidade e se algum padrao
+	 * de projeto se aplica
+	 */
 	private void setListContent(List<Parlamentar> result) {
 		ParlamentarMinorAdapter listAdapter = (ParlamentarMinorAdapter) getListAdapter();
 		listAdapter.clear();
@@ -229,7 +255,7 @@ public class ParlamentarMinorRankingListFragment extends ListFragment {
 			progressDialog.dismiss();
 
 			if(result == AlertsFactory.NO_EXCEPTIONS){
-				listener.OnParlamentarMinorSelected();
+				listener.OnParlamentarMajorSelected();
 			}
 			else{
 				AlertsFactory alertsFactory = AlertsFactory.getInstance(getActivity());

@@ -7,7 +7,7 @@ import org.apache.http.client.ResponseHandler;
 
 import com.OMM.application.user.controller.CotaParlamentarUserController;
 import com.OMM.application.user.controller.ParlamentarUserController;
-import com.OMM.application.user.controller.UrlHostController;
+import com.OMM.application.user.controller.ServerUpdatesController;
 import com.OMM.application.user.exceptions.ConnectionFailedException;
 import com.OMM.application.user.exceptions.NullCotaParlamentarException;
 import com.OMM.application.user.exceptions.NullParlamentarException;
@@ -28,7 +28,7 @@ public class ServerUpdatesSubject implements GetServerUpdates {
 	private Context context;
 	private ParlamentarUserController parlamentarController;
 	private CotaParlamentarUserController cotaParlamentarController;
-	private UrlHostController urlHostController;
+	private ServerUpdatesController urlHostController;
 	private List<Parlamentar> listParlamentares;
 	private List<CotaParlamentar> listCotas;
 	
@@ -42,7 +42,7 @@ public class ServerUpdatesSubject implements GetServerUpdates {
 		this.listParlamentares=new ArrayList<Parlamentar>();
 		this.listCotas=new ArrayList<CotaParlamentar>();
 		
-		urlHostController = UrlHostController.getInstance(context);
+		urlHostController = ServerUpdatesController.getInstance(context);
 		parlamentarController = ParlamentarUserController.getInstance(context);
 		cotaParlamentarController = CotaParlamentarUserController
 				.getInstance(context);
@@ -203,7 +203,7 @@ public class ServerUpdatesSubject implements GetServerUpdates {
 	public CotaParlamentarUserController getCotaParlamentarController() {
 		return cotaParlamentarController;
 	}
-	public UrlHostController getUrlHostController() {
+	public ServerUpdatesController getUrlHostController() {
 		return urlHostController;
 	}
 	public List<Parlamentar> getListParlamentares() {
@@ -228,7 +228,7 @@ public class ServerUpdatesSubject implements GetServerUpdates {
 			CotaParlamentarUserController cotaParlamentarController) {
 		this.cotaParlamentarController = cotaParlamentarController;
 	}
-	public void setUrlHostController(UrlHostController urlHostController) {
+	public void setUrlHostController(ServerUpdatesController urlHostController) {
 		this.urlHostController = urlHostController;
 	}
 	public void setListParlamentares(List<Parlamentar> listParlamentares) {

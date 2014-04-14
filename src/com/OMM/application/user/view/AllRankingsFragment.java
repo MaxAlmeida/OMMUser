@@ -46,8 +46,11 @@ public class AllRankingsFragment extends Fragment {
 		@Override
 		public void onClick(View v) {
 
+			
 			ParlamentarMajorRankingListFragment parlamentarRankingListFragment = new ParlamentarMajorRankingListFragment();
 
+			parlamentarRankingListFragment.setOrderRanking("major");
+			
 			FragmentTransaction transaction = fragmentManager
 					.beginTransaction();
 			transaction.replace(R.id.fragment_container,
@@ -60,10 +63,12 @@ public class AllRankingsFragment extends Fragment {
 
 		@Override
 		public void onClick(View v) {
-			ParlamentarMinorRankingListFragment parlamentarMenor = new ParlamentarMinorRankingListFragment();
+			ParlamentarMajorRankingListFragment parlamentarMinor = new ParlamentarMajorRankingListFragment();
+	
+			parlamentarMinor.setOrderRanking("minor");
 			FragmentTransaction transaction = fragmentManager
 					.beginTransaction();
-			transaction.replace(R.id.fragment_container, parlamentarMenor);
+			transaction.replace(R.id.fragment_container, parlamentarMinor);
 			transaction.commit();
 
 		}

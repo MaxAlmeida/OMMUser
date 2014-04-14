@@ -3,7 +3,7 @@ package com.OMM.test.user.requests;
 import junit.framework.Assert;
 import android.test.AndroidTestCase;
 
-import com.OMM.application.user.controller.UrlHostController;
+import com.OMM.application.user.controller.ServerUpdatesController;
 import com.OMM.application.user.requests.MountURL;
 
 public class MountURLTest extends AndroidTestCase {
@@ -11,13 +11,13 @@ public class MountURLTest extends AndroidTestCase {
 	private String IP;
 	private MountURL url=null;
 	public void setUp() {
-		url=MountURL.getIsntance(getContext(),UrlHostController.getInstance(getContext()));
+		url=MountURL.getIsntance(getContext(),ServerUpdatesController.getInstance(getContext()));
 		IP = url.getIP();
 	}
 
 	public void testMountUTL() {
 
-		MountURL mountURL = MountURL.getIsntance(getContext(),UrlHostController.getInstance(getContext()));
+		MountURL mountURL = MountURL.getIsntance(getContext(),ServerUpdatesController.getInstance(getContext()));
 		assertNotNull(mountURL);
 
 	}

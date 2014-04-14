@@ -28,12 +28,12 @@ public class ParlamentarUserController {
 	private Context context;
 	private CotaParlamentarUserController ceapController;
 	private MountURL url;
-	private UrlHostController urlHostController;
+	private ServerUpdatesController urlHostController;
 
 	private ParlamentarUserController(Context context) {
 		ceapController = CotaParlamentarUserController.getInstance(context);
 		parlamentarDao = ParlamentarUserDao.getInstance(context);
-		urlHostController = UrlHostController.getInstance(context);
+		urlHostController = ServerUpdatesController.getInstance(context);
 
 		this.context = context;
 		parlamentares = new ArrayList<Parlamentar>();

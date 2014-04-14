@@ -18,6 +18,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
+import android.widget.Toast;
 
 import com.OMM.application.user.R;
 import com.OMM.application.user.adapters.MajorRankingAdapter;
@@ -36,6 +37,22 @@ public class ParlamentarMajorRankingListFragment extends ListFragment {
 	private static ParlamentarUserController parlamentarController;
 	ParseTask parseTask;
 
+	//TODO
+	/*
+	 * Criar aqui um atributo que vai decidir se a lista da linha 48
+	 * vai ser crescente ou decrescente, esse atributo vai ser add 
+	 * pela classe AllRankingsFragments .. Na main nao muda nada 
+	 */
+	private String orderRanking="major";
+	
+	public String getOrderRanking()
+	{
+		return orderRanking;
+	}
+	public void setOrderRanking(String orderRanking)
+	{
+		this.orderRanking=orderRanking;
+	}
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
@@ -43,10 +60,30 @@ public class ParlamentarMajorRankingListFragment extends ListFragment {
 
 		parlamentarController = ParlamentarUserController
 				.getInstance(getActivity());
-		List<Parlamentar> list = parlamentarController.getAll();
+		
+		//Mudar aqui
+		List<Parlamentar> list;
+		if(orderRanking.equals("major"))
+		{
+			list = parlamentarController.getAll();
+		}else if(orderRanking.equals("minor"))
+		{
+			list = parlamentarController.getMinor();
+		}else
+		{
+			list=null;
+		}
+		
+		
+		
 		setHasOptionsMenu(true);
 		MajorRankingAdapter adapter = new MajorRankingAdapter(
 				getActivity(), R.layout.fragment_ranking, list);
+	//TODO 
+		/*
+		 * Apagar
+		 */
+		Toast.makeText(getActivity(), orderRanking, Toast.LENGTH_SHORT).show();
 
 		setListAdapter(adapter);
 		setRetainInstance(false);
