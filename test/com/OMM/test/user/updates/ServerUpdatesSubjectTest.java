@@ -2,19 +2,13 @@ package com.OMM.test.user.updates;
 
 import java.util.ArrayList;
 
-import org.apache.http.client.ResponseHandler;
-
 import junit.framework.Assert;
 import android.content.Context;
-import android.os.Handler;
 import android.test.AndroidTestCase;
 
-import com.OMM.application.updates.*;
-import com.OMM.application.user.exceptions.ConnectionFailedException;
-import com.OMM.application.user.exceptions.NullParlamentarException;
-import com.OMM.application.user.exceptions.RequestFailedException;
+import com.OMM.application.updates.RankingParlamentarObserver;
+import com.OMM.application.updates.ServerUpdatesSubject;
 import com.OMM.application.user.model.Parlamentar;
-import com.OMM.application.user.requests.HttpConnection;
 
 public class ServerUpdatesSubjectTest extends AndroidTestCase {
 

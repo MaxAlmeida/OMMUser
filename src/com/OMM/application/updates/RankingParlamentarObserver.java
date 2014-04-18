@@ -1,8 +1,6 @@
 package com.OMM.application.updates;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import android.content.Context;
 
 import com.OMM.application.user.controller.ParlamentarUserController;
