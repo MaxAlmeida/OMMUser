@@ -1,4 +1,4 @@
-package com.OMM.application.updates;
+package com.OMM.application.user.updates;
 
 import java.util.List;
 import android.content.Context;
