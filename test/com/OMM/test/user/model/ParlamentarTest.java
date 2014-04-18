@@ -33,7 +33,7 @@ public class ParlamentarTest extends AndroidTestCase {
 	public void testSetSeguido() {
 
 		this.parlamentarEmpty.setSeguido(1);
-		Assert.assertEquals(1, parlamentarEmpty.getIsSeguido());
+		Assert.assertEquals(1, parlamentarEmpty.isSeguido());
 	}
 
 	public void testSetId() {

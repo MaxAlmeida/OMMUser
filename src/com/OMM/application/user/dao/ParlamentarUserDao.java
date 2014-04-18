@@ -56,7 +56,7 @@ public class ParlamentarUserDao {
 
 		content.put("ID_PARLAMENTAR", parlamentar.getId());
 		content.put("NOME_PARLAMENTAR", parlamentar.getNome());
-		content.put("SEGUIDO", parlamentar.getIsSeguido());
+		content.put("SEGUIDO", parlamentar.isSeguido());
 		content.put("PARTIDO", parlamentar.getPartido());
 		content.put("UF", parlamentar.getUf());
 		content.put("VALOR", parlamentar.getValor());
@@ -83,7 +83,7 @@ public class ParlamentarUserDao {
 		if (parlamentar != null) {
 			sqliteDatabase = database.getWritableDatabase();
 			ContentValues content = new ContentValues();
-			content.put("SEGUIDO", parlamentar.getIsSeguido());
+			content.put("SEGUIDO", parlamentar.isSeguido());
 			boolean result = (sqliteDatabase.update(tabelaParlamentar, content,
 					"ID_PARLAMENTAR=?",
 					new String[] { parlamentar.getId() + "" }) > 0);

@@ -49,7 +49,7 @@ public class Parlamentar {
 		this.seguido = seguido;
 	}
 
-	public int getIsSeguido() {
+	public int isSeguido() {
 		return seguido;
 	}
 

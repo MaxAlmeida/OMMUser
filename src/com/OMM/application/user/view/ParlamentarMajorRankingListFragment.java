@@ -33,26 +33,26 @@ import com.OMM.application.user.requests.HttpConnection;
 
 public class ParlamentarMajorRankingListFragment extends ListFragment {
 
-	private OnParlamentarMajorSelectedListener listener;
+	private OnParlamentarSelectedListener listener;
 	private static ParlamentarUserController parlamentarController;
 	ParseTask parseTask;
 
-	//TODO
+	// TODO
 	/*
-	 * Criar aqui um atributo que vai decidir se a lista da linha 48
-	 * vai ser crescente ou decrescente, esse atributo vai ser add 
-	 * pela classe AllRankingsFragments .. Na main nao muda nada 
+	 * Criar aqui um atributo que vai decidir se a lista da linha 48 vai ser
+	 * crescente ou decrescente, esse atributo vai ser add pela classe
+	 * AllRankingsFragments .. Na main nao muda nada
 	 */
-	private String orderRanking="major";
-	
-	public String getOrderRanking()
-	{
+	private String orderRanking = "major";
+
+	public String getOrderRanking() {
 		return orderRanking;
 	}
-	public void setOrderRanking(String orderRanking)
-	{
-		this.orderRanking=orderRanking;
+
+	public void setOrderRanking(String orderRanking) {
+		this.orderRanking = orderRanking;
 	}
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
@@ -60,26 +60,21 @@ public class ParlamentarMajorRankingListFragment extends ListFragment {
 
 		parlamentarController = ParlamentarUserController
 				.getInstance(getActivity());
-		
-		//Mudar aqui
+
+		// Mudar aqui
 		List<Parlamentar> list;
-		if(orderRanking.equals("major"))
-		{
+		if (orderRanking.equals("major")) {
 			list = parlamentarController.getAll();
-		}else if(orderRanking.equals("minor"))
-		{
+		} else if (orderRanking.equals("minor")) {
 			list = parlamentarController.getMinor();
-		}else
-		{
-			list=null;
+		} else {
+			list = null;
 		}
-		
-		
-		
+
 		setHasOptionsMenu(true);
-		MajorRankingAdapter adapter = new MajorRankingAdapter(
-				getActivity(), R.layout.fragment_ranking, list);
-	//TODO 
+		MajorRankingAdapter adapter = new MajorRankingAdapter(getActivity(),
+				R.layout.fragment_ranking, list);
+		// TODO
 		/*
 		 * Apagar
 		 */
@@ -99,15 +94,11 @@ public class ParlamentarMajorRankingListFragment extends ListFragment {
 		updateDetail();
 	}
 
-	public interface OnParlamentarMajorSelectedListener {
-		public void OnParlamentarMajorSelected();
-	}
-
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
-		if (activity instanceof OnParlamentarMajorSelectedListener) {
-			listener = (OnParlamentarMajorSelectedListener) activity;
+		if (activity instanceof OnParlamentarSelectedListener) {
+			listener = (OnParlamentarSelectedListener) activity;
 		} else {
 			throw new ClassCastException(
 					activity.toString()
@@ -116,9 +107,9 @@ public class ParlamentarMajorRankingListFragment extends ListFragment {
 	}
 
 	private void updateDetail() {
-		if (parlamentarController.getParlamentar().getIsSeguido() == 1) {
+		if (parlamentarController.getParlamentar().isSeguido() == 1) {
 			parlamentarController.getSelected();
-			listener.OnParlamentarMajorSelected();
+			listener.onParlamentarSelected();
 		} else {
 			startRequest();
 		}
@@ -202,9 +193,9 @@ public class ParlamentarMajorRankingListFragment extends ListFragment {
 		StringBuilder sb = new StringBuilder(end - start);
 		for (int i = start; i < end; i++) {
 			char c = source.charAt(i);
-			if (isCharAllowed(c)) // put your condition here
+			if (isCharAllowed(c)) {
 				sb.append(c);
-			else {
+			} else {
 				// do nothing here.
 			}
 		}
@@ -222,7 +213,7 @@ public class ParlamentarMajorRankingListFragment extends ListFragment {
 		inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus()
 				.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 	}
-	
+
 	private class RequestTask extends AsyncTask<Object, Void, Integer> {
 
 		ProgressDialog progressDialog;
@@ -257,8 +248,8 @@ public class ParlamentarMajorRankingListFragment extends ListFragment {
 			} catch (NullCotaParlamentarException ncpe) {
 				result = AlertsFactory.NULL_COTA_PARLAMENTAR_EXCEPTION;
 
-			} 
-			
+			}
+
 			return result;
 		}
 
@@ -266,11 +257,11 @@ public class ParlamentarMajorRankingListFragment extends ListFragment {
 		protected void onPostExecute(Integer result) {
 			progressDialog.dismiss();
 
-			if(result == AlertsFactory.NO_EXCEPTIONS){
-				listener.OnParlamentarMajorSelected();
-			}
-			else{
-				AlertsFactory alertsFactory = AlertsFactory.getInstance(getActivity());
+			if (result == AlertsFactory.NO_EXCEPTIONS) {
+				listener.onParlamentarSelected();
+			} else {
+				AlertsFactory alertsFactory = AlertsFactory
+						.getInstance(getActivity());
 				alertsFactory.createAlert(result, null, null);
 			}
 		}

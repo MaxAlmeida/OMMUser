@@ -3,14 +3,13 @@ package com.OMM.test.user.updates;
 import java.util.ArrayList;
 
 import junit.framework.Assert;
-
 import android.content.Context;
 import android.test.AndroidTestCase;
 
-import com.OMM.application.updates.RankingParlamentarObserver;
-import com.OMM.application.updates.ServerUpdatesSubject;
 import com.OMM.application.user.dao.*;
 import com.OMM.application.user.model.Parlamentar;
+import com.OMM.application.user.updates.RankingParlamentarObserver;
+import com.OMM.application.user.updates.ServerUpdatesSubject;
 
 public class RankingParlamentarObserverTest extends AndroidTestCase {
 

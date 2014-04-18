@@ -102,10 +102,6 @@ public class ParlamentarListFragment extends ListFragment {
 		parseTask = null;
 	}
 
-	public interface OnParlamentarSelectedListener {
-		public void OnParlamentarSelected();
-	}
-
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
@@ -114,14 +110,14 @@ public class ParlamentarListFragment extends ListFragment {
 		} else {
 			throw new ClassCastException(
 					activity.toString()
-							+ "must implement ParlamentarListFragment.OnParlamentarSelectedListner");
+							+ "must implement OnParlamentarSelectedListner");
 		}
 	}
 
 	private void updateDetail() {
-		if (controllerParlamentar.getParlamentar().getIsSeguido() == 1) {
+		if (controllerParlamentar.getParlamentar().isSeguido() == 1) {
 			controllerParlamentar.getSelected();
-			listener.OnParlamentarSelected();
+			listener.onParlamentarSelected();
 		} else {
 			startRequest();
 		}
@@ -220,7 +216,7 @@ public class ParlamentarListFragment extends ListFragment {
 			progressDialog.dismiss();
 
 			if(result == AlertsFactory.NO_EXCEPTIONS){
-				listener.OnParlamentarSelected();
+				listener.onParlamentarSelected();
 			}
 			else{
 				AlertsFactory alertsFactory = AlertsFactory.getInstance(getActivity());

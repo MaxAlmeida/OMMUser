@@ -57,7 +57,7 @@ public class ParlamentarSeguidoAdapter extends BaseAdapter {
 
 		final CheckBox checkBox = (CheckBox) view.findViewById(R.id.checkbox);
 		checkBox.setTag(position);
-		if (parlamentar.getIsSeguido() == 1) {
+		if (parlamentar.isSeguido() == 1) {
 			ImageView imageView = (ImageView) view
 					.findViewById(R.id.parlamentarlistfragment_img_arte);
 			imageView

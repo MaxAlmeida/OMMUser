@@ -20,12 +20,7 @@ import android.widget.Toast;
 import com.OMM.application.user.R;
 
 public class GuiMain extends Activity
-		implements
-		ParlamentarSeguidoListFragment.OnParlamentarSeguidoSelectedListener,
-		ParlamentarListFragment.OnParlamentarSelectedListener,
-		ParlamentarMajorRankingListFragment.OnParlamentarMajorSelectedListener//,
-		//ParlamentarMinorRankingListFragment.OnParlamentarMinorSelectedListener {
-		{
+		implements OnParlamentarSelectedListener {
 	private static final String PARLAMENTARES_FOLLOWED_MESSAGE = "Parlamentares Seguidos";
 	private static final String SEARCH_PARLAMENTAR_MESSAGE = "Pesquisar Parlamentar";
 	private static final String RANKINGS_MESSAGE = "Rankings entre parlamentares";
@@ -155,20 +150,7 @@ public class GuiMain extends Activity
 	}
 
 	@Override
-	public void OnParlamentarSeguidoSelected() {
-
-		ParlamentarDetailFragment parlamentarDetail = new ParlamentarDetailFragment();
-		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-
-			updateFragment(R.id.fragment_container, parlamentarDetail);
-
-		} else {
-			updateFragment(R.id.detail_fragment_container, parlamentarDetail);
-		}
-	}
-
-	@Override
-	public void OnParlamentarSelected() {
+	public void onParlamentarSelected() {
 
 		ParlamentarDetailFragment parlamentarDetail = new ParlamentarDetailFragment();
 		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -178,33 +160,6 @@ public class GuiMain extends Activity
 			updateFragment(R.id.detail_fragment_container, parlamentarDetail);
 		}
 	}
-	
-	
-	@Override
-	public void OnParlamentarMajorSelected() {
-
-		ParlamentarDetailFragment parlamentarDetail = new ParlamentarDetailFragment();
-		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-			updateFragment(R.id.fragment_container, parlamentarDetail);
-
-		} else {
-			updateFragment(R.id.detail_fragment_container, parlamentarDetail);
-		}
-	}
-
-//	@Override
-//	public void OnParlamentarMinorSelected() {
-//
-//		ParlamentarDetailFragment detailFragment = new ParlamentarDetailFragment();
-//		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-//			
-//			updateFragment(R.id.fragment_container, detailFragment);
-//			
-//			
-//		} else {
-//			updateFragment(R.id.detail_fragment_container, detailFragment);
-//		}
-//	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

@@ -15,7 +15,7 @@ import com.OMM.application.user.model.Parlamentar;
 
 public class ParlamentarSeguidoListFragment extends ListFragment {
 
-	private OnParlamentarSeguidoSelectedListener listener;
+	private OnParlamentarSelectedListener listener;
 	private static ParlamentarUserController parlamentarController;
 
 	@Override
@@ -44,15 +44,12 @@ public class ParlamentarSeguidoListFragment extends ListFragment {
 		updateDetail();
 	}
 
-	public interface OnParlamentarSeguidoSelectedListener {
-		public void OnParlamentarSeguidoSelected();
-	}
 
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
-		if (activity instanceof OnParlamentarSeguidoSelectedListener) {
-			listener = (OnParlamentarSeguidoSelectedListener) activity;
+		if (activity instanceof OnParlamentarSelectedListener) {
+			listener = (OnParlamentarSelectedListener) activity;
 		} else {
 			throw new ClassCastException(
 					activity.toString()
@@ -61,7 +58,7 @@ public class ParlamentarSeguidoListFragment extends ListFragment {
 	}
 
 	private void updateDetail() {
-		listener.OnParlamentarSeguidoSelected();
+		listener.onParlamentarSelected();
 	}
 
 }

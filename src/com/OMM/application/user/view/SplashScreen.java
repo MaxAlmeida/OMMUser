@@ -15,7 +15,6 @@ import android.net.NetworkInfo.State;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
-import com.OMM.application.updates.ServerUpdatesSubject;
 import com.OMM.application.user.R;
 import com.OMM.application.user.alerts.AlertsFactory;
 import com.OMM.application.user.controller.ParlamentarUserController;
@@ -24,6 +23,7 @@ import com.OMM.application.user.exceptions.NullCotaParlamentarException;
 import com.OMM.application.user.exceptions.NullParlamentarException;
 import com.OMM.application.user.exceptions.RequestFailedException;
 import com.OMM.application.user.requests.HttpConnection;
+import com.OMM.application.user.updates.ServerUpdatesSubject;
 
 /**
  * @author Arthur Jahn

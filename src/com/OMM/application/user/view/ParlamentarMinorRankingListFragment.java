@@ -29,11 +29,10 @@ import com.OMM.application.user.exceptions.NullParlamentarException;
 import com.OMM.application.user.exceptions.RequestFailedException;
 import com.OMM.application.user.model.Parlamentar;
 import com.OMM.application.user.requests.HttpConnection;
-import com.OMM.application.user.view.ParlamentarMajorRankingListFragment.OnParlamentarMajorSelectedListener;
 
 public class ParlamentarMinorRankingListFragment extends ListFragment {
 
-	private OnParlamentarMajorSelectedListener listener;
+	private OnParlamentarSelectedListener listener;
 	private static ParlamentarUserController parlamentarController;
 	ParseTask parseTask;
 
@@ -55,7 +54,6 @@ public class ParlamentarMinorRankingListFragment extends ListFragment {
 
 		setListAdapter(adapter);
 		setRetainInstance(false);
-
 	}
 
 	@Override
@@ -67,40 +65,22 @@ public class ParlamentarMinorRankingListFragment extends ListFragment {
 		updateDetail();
 	}
 
-	public interface OnParlamentarMinorSelectedListener {
-		public void OnParlamentarMinorSelected();
-	}
-
 	@Override
 	public void onAttach(Activity activity) {
-		//TODO   Experimento 
-		
-//		super.onAttach(activity);
-//		if (activity instanceof OnParlamentarMinorSelectedListener) {
-//			listener = (OnParlamentarMinorSelectedListener) activity;
-//		} else {
-//			throw new ClassCastException(
-//					activity.toString()
-//							+ "must implement ParlamentarMinorRankingListFragment.OnParlamentarSelectedListner");
-//		}
-		
-		
 		super.onAttach(activity);
-		if (activity instanceof OnParlamentarMajorSelectedListener) {
-			listener = (OnParlamentarMajorSelectedListener) activity;
+		if (activity instanceof OnParlamentarSelectedListener) {
+			listener = (OnParlamentarSelectedListener) activity;
 		} else {
 			throw new ClassCastException(
 					activity.toString()
-							+ "must implement ParlamentarMinorRankingListFragment.OnParlamentarSelectedListner");
+							+ "must implement ParlamentarListFragment.OnParlamentarSelectedListner");
 		}
-		
-		
 	}
 
 	private void updateDetail() {
-		if (parlamentarController.getParlamentar().getIsSeguido() == 1) {
+		if (parlamentarController.getParlamentar().isSeguido() == 1) {
 			parlamentarController.getSelected();
-			listener.OnParlamentarMajorSelected();
+			listener.onParlamentarSelected();
 		} else {
 			startRequest();
 		}
@@ -255,7 +235,7 @@ public class ParlamentarMinorRankingListFragment extends ListFragment {
 			progressDialog.dismiss();
 
 			if(result == AlertsFactory.NO_EXCEPTIONS){
-				listener.OnParlamentarMajorSelected();
+				listener.onParlamentarSelected();
 			}
 			else{
 				AlertsFactory alertsFactory = AlertsFactory.getInstance(getActivity());

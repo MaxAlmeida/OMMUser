@@ -92,7 +92,7 @@ public class ParlamentarDetailFragment extends Fragment {
 		TextView textMes = (TextView) getView().findViewById(R.id.mes_e_ano);
 		textMes.setText( mes +"/"+ selectedAno);
 
-		if (parlamentarController.getParlamentar().getIsSeguido() == 1) {
+		if (parlamentarController.getParlamentar().isSeguido() == 1) {
 			ImageView imgView = (ImageView) getView().findViewById(R.id.foto);
 			imgView.setImageResource(R.drawable.parlamentar_seguido_foto);
 		} else {
@@ -476,7 +476,7 @@ public class ParlamentarDetailFragment extends Fragment {
 		//} else {
 			MenuItem seguir = menu.add(0, Menu.FIRST + 13, 0, "Seguir");
 			seguir.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-			if(parlamentarController.getParlamentar().getIsSeguido() == 1){
+			if(parlamentarController.getParlamentar().isSeguido() == 1){
 				seguir.setVisible(false);
 			}
 			else {
