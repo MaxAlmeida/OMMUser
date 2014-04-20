@@ -316,7 +316,7 @@ public class ParlamentarUserControllerTest extends AndroidTestCase {
 
 		dao.insertParlamentar(parlamentar);
 
-		List<Parlamentar> list = dao.getAll();
+		List<Parlamentar> list = dao.getMajorRanking();
 		int idUpdate = 0;
 
 		Iterator<Parlamentar> iterator = list.iterator();

@@ -90,13 +90,13 @@ public class ParlamentarUserController {
 
 	public List<Parlamentar> getAll() {
 
-		parlamentares = parlamentarDao.getAll();
+		parlamentares = parlamentarDao.getMajorRanking();
 		return parlamentares;
 	}
 
 	public List<Parlamentar> getMinor() {
 
-		parlamentares = parlamentarDao.getMinor();
+		parlamentares = parlamentarDao.getMinorRanking();
 		return parlamentares;
 	}
 
@@ -226,7 +226,7 @@ public class ParlamentarUserController {
 	}
 
 	public int getLastIdUpdate() {
-		parlamentares = parlamentarDao.getAll();
+		parlamentares = parlamentarDao.getMajorRanking();
 		int idUpdate = 0;
 
 		Iterator<Parlamentar> iterator = parlamentares.iterator();

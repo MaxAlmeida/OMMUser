@@ -32,13 +32,18 @@ public class ParlamentarUserDaoTest extends AndroidTestCase {
 		parlamentarA.setSeguido(0);
 		parlamentarA.setPartido("PU");
 		parlamentarA.setUf("DF");
-
+		parlamentarA.setMinorRankingPos(1);
+		parlamentarA.setMajorRankingPos(3);
+		parlamentarA.setValor(10);
 		// Parlamentar B
 		parlamentarB.setId(7770);
 		parlamentarB.setNome("Parlamentar Teste Dao Cota");
 		parlamentarB.setSeguido(1);
 		parlamentarB.setPartido("PU");
 		parlamentarB.setUf("DF");
+		parlamentarB.setMinorRankingPos(2);
+		parlamentarB.setMajorRankingPos(2);
+		parlamentarB.setValor(20);
 
 		// Parlamentar C
 		parlamentarC.setId(888);
@@ -46,13 +51,25 @@ public class ParlamentarUserDaoTest extends AndroidTestCase {
 		parlamentarC.setSeguido(1);
 		parlamentarC.setPartido("PU");
 		parlamentarC.setUf("DF");
-
-		// if(parlamentarDao.checkEmptyLocalDatabase()){
+		parlamentarC.setMinorRankingPos(3);
+		parlamentarC.setMajorRankingPos(1);
+		parlamentarC.setValor(30);
+		
 		parlamentarDao.insertParlamentar(parlamentarB);
 		parlamentarDao.insertParlamentar(parlamentarC);
-		// }
+		parlamentarDao.insertParlamentar(parlamentarA);
 	}
 
+	protected void tearDown(){
+		try{
+		parlamentarDao.deleteParlamentar(parlamentarB);
+		parlamentarDao.deleteParlamentar(parlamentarC);
+		parlamentarDao.deleteParlamentar(parlamentarA);}
+		catch(Exception e){
+			
+		}
+	}
+	
 	public void testGetInstance() {
 		ParlamentarUserDao parlamentarDao1 = ParlamentarUserDao
 				.getInstance(context);
@@ -67,7 +84,7 @@ public class ParlamentarUserDaoTest extends AndroidTestCase {
 
 	public void testCheckEmptyLocalDatabaseTrue() {
 
-		Iterator<Parlamentar> iterator = parlamentarDao.getAll().iterator();
+		Iterator<Parlamentar> iterator = parlamentarDao.getMajorRanking().iterator();
 
 		while (iterator.hasNext()) {
 			Parlamentar p = iterator.next();
@@ -79,7 +96,7 @@ public class ParlamentarUserDaoTest extends AndroidTestCase {
 	}
 
 	public void testInsertParlamentar() {
-		assertTrue(parlamentarDao.insertParlamentar(parlamentarA));
+		assertTrue(parlamentarDao.insertParlamentar(parlamentarB));
 	}
 
 	public void testDeleteParlamentar() {
@@ -98,11 +115,12 @@ public class ParlamentarUserDaoTest extends AndroidTestCase {
 		assertSame(parlamentar.getClass(), Parlamentar.class);
 	}
 
-	public void testGetAll() {
+	public void testGetMajorRanking() {
 		List<Parlamentar> lista = new ArrayList<Parlamentar>();
-		lista = parlamentarDao.getAll();
+		lista = parlamentarDao.getMajorRanking();
 		assertNotNull(lista);
-		assertSame(lista.get(0).getClass(), Parlamentar.class);
+		assertEquals(lista.get(0).getMajorRankingPos(),1);
+		assertEquals(lista.get(lista.size()-1).getMajorRankingPos(),3);
 
 	}
 
@@ -115,8 +133,16 @@ public class ParlamentarUserDaoTest extends AndroidTestCase {
 		assertSame(lista.get(0).getClass(), Parlamentar.class);
 
 	}
+	
+	public void testGetMinorRanking() {
+		List<Parlamentar> lista = new ArrayList<Parlamentar>();
+		lista = parlamentarDao.getMinorRanking();
+		assertNotNull(lista);
+		assertEquals(lista.get(0).getMinorRankingPos(), 1);
+		assertEquals(lista.get(lista.size()-1).getMinorRankingPos(), 3);
+	}
 
-	public void getSelectedByName() {
+	public void testGetSelectedByName() {
 		List<Parlamentar> lista = new ArrayList<Parlamentar>();
 		lista = parlamentarDao.getSelectedByName("Parlamentar");
 		assertNotNull(lista);
