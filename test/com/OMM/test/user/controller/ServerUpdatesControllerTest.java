@@ -25,7 +25,7 @@ public class ServerUpdatesControllerTest extends AndroidTestCase {
 		this.controller = ServerUpdatesController.getInstance(context);
 		this.response = HttpConnection.getResponseHandler();
 	}
-	
+
 	public void tearDown() throws Exception {
 		super.tearDown();
 	}
@@ -49,15 +49,31 @@ public class ServerUpdatesControllerTest extends AndroidTestCase {
 
 	public void testGetExistUpdates() throws ConnectionFailedException,
 			RequestFailedException {
-		
+
 		MountURL url = MountURL.getIsntance(context, controller);
 		String actualUrl = url.mountUrlExistsUpdate();
-		
+
 		String jsonCodUpdate = HttpConnection.request(response, actualUrl);
-		
+
 		int updateCode = JSONHelper.updateFromJSON(jsonCodUpdate);
 		int testedUpdateCode = controller.getExistsUpdates(response);
 
 		assertEquals(updateCode, testedUpdateCode);
+	}
+
+	public void testRequestNewUrl() throws ConnectionFailedException,
+			RequestFailedException {
+		
+		MountURL url = MountURL.getIsntance(context, controller);
+		String actualUrl = url.mountUrlExistsUpdate();
+
+		String jsonCodUpdate = HttpConnection.request(response, actualUrl);
+
+		int updateCode = controller.getExistsUpdates(response);
+
+		String request = JSONHelper.newRequestUrl(jsonCodUpdate);
+		String testedRequest = controller.requestNewUrl(response, updateCode);
+
+		assertEquals(request, testedRequest);
 	}
 }
