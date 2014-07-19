@@ -21,7 +21,7 @@ import android.widget.SearchView.OnQueryTextListener;
 import android.widget.Toast;
 
 import com.OMM.application.user.R;
-import com.OMM.application.user.adapters.MajorRankingAdapter;
+import com.OMM.application.user.adapters.RankingAdapter;
 import com.OMM.application.user.alerts.AlertsFactory;
 import com.OMM.application.user.controller.ParlamentarUserController;
 import com.OMM.application.user.exceptions.ConnectionFailedException;
@@ -72,7 +72,7 @@ public class ParlamentarMajorRankingListFragment extends ListFragment {
 		}
 
 		setHasOptionsMenu(true);
-		MajorRankingAdapter adapter = new MajorRankingAdapter(getActivity(),
+		RankingAdapter adapter = new RankingAdapter(getActivity(),
 				R.layout.fragment_ranking, list);
 		// TODO
 		/*
@@ -151,7 +151,7 @@ public class ParlamentarMajorRankingListFragment extends ListFragment {
 	}
 
 	private void setListContent(List<Parlamentar> result) {
-		MajorRankingAdapter listAdapter = (MajorRankingAdapter) getListAdapter();
+		RankingAdapter listAdapter = (RankingAdapter) getListAdapter();
 		listAdapter.clear();
 		listAdapter.addAll(result);
 		parseTask.setFragment(null);

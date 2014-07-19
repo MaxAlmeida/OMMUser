@@ -5,7 +5,6 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="about">Este aplicativo é resultado de uma proposta de projeto da matéria Métodos de Desenvolvimento de Software  feita pelo professor Hilmer neri. Nossa proposta é apresentar, da melhor maneira possível, dados referente às cotas parlamentares. Aplicativo desenvolvido por:</string>
-    <string name="about2">Maxwell Almeida Rudmar Rodrigues Thaiane Braga Thomáz Martins Vinicius Borges</string>
     <string name="ab_pesquisar">Pesquisar</string>
     <string name="ab_sobre">Sobre</string>
     <string name="ab_perfil_do_parlamentar">Perfil do parlamentar</string>

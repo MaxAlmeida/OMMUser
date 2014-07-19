@@ -100,6 +100,7 @@ public class ParlamentarUserDao {
 		if (parlamentar != null) {
 			sqliteDatabase = database.getWritableDatabase();
 			ContentValues content = new ContentValues();
+			content.put("PARTIDO", parlamentar.getPartido());
 			content.put("VALOR", parlamentar.getValor());
 			content.put("RANKING_POS", parlamentar.getMajorRankingPos());
 			content.put("ID_ATUALIZACAO", parlamentar.getIdUpdate());

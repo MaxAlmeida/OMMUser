@@ -20,12 +20,11 @@ import com.OMM.application.user.requests.MountURL;
 public class ServerUpdatesController {
 
 	private static ServerUpdatesController instance = null;
-	private ServerUpdatesDao urlHostDao = null;
+	private ServerUpdatesDao serverUpdatesDao = null;
 	private static MountURL url = null;
 
 	private ServerUpdatesController(Context context) {
-		urlHostDao = ServerUpdatesDao.getInstance(context);
-
+		serverUpdatesDao = ServerUpdatesDao.getInstance(context);
 	}
 
 	public static ServerUpdatesController getInstance(Context context) {
@@ -38,11 +37,11 @@ public class ServerUpdatesController {
 	}
 
 	public String getUrl() {
-		return urlHostDao.getUrlServer();
+		return serverUpdatesDao.getUrlServer();
 	}
 
 	public boolean insertUrlServer(String url_server) {
-		return urlHostDao.insertUrlServer(url_server);
+		return serverUpdatesDao.insertUrlServer(url_server);
 	}
 
 	public int getExistsUpdates(ResponseHandler<String> response)
@@ -62,5 +61,10 @@ public class ServerUpdatesController {
 		String jsonNewUrlServer = HttpConnection.request(response, url);
 
 		return JSONHelper.newRequestUrl(jsonNewUrlServer);
+	}
+
+	public long getLastIdUpdate() {
+		long result = serverUpdatesDao.getLastIdUpdate();
+		return result;
 	}
 }

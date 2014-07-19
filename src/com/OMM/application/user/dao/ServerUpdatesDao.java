@@ -13,7 +13,7 @@ public class ServerUpdatesDao {
 	private LocalDatabase database;
 	private String table_name = "URL_SERVER";
 	private SQLiteDatabase sqliteDatabase;
-	private String defaultUrl = "192.168.1.3:8080/OlhaMinhaMesada";
+	private String defaultUrl = "192.168.1.103:8080/OlhaMinhaMesada";
 	//private String defaultUrl="env-6198716.jelastic.websolute.net.br";
 	private ServerUpdatesDao(Context context) {
 		this.database = new LocalDatabase(context);
@@ -66,6 +66,17 @@ public class ServerUpdatesDao {
 		sqliteDatabase.close();
 		return result;
 
+	}
+
+	public long getLastIdUpdate() {
+		sqliteDatabase = database.getWritableDatabase();
+
+		Cursor cursor = sqliteDatabase.rawQuery(
+				"SELECT * FROM UPDATE order by ID_UPDATE DESC", null);
+		long result = cursor.getLong(0);
+		
+		sqliteDatabase.close();
+		return result;
 	}
 
 }

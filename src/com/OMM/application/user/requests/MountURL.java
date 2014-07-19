@@ -64,11 +64,11 @@ public class MountURL {
 		return ("http://" + IP + "/verifyUpdate");
 	}
 
-	public String mountUrlParlamentarUpdate(int idUpdate) {
+	public String mountUrlParlamentarUpdate(long idUpdate) {
 		return ("http://" + IP + "/parlamentarUpdate?idUpdate=" + idUpdate);
 	}
 	
-	public String mountUrlCotaParlamentarUpdate(int idUpdate, List<Integer> parlamentaresIds) {
+	public String mountUrlCotaParlamentarUpdate(long idUpdate, List<Integer> parlamentaresIds) {
 		String returns = ("http://" + IP + "/cotaUpdate?idUpdate=" + idUpdate);
 		
 		Iterator<Integer> i = parlamentaresIds.iterator();

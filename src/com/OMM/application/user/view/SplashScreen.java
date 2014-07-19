@@ -23,6 +23,8 @@ import com.OMM.application.user.exceptions.NullCotaParlamentarException;
 import com.OMM.application.user.exceptions.NullParlamentarException;
 import com.OMM.application.user.exceptions.RequestFailedException;
 import com.OMM.application.user.requests.HttpConnection;
+import com.OMM.application.user.updates.ObserverCota;
+import com.OMM.application.user.updates.ObserverParlamentar;
 import com.OMM.application.user.updates.ServerUpdatesSubject;
 
 /**
@@ -69,7 +71,8 @@ public class SplashScreen extends Activity {
 			if (isEmpty) {
 				startPopulateDB();
 			} else {
-				startUpdateDB();
+				//startUpdateDB();
+				startApplication();
 			}
 			break;
 		default:
@@ -105,7 +108,7 @@ public class SplashScreen extends Activity {
 	}
 
 	private void startUpdateDB() {
-		
+
 		ResponseHandler<String> responseHandler = HttpConnection
 				.getResponseHandler();
 		UpdateDBTask task = new UpdateDBTask();
@@ -202,7 +205,7 @@ public class SplashScreen extends Activity {
 
 	private class initializeDBTask extends AsyncTask<Object, Void, Integer> {
 		ProgressDialog progressDialog;
-
+		ServerUpdatesSubject subject;
 		Integer exception = AlertsFactory.NO_EXCEPTIONS;
 
 		@Override
@@ -219,7 +222,12 @@ public class SplashScreen extends Activity {
 
 			ParlamentarUserController parlamentarController = ParlamentarUserController
 					.getInstance(getBaseContext());
-
+			ObserverParlamentar observerParlamentar = new ObserverParlamentar(
+					SplashScreen.this,
+					ServerUpdatesSubject.getInstance(SplashScreen.this));
+			ObserverCota observerCota = new ObserverCota(
+					ServerUpdatesSubject.getInstance(SplashScreen.this),
+					SplashScreen.this);
 			ResponseHandler<String> dataResponseHandler = (ResponseHandler<String>) params[0];
 
 			try {
@@ -235,7 +243,7 @@ public class SplashScreen extends Activity {
 			} catch (RequestFailedException rfe) {
 				exception = AlertsFactory.REQUEST_FAILED_EXCEPTION;
 
-			} 
+			}
 			return exception;
 		}
 
@@ -245,11 +253,10 @@ public class SplashScreen extends Activity {
 				progressDialog.dismiss();
 			} catch (Exception e) {
 			}
-			if(result != AlertsFactory.NO_EXCEPTIONS){
+			if (result != AlertsFactory.NO_EXCEPTIONS) {
 				AlertsFactory af = AlertsFactory.getInstance(SplashScreen.this);
 				af.createAlert(result, positiveListener, null);
-			}
-			else{
+			} else {
 				startApplication();
 			}
 
@@ -272,16 +279,16 @@ public class SplashScreen extends Activity {
 		@Override
 		protected Integer doInBackground(Object... params) {
 
-			subject = new ServerUpdatesSubject(SplashScreen.this);
-
+			subject = ServerUpdatesSubject.getInstance(SplashScreen.this);
+			ObserverParlamentar observerParlamentar = new ObserverParlamentar(
+					SplashScreen.this,
+					ServerUpdatesSubject.getInstance(SplashScreen.this));
+			ObserverCota observerCota = new ObserverCota(
+					ServerUpdatesSubject.getInstance(SplashScreen.this),
+					SplashScreen.this);
 			response = (ResponseHandler<String>) params[0];
 			try {
-				needsUpdate = subject.doRequestUpdateVerify(response);
-
-				if (needsUpdate) {
-					subject.doRequestParlamentar(response);
-					subject.doRequestCota(response);
-				}
+				subject.doRequestUpdateVerify(response);
 
 			} catch (ConnectionFailedException cfe) {
 				exception = AlertsFactory.CONNECTION_FAILED_EXCEPTION;
@@ -294,7 +301,7 @@ public class SplashScreen extends Activity {
 
 			} catch (NullCotaParlamentarException ncpe) {
 				exception = AlertsFactory.NULL_COTA_PARLAMENTAR_EXCEPTION;
-			} 
+			}
 			return exception;
 		}
 
@@ -304,11 +311,10 @@ public class SplashScreen extends Activity {
 				progressDialog.dismiss();
 			} catch (Exception e) {
 			}
-			if(result != AlertsFactory.NO_EXCEPTIONS){
+			if (result != AlertsFactory.NO_EXCEPTIONS) {
 				AlertsFactory af = AlertsFactory.getInstance(SplashScreen.this);
 				af.createAlert(result, positiveListener, null);
-			}
-			else{
+			} else {
 				startApplication();
 			}
 		}

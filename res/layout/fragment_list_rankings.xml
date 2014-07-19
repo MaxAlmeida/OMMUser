@@ -11,12 +11,13 @@
         android:layout_height="100dp" >
 
         <ImageView
-            android:id="@+id/moedinha"
+            android:id="@+id/majorRankingIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/ranking_maiores_icone" />
+            android:src="@drawable/ranking_maiores_icone" 
+            android:contentDescription="moeda"/>
 
         <TextView
             android:id="@+id/majorRanking_txt"

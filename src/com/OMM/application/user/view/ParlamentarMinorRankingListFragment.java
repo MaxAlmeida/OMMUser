@@ -20,7 +20,7 @@ import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 
 import com.OMM.application.user.R;
-import com.OMM.application.user.adapters.ParlamentarMinorAdapter;
+import com.OMM.application.user.adapters.RankingAdapter;
 import com.OMM.application.user.alerts.AlertsFactory;
 import com.OMM.application.user.controller.ParlamentarUserController;
 import com.OMM.application.user.exceptions.ConnectionFailedException;
@@ -49,7 +49,7 @@ public class ParlamentarMinorRankingListFragment extends ListFragment {
 		 */
 		List<Parlamentar> list = parlamentarController.getMinor();
 		setHasOptionsMenu(true);
-		ParlamentarMinorAdapter adapter = new ParlamentarMinorAdapter(
+		RankingAdapter adapter = new RankingAdapter(
 				getActivity(), R.layout.fragment_ranking, list);
 
 		setListAdapter(adapter);
@@ -128,7 +128,7 @@ public class ParlamentarMinorRankingListFragment extends ListFragment {
 	 * de projeto se aplica
 	 */
 	private void setListContent(List<Parlamentar> result) {
-		ParlamentarMinorAdapter listAdapter = (ParlamentarMinorAdapter) getListAdapter();
+		RankingAdapter listAdapter = (RankingAdapter) getListAdapter();
 		listAdapter.clear();
 		listAdapter.addAll(result);
 		parseTask.setFragment(null);
