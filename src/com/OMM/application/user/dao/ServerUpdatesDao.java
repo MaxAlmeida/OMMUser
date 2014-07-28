@@ -14,8 +14,8 @@ public class ServerUpdatesDao {
 	private LocalDatabase database;
 	private String table_name = "URL_SERVER";
 	private SQLiteDatabase sqliteDatabase;
-	private String defaultUrl = "192.168.1.103:8080/OlhaMinhaMesada";
-	//private String defaultUrl="env-6198716.jelastic.websolute.net.br";
+	private String defaultUrl= "env-7461835.jelasticlw.com.br/akan_desenvol";
+	
 	private ServerUpdatesDao(Context context) {
 		this.database = new LocalDatabase(context);
 	}

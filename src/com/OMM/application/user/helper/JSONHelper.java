@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import android.util.Log;
+
 import com.OMM.application.user.exceptions.NullCotaParlamentarException;
 import com.OMM.application.user.exceptions.NullParlamentarException;
 import com.OMM.application.user.model.CotaParlamentar;
@@ -20,6 +22,8 @@ public class JSONHelper {
 			listParlamentar = gson.fromJson(jsonParlamentar,
 					new TypeToken<List<Parlamentar>>() {
 					}.getType());
+			
+			Log.i("VALOR DA VARIAVEL jsonParlamentar", jsonParlamentar);
 
 		} catch (NullPointerException e) {
 

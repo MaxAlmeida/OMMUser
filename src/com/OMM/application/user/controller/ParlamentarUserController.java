@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.http.client.ResponseHandler;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.OMM.application.user.dao.ParlamentarUserDao;
 import com.OMM.application.user.exceptions.ConnectionFailedException;
@@ -134,6 +135,9 @@ public class ParlamentarUserController {
 
 			String jsonParlamentares = HttpConnection.request(response,
 					urlParlamentares);
+			
+			Log.i("VALOR DA VARIÁVEL jsonParlamentares", jsonParlamentares);
+			
 			List<Parlamentar> parlamentares = JSONHelper
 					.listParlamentarFromJSON(jsonParlamentares);
 
