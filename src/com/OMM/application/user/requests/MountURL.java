@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.OMM.application.user.controller.ServerUpdatesController;
 
@@ -16,6 +17,7 @@ public class MountURL {
 
 	private MountURL(Context context, ServerUpdatesController controller) {
 		IP = controller.getUrl();
+		Log.i( "IP CAPTURADO NA MountUrl", IP );
 	}
 
 	public static MountURL getIsntance(Context context,

@@ -3,6 +3,7 @@ package com.OMM.application.user.controller;
 import org.apache.http.client.ResponseHandler;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.OMM.application.user.dao.ServerUpdatesDao;
 import com.OMM.application.user.exceptions.ConnectionFailedException;
@@ -37,7 +38,11 @@ public class ServerUpdatesController {
 	}
 
 	public String getUrl() {
-		return serverUpdatesDao.getUrlServer();
+		final String url = serverUpdatesDao.getUrlServer();
+		
+		Log.i( "IP CAPTURADO NA ServerUpdatesController", url );
+		
+		return url;
 	}
 
 	public boolean insertUrlServer(String url_server) {

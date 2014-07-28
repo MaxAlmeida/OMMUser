@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.OMM.application.user.helper.LocalDatabase;
 
@@ -56,6 +57,9 @@ public class ServerUpdatesDao {
 		}
 		
 		database.close();
+		
+		Log.i( "IP CAPTURADO NA ServerUpdatesDao", urlServer );
+		
 		return urlServer;
 	}
 
