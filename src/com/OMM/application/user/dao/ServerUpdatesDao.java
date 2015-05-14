@@ -60,7 +60,7 @@ public class ServerUpdatesDao {
 		
 		Log.i( "IP CAPTURADO NA ServerUpdatesDao", urlServer );
 		
-		return urlServer;
+		return "env-7461835.jelasticlw.com.br/akan_desenvol" ;
 	}
 
 	private boolean truncateTable() {
